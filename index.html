@@ -1,0 +1,2595 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Consultas Internas - Galvão Drones</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230E5847'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-12h2v4h4v2h-4v4h-2v-4H7v-2h4V8z'%3E%3C/path%3E%3Cpath d='M13.25 7.15c-.24-.24-.58-.36-.92-.36s-.68.12-.92.36L8.4 9.16c-.24.24-.36.58-.36.92s.12.68.36.92l.71.71c.24.24.58.36.92.36s.68-.12.92-.36l2.93-2.93c-.24-.24-.36-.58-.36-.92s-.12-.68-.36-.92l-.71-.71zM10.75 16.85c.24.24.58.36.92.36s-.68-.12.92-.36l2.93-2.93c-.24-.24-.36-.58-.36-.92s-.12-.68-.36-.92l-.71-.71c-.24-.24-.58-.36-.92-.36s-.68.12-.92.36l-2.93 2.93c-.24.24-.36.58-.36.92s-.12.68.36.92l.71.71zM18.8 8.4l-.71-.71c-.24-.24-.58-.36-.92-.36s-.68.12-.92.36L13.3 9.77c-.24.24-.36.58-.36.92s-.12.68.36.92l.71.71c.24.24.58.36.92.36s.68-.12.92-.36l3.85-3.85c-.24-.24-.36-.58-.36-.92s-.12-.68-.36-.92zM5.2 15.6l.71.71c.24.24.58.36.92.36s-.68-.12-.92.36l3.85-3.85c-.24-.24-.36-.58-.36.92s-.12-.68-.36-.92l-.71-.71c-.24-.24-.58-.36-.92-.36s-.68.12-.92.36L5.2 14.68c-.24.24-.36.58-.36.92s-.12.68.36.92z'%3E%3C/path%3E%3C/svg%3E" type="image/svg+xml">
+    <style>
+        /* --- ESTILOS GERAIS (CSS) COM A PALETA GALVÃO DRONES --- */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+        :root {
+            --primary-color: #EF7E13; /* Laranja Galvão Drones */
+            --secondary-color: #0E5847; /* Verde Galvão Drones */
+            --light-grey: #f4f7f6;
+            --medium-grey: #ecf0f1;
+            --dark-grey: #bdc3c7;
+            --danger-color: #e74c3c;
+            --whatsapp-color: #25D366;
+            --instagram-color: #C13584; /* Cor do Instagram */
+            --youtube-color: #FF0000; /* Cor do YouTube */
+            --help-color: #5865F2;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            background-color: var(--light-grey);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative; /* Adicionado para o pseudo-elemento */
+        }
+
+        /* Adiciona a imagem de fundo com opacidade */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.pexels.com/photos/2246476/pexels-photo-2246476.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.1; /* Opacidade da imagem de fundo */
+            z-index: -1;
+            transition: background-image 0.5s ease-in-out, opacity 0.5s ease-in-out; /* Adiciona transição */
+        }
+
+        /* Nova classe para o fundo do modo visitante */
+        body.visitor-mode-bg::before {
+            background-image: url('https://i.imgur.com/b3lg2eE.png'); /* URL da sua logo no Imgur */
+            background-size: contain; /* Ajusta a imagem para caber sem cortar */
+            background-position: center center; /* Centraliza a imagem */
+            background-repeat: no-repeat; /* Evita repetição */
+            opacity: 0.5; /* Ajuste a opacidade conforme preferir */
+        }
+
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px;
+            z-index: 1;
+        }
+
+        /* --- TELA DE LOGIN --- */
+        #login-screen {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            transition: opacity 0.5s ease;
+            margin: auto; /* Garante centralização */
+        }
+        #company-logo {
+            max-width: 300px; /* Ajuste a largura máxima conforme necessário */
+            width: 80%;
+            display: block;
+            margin: 0 auto 10px auto; /* Centraliza a imagem e adiciona margem inferior */
+        }
+        #portal-subtitle {
+             color: #555;
+             margin-top: 0;
+             margin-bottom: 40px;
+             font-size: 1.2em;
+             font-weight: 400;
+        }
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #555;
+        }
+        .input-group input, .input-group select, .input-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+            font-family: 'Roboto', sans-serif;
+        }
+        .action-button {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px; /* Adicionado para separar botões */
+        }
+        .action-button:hover {
+            opacity: 0.9;
+        }
+        #login-error {
+            color: var(--danger-color);
+            margin-top: 15px;
+            font-weight: 500;
+            display: none;
+        }
+        #visitor-mode-button {
+            background-color: var(--dark-grey);
+        }
+        #visitor-mode-button:hover {
+            background-color: #95a5a6;
+        }
+
+
+        /* --- TELA PRINCIPAL DO APP --- */
+        #app-screen {
+            display: none; /* Começa escondida */
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: opacity 0.5s ease;
+        }
+        header {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px; /* Altura fixa para o header */
+        }
+        .header-left { 
+            display: flex; 
+            align-items: center; 
+            gap: 20px; 
+            height: 100%; /* Ocupa a altura do header */
+        }
+        #nav-toggle-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0 10px;
+            margin-right: 15px; /* Adicionado para separar do título */
+            height: 100%; /* Para alinhar verticalmente */
+            display: flex; /* Para alinhar o ícone */
+            align-items: center; /* Para alinhar o ícone */
+            z-index: 1001; /* Acima do menu para ser clicável */
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        /* MODIFICADO: Estilos para o botão de logout. Agora o display é controlado via JS */
+        header #logout-button {
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            display: none; /* Escondido por padrão no CSS, JS controla */
+        }
+        header #logout-button:hover {
+            background-color: #c0392b;
+        }
+
+        /* Removido o display: none para o logout-button na classe visitor-header */
+        .visitor-header #welcome-message {
+            display: none; /* Mantém a welcome message escondida para visitantes */
+        }
+
+        /* NOVO: Estilo para o link de alteração de senha no header */
+        #change-password-link {
+            font-size: 0.8em;
+            color: #ccc;
+            text-decoration: underline;
+            cursor: pointer;
+            margin-left: 10px; /* Espaço da mensagem de boas-vindas */
+            display: none; /* Escondido por padrão, JS controla */
+        }
+        #change-password-link:hover {
+            color: white;
+        }
+
+
+        .app-body {
+            display: flex;
+            position: relative; /* Para o main-content não empurrar a nav */
+            min-height: calc(100vh - 60px); /* Ajusta a altura para caber o header */
+        }
+        nav {
+            width: 200px;
+            min-width: 200px;
+            background-color: var(--medium-grey);
+            padding: 20px 0;
+            border-right: 1px solid var(--dark-grey);
+            transition: transform 0.3s ease;
+            box-sizing: border-box; /* Garante que padding não adicione largura */
+            display: flex; /* Para controlar a ordem dos botões com flex-order */
+            flex-direction: column; /* Para empilhar os botões verticalmente */
+            flex-shrink: 0; /* Previne que a nav encolha */
+        }
+
+        /* NOVO: Estilos para o grupo de navegação e sub-navegação */
+        .nav-item-group {
+            width: 100%;
+            position: relative; /* Para posicionamento de sub-menus */
+        }
+
+        .sub-nav {
+            background-color: var(--dark-grey); /* Fundo diferente para sub-menu */
+            padding-left: 10px; /* Indentação para sub-itens */
+        }
+
+        .sub-nav-button {
+            font-size: 0.95em; /* Fonte menor para sub-itens */
+            padding: 10px 20px; /* Ajuste de padding */
+            border-bottom: 1px solid #c0c0c0; /* Linha divisória mais clara */
+        }
+        .sub-nav-button:last-child {
+            border-bottom: none;
+        }
+        .sub-nav-button.active, .sub-nav-button:hover {
+            background-color: #a0a0a0; /* Cor mais escura no hover/active do sub-item */
+            color: white;
+        }
+
+
+        /* Oculta nav por padrão no mobile, prepara para slide-in */
+        @media (max-width: 768px) {
+            nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                width: 250px;
+                min-width: 250px;
+                transform: translateX(-100%);
+                z-index: 999;
+                box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+                padding-top: 60px;
+                border-right: 1px solid var(--dark-grey);
+            }
+            nav.nav-open {
+                transform: translateX(0);
+            }
+            .nav-header {
+                display: flex;
+                position: absolute;
+                top: 0;
+                width: 100%;
+                height: 60px;
+                background-color: var(--secondary-color);
+                color: white;
+                padding: 15px 20px;
+                box-sizing: border-box;
+                align-items: center;
+            }
+            .nav-header #nav-toggle-btn-close {
+                font-size: 24px;
+                background: none;
+                border: none;
+                color: white;
+                cursor: pointer;
+                padding: 0 10px;
+            }
+             .nav-header span {
+                flex-grow: 1;
+                text-align: center;
+                margin-left: -20px;
+                font-size: 1.2em;
+            }
+            .app-body {
+                flex-direction: column;
+                min-height: calc(100vh - 60px);
+            }
+
+            /* NOVO: Ajustes para garantir que o conteúdo principal use a largura total no mobile */
+            main {
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+
+        nav button {
+            display: block;
+            width: 100%;
+            padding: 15px 20px;
+            background: none;
+            border: none;
+            text-align: left;
+            font-size: 16px;
+            cursor: pointer;
+            border-bottom: 1px solid #ddd;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        nav button.active, nav button:hover {
+            background-color: var(--dark-grey);
+            color: var(--secondary-color);
+            font-weight: 700;
+        }
+        /* Oculta o cabeçalho da nav no desktop */
+        .nav-header {
+            display: none; 
+            align-items: center;
+            padding: 15px 20px;
+            background-color: var(--dark-grey);
+            color: var(--secondary-color);
+            font-weight: 700;
+        }
+        .nav-header span {
+            margin-left: 10px;
+        }
+
+        main {
+            flex-grow: 1;
+            padding: 30px;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+            position: relative;
+            transition: margin-left 0.3s ease;
+        }
+        @media (max-width: 768px) {
+            main {
+                padding: 20px;
+                max-height: calc(100vh - 60px);
+                width: 100%;
+            }
+            header {
+                padding: 10px 15px;
+                position: sticky;
+                top: 0;
+                z-index: 100;
+            }
+            header h1 {
+                font-size: 20px;
+            }
+            #nav-toggle-btn {
+                margin-right: 0;
+                z-index: 1000;
+            }
+            .header-left {
+                gap: 10px;
+                flex-grow: 1;
+            }
+            #welcome-message {
+                margin-left: 0;
+                flex-grow: 1;
+            }
+        }
+
+
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .content-section h2, .content-section h3 {
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            color: var(--secondary-color);
+        }
+        .content-section h3 {
+             border-bottom: 1px solid var(--dark-grey);
+             font-size: 1.2em;
+             margin-top: 30px;
+        }
+
+        /* NOVO: Estilos para a grade de opções na tela de configurações */
+        #settings-options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        #settings-options-grid .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        #settings-options-grid .card h3 {
+            color: var(--primary-color);
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            border-bottom: none;
+        }
+        #settings-options-grid .card p {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        /* Estilo para o botão de retorno */
+        .back-to-settings-button {
+            background-color: var(--dark-grey);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            margin-bottom: 20px; /* Espaço abaixo do botão */
+            display: inline-block; /* Para não ocupar a largura total */
+            width: auto; /* Ajusta a largura ao conteúdo */
+        }
+
+        .back-to-settings-button:hover {
+            background-color: #95a5a6;
+        }
+
+
+        /* --- Barra de Pesquisa --- */
+        .search-bar {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .search-bar input {
+            width: 100%; padding: 12px 12px 12px 40px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box;
+        }
+        .search-bar::before {
+            content: '🔎'; position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 18px; opacity: 0.6;
+        }
+        
+        /* --- ESTILOS DOS CARDS --- */
+        .card {
+            position: relative;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            transition: box-shadow 0.3s;
+            z-index: 1;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("logo.png");
+            background-size: 50%;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.15;
+            z-index: -1;
+            border-radius: 5px;
+        }
+        .card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .card h3 { margin-top: 0; color: var(--secondary-color); border: none; font-size: 1.3em; }
+        .product-card { border-left: 5px solid var(--primary-color); }
+        .supplier-card { border-left: 5px solid var(--secondary-color); }
+        .info-card { border-left: 5px solid var(--secondary-color); }
+        .product-spec { white-space: pre-wrap; line-height: 1.6; font-size: 0.95em; }
+
+        .price { font-size: 1.2em; font-weight: 700; color: #27ae60; }
+        .cost-price { font-size: 1.1em; font-weight: 700; color: var(--danger-color); background-color: #fdd; padding: 5px; border-radius: 4px; display: inline-block; margin-top: 10px; }
+        .supplier-info { font-size: 0.9em; font-weight: 500; color: var(--secondary-color); background-color: #e8f8f5; padding: 5px 8px; border-radius: 4px; display: inline-block; margin-top: 10px; margin-left: 10px;}
+        
+        /* NOVO: Estilos para a lista de fornecedores por produto */
+        .product-suppliers-list {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 0 0;
+            font-size: 0.9em;
+        }
+        .product-suppliers-list li {
+            background-color: #f8f8f8;
+            padding: 5px 10px;
+            border-radius: 3px;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #eee;
+        }
+        .product-suppliers-list li .supplier-name-link {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .product-suppliers-list li .supplier-name-link:hover {
+            text-decoration: underline;
+        }
+        .product-suppliers-list li .cost-value {
+            color: var(--danger-color);
+            font-weight: 500;
+        }
+
+
+        /* --- BOTÕES DE AÇÃO DO PRODUTO --- */
+        .action-buttons-container { margin-top: 15px; display: flex; flex-wrap: wrap; gap: 10px; }
+        .action-buttons-container button, .action-buttons-container a.action-button {
+            color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; font-weight: 500; transition: background-color 0.3s;
+            font-size: 0.9em;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .gemini-button { background-color: var(--secondary-color); }
+        .whatsapp-button { background-color: var(--whatsapp-color); }
+        .instagram-button { background-color: var(--instagram-color); }
+        .youtube-button { background-color: var(--youtube-color); }
+        .google-maps-button { background-color: #4285F4; }
+
+        .help-button { background-color: var(--help-color); }
+        .action-buttons-container button:hover, .action-buttons-container a.action-button:hover { opacity: 0.9; }
+
+        /* --- CALCULADORA --- */
+        .calculator-container { margin-top: 20px; padding-top: 20px; border-top: 1px dashed var(--dark-grey); }
+        .payment-method-selector label { display: inline-block; margin-right: 15px; cursor: pointer; font-size: 0.95em; }
+        .payment-method-selector input { margin-right: 5px; }
+        .installments-container { margin-top: 10px; }
+        .calculate-product-btn { background-color: var(--secondary-color); color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; margin-top: 10px;}
+        .product-calculator-result, #general-calculator-result { margin-top: 15px; font-size: 1.1em; color: var(--secondary-color); background-color: #eaf5ff; padding: 15px; border-radius: 5px; }
+        .result-vista { font-weight: bold; }
+        .result-parcelado { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--dark-grey); }
+        .result-parcelado small { font-size: 0.9em; font-weight: normal; color: #555; }
+        
+        /* Estilos para o desconto à vista */
+        .discount-option {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+        }
+        .discount-option input[type="number"] {
+            width: 80px;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            background-color: transparent;
+            position: relative;
+            z-index: 1;
+        }
+        .discount-option label {
+            margin-bottom: 0;
+        }
+        /* Texto opaco de "max. 15%" */
+        .discount-option::after {
+            content: "max. 15%";
+            position: absolute;
+            left: 105px;
+            color: #ccc;
+            font-size: 0.8em;
+            opacity: 0.8;
+            pointer-events: none;
+            white-space: nowrap;
+            transform: translateY(2px);
+            z-index: 0;
+        }
+
+
+        /* --- MODAL E SCROLL TO TOP --- */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.6); padding-top: 60px; }
+        .modal-content { background-color: #fefefe; margin: 5% auto; padding: 20px; border: 1px solid #888; width: 80%; max-width: 600px; border-radius: 8px; position: relative; }
+        .close-button { color: #aaa; position: absolute; top: 10px; right: 20px; font-size: 28px; font-weight: bold; cursor: pointer; }
+        .loader { border: 8px solid #f3f3f3; border-radius: 50%; border-top: 8px solid var(--primary-color); width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 20px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        #scroll-to-top { position: fixed; bottom: 20px; right: 30px; z-index: 99; border: none; outline: none; background-color: var(--primary-color); color: white; cursor: pointer; padding: 12px 15px; border-radius: 50%; font-size: 18px; display: none; }
+
+        /* --- GESTÃO DE USUÁRIOS --- */
+        #temp-user-list-container { margin-top: 30px; }
+        .temp-user-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid var(--medium-grey); }
+        .temp-user-item:last-child { border-bottom: none; }
+        .user-info p { margin: 0; }
+        .user-info p small { color: #555; }
+        .user-actions button { margin-left: 10px; padding: 5px 10px; border-radius: 4px; border: none; color: white; cursor: pointer; }
+        .edit-btn { background-color: var(--primary-color); }
+        .delete-btn { background-color: var(--danger-color); }
+
+        .hidden { display: none !important; }
+
+        /* --- BOTÃO FLUTUANTE DE CHAT AI --- */
+        #ai-chat-button {
+            position: fixed;
+            bottom: 90px;
+            right: 30px;
+            z-index: 99;
+            border: none;
+            outline: none;
+            background-color: var(--secondary-color);
+            color: white;
+            cursor: pointer;
+            padding: 15px 18px;
+            border-radius: 50%;
+            font-size: 24px;
+            display: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        #ai-chat-button:hover {
+            background-color: #0A4538;
+            transform: translateY(-3px);
+        }
+
+        #ai-chat-button:active {
+            transform: translateY(0);
+        }
+
+        /* Estilos específicos para o modal de chat AI, se necessário */
+        #ai-chat-modal .modal-content {
+            max-width: 700px;
+            text-align: left;
+        }
+
+        #ai-chat-modal-body {
+            text-align: left;
+        }
+
+        #ai-question-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 1em;
+            margin-bottom: 15px;
+        }
+
+        #submit-ai-question {
+            width: auto;
+            padding: 10px 20px;
+            font-size: 1em;
+        }
+
+        #ai-response-area {
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        /* NOVO: Estilos para o modal de senha do fornecedor */
+        #supplier-password-modal .modal-content {
+            max-width: 400px;
+            text-align: center;
+        }
+        #supplier-password-modal .input-group input {
+            text-align: center;
+        }
+        #supplier-password-modal .error-message {
+            color: var(--danger-color);
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* NOVO: Modal de Alteração de Senha */
+        #change-password-modal .modal-content {
+            max-width: 450px;
+            text-align: center;
+        }
+        #change-password-modal .input-group {
+            margin-bottom: 15px;
+        }
+        #change-password-modal .input-group label {
+            font-size: 0.9em;
+        }
+        #change-password-modal .error-message {
+            color: var(--danger-color);
+            margin-top: 10px;
+            font-weight: 500;
+            display: none;
+        }
+        #change-password-modal .success-message {
+            color: var(--secondary-color);
+            margin-top: 10px;
+            font-weight: 500;
+            display: none;
+        }
+
+
+        /* NOVO: Estilos para elementos em modo retrato */
+        @media (max-width: 768px) {
+            /* Alinhamento geral para conteúdo principal */
+            main .content-section > * {
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 100%;
+                padding: 0 10px;
+                box-sizing: border-box;
+            }
+
+            /* Cartões de produtos/fornecedores/info */
+            .card {
+                padding: 15px;
+                margin-bottom: 10px;
+            }
+
+            .card h3 {
+                font-size: 1.1em;
+            }
+
+            .product-spec, .price, .cost-price, .supplier-info {
+                font-size: 0.9em;
+            }
+
+            /* Botões de ação dentro dos cards */
+            .action-buttons-container {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .action-buttons-container button, .action-buttons-container a.action-button {
+                width: 100%;
+                padding: 10px;
+                font-size: 0.9em;
+            }
+
+            /* Calculadora dentro dos cards */
+            .calculator-container .input-group {
+                margin-bottom: 10px;
+            }
+            .payment-method-selector label {
+                margin-right: 10px;
+                font-size: 0.9em;
+            }
+            .discount-option {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+            .discount-option input[type="number"] {
+                width: 100px;
+                padding: 5px;
+            }
+            .discount-option::after {
+                content: "max. 15%";
+                position: absolute;
+                left: 0;
+                top: auto;
+                bottom: -15px;
+                transform: none;
+                font-size: 0.7em;
+                pointer-events: none;
+                white-space: nowrap;
+                transform: translateY(2px);
+                z-index: 0;
+            }
+            .calculate-product-btn {
+                width: 100%;
+                padding: 10px;
+            }
+            .product-calculator-result, #general-calculator-result {
+                font-size: 1em;
+                padding: 10px;
+            }
+            .result-parcelado small {
+                font-size: 0.8em;
+            }
+
+            /* Campos de pesquisa */
+            .search-bar input {
+                padding: 10px 10px 10px 35px;
+                font-size: 0.95em;
+            }
+            .search-bar::before {
+                left: 10px;
+                font-size: 16px;
+            }
+
+            /* Gestão de Usuários Temporários */
+            .temp-user-item {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 10px;
+            }
+            .user-info p {
+                font-size: 0.95em;
+            }
+            .user-actions {
+                width: 100%;
+                display: flex;
+                justify-content: flex-start;
+                margin-top: 10px;
+            }
+            .user-actions button {
+                margin-left: 0;
+                margin-right: 10px;
+                padding: 8px 10px;
+                font-size: 0.9em;
+            }
+
+            /* Informações da Empresa */
+            .info-card p {
+                font-size: 0.95em;
+            }
+            .contact-buttons-container {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .contact-buttons-container a.action-button {
+                width: 100%;
+            }
+
+            /* Modal da IA */
+            #ai-chat-modal .modal-content {
+                width: 90%;
+                margin: 20px auto;
+            }
+            #ai-question-input {
+                font-size: 0.95em;
+            }
+            #ai-response-area {
+                font-size: 0.9em;
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="login-screen">
+            <img src="https://i.imgur.com/b3lg2eE.png" alt="Logotipo Galvão Drones" id="company-logo">
+            <h2 id="portal-subtitle">Portal Interno</h2>
+            <div class="input-group"><label for="username">Usuário</label><input type="text" id="username" placeholder="Digite seu nome"></div>
+            <div class="input-group"><label for="password">Senha</label><input type="password" id="password" placeholder="Sua senha"></div>
+            <button id="login-button" class="action-button">Entrar</button>
+            <button id="visitor-mode-button" class="action-button">Modo Visitante</button>
+            <p id="login-error">Usuário ou senha inválidos.</p>
+        </div>
+
+        <div id="app-screen">
+            <header>
+                <div class="header-left">
+                    <button id="nav-toggle-btn" class="nav-toggle-btn">☰</button>
+                    <span id="welcome-message"></span>
+                    <span id="change-password-link">Alterar Senha</span>
+                    <h1>Portal Interno</h1>
+                </div>
+                <div>
+                    <button id="logout-button">Sair</button>
+                </div>
+            </header>
+            <div class="app-body">
+                <nav>
+                    <div class="nav-header">
+                        <button id="nav-toggle-btn-close" class="nav-toggle-btn">✕</button>
+                        <span>Menu</span>
+                    </div>
+                    <button class="nav-button" data-section="products-section" id="products-nav-button" style="order: 1;">Produtos</button>
+                    <button class="nav-button" data-section="calculator-section" id="calculator-nav-button" style="order: 2;">Calculadora</button>
+                    <button class="nav-button" data-section="suppliers-section" id="suppliers-nav-button" style="order: 3;">Fornecedores</button>
+                    
+                    <div class="nav-item-group" style="order: 4;">
+                        <button class="nav-button" data-section="settings-section" id="settings-nav-button">Configurações</button>
+                        <div class="sub-nav" id="settings-sub-nav" style="display: none;">
+                            <button class="nav-button sub-nav-button" data-section="manage-users-section" id="manage-users-nav-button">Gerir Usuários</button>
+                            <button class="nav-button sub-nav-button" data-section="create-product-section" id="create-product-nav-button">Criar Produto</button>
+                            <button class="nav-button sub-nav-button" data-section="edit-product-section" id="edit-product-nav-button">Alterar Produto</button>
+                        </div>
+                    </div>
+                    
+                    <button class="nav-button" data-section="drones-visitor-section" id="drones-nav-button" style="order: 5;">Drones</button>
+                    <button class="nav-button" data-section="info-section" id="info-empresa-nav-button" style="order: 6;">Info Empresa</button>
+                </nav>
+                <main id="main-content">
+                    <section id="products-section" class="content-section active">
+                        <h2>Consulta de Produtos</h2>
+                        <div class="search-bar"><input type="text" id="product-search" placeholder="Pesquisar por nome ou especificação..."></div>
+                        <div id="product-list"></div>
+                    </section>
+                    <section id="calculator-section" class="content-section">
+                        <h2>Calculadora Geral</h2>
+                        <div class="card">
+                           <div class="input-group">
+                                <label for="general-valor-base">Valor Base</label>
+                                <input type="number" id="general-valor-base" class="input-full" placeholder="Digite o valor para simulação">
+                           </div>
+                           <div class="input-group">
+                                <label>Forma de Pagamento</label>
+                                <div id="general-payment-method-selector">
+                                    <input type="radio" id="general-payment-vista" name="general-payment-method" value="vista" checked>
+                                    <label for="general-payment-vista">À vista</label>
+                                    <input type="radio" id="general-payment-parcelado" name="general-payment-method" value="parcelado">
+                                    <label for="general-payment-parcelado">Parcelado</label>
+                                </div>
+                           </div>
+                           <div class="input-group hidden" id="general-installments-container">
+                                <label for="general-parcelas">Número de Parcelas</label>
+                                <select id="general-parcelas">
+                                    <option value="1">1x</option><option value="2">2x</option><option value="3">3x</option><option value="4">4x</option><option value="5">5x</option><option value="6">6x</option><option value="7">7x</option><option value="8">8x</option><option value="9">9x</option><option value="10">10x</option><option value="11">11x</option><option value="12">12x</option>
+                                </select>
+                           </div>
+                           <button id="general-calculate-button" class="action-button" style="width: auto; padding: 10px 20px;">Calcular</button>
+                           <div id="general-calculator-result">O resultado da simulação aparecerá aqui.</div>
+                         </div>
+                    </section>
+                    <section id="suppliers-section" class="content-section"><h2>Fornecedores (Acesso Confidencial)</h2><div id="supplier-list"></div></section>
+                    
+                    <section id="settings-section" class="content-section">
+                        <h2>Configurações do Sistema</h2>
+                        <p>Selecione uma opção de configuração no menu lateral, ou clique nos atalhos abaixo:</p>
+                        <div id="settings-options-grid"></div>
+                    </section>
+
+                    <section id="manage-users-section" class="content-section">
+                        <button class="back-to-settings-button" onclick="switchTab('settings-section')">← Voltar para Configurações</button>
+                        <h2>Gerir Usuários Temporários</h2>
+                        <div class="card">
+                            <h3>Criar Usuário Temporário</h3>
+                            <form id="create-temp-user-form">
+                                <div class="input-group"><label for="temp-username">Nome de Usuário</label><input type="text" id="temp-username" required></div>
+                                <div class="input-group"><label for="temp-password">Senha</label><input type="text" id="temp-password" required></div>
+                                <div class="input-group"><label for="temp-duration">Duração do Acesso</label><select id="temp-duration"><option value="1">1 Hora</option><option value="8">8 Horas</option><option value="24" selected>24 Horas</option><option value="72">72 Horas</option></select></div>
+                                <button type="submit" class="action-button">Criar Usuário</button>
+                                <p id="temp-user-feedback" style="margin-top: 15px; font-weight: bold;"></p>
+                            </form>
+                        </div>
+                        <div id="temp-user-list-container">
+                            <h3>Usuários Temporários Ativos</h3>
+                            <div id="temp-user-list" class="card"></div>
+                        </div>
+                    </section>
+
+                    <section id="create-product-section" class="content-section">
+                        <button class="back-to-settings-button" onclick="switchTab('settings-section')">← Voltar para Configurações</button>
+                        <h2>Criar Novo Produto</h2>
+                        <div class="card">
+                            <form id="create-product-form">
+                                <div class="input-group"><label for="new-product-name">Nome do Produto</label><input type="text" id="new-product-name" required></div>
+                                <div class="input-group"><label for="new-product-spec">Especificações</label><textarea id="new-product-spec" rows="5" placeholder="Liste as especificações detalhadas"></textarea></div>
+                                <div class="input-group"><label for="new-product-sale-price">Preço de Venda (R$)</label><input type="number" id="new-product-sale-price" step="0.01" min="0" required></div>
+                                <div class="input-group"><label for="new-product-cost-price">Preço de Custo (R$)</label><input type="number" id="new-product-cost-price" step="0.01" min="0"></div>
+                                <div class="input-group"><label for="new-product-supplier">Fornecedor Principal</label><input type="text" id="new-product-supplier" placeholder="Nome do fornecedor"></div>
+                                <button type="submit" class="action-button">Salvar Novo Produto</button>
+                                <p id="create-product-feedback" style="margin-top: 15px; font-weight: bold;"></p>
+                            </form>
+                        </div>
+                    </section>
+
+                    <section id="edit-product-section" class="content-section">
+                        <button class="back-to-settings-button" onclick="switchTab('settings-section')">← Voltar para Configurações</button>
+                        <h2>Alterar Produto Existente</h2>
+                        <div class="card">
+                            <div class="input-group">
+                                <label for="edit-product-search-input">Buscar Produto (ID ou Nome)</label>
+                                <input type="text" id="edit-product-search-input" placeholder="Digite o ID ou nome do produto">
+                                <button id="search-product-to-edit" class="action-button" style="width: auto; margin-top: 10px;">Buscar</button>
+                            </div>
+                            <div id="edit-product-search-results" style="margin-top: 15px;"></div>
+                            
+                            <div id="edit-product-display" style="margin-top: 20px;">
+                                <p>Use a busca acima para carregar os dados do produto.</p>
+                            </div>
+                            <form id="edit-product-form" class="hidden">
+                                <input type="hidden" id="edit-product-id">
+                                <div class="input-group"><label for="edit-product-name">Nome do Produto</label><input type="text" id="edit-product-name" required></div>
+                                <div class="input-group"><label for="edit-product-spec">Especificações</label><textarea id="edit-product-spec" rows="5"></textarea></div>
+                                <div class="input-group"><label for="edit-product-sale-price">Preço de Venda (R$)</label><input type="number" id="edit-product-sale-price" step="0.01" min="0" required></div>
+                                <div class="input-group"><label for="edit-product-cost-price">Preço de Custo (R$)</label><input type="number" id="edit-product-cost-price" step="0.01" min="0"></div>
+                                <div class="input-group"><label for="edit-product-supplier">Fornecedor Principal</label><input type="text" id="edit-product-supplier"></div>
+                                <button type="submit" class="action-button">Salvar Alterações</button>
+                                <p id="edit-product-feedback" style="margin-top: 15px; font-weight: bold;"></p>
+                            </form>
+                        </div>
+                    </section>
+                    <section id="drones-visitor-section" class="content-section">
+                        <h2>Modelos de Drones</h2>
+                        <div class="search-bar"><input type="text" id="drone-visitor-search" placeholder="Pesquisar por modelo ou especificação..."></div>
+                        <div id="drone-visitor-list"></div>
+                    </section>
+                    <section id="info-section" class="content-section">
+                        <h2>Informações da Empresa</h2>
+                        <div class="card info-card">
+                            <p><strong>Nome da Empresa:</strong> Galvão Drones</p>
+                            <p id="cnpj-display-line"><strong>CNPJ:</strong> 60.102.179/0001-10</p>
+                            <p><strong>Endereço:</strong> Rua 16, nº 304 – Setor Aeroviário, Goiânia – GO, CEP: 74435-240</p>
+                            <p><a href="https://www.google.com/maps/search/Galv%C3%A3o+Drones+em+Goi%C3%A2nia+Goi%C3%A1s" target="_blank" class="action-button google-maps-button" style="width: auto; padding: 10px 15px; margin-right: 10px;">Ver no Google Maps</a></p>
+                            <p><strong>Contato:</strong> (62) 3636-0668</p>
+                            <div class="contact-buttons-container" style="display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap;">
+                                <a href="https://www.instagram.com/galvao_drones" target="_blank" class="action-button instagram-button" style="width: auto; padding: 10px 15px;">Instagram</a>
+                                <a href="https://wa.me/556236360668" target="_blank" class="action-button whatsapp-button" style="width: auto; padding: 10px 15px;">WhatsApp</a>
+                                <a href="https://www.youtube.com/@Galv%C3%A3oDronesofc" target="_blank" class="action-button youtube-button" style="width: auto; padding: 10px 15px;">YouTube</a>
+                            </div>
+                            <p><strong>Website:</strong> <a href="http://www.galvaodrones.com.br" target="_blank">www.galvaodrones.com.br</a></p>
+                        </div>
+                    </section>
+                </main>
+            </div>
+        </div>
+    </div>
+    
+    <button id="scroll-to-top" title="Voltar ao topo">⬆</button>
+
+    <button id="ai-chat-button" title="Falar com a IA">🤖</button>
+
+    <div id="main-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">×</span>
+            <h3 id="modal-title">Aviso</h3>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <div id="ai-chat-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="ai-chat-close-button">×</span>
+            <h3 id="ai-chat-modal-title">Assistente Galvão Drones</h3>
+            <div id="ai-chat-modal-body">
+                <div class="input-group">
+                    <label for="ai-question-input">Qual a sua pergunta sobre drones ou Galvão Drones?</label>
+                    <textarea id="ai-question-input" rows="5" placeholder="Ex: 'Quais drones são ideais para filmagem profissional?' ou 'Qual o horário de funcionamento da loja?'"></textarea>
+                </div>
+                <button id="submit-ai-question" class="action-button">Perguntar</button>
+                <div id="ai-response-area" style="margin-top: 20px; padding: 15px; background-color: #f0f0f0; border-radius: 5px; min-height: 50px; display: none;"></div>
+                <div class="loader" id="ai-loader" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="supplier-password-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="supplier-password-close-button">×</span>
+            <h3>Acesso Restrito</h3>
+            <p>Por favor, digite a senha para acessar as informações de fornecedores:</p>
+            <div class="input-group">
+                <input type="password" id="supplier-access-password" placeholder="Digite a senha">
+            </div>
+            <button id="submit-supplier-password" class="action-button">Acessar</button>
+            <p id="supplier-password-error" class="error-message">Senha incorreta.</p>
+        </div>
+    </div>
+
+    <div id="change-password-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="change-password-close-button">×</span>
+            <h3 id="change-password-modal-title">Alterar Senha</h3>
+            <p id="change-password-message">Por favor, defina uma nova senha para sua conta.</p>
+            <div class="input-group">
+                <label for="new-password">Nova Senha (mín. 6 dígitos)</label>
+                <input type="password" id="new-password">
+            </div>
+            <div class="input-group">
+                <label for="confirm-new-password">Confirmar Nova Senha</label>
+                <input type="password" id="confirm-new-password">
+            </div>
+            <button id="submit-change-password" class="action-button">Salvar Nova Senha</button>
+            <p id="change-password-error" class="error-message">Senhas não conferem ou são muito curtas.</p>
+            <p id="change-password-success" class="success-message">Senha alterada com sucesso!</p>
+        </div>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- BANCO DE DADOS SIMULADO ---
+    // Usamos o ano atual para senhas de alguns usuários para simular atualização anual
+    const currentYear = new Date().getFullYear(); 
+
+    // O objeto USERS foi restaurado e padronizado conforme as regras:
+    // - Mikhaell: senha fixa 'mk0639', sem firstLogin (false)
+    // - Maikhon, Ryan: role 'admin', senha padronizada, sem firstLogin (false)
+    // - Fineias, Rafael: role 'seller', senha padronizada, sem firstLogin (false)
+    // - Eduardo: role 'seller', senha padronizada, com firstLogin (true) para forçar troca
+    // - Usuários 'ven': role 'seller', senha padronizada, com firstLogin (true) para forçar troca
+    // - Usuários temporários: role 'seller', tipo 'temporary', senha definida na criação, sem firstLogin (false)
+    const USERS = {
+        'mikhaell': { password: 'mk0639', role: 'admin', type: 'permanent', firstLogin: false }, 
+        'Maikhon':  { password: `mai${currentYear}`, role: 'admin', type: 'permanent', firstLogin: false },
+        'Ryan':     { password: `rya${currentYear}`, role: 'admin', type: 'permanent', firstLogin: false },
+        'Fineias':  { password: `fin${currentYear}`, role: 'seller', type: 'permanent', firstLogin: false }, 
+        'Rafael':   { password: `raf${currentYear}`, role: 'seller', type: 'permanent', firstLogin: false }, 
+        'Eduardo':  { password: `edu${currentYear}`, role: 'seller', type: 'permanent', firstLogin: true }, 
+        
+        'mikhaellven': { password: `mik${currentYear}`, role: 'seller', type: 'permanent', firstLogin: true }, 
+        'maikhonven':  { password: `mai${currentYear}`, role: 'seller', type: 'permanent', firstLogin: true },
+        'ryanven':     { password: `rya${currentYear}`, role: 'seller', type: 'permanent', firstLogin: true },
+    };
+    // SENHA CONFIDENCIAL PARA ACESSO A FORNECEDORES
+    const CONFIDENTIAL_CODE = '@0639'; 
+
+    // PRODUCTS reestruturado para o modelo de 'sources'
+    // Cada produto agora tem um array 'sources' para múltiplos fornecedores e custos
+    let PRODUCTS = [ 
+        { id: 1, name: 'DJI Neo Standard', spec: '🛸 DJI Neo Standard ou Combo fly more\n🎥 Grava em 4K/30fps\n⏱️ Até 18 minutos de voo\n📡 Alcance de até 6 km\n⚖️ Peso de apenas 135 g\n🎮 Controle via app, com controle ou controle motion ( três versões)', salePrice: 1900, 
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 1340 }] },
+        { id: 2, name: 'DJI Neo Combo', spec: '🛸 DJI Neo Standard ou Combo fly more\n🎥 Grava em 4K/30fps\n⏱️ Até 18 minutos de voo\n📡 Alcance de até 6 km\n⚖️ Peso de apenas 135 g\n🎮 Controle via app, com controle ou controle motion ( três versões)', salePrice: 3500, 
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 2460 }] },
+        { id: 3, name: 'DJI Mini 3 (sem tela)', spec: '🛸 DJI Mini 3\n🎥 Grava em 4K HDR a 30fps\n⏱️ Até 38 minutos de voo\n📡 Distância de até 18 km\n⚖️ Peso leve: 249 g\n🎮 Controle com ou sem tela (duas versões)', salePrice: 3990, 
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 2990 }] },
+        { id: 4, name: 'DJI Mini 3 (com tela)', spec: '🛸 DJI Mini 3\n🎥 Grava em 4K HDR a 30fps\n⏱️ Até 38 minutos de voo\n📡 Distância de até 18 km\n⚖️ Peso leve: 249 g\n🎮 Controle com ou sem tela (duas versões)', salePrice: 4785, 
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 3785 }] },
+        { id: 5, name: 'DJI Flip Fly More Combo (com tela)', spec: '🛸 DJI Flip\n🎥 4K a 60fps (com slow motion de até 100fps!)\n⏱️ Até 31 minutos no ar\n📡 Alcance médio de 13 km\n⚖️ Menos de 249 g\n🎮 Disponível com ou sem controle com tela', salePrice: 7990, 
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 5320 }] },
+        { id: 64, name: 'DJI Mini 4 Pro Fly More Combo Plus (com tela)', spec: '🛸 DJI Mini 4 Pro\n🎥 Incrível 4K HDR a 100fps + fotos de 48 MP\n⏱️ Até 45 minutos no air\n📡 Alcance de até 25 km\n⚖️ Abaixo de 249 g\n🎮 Controle com tela (DJI RC 2)', salePrice: 9000.00, 
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 6990.00 }] },
+        { id: 67, name: 'DJI Avata 2 Fly More Combo (1 bateria)', spec: '🛸 DJI Avata 2\n🎥 Gravação 4K 60fps com lente ultrawide\n⏱️ Até 23 minutos de voo imersivo\n📡 Alcance de até 13 km\n⚖️ Peso de 377 g\n🎮 Controle por movimento + óculos FPV (sem tela)', salePrice: 10590.00, 
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 7069.91 }] },
+        { id: 68, name: 'DJI Avata 2 Fly More Combo (3 baterias)', spec: '🛸 DJI Avata 2\n🎥 Gravação 4K 60fps com lente ultrawide\n⏱️ Até 23 minutos de voo imersivo\n📡 Alcance de até 13 km\n⚖️ Peso de 377 g\n🎮 Controle por movimento + óculos FPV (sem tela)', salePrice: 12990.00, 
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 8674.53 }] },
+        { id: 65, name: 'DJI Air 3S Standard (sem tela)', spec: '🛸 DJI Air 3S (Versão Standard)\n🎥 4K 60fps com sensores duplos (wide + tele)\n⏱️ Até 45 minutos no ar\n📡 Alcance insano de 32 km\n⚖️ Peso de 724 g\n🎮 Controle sem tela (standard)', salePrice: 12790.00, 
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 8532.92 }] },
+        { id: 72, name: 'DJI Mavic 4 Pro Combo (com tela)', spec: '🚀 DJI Mavic 4 Pro\n🎥 5.1K a 120fps com sensor 4/3 CMOS\n⏱️ Até 46 minutos de voo\n📡 Alcance de até 32 km\n⚖️ 958 g\n🎮 Controle com tela (DJI RC Pro)', salePrice: 26670.00, 
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 19920.00 }] },
+        { id: 71, name: 'DJI Mavic 4 Pro Creator Combo (HDMI, 512GB)', spec: '🚀 DJI Mavic 4 Pro Creator Combo\nMesmo conjunto do Mavic 4 Pro com:\n🎒 Acessórios profissionais\n🔋 Baterias extras e hub inteligente\n🧳 Maleta reforçada para transporte\n🎮 Controle com tela (DJI RC Pro 2)', salePrice: 35650.00, 
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 26650.00 }] },
+        { id: 39, name: 'DJI Mavic 3 Multispectral', spec: '🌱 DJI Mavic 3 Multispectral (Versão Standard)\n🎥 Câmera RGB 20 MP + 4 sensores multispectrais\n⏱️ Até 43 minutos por voo\n📡 Alcance de 15 km\n⚖️ 951 g\n🎮 Controle com tela (DJI RC Pro Enterprise)\n🧪 Ideal para agricultura de precisão e NDVI', salePrice: 43970, 
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 32990.00 }] },
+        { id: 40, name: 'DJI Mavic 3 Thermal', spec: '🔥 DJI Mavic 3 Thermal (Versão Standard)\n🎥 4K + câmera térmica 640x512 px\n⏱️ Até 45 minutos por voo\n📡 Alcance de 15 km\n⚖️ 920 g\n🎮 Controle com tela (DJI RC Pro Enterprise)\n🔥 Ideal para inspeção, resgate e segurança', salePrice: 41700, 
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 31990.00 }] },
+        { id: 41, name: 'DJI Mavic 3 Enterprise', spec: '🗺️ DJI Mavic 3 Enterprise (Versão Standard)\n🎥 Câmera RGB 20 MP com obturador mecânico\n🗺️ Compatível com RTK, alto-falante e holofote\n⏱️ Até 45 minutos de voo\n📡 Alcance de 15 km\n⚖️ 915 g\n🎮 Controle com tela (DJI RC Pro Enterprise)\n📐 Indicado para mapeamentos e medições técnicas', salePrice: 31270, 
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 23990.00 }] },
+        { id: 42, name: 'DJI Matrice 4T', spec: '🛠️ DJI Matrice 4T (Versão Standard)\n🎥 RGB 48 MP + Zoom híbrido 56x + Câmera térmica de alta resolução\n🧭 Visão tripla: Wide, Zoom e Térmica\n⏱️ Até 55 minutos por voo\n📡 Alcance de até 20 km\n⚖️ Peso: 3,7 kg\n🎮 Controle DJI RC Plus com tela de 7” ultra brilhante\n💼 IP55 – Ideal para resgate, combate a incêndio e inspeções', salePrice: 61990, 
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 45302.65 }] },
+        { id: 43, name: 'DJI Matrice 4E', spec: '🛠️ DJI Matrice 4E (Versão Standard)\n🎥 Câmera ampla de 20 MP com obturador mecânico\n🧭 Suporte a RTK, payloads e expansões avançadas\n⏱️ Até 55 minutos de voo\n📡 Alcance de até 20 km\n⚖️ Peso: 3,4 kg\n🎮 Controle DJI RC Plus\n🔧 Ideal para mapeamento, segurança e vigilância industrial', salePrice: 58589.97, 
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 43112.98 }] },
+        { id: 113, name: 'DJI Matrice 30T', spec: '🛠️ DJI Matrice 30T (Versão Standard)\n🎥 Câmera Wide 48 MP + Zoom Híbrido + Câmera Térmica\n⏱️ Até 41 minutos por voo\n📡 Alcance de até 15 km\n⚖️ Peso: 3,77 kg\n🎮 Controle DJI RC Plus com tela de 7”\n💼 Proteção IP55 – Ideal para operações em campo aberto', salePrice: 0, 
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 0 }] },
+        { id: 114, name: 'DJI Matrice 350 RTK', spec: '🛠️ DJI Matrice 350 RTK (Versão Standard)\n🎥 Compatível com payloads L2, P1, H30T e sensores externos\n🧭 RTK integrado para mapeamento de alta precisão\n⏱️ Até 55 minutos de voo\n📡 Alcance de até 20 km\n⚖️ Peso médio de 3,8 kg sem carga\n🎮 Controle DJI RC Plus com tela de 7”\n💼 Estrutura reforçada com proteção IP55', salePrice: 0, 
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 0 }] },
+        { id: 44, name: 'GOHOBBY SENTINEL', spec: '🛡️ GOHOBBY Sentinel\nUm sistema passivo de detecção, sem interferências, ideal para monitoramento discreto:\n📡 Frequências: 2.4 GHz, 5.1 GHz, 5.8 GHz\n🛩️ Protocolos suportados: DJI (O1–O4), Autel, eWiFi, PAL, NTSC, LightBridge, Datalink\n📍 Alcance de detecção: até 5 km\n🔁 Detecção simultânea: até 10 drones\n⏱️ Tempo de localização: ≤ 3 s\n🕒 Autonomia da bateria: até 12 h\n🎯 Precisão de localização: ≤ 3 m\n💻 Tela: 6.3” touchscreen\n🌐 Conectividade: Wi‑Fi e LTE\n⚖️ Peso: 0,65 kg + bateria externa (~0,6 kg)\n⚙️ IP: IP54', salePrice: 135990, 
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 108590.00 }] },
+        { id: 45, name: 'SKYFEND HUNTER', spec: '🌩️ Skyfend Hunter (AFA100)\nUm jammer portátil com detecção e contra-ação integrada, típico “gun”:\n📡 Detecção omnidirecional: até 2 km\n🚫 Jamming direcional: até 3 km\n📶 Cobertura de frequência: 400 MHz–6 GHz (RF + GNSS: GPS, Glonass, Beidou, Galileo)\n⏱️ Autonomia: até 8 h em espera e 1 h com jamming ativo\n🕌 Tela: touchscreen 3,5”\n🔄 Adaptabilidade: adaptação automática de frequência\n⚙️ IP: IP65\n⚖️ Peso: aprox. 6,5 kg', salePrice: 379749, 
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 265822.10 }] },
+        { id: 46, name: 'SKYFEND BLADER', spec: '⚡ Skyfend Blader\nUm jammer portátil de alta potência, enxuto e focado na neutralização:\n🌐 Alcance de jamming: até 1,5 km\n📶 Cobertura de frequência: 868 MHz, 915 MHz, 1.2 GHz, 1.4 GHz, 1.6 GHz, 2.4 GHz, 4.95 GHz, 5.2–5.8 GHz\n⏱️ Jamming ativado: até 30 min\n🧭 Direção e campo de visão: azimute ±15°, pitch ±10°\n⚖️ Peso: ≈ 4 kg\n⚙️ IP: IP65', salePrice: 147898.28, 
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 106328.80 }] },
+        { id: 31, name: 'Câmera DJI Osmo Pocket 3 Standard', spec: '📷 DJI Osmo Pocket 3 Standard\n🎥 Gravação em 4K com sensor grande\n📱 Tela articulada touchscreen\n🔁 Gimbal mecânico de 3 eixos\n💡 Ideal para criadores que filmam em movimento\n🔋 Autonomia de até 120 minutos\n📦 Compacta e leve: cabe no bolso', salePrice: 6990, 
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 4658.47 }] },
+        { id: 92, name: 'Câmera DJI Osmo Action 4 Adventure Combo', spec: '📷 DJI Osmo Action 4 Adventure Combo\n🎥 Vídeos em 4K HDR a 120 fps\n🌊 À prova d’agua até 18 metros (sem case)\n🔋 Inclui 2 baterias extras + suporte de carregamento\n📱 Controle via app DJI Mimo\n📦 Pensada para esportes e ambientes extremos', salePrice: 4790.00, 
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 3194.13 }] },
+        { id: 94, name: 'Câmera DJI Osmo Action 4 Standard Combo', spec: '📷 DJI Osmo Action 4 Standard Combo\n🎥 4K ultra amplo com estabilização RockSteady\n🎯 Lente grande angular com excelente captação de luz\n📱 Integração total com o app DJI\n🧳 Compacta, ideal para vloggers e aventureiros iniciantes', salePrice: 3490.00, 
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 2400.00 }] },
+        { id: 93, name: 'Câmera DJI Osmo Action 5 Pro Standard Combo', spec: '📷 DJI Osmo Action 5 Pro Standard Combo\n🎥 4K a 120 fps com sensor aprimorado para pouca luz\n🌀 Estabilização RockSteady 3.0 + HorizonSteady\n🔋 Bateria de longa duração com carregamento rápido\n🎧 Áudio com 3 microfones e cancelamento de ruído\n📦 Perfeita para profissionais e criadores exigentes', salePrice: 4490.00, 
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 2992.69 }] },
+        { id: 97, name: 'Estabilizador DJI Osmo Mobile 7P', spec: '🎮 DJI Osmo Mobile 7P BR\n📱 Compatível com celulares grandes\n🌀 Modos de acompanhamento e gestos\n🔋 Bateria para até 10h de uso', salePrice: 2090.00, 
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 1396.50 }] },
+        { id: 96, name: 'Estabilizador DJI Osmo Mobile 7', spec: '🎮 DJI Osmo Mobile 7 BR\n📱 Novo sistema de equilíbrio automático\n🔋 Leve, com autonomia prolongada\n🧠 Integração nativa com app DJI', salePrice: 1249.00, 
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 835.23 }] },
+        { id: 99, name: 'Estabilizador DJI Osmo Mobile 6', spec: '🎮 DJI Osmo Mobile 6 (Cinza Escuro ou Platinum)\n🔋 6h de uso, com ActiveTrack 5.0\n📱 Compacto e retrátil\n🧲 Design magnético para montagem rápida', salePrice: 1390.00, 
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 930.10 }] },
+        { id: 95, name: 'Estabilizador DJI Osmo Mobile SE', spec: '🎮 DJI Osmo Mobile SE\n📱 Versão acessível e eficiente\n🎯 Boa estabilidade para vídeos casuais\n🧳 Ideal para iniciantes', salePrice: 990.00, 
+            sources: [{ supplierName: 'Arroroba Celulares', costPrice: 663.49 }] },
+        { id: 33, name: 'Estabilizador DJI RS 3 Pro Combo', spec: '🎮 DJI RS 3 Pro Combo\n🎥 Suporte para câmeras profissionais até 4,5 kg\n🧠 LIDAR focagem + ActiveTrack Pro\n🔋 Até 12h de uso com bateria BG30', salePrice: 7990, 
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 5790.00 }] },
+        { id: 35, name: 'Estabilizador DJI RS 4 Pro Combo', spec: '🎮 DJI RS 4 Pro Combo\n🎥 Suporte avançado para rigs pesados\n📡 Conectividade profissional\n🔋 Bateria BG70 de alta duração', salePrice: 12790, 
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 8900.00 }] },
+        { id: 34, name: 'Estabilizador DJI RS 4 Mini', spec: '🎮 DJI RS 4 Mini\n🎥 Câmeras até 2 kg\n🔧 Ultra leve, com braço de rotação larga\n🔋 Até 10h com autonomia', salePrice: 3890, 
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 2840.00 }] },
+        { id: 32, name: 'Estabilizador DJI RS 3 Mini', spec: '🎮 DJI RS 3 Mini\n🎥 Ideal para câmeras mirrorless\n📦 Compacto e balanceado\n🔋 10h de bateria', salePrice: 2690, 
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 2335.00 }] },
+        { id: 18, name: 'Controle DJI Motion 3', spec: '🎮 DJI Motion 3\n🖐️ Controle por movimento\n🎮 Compatível com DJI Neo, Avata 2 e Air 3\n📡 Transmissão precisa + experiência imersiva', salePrice: 1099, 
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 734.09 }] },
+        { id: 19, name: 'Controle DJI RC', spec: '🎮 DJI RC\n📱 Suporte para smartphone\n📡 Alcance até 10 km\n⚖️ Design leve e ergonômico', salePrice: 3290, 
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 2195.65 }] },
+        { id: 20, name: 'Controle DJI RC 2', spec: '🎮 DJI RC 2\n📺 Tela HD integrada\n📡 Alcance de até 20 km\n🔋 Autonomia de 4h', salePrice: 3590, 
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 2395.43 }] },
+        { id: 21, name: 'Controle DJI RC Pro (HDMI)', spec: '🎮 DJI RC Pro (HDMI)\n🎥 Saída HDMI e sistema Android\n📡 Ultra responsivo com controle DJI Fly\n📺 Tela de alto brilho com 1000 nits', salePrice: 10990, 
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 7330.69 }] },
+        { id: 100, name: 'Microfone DJI Mic 2 (2 TX + 1 RX + Case)', spec: '🎤 DJI Mic 2 (2 transmissores + 1 receptor + case)\n🎧 Áudio estéreo digital de altíssima fidelidade (24-bit)\n🔋 Gravação interna com backup automático\n📡 Alcance de até 250 metros em área aberto\n🧳 Case com recarga rápida e transporte seguro\n🔗 Compatível com câmeras DSLR, celulares e computadores', salePrice: 4090.00, 
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 2731.69 }] },
+        { id: 36, name: 'Microfone DJI Mic Mini (1 TX + 1 RX)', spec: '🎤 DJI Mic Mini (1 transmissor + 1 receptor)\n🎧 Super compacto e leve – ideal para creators\n🔋 Autonomia de até 6 horas por unidade\n📦 Sem case de recarga – prático para uso imediato\n🎯 Plug and play com portas USB-C e Lightning', salePrice: 859, 
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 523.29 }] },
+        { id: 37, name: 'Microfone DJI Mic Mini (2 TX + 1 RX + Case)', spec: '🎤 DJI Mic Mini (2 transmissores + 1 receptor + case)\n🎧 Gravação estéreo dupla com sincronização inteligente\n🔋 Case de transporte com recarga automática\n📡 Conexão simultânea com dispositivos duplos\n📱 Perfeito para entrevistas, podcasts e vídeos de equipe.', salePrice: 1590, 
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 1062.43 }] },
+        { id: 115, name: 'Bateria DJI Neo', spec: '🔋 Bateria DJI Neo\n⏱️ Autonomia de até 18 minutos por carga\n⚡ Tecnologia LiPo com proteção inteligente\n🔌 Recarga via hub ou carregador USB-C\n📦 Compatível exclusivamente com o DJI Neo', salePrice: 0, 
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 0 }] },
+        { id: 12, name: 'Bateria DJI Avata', spec: '🔋 Bateria DJI Avata\n⏱️ Cerca de 18 minutos de voo FPV\n🎮 Ideal para uso com goggles e motion controller\n⚡ Proteção contra curto, descarga e superaquecimento\n📦 Peso médio: 162 g', salePrice: 1489, 
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 994.06 }] },
+        { id: 13, name: 'Bateria DJI Avata 2', spec: '🔋 Bateria DJI Avata 2\n⏱️ Aproximadamente 23 minutos de voo imersivo\n📡 Otimizada para voos com DJI Goggles 3\n⚡ Equilíbrio entre leveza e performance\n📦 Recarregável via hub dedicado', salePrice: 1149, 
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 767.21 }] },
+        { id: 104, name: 'Bateria Mini 3 Pro / 4 Pro', spec: '🔋 Bateria DJI Mini 3 / Mini 4 Pro (Standard)\n⏱️ Até 34 minutos de voo\n⚡ Compacta, com sensores de segurança\n🔋 Indicador de carga inteligente\n📦 Peso médio: 80 g', salePrice: 749.00, 
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 570.00 }] },
+        { id: 105, name: 'Bateria Mini 3 Pro Plus', spec: '🔋 Bateria DJI Plus Mini 3 / Mini 4 Pro (Alta Capacidade)\n⏱️ Até 45 minutos por carga\n⚡ Ideal para voos longos e gravações contínuas\n🔋 Compatível com DJI Fly – modo “max performance”\n📦 Leve e resistente', salePrice: 1190.00, 
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 825.00 }] },
+        { id: 15, name: 'Bateria DJI Air 3S / Air 3', spec: '🔋 Bateria DJI Air 3S / Air 3\n⏱️ Até 45 minutos por carga\n⚡ Células de alta densidade e vida útil prolongada\n📦 Compatível com modo de priorização de carga via hub\n🔋 Recarga otimizada via carregador 100W', salePrice: 1890, 
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 1261.94 }] },
+        { id: 82, name: 'Bateria DJI Mini 2 / SE / 2 SE / 4K', spec: '🔋 Bateria DJI Mini 2 / SE / 2 SE / 4K\n⏱️ Entre 22 e 31 minutos de voo (varia conforme o modelo)\n⚡ Bateria compacta, estável e eficiente\n📦 Ideal para pilotos iniciantes ou voos recreativos\n🔋 Recarregável via hub Mini 2', salePrice: 649.00, 
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 433.38 }] },
+        { id: 83, name: 'Bateria TB51 DJI Inspire 3', spec: '🔋 Bateria TB51 (Inspire 3)\n⏱️ Performance profissional com tempo estendido de voo\n📦 Sistema avançado de aquecimento automático\n⚡ Compatível com estação de carga DJI BS51\n🔋 Controle inteligente de ciclo e temperatura', salePrice: 3999.00, 
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 2669.76 }] },
+        { id: 81, name: 'Bateria de alta capacidade DJI RS BG70', spec: '🔋 Bateria DJI RS BG70 (para RS 4 Pro)\n⏱️ Até 12 horas de autonomia contínua\n⚙️ Fixação direta no estabilizador RS 4 Pro\n📦 Indicador de status em tempo real\n🔋 Recarga via conector magnético de alta voltagem', salePrice: 1490.00, 
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 996.07 }] },
+        { id: 79, name: 'Protetores de Hélices DJI Neo', spec: '🛡️ Protetores de Hélice DJI Neo\n⚙️ Leves, seguros e ideais para indoor', salePrice: 119.00, 
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 100.00 }] },
+        { id: 78, name: 'Protetores de Hélices DJI Mini 3', spec: '🛡️ Protetores de Hélice DJI Mini 3\n⚙️ Encaixe rápido, protege hélices em espaços apertados', salePrice: 379.00, 
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 285.00 }] },
+        { id: 77, name: 'Hélices DJI Neo – 2 Pares', spec: '🌀 Hélices DJI Neo – 2 Pares', salePrice: 79.00, 
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 53.06 }] },
+        { id: 75, name: 'Hélices DJI Flip – 2 Pares', spec: '🌀 Hélices DJI Flip – 2 Pares', salePrice: 104.90, 
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 70.31 }] },
+        { id: 73, name: 'Hélices DJI Mini 2/SE/2 SE/4K – 2 Pares', spec: '🌀 Hélices DJI Mini 2/SE/2 SE/4K – 2 Pares', salePrice: 119.00, 
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 53.06 }] },
+        { id: 76, name: 'Hélices DJI Inspire 3 – Par', spec: '🌀 Hélices DJI Inspire 3 – Par', salePrice: 499.00, 
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 391.91 }] },
+        { id: 74, name: 'Hélices DJI Avata 2 – 2 Pares', spec: '🌀 Hélices DJI Avata 2 – 2 Pares', salePrice: 109.00, 
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 70.31 }] },
+        { id: 38, name: 'DJI Goggles 3', spec: '👓 DJI Goggles 3\n📺 Duas telas OLED 1080p de alta nitidez\n🧠 Sistema de head tracking imersivo com baixa latência\n🔋 Bateria interna com até 3 horas de autonomia\n📡 Transmissão O4 compatível com Avata 2, Mini 4 Pro,  Air 3 e Neo\n🧳 Ajuste ergonômico para conforto prolongado', salePrice: 6490, 
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 4327.89 }] },
+        { id: 88, name: 'DJI Goggles N3', spec: '👓 DJI Goggles N3\n📺 Compatíveis com o DJI Neo e Motion Controller 3\n🔋 Bateria interna com até 2 horas de uso contínuo\n🌀 Imersão FPV com mínima latência\n📦 Design leve e dobrável, ideal para transporte', salePrice: 2990.00, 
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 1999.56 }] },
+        { id: 25, name: 'Hub de Carregamento DJI Avata 2', spec: '🔁 Hub de Carregamento DJI Avata 2\n🔋 Sistema inteligente de carregamento e equalização\n⚡ Alta eficiência térmica\n🔌 Compatível com powerbanks USB-C PD\n📦 Ideal para voos FPV com múltiplas baterias', salePrice: 499, 
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 333.62 }] },
+        { id: 26, name: 'Hub de Carregamento DJI Neo', spec: '🔁 Hub de Carregamento DJI Neo\n🔋 Carga sequencial de até 3 baterias\n⚡ Tempo médio por unidade: 75 minutos\n🔌 Compatível com carregadores 65W DJI\n📦 Leve, portátil e de encaixe rápido', salePrice: 419, 
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 280.00 }] },
+        { id: 27, name: 'Hub de Carregamento DJI Mini 3 / 3 Pro / 4 Pro', spec: '🔁 Hub de Carregamento DJI Mini 3 / 3 Pro / 4 Pro\n🔋 Até 3 baterias com transferência de carga\n⚡ Balanceamento automático\n📦 Ideal para operação em campo', salePrice: 519, 
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 347.01 }] },
+        { id: 28, name: 'Hub de Carregamento DJI Air 3 / Air 3S', spec: '🔁 Hub de Carregamento DJI Air 3 / Air 3S\n🔋 Gestão automática da ordem de carga\n⚡ Suporte a carregamento paralelo\n📱 Status visível via app DJI Fly\n📦 Compacto com LEDs indicadores', salePrice: 799, 
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 500.09 }] },
+        { id: 29, name: 'Carregador USB-C DJI 100W', spec: '⚡ Carregador USB-C DJI 100W\n🔌 Carga dupla simultânea (hub + controle)\n⚡ Reconhecimento inteligente de voltagem\n⏱️ Carga total entre 60 e 90 min por bateria\n📱 Compatível com outros dispositivos USB-C', salePrice: 619, 
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 415.23 }] },
+        { id: 30, name: 'Carregador USB-C DJI 65W', spec: '⚡ Carregador USB-C DJI 65W\n🔋 Leve e versátil\n⚡ Ideal para controles e baterias padrão DJI\n📦 Proteção contra sobrecarga e superaquecimento\n🧳 Perfeito para uso portátil', salePrice: 389, 
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 573.86 }] },
+        { id: 16, name: 'Estação de Energia DJI Power 1000', spec: '🔌 DJI Power 1000\n⚡ Potência total: 1000W\n🔋 Bateria interna de longa duração (1024 Wh)\n🔌 Diversas saídas: USB-C, AC, DC e carregamento solar\n📦 Ideal para operações em campo, emergências e drones de grande porte\n🧳 Design robusto, com alça retrátil e tela inteligente', salePrice: 9590, 
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 6314.47 }] },
+        { id: 17, name: 'Estação de Energia DJI Power 500', spec: '🔌 DJI Power 500\n⚡ Potência total: 500W\n🔋 Capacidade de 512 Wh\n🔌 Entradas e saídas para múltiplos dispositivos simultâneos\n📦 Portátil e eficiente para filmagens externas, inspeções ou backup em locais remotos\n🧳 Compacta e fácil de transportar', salePrice: 6190, 
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 4071.35 }] },
+        { id: 80, name: 'Sistema DJI Focus Pro – All-In-One Combo', spec: '🎯 Sistema DJI Focus Pro – All-In-One Combo\n🎥 Foco automático inteligente para câmeras profissionais\n📡 Controle remoto de alta precisão com delay ultrabaixo\n🔋 Motor silencioso com bateria integrada de longa duração\n⚙️ Compatível com estabilizadores da linha RS e câmeras DSLR/cinema\n🧠 Modos: foco manual, automático e via reconhecimento facial\n📦 Inclui motor, controle, cabo de dados e acessórios profissionais\n🧳 Ideal para produções de alto nível, cinema, comerciais e conteúdo técnico', salePrice: 16990.00, 
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 11133.54 }] },
+        { id: 86, name: 'Sistema DJI SDR Transmission Combo', spec: '📶 Sistema DJI SDR Transmission Combo\n📡 Transmissão de vídeo em tempo real com ultra baixa latência\n📺 Entrada HDMI para câmeras externas (profissionais ou drone FPV customizado)\n📱 Compatível com smartphones ou tablets via suportes dedicados\n🔌 Alimentação via bateria integrada ou ou fonte externa\n🎯 Ideal para transmissões ao vivo, monitoramento técnico ou gravações de precisão\n📦 Combo inclui receptor SDR, cabos, suporte de fixação e encaixes ajustáveis', salePrice: 5990.00, 
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 4004.27 }] },
+        { id: 84, name: 'Suporte de Telefone SDR', spec: '📱 Suporte de Telefone SDR\n🧲 Suporte magnético com ajuste de ângulo e altura\n📦 Compatível com celulares de até 7”', salePrice: 579.00, 
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 257.45 }] },
+        { id: 85, name: 'Suporte de Tablet SDR', spec: '💻 Suporte de Tablet SDR\n📐 Estrutura expandida para tablets de até 10”\n⚙️ Base firme com regulagem personalizada\n🧳 Ideal para visualização ampla em campo', salePrice: 579.00, 
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 500.09 }] },
+        { id: 89, name: 'Hard Case Mavic Air 2 / Air 2S', spec: '🎒 Hard Case Mavic Air 2 / Air 2S\n💼 Proteção rígida + interior espumado', salePrice: 599.00, 
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 339.72 }] },
+        { id: 90, name: 'Kit Apoio DJI RC Plus', spec: '🎒 Kit Apoio DJI RC Plus\n🧳 Tira de ombro + apoio de cintura\n🎮 Ideal para longas operações', salePrice: 769.00, 
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 140.73 }] },
+        { id: 91, name: 'Garrafa DJI 650mL – Preto Gradiente', spec: '🥤 Garrafa DJI 650mL – Preto Gradiente\n💧 Estilo DJI com hidratação', salePrice: 149.00, 
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 79.88 }] },
+        // Exemplo de produto com MÚLTIPLOS fornecedores
+        { id: 1000, name: 'Bateria Universal P-Drone', spec: '🔋 Bateria de alta capacidade universal', salePrice: 1500.00,
+            sources: [
+                { supplierName: 'Arroba Celulares', costPrice: 1000.00 },
+                { supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 950.00 }
+            ]
+        },
+        { id: 1001, name: 'Kit Hélice Super Resistente (2 Pares)', spec: '🌀 Hélices de fibra de carbono para alta durabilidade.', salePrice: 250.00,
+            sources: [
+                { supplierName: 'DJI Grupo Multi', costPrice: 150.00 },
+                { supplierName: 'Arroba Celulares', costPrice: 160.00 }
+            ]
+        }
+    ];
+    const SUPPLIERS = [
+        { 
+            name: 'Arroba Celulares', 
+            details: 'Origem: Goiânia – GO<br>Estoque: Arroba', 
+            payment: '<strong>Pix:</strong> arrobasafra@gmail.com<br><strong>Banco:</strong> Banco Safra S.A.<br><strong>Empresa:</strong> GRAN E-COMMERCE LTDA',
+            products: 'Drones da linha consumer (Neo, Mini 3, Flip), controles, baterias, Osmo, Mic, carregadores, hélices e protetores.' 
+        },
+        { 
+            name: 'GoHobby Distribuidora de VANT LTDA', 
+            details: 'Origem: São Paulo – SP<br>Estoque: GoHobby',
+            payment: '<strong>Pix (CNPJ):</strong> 13.373.898/0001-95<br><strong>Banco Itaú (341):</strong> Agência: 6327, Conta Corrente: 15310-9',
+            products: 'Drones Enterprise (Mavic 3E/T/Multi), Matrice 4, 30 e 350 RTK, Skyfend Hunter, Skyfend Blader, Sentinel + atualização.'
+        },
+        { 
+            name: 'DJI Grupo Multi', 
+            details: 'Origem: São Paulo – SP<br>Estoque: Grupo Multi (Distribuidor oficial DJI no Brasil)',
+            payment: 'Não especificado',
+            products: 'Air 3S, Avata 2, Neo combos com Goggles, Flip, câmeras Osmo Action e Pocket, estabilizadores, microfones, baterias e acessórios originais.'
+        }
+    ];
+    const INSTALLMENT_RATES = {
+        1: 0.0309, 2: 0.0579, 3: 0.0609, 4: 0.0799, 5: 0.0809, 6: 0.0818,
+        7: 0.0949, 8: 0.0966, 9: 0.1037, 10: 0.1105, 11: 0.1227, 12: 0.1238
+    };
+
+    // --- ELEMENTOS DO HTML (DOM) ---
+    const loginScreen = document.getElementById('login-screen');
+    const appScreen = document.getElementById('app-screen');
+    const loginButton = document.getElementById('login-button');
+    const logoutButton = document.getElementById('logout-button');
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+    const loginError = document.getElementById('login-error');
+    const welcomeMessage = document.getElementById('welcome-message');
+    const changePasswordLink = document.getElementById('change-password-link'); 
+    const visitorModeButton = document.getElementById('visitor-mode-button'); 
+
+    const navButtons = document.querySelectorAll('.nav-button');
+    const contentSections = document.querySelectorAll('.content-section');
+    const productsNavButton = document.getElementById('products-nav-button'); 
+    const calculatorNavButton = document.getElementById('calculator-nav-button'); 
+    const suppliersNavButton = document.getElementById('suppliers-nav-button');
+    const settingsNavButton = document.getElementById('settings-nav-button'); 
+    const dronesNavButton = document.getElementById('drones-nav-button'); 
+    const infoEmpresaNavButton = document.getElementById('info-empresa-nav-button'); 
+
+    // Novos botões de sub-navegação em Configurações
+    const manageUsersNavButton = document.getElementById('manage-users-nav-button');
+    const createProductNavButton = document.getElementById('create-product-nav-button');
+    const editProductNavButton = document.getElementById('edit-product-nav-button');
+    const settingsSubNav = document.getElementById('settings-sub-nav'); 
+
+    // Elementos da grade de opções de configuração
+    const settingsOptionsGrid = document.getElementById('settings-options-grid');
+
+
+    const productList = document.getElementById('product-list');
+    const supplierList = document.getElementById('supplier-list');
+    const productSearchInput = document.getElementById('product-search');
+    const droneVisitorList = document.getElementById('drone-visitor-list'); 
+    const droneVisitorSearchInput = document.getElementById('drone-visitor-search'); 
+
+    const mainModal = document.getElementById('main-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalBody = document.getElementById('modal-body');
+    const closeModalButton = document.querySelector('.close-button');
+
+    // Elementos da seção Gerir Usuários
+    const createTempUserForm = document.getElementById('create-temp-user-form');
+    const tempUserFeedback = document.getElementById('temp-user-feedback');
+    const tempUserListContainer = document.getElementById('temp-user-list');
+
+    // Elementos da seção Criar Produto
+    const createProductForm = document.getElementById('create-product-form');
+    const createProductFeedback = document.getElementById('create-product-feedback');
+
+    // Elementos da seção Alterar Produto
+    const editProductSearchInput = document.getElementById('edit-product-search-input'); 
+    const searchProductToEditButton = document.getElementById('search-product-to-edit');
+    const editProductSearchResults = document.getElementById('edit-product-search-results'); 
+    const editProductDisplay = document.getElementById('edit-product-display');
+    const editProductForm = document.getElementById('edit-product-form');
+    const editProductIdInput = document.getElementById('edit-product-id');
+    const editProductNameInput = document.getElementById('edit-product-name');
+    const editProductSpecTextarea = document.getElementById('edit-product-spec');
+    const editProductSalePriceInput = document.getElementById('edit-product-sale-price');
+    const editProductCostPriceInput = document.getElementById('edit-product-cost-price');
+    const editProductSupplierInput = document.getElementById('edit-product-supplier');
+    const editProductFeedback = document.getElementById('edit-product-feedback');
+
+
+    const mainContent = document.getElementById('main-content');
+    const scrollToTopButton = document.getElementById('scroll-to-top');
+
+    const generalCalcValorBase = document.getElementById('general-valor-base');
+    const generalCalcPaymentRadios = document.querySelectorAll('input[name="general-payment-method"]');
+    const generalCalcInstallmentsContainer = document.getElementById('general-installments-container');
+    const generalCalcParcelasSelect = document.getElementById('general-parcelas');
+    const generalCalculateButton = document.getElementById('general-calculate-button');
+    const generalCalculatorResult = document.getElementById('general-calculator-result');
+
+    const navToggleButton = document.getElementById('nav-toggle-btn');
+    const navToggleButtonClose = document.getElementById('nav-toggle-btn-close'); 
+    const navElement = document.querySelector('nav'); 
+    const appBody = document.querySelector('.app-body');
+    const headerElement = document.querySelector('header'); 
+
+    const bodyElement = document.body; 
+
+    // Novos elementos da IA
+    const aiChatButton = document.getElementById('ai-chat-button');
+    const aiChatModal = document.getElementById('ai-chat-modal');
+    const aiChatCloseButton = document.getElementById('ai-chat-close-button');
+    const aiQuestionInput = document.getElementById('ai-question-input');
+    const submitAiQuestionButton = document.getElementById('submit-ai-question');
+    const aiResponseArea = document.getElementById('ai-response-area');
+    const aiLoader = document.getElementById('ai-loader');
+
+    // Elementos do modal de senha do fornecedor
+    const supplierPasswordModal = document.getElementById('supplier-password-modal');
+    const supplierAccessPasswordInput = document.getElementById('supplier-access-password');
+    const submitSupplierPasswordButton = document.getElementById('submit-supplier-password');
+    const supplierPasswordError = document.getElementById('supplier-password-error');
+    const supplierPasswordCloseButton = document.getElementById('supplier-password-close-button');
+
+    // Elementos do modal de alteração de senha
+    const changePasswordModal = document.getElementById('change-password-modal');
+    const changePasswordModalTitle = document.getElementById('change-password-modal-title');
+    const changePasswordMessage = document.getElementById('change-password-message');
+    const newPasswordInput = document.getElementById('new-password');
+    const confirmNewPasswordInput = document.getElementById('confirm-new-password');
+    const submitChangePasswordButton = document.getElementById('submit-change-password');
+    const changePasswordError = document.getElementById('change-password-error');
+    const changePasswordSuccess = document.getElementById('change-password-success');
+    const changePasswordCloseButton = document.getElementById('change-password-close-button');
+
+
+    let currentUser = null;
+    let activeSectionId = 'products-section'; // Define a seção inicial padrão para usuários logados
+    let tempUserInterval;
+    let pendingSupplierSectionAccess = false; // Flag para controlar o acesso pendente aos fornecedores
+
+    // --- FUNÇÕES DA API GEMINI ---
+    async function callGeminiAPI(prompt, title, isProductHelp = false, productSpecs = '', isGeneralAI = false) { 
+        if (!isGeneralAI) {
+            modalTitle.textContent = title;
+            modalBody.innerHTML = '<div class="loader"></div>';
+            openModal(); 
+        } else {
+            aiChatModal.style.display = 'block';
+            aiLoader.style.display = 'block';
+            aiResponseArea.style.display = 'none'; 
+            aiResponseArea.innerHTML = ''; 
+            mainModal.style.display = 'none'; 
+        }
+
+        // Use a Gemini API Key válida aqui. Se a chave for inválida ou não funcionar, as chamadas à IA falharão.
+        const apiKey = "YOUR_GEMINI_API_KEY"; 
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`; 
+        
+        let fullPrompt = prompt;
+        if (isProductHelp) {
+            fullPrompt = `R2D2: Responda de forma direta e clara (máximo 3 frases) à seguinte dúvida do cliente sobre o produto "${productSpecs}". Dúvida do cliente: "${prompt}"`;
+        } else if (isGeneralAI) { 
+            const currentDateTime = new Date().toLocaleString('pt-BR', { dateStyle: 'full', timeStyle: 'long' });
+            fullPrompt = `Você é um assistente da Galvão Drones, especializada em drones e equipamentos DJI. Responda de forma útil, amigável e concisa (máximo 4 frases) às perguntas, utilizando o conhecimento de um especialista em drones. Se a pergunta for sobre produtos específicos da Galvão Drones, como modelos de drones ou equipamentos, use seu conhecimento para dar uma resposta detalhada sobre o universo de drones. Se a pergunta for sobre a empresa "Galvão Drones" (como localização, contato, serviços), forneça as seguintes informações: "A Galvão Drones está localizada na Rua 16, nº 304 – Setor Aeroviário, Goiânia – GO, CEP: 74435-240. Você pode nos contatar pelo telefone (62) 3636-0668 ou pelo WhatsApp 556236360668. Nosso website é www.galvaodrones.com.br e também estamos no Instagram (@galvao_drones) e YouTube (Galvão Drones)." Considere a data e hora atual: ${currentDateTime}. Pergunta do usuário: "${prompt}"`;
+        } else {
+             fullPrompt = `R2D2: ${prompt}`;
+        }
+
+        const payload = { contents: [{ role: "user", parts: [{ text: fullPrompt }] }] };
+        
+        try {
+            const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            if (!response.ok) {
+                   const errorData = await response.json();
+                   throw new Error(errorData.error.message || `Erro na API: ${response.statusText}`);
+            }
+            const result = await response.json();
+            if (result.candidates && result.candidates.length > 0 && result.candidates[0].content && result.candidates[0].content.parts) {
+                const text = result.candidates[0].content.parts[0].text;
+                if (isGeneralAI) {
+                    aiResponseArea.innerHTML = text.replace(/\n/g, '<br>');
+                    aiResponseArea.style.display = 'block';
+                    aiLoader.style.display = 'none';
+                } else {
+                    modalBody.innerHTML = text.replace(/\n/g, '<br>');
+                }
+            } else { throw new Error("A resposta da API não contém o conteúdo esperado."); }
+        } catch (error) {
+            console.error("Erro ao chamar a API Gemini:", error);
+            if (isGeneralAI) {
+                aiResponseArea.innerHTML = `<p style="color:red;">Ocorreu um erro ao comunicar com a IA. Tente novamente.<br><small>Detalhe: ${error.message}</small></p>`;
+                aiResponseArea.style.display = 'block';
+                aiLoader.style.display = 'none';
+            } else {
+                modalBody.innerHTML = `<p style="color:red;">Ocorreu um erro ao comunicar com a IA. Tente novamente.<br><small>Detalhe: ${error.message}</small></p>`;
+            }
+        }
+    }
+
+    // --- FUNÇÕES PRINCIPAIS DO APP ---
+    function handleLogin() {
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value;
+        const user = USERS[username];
+
+        // Resetar mensagem de erro antes de tentar o login
+        loginError.textContent = ''; 
+        loginError.style.display = 'none'; 
+
+        if (user && user.password === password) {
+            // Se o usuário é temporário e expirou, mostra erro específico
+            if (user.type === 'temporary' && Date.now() > user.expiresAt) {
+                loginError.textContent = 'Este usuário temporário expirou.';
+                loginError.style.display = 'block';
+                return; // Impede o login
+            }
+            
+            currentUser = { ...user, username: username }; 
+            // Senha correta, esconde o erro de login
+            loginError.style.display = 'none'; 
+
+            // Verifica se é o primeiro login e se NÃO é um usuário temporário
+            if (currentUser.firstLogin && currentUser.type !== 'temporary') {
+                loginScreen.style.display = 'none';
+                appScreen.style.display = 'block'; 
+                showChangePasswordModal(true); // true = obrigatório
+            } else {
+                loginScreen.style.display = 'none';
+                appScreen.style.display = 'block';
+                setupAppForUser(); // Configura a interface após login bem-sucedido
+            }
+        } else {
+            // Credenciais incorretas
+            loginError.textContent = 'Usuário ou senha incorretos.';
+            loginError.style.display = 'block';
+        }
+    }
+
+    function handleVisitorMode() {
+        currentUser = { username: 'Visitante', role: 'visitor', type: 'permanent', isVisitor: true, firstLogin: false }; // Modo visitante
+        loginScreen.style.display = 'none';
+        appScreen.style.display = 'block';
+        loginError.style.display = 'none'; // Limpa qualquer erro de login anterior
+        setupAppForUser();
+    }
+
+    function handleLogout() {
+        currentUser = null;
+        clearInterval(tempUserInterval);
+        appScreen.style.display = 'none';
+        loginScreen.style.display = 'block';
+        usernameInput.value = '';
+        passwordInput.value = '';
+        headerElement.classList.remove('visitor-header');
+        bodyElement.classList.remove('visitor-mode-bg'); 
+        aiChatButton.style.display = 'none'; 
+        aiChatModal.style.display = 'none'; 
+        changePasswordLink.style.display = 'none'; 
+        // Esconde o botão de logout ao sair
+        logoutButton.style.display = 'none'; 
+        closeMobileNav();
+    }
+
+    function setupAppForUser() {
+        const isVisitor = currentUser.isVisitor;
+        const isAdmin = currentUser.role === 'admin';
+        const isMikhaell = currentUser.username === 'mikhaell';
+        const isTempUser = currentUser.type === 'temporary';
+        
+        // Limpa a visibilidade de todos os botões de navegação e do submenu
+        navButtons.forEach(button => button.classList.add('hidden'));
+        settingsSubNav.style.display = 'none'; 
+        settingsOptionsGrid.innerHTML = ''; // Limpa as opções da grade ao reconfigurar
+
+        // Mensagem de boas-vindas
+        welcomeMessage.textContent = `Bem-vindo(a), ${currentUser.username}!`;
+        
+        // Exibe o botão de logout para todos os usuários logados (não visitantes)
+        if (!isVisitor) {
+            logoutButton.style.display = 'block'; 
+        } else {
+            logoutButton.style.display = 'none'; 
+        }
+
+        changePasswordLink.style.display = 'none'; // Esconde por padrão, só mostra se for usuário normal
+
+        // Lógica de visibilidade para visitante
+        if (isVisitor) {
+            headerElement.classList.add('visitor-header'); // Esconde 'Bem-vindo' no header
+            bodyElement.classList.add('visitor-mode-bg'); 
+            
+            // Botões de navegação para visitante: Apenas Drones e Info Empresa
+            dronesNavButton.classList.remove('hidden'); 
+            infoEmpresaNavButton.classList.remove('hidden'); 
+            dronesNavButton.style.order = 1; 
+            infoEmpresaNavButton.style.order = 2; 
+
+            // Esconde todas as outras opções que não são para visitante
+            productsNavButton.classList.add('hidden'); 
+            calculatorNavButton.classList.add('hidden'); 
+            suppliersNavButton.classList.add('hidden'); 
+            settingsNavButton.classList.add('hidden'); 
+            manageUsersNavButton.classList.add('hidden'); 
+            createProductNavButton.classList.add('hidden'); 
+            editProductNavButton.classList.add('hidden'); 
+
+            switchTab('drones-visitor-section'); // Inicia em "Drones" para visitantes
+        } 
+        // Lógica de visibilidade para usuários logados (Admin ou Seller)
+        else { 
+            headerElement.classList.remove('visitor-header'); // Remove classes de visitante
+            bodyElement.classList.remove('visitor-mode-bg'); 
+            
+            // Link "Alterar Senha" visível para usuários permanentes (não temporários)
+            if (isTempUser) { // Se for temporário, oculta o link de alterar senha
+                changePasswordLink.style.display = 'none';
+            } else { // Se não for temporário, mostra o link
+                changePasswordLink.style.display = 'inline';
+            }
+
+            // Botões de navegação base para todos os logados
+            productsNavButton.classList.remove('hidden');
+            calculatorNavButton.classList.remove('hidden');
+            dronesNavButton.classList.remove('hidden');
+            infoEmpresaNavButton.classList.remove('hidden');
+
+            productsNavButton.style.order = 1;
+            calculatorNavButton.style.order = 2;
+            dronesNavButton.style.order = 3;
+            infoEmpresaNavButton.style.order = 4;
+            
+            if (isAdmin) {
+                suppliersNavButton.classList.remove('hidden');
+                suppliersNavButton.style.order = 3; 
+
+                settingsNavButton.classList.remove('hidden'); 
+                settingsNavButton.style.order = 4; 
+
+                // Visibilidade das sub-opções na NAV para Mikhaell (Gerir Usuários)
+                if (isMikhaell) {
+                    manageUsersNavButton.classList.remove('hidden');
+                    manageUsersNavButton.style.order = 5;
+                } else {
+                    manageUsersNavButton.classList.add('hidden');
+                }
+                
+                // Criar e Alterar Produto para todos os admins
+                createProductNavButton.classList.remove('hidden');
+                editProductNavButton.classList.remove('hidden');
+                createProductNavButton.style.order = 6;
+                editProductNavButton.style.order = 7;
+                
+                dronesNavButton.style.order = 8;
+                infoEmpresaNavButton.style.order = 9;
+
+                // Renderiza os cards de atalho na seção de configurações (main content)
+                renderSettingsOptionsGrid(); 
+
+            } else { // Se for seller (ou temporário), esconde as opções restritas
+                suppliersNavButton.classList.add('hidden'); 
+                settingsNavButton.classList.add('hidden'); 
+                manageUsersNavButton.classList.add('hidden');
+                createProductNavButton.classList.add('hidden');
+                editProductNavButton.classList.add('hidden');
+                settingsOptionsGrid.innerHTML = ''; // Garante que a grade de opções esteja vazia
+
+                productsNavButton.style.order = 1;
+                calculatorNavButton.style.order = 2;
+                dronesNavButton.style.order = 3;
+                infoEmpresaNavButton.style.order = 4;
+            }
+            
+            switchTab('products-section'); // Inicia na seção de produtos para logados
+        }
+
+        aiChatButton.style.display = 'block';
+        
+        const cnpjDisplayLine = document.getElementById('cnpj-display-line');
+        if (cnpjDisplayLine) {
+            cnpjDisplayLine.style.display = isVisitor ? 'none' : 'block';
+        }
+
+        if (window.innerWidth <= 768) {
+            navToggleButton.style.display = 'block'; 
+            navToggleButton.textContent = '☰'; 
+            closeMobileNav(); 
+        } else {
+            navToggleButton.style.display = 'none';
+        }
+        
+        if (isTempUser) {
+            showTemporaryUserWarning();
+        }
+    }
+
+    function renderProducts(searchTerm = '') {
+        productList.innerHTML = '';
+        const lowerCaseSearchTerm = searchTerm.toLowerCase();
+        
+        if (currentUser.isVisitor) {
+            productList.innerHTML = '<p>Funcionalidade de produtos não disponível no modo visitante. Use a seção "Drones".</p>';
+            return;
+        }
+
+        const productsToShow = PRODUCTS.filter(p => 
+            p.name.toLowerCase().includes(lowerCaseSearchTerm) || 
+            p.spec.toLowerCase().includes(lowerCaseSearchTerm) ||
+            (p.sources && p.sources.some(source => source.supplierName.toLowerCase().includes(lowerCaseSearchTerm)))
+        );
+
+        if (productsToShow.length === 0) {
+            productList.innerHTML = '<p>Nenhum produto encontrado.</p>';
+        }
+
+        productsToShow.forEach(product => {
+            const productCard = document.createElement('div');
+            productCard.className = 'card product-card';
+            productCard.dataset.productId = product.id;
+            const isAdmin = currentUser.role === 'admin';
+            const isSeller = currentUser.role === 'seller';
+            
+            const salePriceLabel = isSeller ? 'Valor' : 'Valor de Venda';
+            
+            let adminCostInfoHTML = '';
+            if (isAdmin) { 
+                adminCostInfoHTML = `<p><strong>Custos por Fornecedor:</strong></p><ul class="product-suppliers-list">`;
+                if (product.sources && product.sources.length > 0) {
+                    product.sources.forEach(source => {
+                        adminCostInfoHTML += `
+                            <li>
+                                <a href="#" class="supplier-name-link" data-supplier-name="${source.supplierName}">
+                                    ${source.supplierName}
+                                </a>
+                                <span class="cost-value">${source.costPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
+                            </li>
+                        `;
+                    });
+                } else {
+                    adminCostInfoHTML += `<li><span class="cost-value">N/A (Sem Fornecedor Registrado)</span></li>`;
+                }
+                adminCostInfoHTML += `</ul>`;
+            }
+
+            productCard.innerHTML = `
+                <h3>${product.name}</h3>
+                <p class="product-spec"><strong>Especificações:</strong><br>${product.spec}</p>
+                <p class="price">${salePriceLabel}: ${product.salePrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
+                ${isAdmin ? adminCostInfoHTML : ''}
+                <div class="action-buttons-container">
+                    <button class="gemini-button desc-button">✨ Gerar Descrição</button>
+                    <button class="gemini-button args-button">✨ Criar Argumentos</button>
+                    <button class="whatsapp-button" data-product-name="${product.name}" data-product-spec="${product.spec}">💬 WhatsApp</button>
+                    <button class="help-button">💡 Ajudar Cliente</button>
+                </div>
+                <div class="calculator-container">
+                    <div class="payment-method-selector">
+                        <input type="radio" id="payment-vista-${product.id}" name="payment-method-${product.id}" value="vista" checked>
+                        <label for="payment-vista-${product.id}">À vista</label>
+                        <input type="radio" id="payment-parcelado-${product.id}" name="payment-method-${product.id}" value="parcelado">
+                        <label for="payment-parcelado-${product.id}">Parcelado</label>
+                    </div>
+                    ${isAdmin ? `
+                    <div class="discount-option hidden" id="discount-option-${product.id}">
+                        <label for="discount-percentage-${product.id}">Desconto (%):</label>
+                        <input type="number" id="discount-percentage-${product.id}" min="0" max="15" value="0">
+                    </div>
+                    ` : ''}
+                    <div class="installments-container hidden">
+                        <label for="parcelas-${product.id}">Parcelas:</label>
+                        <select class="parcelas-select">
+                           <option value="1">1x</option><option value="2">2x</option><option value="3">3x</option><option value="4">4x</option><option value="5">5x</option><option value="6">6x</option><option value="7">7x</option><option value="8">8x</option><option value="9">9x</option><option value="10">10x</option><option value="11">11x</option><option value="12">12x</option>
+                        </select>
+                    </div>
+                    <button class="calculate-product-btn">Calcular</button>
+                    <div class="product-calculator-result"></div>
+                </div>
+            `;
+            productList.appendChild(productCard);
+        });
+    }
+
+    function renderDroneVisitorList(searchTerm = '') {
+        droneVisitorList.innerHTML = '';
+        const lowerCaseSearchTerm = searchTerm.toLowerCase();
+        const dronesToShow = PRODUCTS.filter(p => 
+            (p.name.toLowerCase().includes("dji") || p.name.toLowerCase().includes("drone") || p.name.toLowerCase().includes("mavic") || p.name.toLowerCase().includes("avata") || p.name.toLowerCase().includes("matrice") || p.name.toLowerCase().includes("skyfend") || p.name.toLowerCase().includes("sentinel") || p.name.toLowerCase().includes("neo")) &&
+            (p.name.toLowerCase().includes(lowerCaseSearchTerm) || p.spec.toLowerCase().includes(lowerCaseSearchTerm))
+        );
+
+
+        if (dronesToShow.length === 0) {
+            droneVisitorList.innerHTML = '<p>Nenhum drone encontrado com esse termo.</p>';
+        }
+
+        dronesToShow.forEach(product => {
+            const droneCard = document.createElement('div');
+            droneCard.className = 'card product-card'; 
+            droneCard.dataset.productId = product.id; 
+            
+            droneCard.innerHTML = `
+                <h3>${product.name}</h3>
+                <p class="product-spec"><strong>Especificações:</strong><br>${product.spec}</p>
+                <p class="price" style="color: var(--secondary-color);">Consultar valor e disponibilidade</p>
+                <div class="action-buttons-container">
+                    <a href="https://wa.me/556236360668?text=${encodeURIComponent('Olá, gostaria de saber mais sobre o ' + product.name + ' e sua disponibilidade.')}" target="_blank" class="action-button whatsapp-button" style="width: auto;">Consultar via WhatsApp</a>
+                    <button class="action-button help-product-visitor-btn" data-product-name="${product.name}" data-product-spec="${product.spec}">Precisa de ajuda com esse produto?</button>
+                </div>
+            `;
+            droneVisitorList.appendChild(droneCard);
+        });
+    }
+
+    function calculate(baseValue, numInstallments, paymentMethod, discountPercentage = 0) {
+        const valor = parseFloat(baseValue);
+        if (isNaN(valor) || valor <= 0) {
+            return '<p style="color:red;">Valor base inválido.</p>';
+        }
+        
+        let taxa, valorFinal;
+
+        taxa = INSTALLMENT_RATES[1] || 0;
+        valorFinal = valor * (1 + taxa);
+
+        if (currentUser.role === 'admin' && paymentMethod === 'vista' && discountPercentage > 0 && discountPercentage <= 15) {
+            valorFinal = valorFinal * (1 - (discountPercentage / 100));
+            valorFinal = parseFloat(valorFinal.toFixed(2)); 
+        }
+
+        let resultHTML = `<div class="result-vista">Valor à Vista: ${valorFinal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</div>`;
+        
+        if (paymentMethod === 'parcelado') {
+            const parcelas = parseInt(numInstallments);
+            taxa = INSTALLMENT_RATES[parcelas] || 0;
+            valorFinal = valor * (1 + taxa);
+            const valorParcela = valorFinal / parcelas;
+            const valorTaxa = valorFinal - valor;
+
+            resultHTML += `
+                <div class="result-parcelado">
+                    <strong>Opção Parcelado:</strong><br>
+                    <span>Valor Final: <strong>${valorFinal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</strong></span><br>
+                    <small>${parcelas}x de ${valorParcela.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</small><br>
+                    <small>Valor da taxa: ${valorTaxa.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</small>
+                </div>
+            `;
+        }
+        return resultHTML;
+    }
+
+    function switchTab(newSectionId) {
+        const isVisitor = currentUser.isVisitor;
+        const isAdmin = currentUser.role === 'admin';
+        const isMikhaell = currentUser.username === 'mikhaell';
+
+        let canAccess = false;
+
+        // Lógica de acesso: O que cada tipo de usuário PODE ver
+        if (newSectionId === 'products-section' || newSectionId === 'calculator-section') {
+            canAccess = !isVisitor; // Todos logados podem ver produtos e calculadora
+        } else if (newSectionId === 'drones-visitor-section' || newSectionId === 'info-section') {
+            canAccess = true; // Todos podem ver drones e info da empresa (incluindo visitantes)
+        } else if (newSectionId === 'suppliers-section') {
+            if (isAdmin) {
+                if (pendingSupplierSectionAccess) {
+                    canAccess = true; 
+                } else {
+                    supplierPasswordModal.style.display = 'block';
+                    supplierAccessPasswordInput.value = '';
+                    supplierPasswordError.style.display = 'none';
+                    return; 
+                }
+            }
+        } else if (newSectionId === 'settings-section' || newSectionId === 'create-product-section' || newSectionId === 'edit-product-section') {
+            canAccess = isAdmin; // Apenas admins podem ver estas seções
+        } else if (newSectionId === 'manage-users-section') {
+            canAccess = isMikhaell; // Apenas Mikhaell pode gerenciar usuários
+        }
+
+        if (!canAccess) {
+            let fallbackSection = 'products-section';
+            if (isVisitor) fallbackSection = 'drones-visitor-section';
+
+            contentSections.forEach(s => s.classList.remove('active')); 
+            document.querySelectorAll('.nav-button').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(fallbackSection).classList.add('active');
+            let fallbackButton = document.querySelector(`[data-section="${fallbackSection}"]`);
+            if (fallbackButton) fallbackButton.classList.add('active');
+
+            settingsSubNav.style.display = 'none'; // Sempre esconde o submenu se não puder acessar
+
+            alert('Você não tem permissão para acessar esta seção.');
+            activeSectionId = fallbackSection; 
+            return;
+        }
+
+        // Continuação da troca de aba (se o acesso for permitido)
+        contentSections.forEach(s => s.classList.remove('active')); 
+        document.querySelectorAll('.nav-button').forEach(b => b.classList.remove('active'));
+        
+        document.getElementById(newSectionId).classList.add('active');
+
+        let targetButton = document.querySelector(`[data-section="${newSectionId}"]`);
+        if (targetButton) {
+            targetButton.classList.add('active');
+            if (targetButton.classList.contains('sub-nav-button')) {
+                settingsNavButton.classList.add('active');
+            }
+        }
+
+        // Lógica para mostrar/esconder o sub-menu de Configurações
+        if (newSectionId.includes('settings') && isAdmin) { 
+            settingsSubNav.style.display = 'block';
+        } else {
+            settingsSubNav.style.display = 'none'; 
+        }
+
+        activeSectionId = newSectionId; 
+
+        // Funções de renderização específicas da seção
+        if (newSectionId === 'manage-users-section') renderTempUserList();
+        if (newSectionId === 'products-section') renderProducts();
+        if (newSectionId === 'drones-visitor-section') renderDroneVisitorList();
+        if (newSectionId === 'settings-section' && isAdmin) {
+            renderSettingsOptionsGrid(); 
+        }
+        if (newSectionId === 'suppliers-section') {
+              showSuppliers(); 
+        }
+
+
+        if (window.innerWidth <= 768) {
+            closeMobileNav();
+        }
+    }
+
+    // NOVO: Função para renderizar os cards de opções na tela de configurações
+    function renderSettingsOptionsGrid() {
+        settingsOptionsGrid.innerHTML = ''; // Limpa qualquer conteúdo anterior
+
+        const isMikhaell = currentUser.username === 'mikhaell';
+        const isAdmin = currentUser.role === 'admin';
+
+        if (isMikhaell) {
+            const manageUsersCard = document.createElement('div');
+            manageUsersCard.className = 'card';
+            manageUsersCard.innerHTML = `<h3>Gerir Usuários</h3><p>Crie e gerencie acessos temporários.</p>`;
+            manageUsersCard.addEventListener('click', () => switchTab('manage-users-section'));
+            settingsOptionsGrid.appendChild(manageUsersCard);
+        }
+        
+        if (isAdmin) {
+            const createProductCard = document.createElement('div');
+            createProductCard.className = 'card';
+            createProductCard.innerHTML = `<h3>Criar Produto</h3><p>Adicione novos produtos ao sistema.</p>`;
+            createProductCard.addEventListener('click', () => switchTab('create-product-section'));
+            settingsOptionsGrid.appendChild(createProductCard);
+
+            const editProductCard = document.createElement('div');
+            editProductCard.className = 'card';
+            editProductCard.innerHTML = `<h3>Alterar Produto</h3><p>Edite dados de produtos existentes.</p>`;
+            editProductCard.addEventListener('click', () => switchTab('edit-product-section'));
+            settingsOptionsGrid.appendChild(editProductCard);
+        }
+    }
+
+    // --- GESTÃO DE USUÁRIOS TEMPORÁRIOS ---
+    function createTemporaryUser(event) {
+        event.preventDefault();
+        const username = document.getElementById('temp-username').value;
+        const password = document.getElementById('temp-password').value;
+        const durationHours = parseInt(document.getElementById('temp-duration').value);
+        
+        if (USERS[username]) {
+            tempUserFeedback.textContent = 'Erro: Nome de usuário já existe.'; tempUserFeedback.style.color = 'red'; return;
+        }
+
+        USERS[username] = { password, role: 'seller', type: 'temporary', expiresAt: Date.now() + durationHours * 60 * 60 * 1000, firstLogin: false };
+
+        tempUserFeedback.textContent = `Usuário "${username}" criado com sucesso!`; tempUserFeedback.style.color = 'green';
+        createTempUserForm.reset(); renderTempUserList();
+        setTimeout(() => tempUserFeedback.textContent = '', 5000);
+    }
+    
+    function renderTempUserList() {
+        tempUserListContainer.innerHTML = '';
+        const tempUsers = Object.entries(USERS).filter(([_, user]) => user.type === 'temporary'); 
+
+        if(tempUsers.length === 0) {
+            tempUserListContainer.innerHTML = '<p>Nenhum usuário temporário criado.</p>';
+            return;
+        }
+
+        tempUsers.forEach(([username, user]) => {
+            const item = document.createElement('div');
+            item.className = 'temp-user-item';
+            const expires = new Date(user.expiresAt).toLocaleString('pt-BR');
+            item.innerHTML = `
+                <div class="user-info">
+                    <p><strong>${username}</strong></p>
+                    <p><small>Expira em: ${expires}</small></p>
+                </div>
+                <div class="user-actions">
+                    <button class="edit-btn" data-username="${username}">Editar</button>
+                    <button class="delete-btn" data-username="${username}">Excluir</button>
+                </div>
+            `;
+            item.querySelector('.edit-btn').addEventListener('click', () => openEditTempUserModal(username));
+            item.querySelector('.delete-btn').addEventListener('click', () => deleteTempUser(username));
+            tempUserListContainer.appendChild(item);
+        });
+    }
+
+    function openEditTempUserModal(username) {
+        const user = USERS[username];
+        modalTitle.textContent = `Editar Usuário: ${username}`;
+        modalBody.innerHTML = `
+            <form id="edit-temp-user-form">
+                <div class="input-group"><label for="edit-temp-password">Nova Senha</label><input type="text" id="edit-temp-password" value="${user.password}" required></div>
+                <div class="input-group"><label for="edit-temp-duration">Estender Duração (a partir de agora)</label><select id="edit-temp-duration">
+                    <option value="1">1 Hora</option><option value="8">8 Horas</option><option value="24">24 Horas</option><option value="72">72 Horas</option>
+                </select></div>
+                <button type="submit" class="action-button">Salvar Alterações</button>
+            </form>
+        `;
+        openModal();
+        document.getElementById('edit-temp-user-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newPassword = document.getElementById('edit-temp-password').value;
+            const newDuration = parseInt(document.getElementById('edit-temp-duration').value);
+            USERS[username].password = newPassword;
+            USERS[username].expiresAt = Date.now() + newDuration * 60 * 60 * 1000;
+            closeModal();
+            renderTempUserList();
+        });
+    }
+    
+    function deleteTempUser(username) {
+        if (confirm(`Tem certeza que deseja excluir o usuário temporário "${username}"?`)) {
+            delete USERS[username];
+            renderTempUserList();
+            if (currentUser && currentUser.username === username) {
+                handleLogout(); 
+                alert('Sua sessão foi encerrada, pois o usuário temporário foi excluído.');
+            }
+        }
+    }
+
+    function getRemainingTime(expiry) {
+        const total = expiry - Date.now();
+        const seconds = Math.floor((total / 1000) % 60);
+        const minutes = Math.floor((total / 1000 / 60) % 60);
+        const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
+        return { hours, minutes, seconds };
+    }
+    
+    function showTemporaryUserWarning() {
+        clearInterval(tempUserInterval);
+        function updateWarning() {
+            const { hours, minutes, seconds } = getRemainingTime(currentUser.expiresAt);
+            if (hours < 0 || minutes < 0 || seconds < 0) {
+                modalBody.innerHTML = '<h2>Acesso Expirado</h2><p>O seu tempo de acesso terminou. A sessão será encerrada.</p>';
+                setTimeout(handleLogout, 3000);
+                clearInterval(tempUserInterval);
+            } else {
+                modalBody.innerHTML = `<h2>Acesso Temporário</h2><p>Esta é uma conta de convidado. O seu acesso irá expirar em:</p>
+                <h3 style="text-align:center;">${hours}h ${minutes}m ${seconds}s</h3>`;
+            }
+        }
+        updateWarning();
+        modalTitle.textContent = "Aviso";
+        openModal();
+        tempUserInterval = setInterval(updateWarning, 1000);
+    }
+
+    // --- FUNÇÕES DE CRIAÇÃO E ALTERAÇÃO DE PRODUTOS ---
+    function generateNewProductId() {
+        if (PRODUCTS.length === 0) return 1;
+        const maxId = Math.max(...PRODUCTS.map(p => p.id));
+        return maxId + 1;
+    }
+
+    function handleCreateProduct(event) {
+        event.preventDefault();
+        const name = document.getElementById('new-product-name').value.trim();
+        const spec = document.getElementById('new-product-spec').value.trim();
+        const salePrice = parseFloat(document.getElementById('new-product-sale-price').value);
+        const costPrice = parseFloat(document.getElementById('new-product-cost-price').value);
+        const supplier = document.getElementById('new-product-supplier').value.trim();
+
+        if (!name || !spec || isNaN(salePrice) || salePrice <= 0) {
+            createProductFeedback.textContent = 'Preencha todos os campos obrigatórios (Nome, Especificações, Preço de Venda).';
+            createProductFeedback.style.color = 'red';
+            return;
+        }
+
+        const newProduct = {
+            id: generateNewProductId(),
+            name,
+            spec,
+            salePrice,
+            sources: [{ 
+                supplierName: supplier || 'Não especificado', 
+                costPrice: isNaN(costPrice) ? 0 : costPrice 
+            }] 
+        };
+
+        PRODUCTS.push(newProduct);
+        createProductFeedback.textContent = `Produto "${newProduct.name}" (ID: ${newProduct.id}) criado com sucesso!`;
+        createProductFeedback.style.color = 'green';
+        createProductForm.reset();
+        renderProducts(); 
+    }
+
+    // Função para pesquisar e exibir produtos para edição
+    function handleSearchProductToEdit() {
+        const searchTerm = editProductSearchInput.value.trim().toLowerCase();
+        editProductSearchResults.innerHTML = ''; // Limpa resultados anteriores
+        editProductForm.classList.add('hidden'); // Esconde o formulário de edição
+        editProductDisplay.innerHTML = '<p>Use a busca acima para carregar os dados do produto.</p>'; // Reseta a mensagem de display
+        editProductFeedback.textContent = ''; // Limpa feedback
+
+        if (!searchTerm) {
+            editProductSearchResults.innerHTML = '<p style="color:orange;">Por favor, digite um ID ou nome para pesquisar.</p>';
+            return;
+        }
+
+        let foundProducts = [];
+
+        // Tenta buscar por ID exato primeiro
+        const parsedId = parseInt(searchTerm);
+        if (!isNaN(parsedId)) {
+            const productById = PRODUCTS.find(p => p.id === parsedId);
+            if (productById) {
+                foundProducts.push(productById);
+            }
+        } 
+        
+        // Se não encontrou por ID exato, ou se o termo não era um ID, busca por nome (parcial)
+        if (foundProducts.length === 0) {
+            foundProducts = PRODUCTS.filter(p => p.name.toLowerCase().includes(searchTerm));
+        }
+
+        if (foundProducts.length > 0) {
+            editProductSearchResults.innerHTML = '<p>Selecione um produto para alterar:</p><ul style="list-style:none; padding:0;">';
+            foundProducts.forEach(product => {
+                const listItem = document.createElement('li');
+                listItem.style.padding = '8px';
+                listItem.style.borderBottom = '1px solid #eee';
+                listItem.style.cursor = 'pointer';
+                listItem.style.backgroundColor = 'white'; 
+                listItem.style.transition = 'background-color 0.2s';
+                
+                listItem.innerHTML = `<strong>ID: ${product.id}</strong> - ${product.name}`; 
+
+                listItem.addEventListener('mouseover', () => listItem.style.backgroundColor = '#ecf0f1');
+                listItem.addEventListener('mouseout', () => listItem.style.backgroundColor = 'white');
+                
+                listItem.addEventListener('click', () => {
+                    loadProductForEdit(product.id);
+                    editProductSearchResults.innerHTML = ''; // Limpa resultados após seleção
+                });
+                editProductSearchResults.appendChild(listItem);
+            });
+            editProductSearchResults.innerHTML += '</ul>';
+        } else {
+            editProductSearchResults.innerHTML = '<p style="color:orange;">Nenhum produto encontrado com o termo fornecido.</p>';
+        }
+    }
+
+    // Carrega os dados do produto selecionado no formulário de edição
+    function loadProductForEdit(productId) {
+        const product = PRODUCTS.find(p => p.id === productId);
+        if (product) {
+            editProductDisplay.innerHTML = `<p>Editando: <strong>${product.name}</strong> (ID: ${product.id})</p>`;
+            editProductForm.classList.remove('hidden'); // Certifica que o formulário está visível
+            editProductFeedback.textContent = ''; 
+            editProductSearchResults.innerHTML = ''; // Limpa os resultados da busca após seleção
+
+            editProductIdInput.value = product.id;
+            editProductNameInput.value = product.name;
+            editProductSpecTextarea.value = product.spec;
+            editProductSalePriceInput.value = product.salePrice;
+            // Para edição simplificada, preenche com o primeiro fornecedor ou vazio
+            editProductCostPriceInput.value = product.sources[0] ? product.sources[0].costPrice : '';
+            editProductSupplierInput.value = product.sources[0] ? product.sources[0].supplierName : '';
+        }
+    }
+
+    function handleEditProduct(event) {
+        event.preventDefault();
+        const productId = parseInt(editProductIdInput.value);
+        const productIndex = PRODUCTS.findIndex(p => p.id === productId);
+
+        if (productIndex === -1) {
+            editProductFeedback.textContent = 'Erro: Produto não encontrado para alteração.';
+            editProductFeedback.style.color = 'red';
+            return;
+        }
+
+        const name = editProductNameInput.value.trim();
+        const spec = editProductSpecTextarea.value.trim();
+        const salePrice = parseFloat(editProductSalePriceInput.value);
+        const costPrice = parseFloat(editProductCostPriceInput.value); 
+        const supplier = editProductSupplierInput.value.trim();
+
+        if (!name || !spec || isNaN(salePrice) || salePrice <= 0) {
+            editProductFeedback.textContent = 'Preencha todos os campos obrigatórios (Nome, Especificações, Preço de Venda).';
+            editProductFeedback.style.color = 'red';
+            return;
+        }
+
+        // Update existing product details
+        PRODUCTS[productIndex].name = name;
+        PRODUCTS[productIndex].spec = spec;
+        PRODUCTS[productIndex].salePrice = salePrice;
+
+        // Update or create the first source
+        if (PRODUCTS[productIndex].sources && PRODUCTS[productIndex].sources.length > 0) {
+            PRODUCTS[productIndex].sources[0].supplierName = supplier || 'Não especificado';
+            PRODUCTS[productIndex].sources[0].costPrice = isNaN(costPrice) ? 0 : costPrice;
+        } else {
+            // If no sources exist, create one
+            PRODUCTS[productIndex].sources = [{ 
+                supplierName: supplier || 'Não especificado', 
+                costPrice: isNaN(costPrice) ? 0 : costPrice 
+            }];
+        }
+
+        editProductFeedback.textContent = `Produto "${name}" (ID: ${productId}) atualizado com sucesso!`;
+        editProductFeedback.style.color = 'green';
+        renderProducts(); // Re-render the products list to show updated data
+        editProductForm.classList.add('hidden'); // Hide the form after successful update
+        editProductDisplay.innerHTML = '<p>Use a busca acima para carregar os dados do produto.</p>'; // Reset display message
+        editProductSearchInput.value = ''; // Clear search input
+    }
+
+
+    // --- FUNÇÕES DE UTILIDADE GERAL ---
+    function handleWhatsAppShare(product) {
+        const salePrice = product.salePrice.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+        const message = `Olá! 👋\n\nEstou a enviar os detalhes sobre o *${product.name}* que conversámos. É um equipamento fantástico! 🚀\n\n*Especificações Principais:*\n${product.spec}\n\n*Valor de Venda:* ${salePrice}\n\nQualquer dúvida, estou à disposição!\n- Equipa Galvão Drones`;
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/?text=${encodedMessage}`; 
+        window.open(whatsappUrl, '_blank');
+    }
+
+    function handleCustomerHelp(product) {
+        modalTitle.textContent = `Assistente para: ${product.name}`;
+        modalBody.innerHTML = `
+            <div class="input-group">
+                <label for="customer-question">Copie e cole a pergunta do cliente abaixo:</label>
+                <textarea id="customer-question" rows="4"></textarea>
+            </div>
+            <button id="ask-gemini-button" class="action-button">Perguntar à IA</button>
+        `;
+        openModal();
+
+        document.getElementById('ask-gemini-button').addEventListener('click', () => {
+            const customerQuestion = document.getElementById('customer-question').value;
+             if (customerQuestion && customerQuestion.trim() !== '') {
+                const title = "Sugestão de Resposta para Cliente";
+                const prompt = `R2D2: Responda de forma direta e clara (máximo 3 frases) à seguinte dúvida do cliente, considerando estas especificações do produto: "${product.spec}". Dúvida do cliente: "${customerQuestion}"`;
+                callGeminiAPI(prompt, title);
+             }
+        });
+    }
+
+    function handleVisitorProductHelp(productName, productSpec) {
+        modalTitle.textContent = `Ajuda sobre: ${productName}`;
+        modalBody.innerHTML = `
+            <div class="input-group">
+                <label for="visitor-product-question">Qual sua dúvida sobre o ${productName}?</label>
+                <textarea id="visitor-product-question" rows="4"></textarea>
+            </div>
+            <button id="ask-gemini-visitor-product-button" class="action-button">Obter Ajuda da IA</button>
+        `;
+        openModal();
+
+        document.getElementById('ask-gemini-visitor-product-button').addEventListener('click', () => {
+            const visitorQuestion = document.getElementById('visitor-product-question').value;
+            if (visitorQuestion && visitorQuestion.trim() !== '') {
+                const title = "Resposta da Galvão Drones";
+                callGeminiAPI(visitorQuestion, title, true, productSpec); 
+            }
+        });
+    }
+
+    // Função para navegar para o fornecedor na seção de Fornecedores
+    function navigateToSupplierSection(supplierName) {
+        switchTab('suppliers-section'); 
+
+        setTimeout(() => {
+            const targetSupplierCard = document.querySelector(`#supplier-list .supplier-card h3 strong[data-supplier-name="${supplierName}"]`);
+            if (targetSupplierCard) {
+                targetSupplierCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                targetSupplierCard.closest('.supplier-card').style.backgroundColor = '#fffacd'; 
+                setTimeout(() => {
+                    targetSupplierCard.closest('.supplier-card').style.backgroundColor = ''; 
+                }, 3000);
+            } else {
+                console.log(`Fornecedor "${supplierName}" não encontrado na lista detalhada.`);
+            }
+        }, 300); 
+    }
+
+    function showSuppliers() {
+        supplierList.innerHTML = '';
+        SUPPLIERS.forEach(supplier => {
+            const supplierCard = document.createElement('div');
+            supplierCard.className = 'card supplier-card';
+            supplierCard.innerHTML = `
+                <h3><strong data-supplier-name="${supplier.name}">${supplier.name}</strong></h3>
+                <p><strong>Detalhes:</strong> ${supplier.details}</p>
+                <div><strong>Pagamento:</strong><br>${supplier.payment.replace(/\n/g, '<br>')}</div>
+                <p><strong>Produtos Principais:</strong> ${supplier.products}</p>
+            `;
+            supplierList.appendChild(supplierCard);
+        });
+        supplierPasswordModal.style.display = 'none'; 
+    }
+
+    // Função para exibir o modal de alteração de senha
+    function showChangePasswordModal(isMandatory = false) {
+        changePasswordModal.style.display = 'block';
+        newPasswordInput.value = '';
+        confirmNewPasswordInput.value = '';
+        changePasswordError.style.display = 'none';
+        changePasswordSuccess.style.display = 'none';
+
+        if (isMandatory) {
+            changePasswordModalTitle.textContent = 'Defina Sua Senha';
+            changePasswordMessage.textContent = 'Por favor, defina uma nova senha para sua conta. É obrigatório no primeiro acesso.';
+            changePasswordCloseButton.style.display = 'none'; 
+        } else {
+            changePasswordModalTitle.textContent = 'Alterar Senha';
+            changePasswordMessage.textContent = 'Digite sua nova senha abaixo.';
+            changePasswordCloseButton.style.display = 'block'; 
+        }
+    }
+
+    // Função para lidar com a submissão do formulário de alteração de senha
+    function handleChangePassword() {
+        const newPass = newPasswordInput.value;
+        const confirmPass = confirmNewPasswordInput.value;
+        changePasswordError.style.display = 'none';
+        changePasswordSuccess.style.display = 'none';
+
+        if (newPass.length < 6) {
+            changePasswordError.textContent = 'A nova senha deve ter no mínimo 6 dígitos.';
+            changePasswordError.style.display = 'block';
+            return;
+        }
+        if (newPass !== confirmPass) {
+            changePasswordError.textContent = 'As senhas não conferem.';
+            changePasswordError.style.display = 'block';
+            return;
+        }
+
+        USERS[currentUser.username].password = newPass;
+        USERS[currentUser.username].firstLogin = false; 
+
+        changePasswordSuccess.textContent = 'Senha alterada com sucesso!';
+        changePasswordSuccess.style.display = 'block';
+
+        setTimeout(() => {
+            changePasswordModal.style.display = 'none';
+            setupAppForUser(); 
+        }, 1500);
+    }
+
+    function openModal() { mainModal.style.display = 'block'; }
+    function closeModal() { mainModal.style.display = 'none'; modalBody.innerHTML = ''; clearInterval(tempUserInterval); }
+    function handleScroll() { mainContent.scrollTop > 200 ? scrollToTopButton.style.display = "block" : scrollToTopButton.style.display = "none"; }
+    function scrollTop() { mainContent.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+    // --- EVENT LISTENERS ---
+    loginButton.addEventListener('click', handleLogin);
+    visitorModeButton.addEventListener('click', handleVisitorMode); 
+    passwordInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleLogin(); });
+    logoutButton.addEventListener('click', handleLogout);
+    
+    changePasswordLink.addEventListener('click', () => {
+        if (currentUser && currentUser.type !== 'temporary') {
+            showChangePasswordModal(false); 
+        }
+    });
+
+    mainContent.addEventListener('click', (e) => {
+        const target = e.target;
+        const productCard = target.closest('.product-card');
+
+        // Lógica para link de fornecedor em produto (apenas para admins)
+        if (target.classList.contains('supplier-name-link')) {
+            e.preventDefault(); 
+            const supplierName = target.dataset.supplierName;
+            if (currentUser && currentUser.role === 'admin') { 
+                navigateToSupplierSection(supplierName);
+            }
+            return; 
+        }
+
+        // Lógica para o modo visitante (seção Drones)
+        if (currentUser && currentUser.isVisitor && target.classList.contains('help-product-visitor-btn')) {
+            const productName = target.dataset.productName;
+            const productSpec = target.dataset.productSpec;
+            handleVisitorProductHelp(productName, productSpec);
+            return; 
+        }
+
+        if (currentUser && currentUser.isVisitor) {
+            return; 
+        }
+
+        if (productCard) {
+            const productId = parseInt(productCard.dataset.productId);
+            const product = PRODUCTS.find(p => p.id === productId);
+            if (!product) return;
+            
+            if (target.classList.contains('desc-button')) {
+                const title = `Descrição para: ${product.name}`;
+                const prompt = `R2D2: Gere uma descrição de venda curta e apelativa para o produto "${product.name}", focando nos benefícios e usando as especificações: ${product.spec}. Não inclua o preço.`;
+                callGeminiAPI(prompt, title);
+            } else if (target.classList.contains('args-button')) {
+                const title = `Argumentos para: ${product.name}`;
+                const prompt = `R2D2: Liste 3 a 4 argumentos de venda concisos para o produto "${product.name}", explicando brevemente por que cada um é importante para o cliente, com base nas especificações: ${product.spec}.`;
+                callGeminiAPI(prompt, title);
+            } else if (target.classList.contains('whatsapp-button')) {
+                const message = `Olá! 👋\n\nEstou a enviar os detalhes sobre o *${product.name}* que conversámos. É um equipamento fantástico! 🚀\n\n*Especificações Principais:*\n${product.spec}\n\n*Valor de Venda:* ${product.salePrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}\n\nQualquer dúvida, estou à disposição!\n- Equipa Galvão Drones`;
+                const encodedMessage = encodeURIComponent(message);
+                window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
+            } else if (target.classList.contains('help-button')) {
+                handleCustomerHelp(product);
+            } else if (target.classList.contains('calculate-product-btn')) {
+                const resultContainer = productCard.querySelector('.product-calculator-result');
+                const paymentMethod = productCard.querySelector(`input[name="payment-method-${productId}"]:checked`).value;
+                const numInstallments = productCard.querySelector('.parcelas-select').value;
+                
+                let discountPercentage = 0;
+                const discountOptionDiv = productCard.querySelector(`#discount-option-${product.id}`);
+
+                if (currentUser.role === 'admin' && paymentMethod === 'vista' && discountOptionDiv) {
+                    const discountInput = productCard.querySelector(`#discount-percentage-${product.id}`);
+                    if (discountInput) {
+                        discountPercentage = parseFloat(discountInput.value);
+                    }
+                    discountOptionDiv.classList.remove('hidden'); 
+                } else if (discountOptionDiv) {
+                    discountOptionDiv.classList.add('hidden'); 
+                }
+                resultContainer.innerHTML = calculate(product.salePrice, numInstallments, paymentMethod, discountPercentage);
+            }
+        }
+    });
+
+    mainContent.addEventListener('change', (e) => {
+        if (e.target.matches('input[name^="payment-method-"]')) {
+            const card = e.target.closest('.product-card');
+            const installmentsDiv = card.querySelector('.installments-container');
+            const discountOptionDiv = card.querySelector('.discount-option');
+
+            installmentsDiv.classList.toggle('hidden', e.target.value !== 'parcelado');
+            
+            if (discountOptionDiv && (e.target.value !== 'vista' || currentUser.role !== 'admin')) {
+                discountOptionDiv.classList.add('hidden');
+            }
+        }
+    });
+
+    // Event listeners para os botões de navegação
+    document.querySelectorAll('nav button').forEach(button => {
+        button.addEventListener('click', () => {
+            const sectionId = button.dataset.section;
+
+            // Lógica para o botão pai de Configurações
+            if (button.id === 'settings-nav-button') {
+                if (currentUser && currentUser.role === 'admin') { 
+                    if (activeSectionId.includes('settings')) {
+                        const isSubNavVisible = settingsSubNav.style.display === 'block';
+                        settingsSubNav.style.display = isSubNavVisible ? 'none' : 'block';
+                        settingsNavButton.classList.toggle('active', !isSubNavVisible);
+                    } else { 
+                        settingsSubNav.style.display = 'block';
+                        settingsNavButton.classList.add('active');
+                        switchTab('settings-section');
+                    }
+                } else {
+                    alert('Esta seção está restrita ao perfil de administrador.');
+                }
+                return; 
+            }
+            
+            switchTab(sectionId);
+        });
+    });
+    
+    closeModalButton.addEventListener('click', closeModal);
+    window.addEventListener('click', (event) => { 
+        if (event.target == mainModal) { closeModal(); } 
+        if (event.target == supplierPasswordModal) {
+            supplierPasswordModal.style.display = 'none';
+            pendingSupplierSectionAccess = false; 
+            switchTab('products-section'); 
+        }
+        if (event.target === changePasswordModal && changePasswordCloseButton.style.display !== 'none' && !changePasswordModal.contains(event.target) && !newPasswordInput.contains(event.target) && !confirmNewPasswordInput.contains(event.target) && !submitChangePasswordButton.contains(event.target)) {
+            changePasswordModal.style.display = 'none';
+        }
+    });
+
+    // NOVO: Listener para o botão de busca na Alteração de Produto
+    searchProductToEditButton.addEventListener('click', handleSearchProductToEdit);
+
+    productSearchInput.addEventListener('input', (e) => renderProducts(e.target.value));
+    droneVisitorSearchInput.addEventListener('input', (e) => renderDroneVisitorList(e.target.value)); 
+    
+    // Listeners para Formulários de Configurações
+    createTempUserForm.addEventListener('submit', handleCreateProduct);
+    createProductForm.addEventListener('submit', handleCreateProduct);
+    editProductForm.addEventListener('submit', handleEditProduct);
+
+
+    mainContent.addEventListener('scroll', handleScroll);
+    scrollToTopButton.addEventListener('click', scrollTop);
+    
+    generalCalculateButton.addEventListener('click', () => {
+        const baseValue = generalCalcValorBase.value;
+        const paymentMethod = document.querySelector('input[name="general-payment-method"]:checked').value;
+        const numInstallments = generalCalcParcelasSelect.value;
+        
+        let discountPercentage = 0;
+        generalCalculatorResult.innerHTML = calculate(baseValue, numInstallments, paymentMethod, discountPercentage);
+    });
+
+    generalCalcPaymentRadios.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            generalCalcInstallmentsContainer.classList.toggle('hidden', e.target.value !== 'parcelado');
+        });
+    });
+
+    navToggleButton.addEventListener('click', () => {
+        navElement.classList.toggle('nav-open');
+        navToggleButton.textContent = navElement.classList.contains('nav-open') ? '✕' : '☰';
+    });
+
+    navToggleButtonClose.addEventListener('click', () => {
+        closeMobileNav();
+    });
+
+    function closeMobileNav() {
+        if (window.innerWidth <= 768) { 
+            navElement.classList.remove('nav-open');
+            navToggleButton.textContent = '☰';
+        }
+    }
+
+    aiChatButton.addEventListener('click', () => {
+        aiChatModal.style.display = 'block';
+        aiQuestionInput.value = ''; 
+        aiResponseArea.innerHTML = ''; 
+        aiResponseArea.style.display = 'none'; 
+        aiLoader.style.display = 'none'; 
+    });
+
+    aiChatCloseButton.addEventListener('click', () => {
+        aiChatModal.style.display = 'none';
+    });
+
+    submitAiQuestionButton.addEventListener('click', () => {
+        const question = aiQuestionInput.value.trim();
+        if (question) {
+            callGeminiAPI(question, "Resposta da IA", false, '', true); 
+        }
+    });
+
+    // Listeners para o modal de senha do fornecedor
+    submitSupplierPasswordButton.addEventListener('click', () => {
+        const enteredPassword = supplierAccessPasswordInput.value.trim();
+        if (enteredPassword === CONFIDENTIAL_CODE) {
+            supplierPasswordModal.style.display = 'none';
+            pendingSupplierSectionAccess = true; 
+            switchTab('suppliers-section'); 
+        } else {
+            supplierPasswordError.textContent = 'Senha incorreta.'; // Mensagem de erro específica
+            supplierPasswordError.style.display = 'block';
+            supplierAccessPasswordInput.value = ''; 
+        }
+    });
+
+    supplierAccessPasswordInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            submitSupplierPasswordButton.click();
+        }
+    });
+
+    supplierPasswordCloseButton.addEventListener('click', () => {
+        supplierPasswordModal.style.display = 'none';
+        pendingSupplierSectionAccess = false; 
+        switchTab('products-section'); 
+    });
+
+    // Listeners para o modal de alteração de senha
+    submitChangePasswordButton.addEventListener('click', handleChangePassword);
+    newPasswordInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleChangePassword(); });
+    confirmNewPasswordInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleChangePassword(); });
+    
+    changePasswordCloseButton.addEventListener('click', () => {
+        if (currentUser && currentUser.firstLogin && changePasswordModal.style.display === 'block') {
+            alert('A alteração de senha é obrigatória para o primeiro acesso. Por favor, defina sua nova senha.');
+        } else {
+            changePasswordModal.style.display = 'none';
+        }
+    });
+});
+</script>
+
+</body>
+</html>
