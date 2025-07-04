@@ -118,7 +118,7 @@
         <form id="formRocketLeague">
             <div class="form-group">
                 <label for="nomeCompleto">Seu Nome de Piloto Completo:</label>
-                <input type="text" id="nomeCompleto" name="nomeCompleto" required placeholder="Ex: Mikhaell Galvão">
+                <input type="text" id="nomeCompleto" name="nomeCompleto" required placeholder="Ex: Usuário">
             </div>
             <div class="form-group">
                 <label for="nickname">Seu Nickname no Rocket League Sideswipe:</label>
@@ -159,7 +159,7 @@
             if (confirmacao) {
                 // Monta a mensagem para o WhatsApp
                 const mensagem = encodeURIComponent(
-                    `🎉 Nova Inscrição para o Clã Alpha! 🎉\n\n` +
+                    `Confirmação de data e horário 🎉 Confirmação para o ÔmegaVerso! 🎉\n\n` +
                     `Nome do Piloto: ${nomeCompleto}\n` +
                     `Nickname no Sideswipe: ${nickname}\n` +
                     `Data disponível: ${dataDisponivel}\n` +
@@ -168,7 +168,7 @@
                 );
 
                 // Número do WhatsApp para onde o formulário será enviado
-                const numeroWhatsApp = '5562984710639';
+                const numeroWhatsApp = '5511983035556'; // Número atualizado
                 const urlWhatsApp = `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${mensagem}`;
 
                 // Abre o WhatsApp
