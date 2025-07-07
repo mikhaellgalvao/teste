@@ -30,7 +30,8 @@
     <style>
         /* Estilos personalizados para o background do header */
         .header-bg {
-            background-image: url('https://placehold.co/1200x600/000000/FFFFFF?text=Drone+Background'); /* Imagem de placeholder para o drone */
+            background-image: url('https://i.imgur.com/D9UzWMA.png'); /* URL da imagem do drone */
+            background-color: #000000; /* Fundo preto de fallback */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -43,8 +44,19 @@
 
         /* Estilo para ícones do portfólio para centralizar e ter um tamanho bom */
         .portfolio-icon {
-            font-size: 3rem; /* Tamanho grande para os ícones */
+            font-size: 3rem; /* Tamanho grande para os ícones (fallback para emojis) */
             color: #EF7E13; /* Cor laranja para os ícones */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Estilo para a imagem do ícone de drone */
+        .drone-icon-img {
+            width: 3rem; /* Mesma largura do font-size dos ícones */
+            height: 3rem; /* Mesma altura do font-size dos ícones */
+            /* Filtro para transformar o ícone branco em laranja */
+            filter: invert(57%) sepia(99%) saturate(1000%) hue-rotate(359deg) brightness(99%) contrast(93%);
         }
 
         /* Estilo para o avatar */
@@ -70,30 +82,104 @@
         .delay-100 { animation-delay: 0.1s; }
         .delay-200 { animation-delay: 0.2s; }
         .delay-300 { animation-delay: 0.3s; }
+
+        /* Estilos para o modal (pop-up) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000; /* Garante que o modal fique acima de tudo */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            /* Efeito de desfoque no fundo */
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px); /* Para compatibilidade com navegadores WebKit */
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: #2a2a2a; /* Fundo do modal */
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            max-width: 90%; /* Largura máxima para mobile */
+            width: 400px; /* Largura padrão para desktop */
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+            position: relative; /* Para posicionar o botão de fechar */
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #b0b0b0;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .modal-close-btn:hover {
+            color: #f0f0f0;
+        }
+
+        /* Estilo para esconder/mostrar seções do modal */
+        .hidden-section {
+            display: none;
+        }
+
+        /* Estilo para destaque do botão compartilhado */
+        @keyframes highlightPulse {
+            0% { box-shadow: 0 0 0px 0px rgba(239, 126, 19, 0.7); border-color: rgba(239, 126, 19, 0.7); }
+            50% { box-shadow: 0 0 15px 5px rgba(239, 126, 19, 0.7); border-color: rgba(239, 126, 19, 1); }
+            100% { box-shadow: 0 0 0px 0px rgba(239, 126, 19, 0.7); border-color: rgba(239, 126, 19, 0.7); }
+        }
+
+        .highlight-app {
+            border: 2px solid #EF7E13 !important; /* Borda laranja para destaque */
+            animation: highlightPulse 2s infinite; /* Animação de pulso */
+        }
     </style>
 </head>
 <body class="bg-darkBg text-lightText font-sans antialiased">
 
     <!-- Seção de Cabeçalho/Hero -->
-    <header class="header-bg relative h-screen flex items-center justify-center text-center p-4 md:p-8">
+    <header class="header-bg relative h-screen flex items-center justify-center p-4 md:p-8">
         <!-- Overlay escuro para melhorar a legibilidade do texto -->
         <div class="absolute inset-0 bg-black opacity-60"></div>
-        <div class="relative z-10 max-w-4xl mx-auto px-4 py-8 md:py-0"> <!-- Ajuste de padding vertical para mobile -->
+        <div class="relative z-10 max-w-4xl mx-auto px-4 py-8 md:py-0 text-left">
             <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-4 animate-fade-in-up">
                 VENDO O MUNDO POR OUTROS OLHOS.
             </h1>
             <p class="text-lg sm:text-xl md:text-2xl text-grayText mb-8 animate-fade-in-up delay-100">
                 Mikhaell Galvão | Drones, Ideias, Tecnologia e Visão além do comum.
             </p>
-            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+            <div class="flex flex-wrap justify-start gap-4">
                 <!-- Botão "VER PROJETOS" com link para a seção de portfólio -->
-                <a href="#portfolio" class="w-full sm:w-auto bg-galvaoOrange hover:bg-orange-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 btn-gradient animate-fade-in-up delay-200 flex items-center justify-center">
+                <a href="#portfolio" class="bg-galvaoOrange hover:bg-orange-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 btn-gradient animate-fade-in-up delay-200 flex items-center justify-center whitespace-nowrap">
                     VER PROJETOS
                 </a>
-                <!-- Botão "FALAR COMIGO" com link para o WhatsApp -->
-                <a href="https://wa.me/5562984710639" target="_blank" class="w-full sm:w-auto bg-transparent border-2 border-galvaoOrange text-galvaoOrange hover:bg-galvaoOrange hover:text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 animate-fade-in-up delay-300 flex items-center justify-center">
+                <!-- Botão "FALAR COMIGO" que abrirá o pop-up de contato -->
+                <button id="openContactModal" class="bg-transparent border-2 border-galvaoOrange text-galvaoOrange hover:bg-galvaoOrange hover:text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 animate-fade-in-up delay-300 flex items-center justify-center whitespace-nowrap">
                     FALAR COMIGO
-                </a>
+                </button>
             </div>
         </div>
     </header>
@@ -101,9 +187,10 @@
     <!-- Seção Sobre Mim -->
     <section id="about" class="py-16 px-4 md:px-8 bg-darkBg">
         <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center md:items-start space-y-8 md:space-y-0 md:space-x-12">
-            <!-- Imagem do Avatar -->
-            <div class="flex-shrink-0">
-                <img src="https://placehold.co/120x120/EF7E13/FFFFFF?text=MK" alt="Avatar de Mikhaell Galvão" class="avatar-img shadow-lg">
+            <!-- Imagem do Avatar e Nome -->
+            <div class="flex-shrink-0 flex flex-col items-center text-center">
+                <img src="https://i.imgur.com/ViDcChZ.jpeg" alt="Foto de perfil de Mikhaell Galvão" class="avatar-img shadow-lg mb-2">
+                <p class="text-xl font-bold text-lightText">Mikhaell Galvão</p>
             </div>
             <div class="flex-grow text-center md:text-left">
                 <h2 class="text-3xl sm:text-4xl font-bold mb-6 text-galvaoOrange">SOBRE MIM</h2>
@@ -129,11 +216,14 @@
             <h2 class="text-3xl sm:text-4xl font-bold mb-12 text-center text-galvaoOrange">PORTFÓLIO</h2>
             <!-- Grid responsivo: 1 coluna em mobile, 2 em telas pequenas, 4 em telas maiores -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Card de Drones com link clicável -->
-                <a href="#" class="block bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out flex flex-col items-center text-center">
-                    <div class="portfolio-icon mb-4">✈️</div> <!-- Ícone de avião/drone -->
+                <!-- Card de Drones que abrirá o pop-up de sub-menu -->
+                <button id="openDronesSubmenuModal" class="block bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out flex flex-col items-center text-center cursor-pointer">
+                    <div class="portfolio-icon mb-4">
+                        <!-- Imagem do ícone de drone PNG -->
+                        <img src="https://i.imgur.com/sg3R7CE.png" alt="Ícone de Drone" class="drone-icon-img">
+                    </div>
                     <h3 class="text-xl font-semibold text-lightText">Drones</h3>
-                </a>
+                </button>
                 <!-- Card de Curso Galvão Drones com link clicável -->
                 <a href="#" class="block bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out flex flex-col items-center text-center">
                     <div class="portfolio-icon mb-4">📚</div> <!-- Ícone de livro/curso -->
@@ -185,6 +275,247 @@
         </div>
     </footer>
 
+    <!-- Pop-up de Contato (Falar Comigo) -->
+    <div id="contactModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-btn" id="closeContactModal">&times;</button>
+            <h3 class="text-2xl font-bold text-galvaoOrange mb-6 text-center">Fale Conosco</h3>
+            <form id="contactForm" class="space-y-4">
+                <div>
+                    <label for="userName" class="block text-lightText text-sm font-medium mb-2">Seu Nome:</label>
+                    <input type="text" id="userName" name="userName" required
+                           class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 text-lightText focus:outline-none focus:border-galvaoOrange">
+                </div>
+                <div>
+                    <label for="howMet" class="block text-lightText text-sm font-medium mb-2">Como nos conheceu?</label>
+                    <input type="text" id="howMet" name="howMet" required
+                           class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 text-lightText focus:outline-none focus:border-galvaoOrange">
+                </div>
+                <button type="submit" class="w-full bg-galvaoOrange hover:bg-orange-600 text-white font-semibold py-3 rounded-md shadow-lg transition duration-300 ease-in-out transform hover:scale-105 btn-gradient">
+                    Enviar via WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Novo Pop-up de Sub-menu de Drones -->
+    <div id="dronesSubmenuModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-btn" id="closeDronesSubmenuModal">&times;</button>
+            <h3 class="text-2xl font-bold text-galvaoOrange mb-6 text-center">Opções de Drones</h3>
+
+            <!-- Seção Principal do Sub-menu -->
+            <div id="dronesMainMenu" class="space-y-4">
+                <a href="https://lnk.bio/galvaodrones" target="_blank" class="block w-full bg-galvaoGreen hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-md shadow-lg transition duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center">
+                    Acessar Galvão Drones
+                </a>
+                <button id="showAppDownload" class="w-full bg-galvaoOrange hover:bg-orange-600 text-white font-semibold py-3 px-8 rounded-md shadow-lg transition duration-300 ease-in-out transform hover:scale-105 btn-gradient">
+                    Download APP
+                </button>
+            </div>
+
+            <!-- Seção de Download de Apps (inicialmente oculta) -->
+            <div id="dronesAppMenu" class="space-y-4 hidden-section">
+                <h4 class="text-xl font-semibold text-lightText mb-4 text-center">Escolha o App para Download</h4>
+                
+                <!-- DJI Fly -->
+                <a href="https://service-adhoc.dji.com/download/app/android/3b03cb95-bc4b-4b62-b4ab-9cf977d77309?from_brand_site=official" target="_blank" id="djiFlyApp" class="relative block w-full bg-gray-700 hover:bg-gray-600 text-lightText font-semibold py-4 px-4 rounded-md shadow-md transition-colors duration-200 flex items-center justify-between">
+                    DJI Fly
+                    <!-- Botão de Compartilhar com ícone SVG -->
+                    <button class="share-app-btn absolute bottom-2 right-2 bg-blue-500 hover:bg-blue-600 text-white text-sm font-semibold p-2 rounded-md transition-colors duration-200 flex items-center justify-center" data-app-name="DJI Fly" data-app-id="djiFlyApp" data-share-link="https://www.dji.com/br/mobile/downloads/djiapp/dji-fly">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                        </svg>
+                    </button>
+                </a>
+
+                <!-- DJI Go 4.0 -->
+                <a href="https://service-adhoc.dji.com/download/app/android/dji-go-4?from_brand_site=official" target="_blank" id="djiGo4App" class="relative block w-full bg-gray-700 hover:bg-gray-600 text-lightText font-semibold py-4 px-4 rounded-md shadow-md transition-colors duration-200 flex items-center justify-between">
+                    DJI Go 4.0
+                    <!-- Botão de Compartilhar com ícone SVG -->
+                    <button class="share-app-btn absolute bottom-2 right-2 bg-blue-500 hover:bg-blue-600 text-white text-sm font-semibold p-2 rounded-md transition-colors duration-200 flex items-center justify-center" data-app-name="DJI Go 4.0" data-app-id="djiGo4App" data-share-link="https://www.dji.com/br/mobile/downloads/djiapp/dji-go-4">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                        </svg>
+                    </button>
+                </a>
+
+                <!-- DJI Pilot -->
+                <a href="https://service-adhoc.dji.com/download/app/android/cf4cc976-50c5-4960-b09e-45a82d31ce83?from_brand_site=official" target="_blank" id="djiPilotApp" class="relative block w-full bg-gray-700 hover:bg-gray-600 text-lightText font-semibold py-4 px-4 rounded-md shadow-md transition-colors duration-200 flex items-center justify-between">
+                    DJI Pilot
+                    <!-- Botão de Compartilhar com ícone SVG -->
+                    <button class="share-app-btn absolute bottom-2 right-2 bg-blue-500 hover:bg-blue-600 text-white text-sm font-semibold p-2 rounded-md transition-colors duration-200 flex items-center justify-center" data-app-name="DJI Pilot" data-app-id="djiPilotApp" data-share-link="https://www.dji.com/br/mobile/downloads/djiapp/dji-pilot">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                        </svg>
+                    </button>
+                </a>
+
+                <!-- DJI SmartFarm -->
+                <a href="https://play.google.com/store/apps/details?id=com.utc.ag" target="_blank" id="djiSmartFarmApp" class="relative block w-full bg-gray-700 hover:bg-gray-600 text-lightText font-semibold py-4 px-4 rounded-md shadow-md transition-colors duration-200 flex items-center justify-between">
+                    DJI SmartFarm
+                    <!-- Botão de Compartilhar com ícone SVG -->
+                    <button class="share-app-btn absolute bottom-2 right-2 bg-blue-500 hover:bg-blue-600 text-white text-sm font-semibold p-2 rounded-md transition-colors duration-200 flex items-center justify-center" data-app-name="DJI SmartFarm" data-app-id="djiSmartFarmApp" data-share-link="https://www.dji.com/br/mobile/ag-platform">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                        </svg>
+                    </button>
+                </a>
+
+                <button id="backToDronesMainMenu" class="w-full bg-gray-600 hover:bg-gray-500 text-lightText font-semibold py-3 px-8 rounded-md shadow-lg transition duration-300 ease-in-out transform hover:scale-105 mt-4">
+                    Voltar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Elementos do Modal de Contato ---
+        const openContactModalBtn = document.getElementById('openContactModal');
+        const contactModal = document.getElementById('contactModal');
+        const closeContactModalBtn = document.getElementById('closeContactModal');
+        const contactForm = document.getElementById('contactForm');
+        const userNameInput = document.getElementById('userName');
+        const howMetInput = document.getElementById('howMet');
+
+        // --- Elementos do Modal de Sub-menu de Drones ---
+        const openDronesSubmenuModalBtn = document.getElementById('openDronesSubmenuModal');
+        const dronesSubmenuModal = document.getElementById('dronesSubmenuModal');
+        // CORREÇÃO: Atribuição correta da variável
+        const closeDronesSubmenuModalBtn = document.getElementById('closeDronesSubmenuModal'); 
+        const dronesMainMenu = document.getElementById('dronesMainMenu');
+        const dronesAppMenu = document.getElementById('dronesAppMenu');
+        const showAppDownloadBtn = document.getElementById('showAppDownload');
+        const backToDronesMainMenuBtn = document.getElementById('backToDronesMainMenu');
+        // Seleciona todos os botões de compartilhamento, que agora estão dentro dos links <a>
+        const shareAppButtons = document.querySelectorAll('.share-app-btn'); 
+
+        // --- Funções para o Modal de Contato ---
+        function openContactModal() {
+            console.log('openContactModal called'); // Log para depuração
+            contactModal.classList.add('active');
+        }
+
+        function closeContactModal() {
+            contactModal.classList.remove('active');
+            contactForm.reset(); // Limpar o formulário ao fechar
+        }
+
+        // --- Funções para o Modal de Sub-menu de Drones ---
+        function openDronesSubmenuModal() {
+            dronesSubmenuModal.classList.add('active');
+            dronesMainMenu.classList.remove('hidden-section'); // Garante que o menu principal esteja visível
+            dronesAppMenu.classList.add('hidden-section'); // Garante que o menu de apps esteja oculto
+        }
+
+        function closeDronesSubmenuModal() {
+            dronesSubmenuModal.classList.remove('active');
+        }
+
+        function showAppButtons() {
+            dronesMainMenu.classList.add('hidden-section');
+            dronesAppMenu.classList.remove('hidden-section');
+        }
+
+        function showMainMenu() {
+            dronesAppMenu.classList.add('hidden-section');
+            dronesMainMenu.classList.remove('hidden-section');
+        }
+
+        // --- Event Listeners para o Modal de Contato ---
+        openContactModalBtn.addEventListener('click', openContactModal);
+        closeContactModalBtn.addEventListener('click', closeContactModal);
+        contactModal.addEventListener('click', (event) => {
+            if (event.target === contactModal) {
+                closeContactModal();
+            }
+        });
+
+        contactForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const userName = userNameInput.value.trim();
+            const howMet = howMetInput.value.trim();
+
+            if (userName === '' || howMet === '') {
+                // Substitua por um modal de erro ou mensagem na tela se preferir
+                alert('Por favor, preencha todos os campos.');
+                return;
+            }
+
+            const whatsappNumber = '5562984710639';
+            const message = `Oi, aqui é o ${userName}, nos conhecemos em ${howMet}`;
+            const encodedMessage = encodeURIComponent(message);
+
+            window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
+
+            closeContactModal();
+        });
+
+        // --- Event Listeners para o Modal de Sub-menu de Drones ---
+        openDronesSubmenuModalBtn.addEventListener('click', openDronesSubmenuModal);
+        closeDronesSubmenuModalBtn.addEventListener('click', closeDronesSubmenuModal);
+        dronesSubmenuModal.addEventListener('click', (event) => {
+            if (event.target === dronesSubmenuModal) {
+                closeDronesSubmenuModal();
+            }
+        });
+
+        showAppDownloadBtn.addEventListener('click', showAppButtons);
+        backToDronesMainMenuBtn.addEventListener('click', showMainMenu);
+
+        // --- Lógica de Compartilhamento e Deep Linking ---
+        shareAppButtons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                // Para evitar que o clique no botão de compartilhar acione o link de download do pai <a>
+                event.stopPropagation(); 
+
+                // Acessa os datasets do elemento pai <a>, pois o botão está dentro dele agora
+                const parentLink = event.target.closest('a');
+                // O nome do app está no texto do link pai (<a>)
+                const appName = parentLink.childNodes[0].nodeValue.trim(); 
+                const appId = parentLink.id; // O ID do <a> é o appId
+                const appShareLink = button.dataset.shareLink; // O link de compartilhamento está no botão
+                
+                // Constrói a URL para a página atual com o hash do app
+                const shareUrlWithHash = appShareLink + '#' + appId;
+                
+                // Nova mensagem explicativa e com gatilho de curiosidade
+                const message = `🚀 Descubra o aplicativo ${appName} DJI! Clique neste link para iniciar o download: ${shareUrlWithHash}. Ao abrir a página, procure o link destacado em laranja para baixar o app rapidamente. Não perca essa oportunidade!`;
+                const encodedMessage = encodeURIComponent(message);
+
+                // Abre o WhatsApp sem número predefinido, permitindo que o usuário escolha o contato
+                window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
+            });
+        });
+
+        // Lógica para lidar com o deep linking e destaque na carga da página
+        window.addEventListener('DOMContentLoaded', () => {
+            const hash = window.location.hash.substring(1); // Remove o '#'
+            if (hash && (hash === 'djiFlyApp' || hash === 'djiGo4App' || hash === 'djiPilotApp' || hash === 'djiSmartFarmApp')) {
+                // Abre o modal de sub-menu
+                openDronesSubmenuModal();
+                // Mostra a seção de apps
+                showAppButtons();
+
+                // Espera um pouco para o modal abrir e a seção ficar visível antes de rolar e destacar
+                setTimeout(() => {
+                    const targetElement = document.getElementById(hash);
+                    if (targetElement) {
+                        // Rola até o elemento
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        // Adiciona a classe de destaque
+                        targetElement.classList.add('highlight-app');
+
+                        // Remove o destaque após alguns segundos
+                        setTimeout(() => {
+                            targetElement.classList.remove('highlight-app');
+                        }, 5000); // Remove o destaque após 5 segundos
+                    }
+                }, 500); // Pequeno atraso para garantir que o modal e a seção estejam renderizados
+            }
+        });
+    </script>
 </body>
 </html>
 
