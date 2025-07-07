@@ -3,199 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscrição Campeonato Omegaverso - Rocket League Sideswipe</title>
-    <style>
-        @font-face {
-            font-family: 'RocketLeagueFont';
-            src: url('https://fonts.cdnfonts.com/s/17392/rocketleague-webfont.woff') format('woff'); /* Exemplo de fonte, você pode precisar de uma local ou outra URL */
-            font-weight: normal;
-            font-style: normal;
+    <title>Galvão Drones - Mikhaell Galvão</title>
+    <!-- Link para o CDN do Tailwind CSS para estilização rápida e responsiva -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configuração do Tailwind para usar as cores personalizadas da Galvão Drones -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        galvaoOrange: '#EF7E13', // Laranja da Galvão Drones
+                        galvaoGreen: '#0E5847',  // Verde escuro da Galvão Drones
+                        darkBg: '#1a1a1a',       // Fundo escuro similar ao exemplo
+                        lightText: '#f0f0f0',    // Texto claro para contraste
+                        grayText: '#b0b0b0',     // Texto cinza para detalhes
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'], // Fonte principal
+                    },
+                }
+            }
         }
-
-        body {
-            font-family: 'RocketLeagueFont', sans-serif;
-            background-image: url('https://cdn.cloudflare.steamstatic.com/steam/apps/1660630/ss_e1d3e8e20257c79e6f212267865c3b0185960c91.1920x1080.jpg?t=1690919139'); /* Imagem de fundo do Rocket League Sideswipe */
+    </script>
+    <!-- Link para a fonte Inter do Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos personalizados para o background do header */
+        .header-bg {
+            background-image: url('https://placehold.co/1200x600/000000/FFFFFF?text=Drone+Background'); /* Imagem de placeholder para o drone */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            color: #FFF; /* Cor do texto principal */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
         }
 
-        .container {
-            background-color: rgba(0, 0, 0, 0.8); /* Fundo semi-transparente para o formulário */
-            padding: 30px 40px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.7); /* Sombra azul neon para dar um toque de jogo */
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
-            border: 2px solid #00FFFF; /* Borda azul neon */
+        /* Estilo para o gradiente nos botões */
+        .btn-gradient {
+            background: linear-gradient(to right, #EF7E13, #FF9933); /* Gradiente de laranja */
         }
 
-        h1 {
-            color: #00FFFF; /* Título azul neon */
-            margin-bottom: 25px;
-            font-size: 2em;
-            text-shadow: 0 0 10px #00FFFF;
+        /* Estilo para ícones do portfólio para centralizar e ter um tamanho bom */
+        .portfolio-icon {
+            font-size: 3rem; /* Tamanho grande para os ícones */
+            color: #EF7E13; /* Cor laranja para os ícones */
         }
 
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #FFF;
-            font-size: 1.1em;
-        }
-
-        input[type="text"],
-        input[type="time"],
-        input[type="date"],
-        textarea,
-        select {
-            width: calc(100% - 20px);
-            padding: 12px;
-            margin-bottom: 10px;
-            border: 2px solid #00FFFF;
-            border-radius: 8px;
-            background-color: rgba(255, 255, 255, 0.1);
-            color: #FFF;
-            font-size: 1em;
-            box-sizing: border-box;
-            transition: all 0.3s ease;
-        }
-
-        input[type="text"]:focus,
-        input[type="time"]:focus,
-        input[type="date"]:focus,
-        textarea:focus,
-        select:focus {
-            outline: none;
-            border-color: #FF6600; /* Laranja vibrante no foco */
-            box-shadow: 0 0 10px rgba(255, 102, 0, 0.8);
-        }
-
-        button {
-            background-color: #FF6600; /* Botão laranja vibrante */
-            color: #FFF;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.2em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 5px 15px rgba(255, 102, 0, 0.5);
-        }
-
-        button:hover {
-            background-color: #E65C00; /* Laranja um pouco mais escuro no hover */
-            transform: translateY(-2px);
-        }
-
-        #mensagemConfirmacao {
-            margin-top: 25px;
-            font-size: 1.1em;
-            color: #00FFFF;
-            display: none; /* Escondido por padrão */
+        /* Estilo para o avatar */
+        .avatar-img {
+            width: 120px; /* Tamanho fixo para o avatar */
+            height: 120px;
+            object-fit: cover; /* Garante que a imagem preencha o espaço */
+            border-radius: 9999px; /* Torna a imagem circular */
+            border: 4px solid #EF7E13; /* Borda laranja */
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h1>Campeonato Omegaverso - Bora para a Arena! 🎮</h1>
-        <p>Preencha os campos abaixo para garantir sua vaga no maior campeonato de Sideswipe!</p>
-        <form id="formRocketLeague">
-            <div class="form-group">
-                <label for="nomeCompleto">Seu Nome de Piloto Completo:</label>
-                <input type="text" id="nomeCompleto" name="nomeCompleto" required placeholder="Ex: Usuário">
+<body class="bg-darkBg text-lightText font-sans antialiased">
+
+    <!-- Seção de Cabeçalho/Hero -->
+    <header class="header-bg relative h-screen flex items-center justify-center text-center p-4 md:p-8">
+        <!-- Overlay escuro para melhorar a legibilidade do texto -->
+        <div class="absolute inset-0 bg-black opacity-60"></div>
+        <div class="relative z-10 max-w-4xl mx-auto">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-4 animate-fade-in-up">
+                VENDO O MUNDO POR OUTROS OLHOS.
+            </h1>
+            <p class="text-lg sm:text-xl md:text-2xl text-grayText mb-8 animate-fade-in-up delay-100">
+                Mikhaell Galvão | Drones, Ideias, Tecnologia e Visão além do comum.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <button class="bg-galvaoOrange hover:bg-orange-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 btn-gradient animate-fade-in-up delay-200">
+                    VER PROJETOS
+                </button>
+                <button class="bg-transparent border-2 border-galvaoOrange text-galvaoOrange hover:bg-galvaoOrange hover:text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 animate-fade-in-up delay-300">
+                    FALAR COMIGO
+                </button>
             </div>
-            <div class="form-group">
-                <label for="nickname">Seu Nickname no Rocket League Sideswipe:</label>
-                <input type="text" id="nickname" name="nickname" required placeholder="Ex: AlphaDroneMaster">
+        </div>
+    </header>
+
+    <!-- Seção Sobre Mim -->
+    <section id="about" class="py-16 px-4 md:px-8 bg-darkBg">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center md:items-start space-y-8 md:space-y-0 md:space-x-12">
+            <!-- Imagem do Avatar -->
+            <div class="flex-shrink-0">
+                <img src="https://placehold.co/120x120/EF7E13/FFFFFF?text=MK" alt="Avatar de Mikhaell Galvão" class="avatar-img shadow-lg">
             </div>
-            <div class="form-group">
-                <label for="cla">Qual clã você faz parte?</label>
-                <select id="cla" name="cla" required>
-                    <option value="">Selecione seu clã</option>
-                    <option value="Alpha">Alpha</option>
-                    <option value="Delta">Delta</option>
-                    <option value="Beta">Beta</option>
-                    <option value="Sigma">Sigma</option>
-                </select>
+            <div class="flex-grow text-center md:text-left">
+                <h2 class="text-3xl sm:text-4xl font-bold mb-6 text-galvaoOrange">SOBRE MIM</h2>
+                <div class="flex flex-wrap justify-center md:justify-start gap-3">
+                    <!-- Tags de habilidades -->
+                    <span class="bg-galvaoGreen text-lightText text-sm font-medium px-4 py-2 rounded-full shadow-md">
+                        #TÉCNICO EM DRONES
+                    </span>
+                    <span class="bg-galvaoGreen text-lightText text-sm font-medium px-4 py-2 rounded-full shadow-md">
+                        CRIADOR DSOLUCOES
+                    </span>
+                    <span class="bg-galvaoGreen text-lightText text-sm font-medium px-4 py-2 rounded-full shadow-md">
+                        EMPREENDEDOR VISIONARIO
+                    </span>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="dataDisponivel">Dia que você pode detonar nas pistas:</label>
-                <input type="date" id="dataDisponivel" name="dataDisponivel" required>
+        </div>
+    </section>
+
+    <!-- Seção Portfólio -->
+    <section id="portfolio" class="py-16 px-4 md:px-8 bg-gray-900">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-12 text-center text-galvaoOrange">PORTFÓLIO</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Card de Drones -->
+                <div class="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out flex flex-col items-center text-center">
+                    <div class="portfolio-icon mb-4">✈️</div> <!-- Ícone de avião/drone -->
+                    <h3 class="text-xl font-semibold text-lightText">Drones</h3>
+                </div>
+                <!-- Card de Curso Galvão Drones -->
+                <div class="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out flex flex-col items-center text-center">
+                    <div class="portfolio-icon mb-4">📚</div> <!-- Ícone de livro/curso -->
+                    <h3 class="text-xl font-semibold text-lightText">Curso Galvão Drones</h3>
+                </div>
+                <!-- Card de IA + Automação -->
+                <div class="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out flex flex-col items-center text-center">
+                    <div class="portfolio-icon mb-4">🧠</div> <!-- Ícone de cérebro/IA -->
+                    <h3 class="text-xl font-semibold text-lightText">IA + Automação</h3>
+                </div>
+                <!-- Card de Cia Alpha Rocket League -->
+                <div class="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out flex flex-col items-center text-center">
+                    <div class="portfolio-icon mb-4">🎮</div> <!-- Ícone de controle/game -->
+                    <h3 class="text-xl font-semibold text-lightText">Cia Alpha Rocket League</h3>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="horaDisponivel">Hora que seu carro está pronto para o gol:</label>
-                <input type="time" id="horaDisponivel" name="horaDisponivel" required>
+        </div>
+    </section>
+
+    <!-- Seção de Feedbacks -->
+    <section id="feedbacks" class="py-16 px-4 md:px-8 bg-darkBg">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between space-y-8 md:space-y-0 md:space-x-12">
+            <div class="flex-shrink-0 text-center md:text-left">
+                <h2 class="text-3xl sm:text-4xl font-bold mb-6 text-galvaoOrange">FEEDBACKS</h2>
+                <div class="flex items-center justify-center md:justify-start space-x-4 mb-6">
+                    <!-- Logo placeholder -->
+                    <span class="text-2xl font-bold text-grayText">LOGO</span>
+                    <!-- Logo da Droneco -->
+                    <img src="https://placehold.co/150x50/0E5847/FFFFFF?text=DRONECO" alt="Logo Droneco" class="h-12 rounded-lg shadow-md">
+                </div>
+                <p class="text-sm text-grayText">ENVISO</p>
             </div>
-            <button type="submit">Confirmar Inscrição no Campeonato!</button>
-        </form>
-        <p id="mensagemConfirmacao">Sua inscrição foi enviada! Prepare-se para a vitória no Campeonato Omegaverso!</p>
-    </div>
+            <div class="flex-grow text-center md:text-right">
+                <blockquote class="text-xl italic text-lightText mb-6">
+                    “Mikhaell está sempre um passo à frente, com ideias inovadoras e execução profissional.”
+                </blockquote>
+                <!-- QR Code placeholder -->
+                <img src="https://placehold.co/100x100/EF7E13/FFFFFF?text=QR" alt="QR Code de contato" class="w-24 h-24 mx-auto md:ml-auto md:mr-0 rounded-lg shadow-md">
+            </div>
+        </div>
+    </section>
 
-    <script>
-        document.getElementById('formRocketLeague').addEventListener('submit', function(event) {
-            event.preventDefault(); // Impede o envio padrão do formulário
+    <!-- Rodapé (Opcional, mas bom para contatos e direitos autorais) -->
+    <footer class="bg-gray-900 py-8 px-4 md:px-8 text-center text-grayText text-sm">
+        <div class="max-w-6xl mx-auto">
+            <p>&copy; 2025 Galvão Drones. Todos os direitos reservados.</p>
+            <p>CNPJ: 60.102.179/0001-10 | E-mail: contato@galvaodrones.com.br</p>
+            <p>Site: www.galvaodrones.com.br | Instagram: @galvaodrones | WhatsApp: (62) 3636‑0668</p>
+        </div>
+    </footer>
 
-            const nomeCompleto = document.getElementById('nomeCompleto').value;
-            const nickname = document.getElementById('nickname').value;
-            const cla = document.getElementById('cla').value;
-            const dataDisponivel = document.getElementById('dataDisponivel').value;
-            const horaDisponivel = document.getElementById('horaDisponivel').value;
-
-            // Confirmação das informações
-            const confirmacao = confirm(
-                `Por favor, confirme suas informações antes de enviar:\n\n` +
-                `Nome Completo: ${nomeCompleto}\n` +
-                `Nickname: ${nickname}\n` +
-                `Clã: ${cla}\n` +
-                `Data Disponível: ${dataDisponivel}\n` +
-                `Hora Disponível: ${horaDisponivel}\n\n` +
-                `Está tudo certo?`
-            );
-
-            if (confirmacao) {
-                // Monta a mensagem para o WhatsApp
-                const mensagem = encodeURIComponent(
-                    `Confirmação de data e horário 🎉 Inscrição para o Campeonato Omegaverso! 🎉\n\n` +
-                    `Nome do Piloto: ${nomeCompleto}\n` +
-                    `Nickname no Sideswipe: ${nickname}\n` +
-                    `Clã: ${cla}\n` +
-                    `Data disponível: ${dataDisponivel}\n` +
-                    `Hora disponível: ${horaDisponivel}\n\n` +
-                    `Bora para a Arena!`
-                );
-
-                // Número do WhatsApp para onde o formulário será enviado
-                const numeroWhatsApp = '5511983035556';
-                const urlWhatsApp = `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${mensagem}`;
-
-                // Abre o WhatsApp
-                window.open(urlWhatsApp, '_blank');
-
-                // Mostra mensagem de confirmação no HTML
-                document.getElementById('mensagemConfirmacao').style.display = 'block';
-
-                // Opcional: Limpar o formulário após o envio
-                this.reset();
-            } else {
-                alert('Envio cancelado. Por favor, revise suas informações se necessário.');
-            }
-        });
-    </script>
 </body>
 </html>
+
