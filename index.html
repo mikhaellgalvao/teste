@@ -964,9 +964,13 @@
     ];
 
     const SUPPLIERS = [
-        { name: 'Arroba Celulares', details: 'Aroba celulares é um dos principais distribuidores e centros de manutenção de eletrônicos no Brasil.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mini, Osmo Mobile, Acessórios', whatsapp: '5562999991111' }, // Exemplo de WhatsApp
-        { name: 'DJI Grupo Multi', details: 'Atuam desde 2012 no mercado de drones e fotografia. Grupo Multi é importador de drones e estabilizadores.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mini, DJI Air, Osmo Action, Acessórios', whatsapp: '5562999992222' }, // Exemplo de WhatsApp
-        { name: 'GoHobby Distribuidora de VANT LTDA', details: 'A GoHobby é importadora exclusiva de drones profissionais e tecnologias anti-drone no Brasil.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mavic, DJI Matrice, Linha Enterprise, Soluções Anti-drone', whatsapp: '5562999993333' } // Exemplo de WhatsApp
+        { name: 'Arroba Celulares', details: 'Aroba celulares é um dos principais distribuidores e centros de manutenção de eletrônicos no Brasil.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mini, Osmo Mobile, Acessórios', whatsapp: '556281145767', category: 'Consumer' },
+        { name: 'DJI Grupo Multi', details: 'Atuam desde 2012 no mercado de drones e fotografia. Grupo Multi é importador de drones e estabilizadores.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mini, DJI Air, Osmo Action, Acessórios', whatsapp: '551145731093', category: 'Consumer' },
+        { name: 'GoHobby Distribuidora de VANT LTDA', details: 'A GoHobby é importadora exclusiva de drones profissionais e tecnologias anti-drone no Brasil.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mavic, DJI Matrice, Linha Enterprise, Soluções Anti-drone', whatsapp: '5511955973434', category: 'Enterprise' },
+        // Novos fornecedores de peças
+        { name: 'Pedro - FlyUp (Anápolis)', details: 'Fornecedor de peças e serviços de manutenção em Anápolis.', payment: 'A combinar.', products: 'Peças diversas, componentes eletrônicos', whatsapp: '556292065116', category: 'Pecas' },
+        { name: 'Eber - (Aparecida de Goiânia)', details: 'Especialista em peças e reparos de drones em Aparecida de Goiânia.', payment: 'A combinar.', products: 'Peças de reposição, baterias genéricas', whatsapp: '556293147403', category: 'Pecas' },
+        { name: 'Cristiano - (Goiânia)', details: 'Fornecedor local de peças e acessórios para drones em Goiânia.', payment: 'A combinar.', products: 'Peças e acessórios DJI, serviços de reparo', whatsapp: '556292506411', category: 'Pecas' }
     ];
 
     const INSTALLMENT_RATES = {
@@ -1003,8 +1007,8 @@
     // --- FUNÇÕES GLOBAIS ---
     function getGreeting() {
         const hour = new Date().getHours();
-        if (hour < 12) return 'Bom dia';
-        if (hour < 18) return 'Boa tarde';
+        if (hour >= 6 && hour < 12) return 'Bom dia';
+        if (hour >= 12 && hour < 18) return 'Boa tarde';
         return 'Boa noite';
     }
 
@@ -2004,38 +2008,57 @@
         selectedSupplierNameSpan.textContent = '';
         sendBudgetWhatsappButton.href = '#';
 
-        // Filtrar fornecedores com base na categoria
-        const selectedCategory = droneCategorySelect.value;
-        const relevantSuppliers = SUPPLIERS.filter(supplier => {
-            const productsLower = supplier.products.toLowerCase();
-            if (selectedCategory === 'Consumer') {
-                return productsLower.includes('mini') || productsLower.includes('osmo mobile');
-            } else if (selectedCategory === 'Enterprise' || selectedCategory === 'Agriculture') {
-                return productsLower.includes('matrice') || productsLower.includes('mavic') || productsLower.includes('enterprise') || productsLower.includes('anti-drone');
-            }
-            return false;
-        });
-
-        budgetSupplierSelect.innerHTML = '<option value="">Selecione o fornecedor</option>';
-        relevantSuppliers.forEach(supplier => {
-            const option = document.createElement('option');
-            option.value = supplier.name;
-            option.textContent = supplier.name;
-            budgetSupplierSelect.appendChild(option);
-        });
-        budgetSupplierSelectGroup.classList.remove('hidden'); // Mostrar o select de fornecedor após a categoria
+        // A lógica de filtragem de fornecedores baseada na categoria do drone (Consumer/Enterprise/Agriculture)
+        // será movida para dentro de handleBudgetItemTypeChange, para que o fornecedor seja selecionado após
+        // a escolha de Equipamento ou Peças.
     }
 
     function handleBudgetItemTypeChange() {
         const itemType = itemTypeSelect.value;
+        const selectedCategory = droneCategorySelect.value; // Pega a categoria selecionada
+
         equipmentDetailsGroup.classList.add('hidden');
         sparePartsDetailsGroup.classList.add('hidden');
+        selectedSupplierContactDiv.classList.add('hidden'); // Esconder contato do fornecedor ao mudar o tipo
+        sendBudgetWhatsappButton.href = '#'; // Resetar link do WhatsApp
+
+        let relevantSuppliers = [];
+
         if (itemType === 'Equipamentos') {
             equipmentDetailsGroup.classList.remove('hidden');
+            // Filtra fornecedores de equipamentos com base na categoria do drone
+            relevantSuppliers = SUPPLIERS.filter(supplier => {
+                const productsLower = supplier.products.toLowerCase();
+                const supplierCategory = supplier.category; // Pega a categoria definida no fornecedor
+
+                if (selectedCategory === 'Consumer') {
+                    return supplierCategory === 'Consumer';
+                } else if (selectedCategory === 'Enterprise' || selectedCategory === 'Agriculture') {
+                    return supplierCategory === 'Enterprise'; // Assumimos que Enterprise cobre Agriculture para equipamentos
+                }
+                return false;
+            });
+
         } else if (itemType === 'Pecas') {
             sparePartsDetailsGroup.classList.remove('hidden');
+            // Filtra TODOS os fornecedores de peças, independentemente da categoria do drone
+            relevantSuppliers = SUPPLIERS.filter(supplier => supplier.category === 'Pecas');
+        }
+
+        budgetSupplierSelect.innerHTML = '<option value="">Selecione o fornecedor</option>';
+        if (relevantSuppliers.length > 0) {
+            relevantSuppliers.forEach(supplier => {
+                const option = document.createElement('option');
+                option.value = supplier.name;
+                option.textContent = supplier.name;
+                budgetSupplierSelect.appendChild(option);
+            });
+            budgetSupplierSelectGroup.classList.remove('hidden');
+        } else {
+            budgetSupplierSelectGroup.classList.add('hidden');
         }
     }
+
 
     function handleBudgetSupplierChange() {
         const selectedSupplierName = budgetSupplierSelect.value;
@@ -2044,6 +2067,8 @@
         if (selectedSupplier) {
             selectedSupplierNameSpan.textContent = selectedSupplier.name;
             selectedSupplierContactDiv.classList.remove('hidden');
+            // O link do WhatsApp será gerado APENAS quando o botão "Solicitar Orçamento" for clicado,
+            // garantindo que todos os detalhes estejam preenchidos.
         } else {
             selectedSupplierContactDiv.classList.add('hidden');
         }
@@ -2061,14 +2086,14 @@
         }
 
         if (!category || !itemType || !details) {
-            alert('Por favor, preencha todos os campos necessários para o orçamento.');
+            alert('Por favor, preencha a categoria, o tipo de item e os detalhes da solicitação.');
             return;
         }
 
         const supplierName = budgetSupplierSelect.value;
         const selectedSupplier = SUPPLIERS.find(s => s.name === supplierName);
         if (!selectedSupplier || !selectedSupplier.whatsapp) {
-            alert('Erro: Fornecedor ou número de WhatsApp não encontrado.');
+            alert('Erro: Fornecedor ou número de WhatsApp não encontrado. Por favor, selecione um fornecedor válido.');
             return;
         }
 
@@ -2079,7 +2104,7 @@
 
         let message = `${greeting}, ${selectedSupplier.name}!\n\n`;
         message += `Sou o(a) *${userName}* da Galvão Drones e gostaria de solicitar um orçamento.\n\n`;
-        message += `*Categoria:* ${category}\n`;
+        message += `*Categoria do Drone:* ${category}\n`;
         message += `*Tipo de Item:* ${itemType}\n\n`;
         message += `*Detalhes da solicitação:*\n${details}\n\n`;
         message += `Aguardamos o retorno. Obrigado(a)!\n\n`;
@@ -2503,3 +2528,5 @@
         if (sendBudgetWhatsappButton) sendBudgetWhatsappButton.addEventListener('click', generateBudgetWhatsappMessage);
     });
 </script>
+</body>
+</html>
