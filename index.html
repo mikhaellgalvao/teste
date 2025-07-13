@@ -300,6 +300,28 @@
         }
         #budget-modal .supplier-contact-info img { width: 40px; height: 40px; margin-right: 10px; }
         #budget-modal .supplier-contact-info .whatsapp-button { width: auto; margin-top: 0; }
+
+        /* Estilos para os checkboxes do modal de orçamento */
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-weight: normal; /* Sobrescreve o estilo default de label */
+        }
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 5px;
+            width: auto; /* Para não pegar o width: 100% de input-group input */
+            padding: 0; /* Para não pegar o padding de input-group input */
+            height: auto; /* Para não pegar o height de input-group input */
+            box-sizing: content-box; /* Garante que padding e border não aumentem o tamanho */
+        }
     </style>
 </head>
 <body>
@@ -457,11 +479,7 @@
                                 <div class="input-group"><label for="edit-product-spec">Especificações</label><textarea id="edit-product-spec" rows="5"></textarea></div>
                                 <div class="input-group"><label for="edit-product-sale-price">Preço de Venda (R$)</label><input type="number" id="edit-product-sale-price" step="0.01" min="0" required></div>
                                 <div class="input-group"><label for="edit-product-cost-price">Preço de Custo (R$)</label><input type="number" id="edit-product-cost-price" step="0.01" min="0"></div>
-                                <div class="input-group">
-                                    <label for="edit-product-supplier">Fornecedor Principal</label>
-                                    <select id="edit-product-supplier">
-                                        </select>
-                                </div>
+                                <div class="input-group"><label for="edit-product-supplier">Fornecedor Principal</label><input type="text" id="edit-product-supplier"></div>
                                 <button type="submit" class="action-button">Salvar Alterações</button>
                                 <p id="edit-product-feedback" class="profile-feedback"></p>
                             </form>
@@ -662,22 +680,20 @@
             <h3>Solicitar Orçamento ao Fornecedor</h3>
             <div id="budget-modal-body-content" class="modal-body-content">
                 <div class="input-group">
-                    <label for="drone-category">Categoria do Drone</label>
-                    <select id="drone-category">
-                        <option value="">Selecione uma categoria</option>
-                        <option value="Consumer">Consumer</option>
-                        <option value="Enterprise">Enterprise</option>
-                        <option value="Agriculture">Agriculture</option>
-                        <option value="Pecas">Peças</option> </select>
+                    <label>Categoria do Drone</label>
+                    <div class="checkbox-group" id="drone-category-checkboxes">
+                        <label><input type="checkbox" name="drone-category" value="Consumer"> Consumer</label>
+                        <label><input type="checkbox" name="drone-category" value="Enterprise"> Enterprise</label>
+                        <label><input type="checkbox" name="drone-category" value="Agriculture"> Agriculture</label>
+                    </div>
                 </div>
 
                 <div class="input-group hidden" id="item-type-group">
-                    <label for="item-type">Tipo de Item</label>
-                    <select id="item-type">
-                        <option value="">Selecione o tipo</option>
-                        <option value="Equipamentos">Equipamentos</option>
-                        <option value="Pecas">Peças</option>
-                    </select>
+                    <label>Tipo de Item</label>
+                    <div class="checkbox-group" id="item-type-checkboxes">
+                        <label><input type="checkbox" name="item-type" value="Equipamentos"> Equipamentos</label>
+                        <label><input type="checkbox" name="item-type" value="Pecas"> Peças</label>
+                    </div>
                 </div>
 
                 <div class="input-group hidden" id="equipment-details-group">
@@ -691,14 +707,13 @@
                 </div>
 
                 <div class="input-group hidden" id="supplier-select-group">
-                    <label for="budget-supplier">Selecione o Fornecedor</label>
-                    <select id="budget-supplier">
-                        <option value="">Selecione o fornecedor</option>
-                    </select>
+                    <label for="budget-supplier">Selecione o(s) Fornecedor(es)</label>
+                    <div class="checkbox-group" id="budget-supplier-checkboxes">
+                        </div>
                 </div>
 
                 <div id="selected-supplier-contact" class="supplier-contact-info hidden">
-                    <span id="selected-supplier-name"></span>
+                    <span id="selected-supplier-name-display"></span>
                     <a href="#" target="_blank" class="action-button whatsapp-button" id="send-budget-whatsapp">
                         <img src="https://i.imgur.com/XF9rY8D.png" alt="WhatsApp" style="height: 20px; width: 20px; margin-right: 5px; vertical-align: middle;">
                         Solicitar Orçamento
@@ -968,13 +983,13 @@
     ];
 
     const SUPPLIERS = [
-        { name: 'Arroba Celulares', contactName: 'Atendimento', details: 'Aroba celulares é um dos principais distribuidores e centros de manutenção de eletrônicos no Brasil.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mini, Osmo Mobile, Acessórios', whatsapp: '556281145767', categories: ['Consumer'] },
-        { name: 'DJI Grupo Multi', contactName: 'Atendimento', details: 'Atuam desde 2012 no mercado de drones e fotografia. Grupo Multi é importador de drones e estabilizadores.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mini, DJI Air, Osmo Action, Acessórios', whatsapp: '551145731093', categories: ['Consumer'] },
-        { name: 'GoHobby Distribuidora de VANT LTDA', contactName: 'Alexandre Elias', details: 'A GoHobby é importadora exclusiva de drones profissionais e tecnologias anti-drone no Brasil.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mavic, DJI Matrice, Linha Enterprise, Soluções Anti-drone', whatsapp: '5511955973434', categories: ['Enterprise', 'Agriculture'] },
-        // Novos fornecedores de peças com categorias específicas
-        { name: 'Pedro - FlyUp (Anápolis)', contactName: 'Pedro', details: 'Fornecedor de peças e serviços de manutenção em Anápolis.', payment: 'A combinar.', products: 'Peças diversas, componentes eletrônicos', whatsapp: '556292065116', categories: ['Pecas', 'Consumer'] },
-        { name: 'Eber - (Aparecida de Goiânia)', contactName: 'Eber', details: 'Especialista em peças e reparos de drones em Aparecida de Goiânia.', payment: 'A combinar.', products: 'Peças de reposição, baterias genéricas', whatsapp: '556293147403', categories: ['Pecas', 'Consumer', 'Enterprise'] },
-        { name: 'Cristiano - (Goiânia)', contactName: 'Cristiano', details: 'Fornecedor local de peças e acessórios para drones em Goiânia.', payment: 'A combinar.', products: 'Peças e acessórios DJI, serviços de reparo', whatsapp: '556292506411', categories: ['Pecas', 'Consumer'] }
+        { name: 'Arroba Celulares', details: 'Aroba celulares é um dos principais distribuidores e centros de manutenção de eletrônicos no Brasil.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mini, Osmo Mobile, Acessórios', whatsapp: '556281145767', categories: ['Consumer', 'Equipamentos'] },
+        { name: 'DJI Grupo Multi', details: 'Atuam desde 2012 no mercado de drones e fotografia. Grupo Multi é importador de drones e estabilizadores.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mini, DJI Air, Osmo Action, Acessórios', whatsapp: '551145731093', categories: ['Consumer', 'Equipamentos'] },
+        { name: 'GoHobby Distribuidora de VANT LTDA', details: 'A GoHobby é importadora exclusiva de drones profissionais e tecnologias anti-drone no Brasil.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mavic, DJI Matrice, Linha Enterprise, Soluções Anti-drone', whatsapp: '5511955973434', categories: ['Enterprise', 'Agriculture', 'Equipamentos'] },
+        // Novos fornecedores de peças
+        { name: 'Pedro - FlyUp (Anápolis)', details: 'Fornecedor de peças e serviços de manutenção em Anápolis.', payment: 'A combinar.', products: 'Peças diversas, componentes eletrônicos', whatsapp: '556292065116', categories: ['Pecas'] },
+        { name: 'Eber - (Aparecida de Goiânia)', details: 'Especialista em peças e reparos de drones em Aparecida de Goiânia.', payment: 'A combinar.', products: 'Peças de reposição, baterias genéricas', whatsapp: '556293147403', categories: ['Pecas'] },
+        { name: 'Cristiano - (Goiânia)', details: 'Fornecedor local de peças e acessórios para drones em Goiânia.', payment: 'A combinar.', products: 'Peças e acessórios DJI, serviços de reparo', whatsapp: '556292506411', categories: ['Pecas'] }
     ];
 
     const INSTALLMENT_RATES = {
@@ -1005,7 +1020,7 @@
     let generalDiscountOption, generalDiscountPercentageInput;
 
     // Novos elementos para o modal de orçamento
-    let openBudgetModalButton, budgetModal, budgetCloseButton, droneCategorySelect, itemTypeGroup, itemTypeSelect, equipmentDetailsGroup, equipmentDetailsTextarea, sparePartsDetailsGroup, sparePartsDetailsTextarea, budgetSupplierSelectGroup, budgetSupplierSelect, selectedSupplierContactDiv, selectedSupplierNameSpan, sendBudgetWhatsappButton;
+    let openBudgetModalButton, budgetModal, budgetCloseButton, droneCategoryCheckboxes, itemTypeGroup, itemTypeCheckboxes, equipmentDetailsGroup, equipmentDetailsTextarea, sparePartsDetailsGroup, sparePartsDetailsTextarea, budgetSupplierSelectGroup, budgetSupplierCheckboxesContainer, selectedSupplierContactDiv, selectedSupplierNameDisplay, sendBudgetWhatsappButton;
 
 
     // --- FUNÇÕES GLOBAIS ---
@@ -1076,8 +1091,9 @@
         }
 
         const encodedMessage = encodeURIComponent(message);
-        // Não abre nova aba, apenas redireciona para o WhatsApp
-        window.location.href = `https://wa.me/?text=${encodedMessage}`;
+        const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
+
+        window.open(whatsappUrl, '_blank');
         closeWhatsAppModal();
     }
 
@@ -1588,17 +1604,7 @@
             editProductSpecTextarea.value = product.spec;
             editProductSalePriceInput.value = product.salePrice;
             editProductCostPriceInput.value = product.sources[0] ? product.sources[0].costPrice : '';
-
-            // Preencher o select de fornecedores para edição
-            const editProductSupplierSelect = document.getElementById('edit-product-supplier');
-            editProductSupplierSelect.innerHTML = ''; // Limpa opções existentes
-            SUPPLIERS.forEach(supplier => {
-                const option = document.createElement('option');
-                option.value = supplier.name;
-                option.textContent = supplier.name;
-                editProductSupplierSelect.appendChild(option);
-            });
-            editProductSupplierSelect.value = product.sources[0] ? product.sources[0].supplierName : '';
+            editProductSupplierInput.value = product.sources[0] ? product.sources[0].supplierName : '';
         }
     }
 
@@ -1616,7 +1622,7 @@
         const spec = editProductSpecTextarea.value.trim();
         const salePrice = parseFloat(editProductSalePriceInput.value);
         const costPrice = parseFloat(editProductCostPriceInput.value);
-        const supplier = document.getElementById('edit-product-supplier').value.trim(); // Pega do select
+        const supplier = editProductSupplierInput.value.trim();
 
         if (!name || !spec || isNaN(salePrice) || salePrice <= 0) {
             editProductFeedback.textContent = 'Preenchimento obrigatório (Nome, Especificações, Preço de Venda).';
@@ -1694,12 +1700,10 @@
             supplierCard.className = 'card supplier-card';
             supplierCard.innerHTML = `
                 <h3><strong data-supplier-name="${supplier.name}">${supplier.name}</strong></h3>
-                <p><strong>Nome de Contato:</strong> ${supplier.contactName || 'Não Informado'}</p>
                 <p><strong>Detalhes:</strong> ${supplier.details}</p>
                 <div><strong>Pagamento:</strong><br>${supplier.payment.replace(/\n/g, '<br>')}</div>
                 <p><strong>Produtos Principais:</strong> ${supplier.products}</p>
-                <p><strong>Categorias:</strong> ${supplier.categories ? supplier.categories.join(', ') : 'N/A'}</p>
-                <p><strong>WhatsApp:</strong> <a href="https://wa.me/${supplier.whatsapp}" target="_blank">${supplier.whatsapp || 'N/A'}</a></p>
+                <p><strong>WhatsApp:</strong> <a href="https://wa.me/${supplier.whatsapp}" target="_blank">${supplier.whatsapp}</a></p>
             `;
             supplierList.appendChild(supplierCard);
         });
@@ -1995,17 +1999,17 @@
     // --- FUNÇÕES DO NOVO MODAL DE ORÇAMENTO ---
     function openBudgetModal() {
         // Resetar os campos e a visibilidade
-        droneCategorySelect.value = '';
+        document.querySelectorAll('#drone-category-checkboxes input[type="checkbox"]').forEach(cb => cb.checked = false);
         itemTypeGroup.classList.add('hidden');
-        itemTypeSelect.value = '';
+        document.querySelectorAll('#item-type-checkboxes input[type="checkbox"]').forEach(cb => cb.checked = false);
         equipmentDetailsGroup.classList.add('hidden');
         equipmentDetailsTextarea.value = '';
         sparePartsDetailsGroup.classList.add('hidden');
         sparePartsDetailsTextarea.value = '';
         budgetSupplierSelectGroup.classList.add('hidden');
-        budgetSupplierSelect.innerHTML = '<option value="">Selecione o fornecedor</option>';
+        budgetSupplierCheckboxesContainer.innerHTML = ''; // Limpa os checkboxes de fornecedores
         selectedSupplierContactDiv.classList.add('hidden');
-        selectedSupplierNameSpan.textContent = '';
+        selectedSupplierNameDisplay.textContent = '';
         sendBudgetWhatsappButton.href = '#';
         budgetModal.style.display = 'block';
     }
@@ -2014,97 +2018,101 @@
         budgetModal.style.display = 'none';
     }
 
-    function handleBudgetCategoryChange() {
-        itemTypeGroup.classList.remove('hidden');
-        itemTypeSelect.value = ''; // Resetar seleção
-        equipmentDetailsGroup.classList.add('hidden');
-        sparePartsDetailsGroup.classList.add('hidden');
-        budgetSupplierSelectGroup.classList.add('hidden');
-        selectedSupplierContactDiv.classList.add('hidden');
-        selectedSupplierNameSpan.textContent = '';
-        sendBudgetWhatsappButton.href = '#';
-
-        // A lógica de filtragem de fornecedores será feita em handleBudgetItemTypeChange
-        // para que a seleção de "Equipamentos" ou "Peças" determine os fornecedores disponíveis.
-    }
-
-    function handleBudgetItemTypeChange() {
-        const itemType = itemTypeSelect.value;
-        const selectedCategory = droneCategorySelect.value;
-
-        equipmentDetailsGroup.classList.add('hidden');
-        sparePartsDetailsGroup.classList.add('hidden');
-        selectedSupplierContactDiv.classList.add('hidden');
-        budgetSupplierSelect.innerHTML = '<option value="">Selecione o fornecedor</option>'; // Limpa opções
+    function updateSupplierCheckboxes() {
+        const selectedCategories = Array.from(droneCategoryCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
+        const selectedItemTypes = Array.from(itemTypeCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
 
         let relevantSuppliers = [];
 
-        if (itemType === 'Equipamentos') {
-            equipmentDetailsGroup.classList.remove('hidden');
-            if (selectedCategory === 'Pecas') { // Se "Peças" foi selecionado na categoria, mas depois "Equipamentos" no tipo
-                alert('Atenção: Você selecionou "Peças" na categoria e "Equipamentos" no tipo. Selecionando fornecedores de equipamentos para a categoria selecionada.');
-                // Continuar com a lógica de Equipamentos para a categoria original
+        if (selectedItemTypes.includes('Pecas')) {
+            // Se "Peças" estiver selecionado, mostra SOMENTE os fornecedores de peças
+            relevantSuppliers = SUPPLIERS.filter(s => s.categories.includes('Pecas'));
+        } else if (selectedItemTypes.includes('Equipamentos')) {
+            // Se "Equipamentos" estiver selecionado, filtra por categoria de drone
+            if (selectedCategories.length > 0) {
+                relevantSuppliers = SUPPLIERS.filter(s =>
+                    s.categories.includes('Equipamentos') &&
+                    selectedCategories.some(cat => s.categories.includes(cat))
+                );
+            } else {
+                // Se nenhum drone category selecionado, mas Equipamentos sim, mostra todos os de equipamento
+                relevantSuppliers = SUPPLIERS.filter(s => s.categories.includes('Equipamentos'));
             }
-
-            relevantSuppliers = SUPPLIERS.filter(supplier =>
-                supplier.categories && supplier.categories.includes(selectedCategory) && supplier.categories.includes('Equipamento') !== true && supplier.categories.includes('Pecas') !== true // Excluir fornecedores de peças aqui
-            );
-
-        } else if (itemType === 'Pecas') {
-            sparePartsDetailsGroup.classList.remove('hidden');
-            relevantSuppliers = SUPPLIERS.filter(supplier =>
-                supplier.categories && supplier.categories.includes('Pecas')
-            );
         }
 
+        budgetSupplierCheckboxesContainer.innerHTML = ''; // Limpa os checkboxes existentes
         if (relevantSuppliers.length > 0) {
             relevantSuppliers.forEach(supplier => {
-                const option = document.createElement('option');
-                option.value = supplier.name; // Usar o nome completo do fornecedor
-                option.textContent = supplier.name;
-                budgetSupplierSelect.appendChild(option);
+                const label = document.createElement('label');
+                label.innerHTML = `<input type="checkbox" name="budget-supplier" value="${supplier.name}" data-whatsapp="${supplier.whatsapp}"> ${supplier.name}`;
+                budgetSupplierCheckboxesContainer.appendChild(label);
             });
             budgetSupplierSelectGroup.classList.remove('hidden');
         } else {
             budgetSupplierSelectGroup.classList.add('hidden');
         }
+
+        // Esconder detalhes de equipamento/peças se nada estiver selecionado
+        equipmentDetailsGroup.classList.toggle('hidden', !selectedItemTypes.includes('Equipamentos'));
+        sparePartsDetailsGroup.classList.toggle('hidden', !selectedItemTypes.includes('Pecas'));
+
+        // Resetar o display do fornecedor selecionado
+        selectedSupplierContactDiv.classList.add('hidden');
+        selectedSupplierNameDisplay.textContent = '';
     }
 
 
-    function handleBudgetSupplierChange() {
-        const selectedSupplierName = budgetSupplierSelect.value;
-        const selectedSupplier = SUPPLIERS.find(s => s.name === selectedSupplierName);
+    function handleBudgetCategoryChange() {
+        itemTypeGroup.classList.remove('hidden');
+        // Desmarcar todos os itemTypeCheckboxes e re-renderizar fornecedores
+        document.querySelectorAll('#item-type-checkboxes input[type="checkbox"]').forEach(cb => cb.checked = false);
+        updateSupplierCheckboxes();
+    }
 
-        if (selectedSupplier) {
-            selectedSupplierNameSpan.textContent = selectedSupplier.contactName || selectedSupplier.name.split(' ')[0]; // Exibe o primeiro nome ou nome de contato
+    function handleBudgetItemTypeChange() {
+        updateSupplierCheckboxes();
+    }
+
+    function handleBudgetSupplierSelection() {
+        const selectedSuppliers = Array.from(document.querySelectorAll('#budget-supplier-checkboxes input[type="checkbox"]:checked'));
+        if (selectedSuppliers.length > 0) {
+            // Apenas para display, mostra o nome do primeiro fornecedor selecionado
+            selectedSupplierNameDisplay.textContent = selectedSuppliers.map(cb => cb.value).join(', ');
             selectedSupplierContactDiv.classList.remove('hidden');
-            // O link do WhatsApp será gerado APENAS quando o botão "Solicitar Orçamento" for clicado,
-            // garantindo que todos os detalhes estejam preenchidos.
         } else {
             selectedSupplierContactDiv.classList.add('hidden');
+            selectedSupplierNameDisplay.textContent = '';
         }
     }
 
+
     function generateBudgetWhatsappMessage() {
-        const category = droneCategorySelect.value;
-        const itemType = itemTypeSelect.value;
-        let details = '';
+        const selectedCategories = Array.from(droneCategoryCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
+        const selectedItemTypes = Array.from(itemTypeCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
+        const selectedSuppliersCheckboxes = Array.from(document.querySelectorAll('#budget-supplier-checkboxes input[type="checkbox"]:checked'));
 
-        if (itemType === 'Equipamentos') {
-            details = equipmentDetailsTextarea.value.trim();
-        } else if (itemType === 'Pecas') {
-            details = sparePartsDetailsTextarea.value.trim();
+        if (selectedCategories.length === 0) {
+            alert('Por favor, selecione ao menos uma Categoria de Drone.');
+            return;
         }
-
-        if (!category || !itemType || !details) {
-            alert('Por favor, preencha a categoria, o tipo de item e os detalhes da solicitação.');
+        if (selectedItemTypes.length === 0) {
+            alert('Por favor, selecione ao menos um Tipo de Item (Equipamentos ou Peças).');
+            return;
+        }
+        if (selectedSuppliersCheckboxes.length === 0) {
+            alert('Por favor, selecione ao menos um Fornecedor.');
             return;
         }
 
-        const supplierName = budgetSupplierSelect.value;
-        const selectedSupplier = SUPPLIERS.find(s => s.name === supplierName);
-        if (!selectedSupplier || !selectedSupplier.whatsapp) {
-            alert('Erro: Fornecedor ou número de WhatsApp não encontrado. Por favor, selecione um fornecedor válido.');
+        let details = '';
+        if (selectedItemTypes.includes('Equipamentos')) {
+            details += `*Equipamentos:* ${equipmentDetailsTextarea.value.trim()}\n`;
+        }
+        if (selectedItemTypes.includes('Pecas')) {
+            details += `*Peças:* ${sparePartsDetailsTextarea.value.trim()}\n`;
+        }
+        if (!details.trim()) {
+            alert('Por favor, descreva os itens para o orçamento (Modelos/Quantidades ou Peças).');
             return;
         }
 
@@ -2113,23 +2121,33 @@
         const userPhone = window.currentUser.phone ? `(${window.currentUser.phone.substring(0,2)}) ${window.currentUser.phone.substring(2,7)}-${window.currentUser.phone.substring(7)}` : 'Não informado';
         const userEmail = window.currentUser.email || 'Não informado';
 
-        let message = `${greeting}, ${selectedSupplier.contactName || selectedSupplier.name.split(' ')[0]}!\n\n`; // Chama pelo primeiro nome ou nome de contato
-        message += `Sou o(a) *${userName}* da Galvão Drones e gostaria de solicitar um orçamento.\n\n`;
-        message += `*Categoria do Drone:* ${category}\n`;
-        message += `*Tipo de Item:* ${itemType}\n\n`;
-        message += `*Detalhes da solicitação:*\n${details}\n\n`;
-        message += `Aguardamos o retorno. Obrigado(a)!\n\n`;
-        message += `*Meus Contatos:*\nCelular: ${userPhone}\nEmail: ${userEmail}`;
+        selectedSuppliersCheckboxes.forEach(checkbox => {
+            const supplierName = checkbox.value;
+            const supplierWhatsapp = checkbox.dataset.whatsapp; // Pega o WhatsApp do dataset
 
-        const encodedMessage = encodeURIComponent(message);
-        // Não abre nova aba, apenas redireciona para o WhatsApp
-        window.location.href = `https://wa.me/${selectedSupplier.whatsapp}?text=${encodedMessage}`;
-        closeBudgetModal();
+            if (supplierWhatsapp) {
+                let message = `${greeting}, ${supplierName}!\n\n`;
+                message += `Sou o(a) *${userName}* da Galvão Drones e gostaria de solicitar um orçamento para:\n\n`;
+                message += `*Categorias de Drone:* ${selectedCategories.join(', ')}\n`;
+                message += `*Tipos de Item:* ${selectedItemTypes.join(', ')}\n\n`;
+                message += `*Detalhes da solicitação:*\n${details}\n\n`;
+                message += `Aguardamos o retorno. Obrigado(a)!\n\n`;
+                message += `*Meus Contatos:*\nCelular: ${userPhone}\nEmail: ${userEmail}`;
+
+                const encodedMessage = encodeURIComponent(message);
+                const whatsappUrl = `https://wa.me/${supplierWhatsapp}?text=${encodedMessage}`;
+                window.open(whatsappUrl, '_blank');
+            } else {
+                console.warn(`Número de WhatsApp não encontrado para o fornecedor: ${supplierName}`);
+            }
+        });
+
+        closeBudgetModal(); // Fecha o modal após enviar as mensagens
     }
 
 
     document.addEventListener('DOMContentLoaded', () => {
-        // Atribuição de elementos DOM a variáveis globais
+        // Atribuição de elementos DOM a variáveis globais (já presentes)
         loginScreen = document.getElementById('login-screen');
         appScreen = document.getElementById('app-screen');
         loginButton = document.getElementById('login-button');
@@ -2264,17 +2282,17 @@
         openBudgetModalButton = document.getElementById('open-budget-modal-button');
         budgetModal = document.getElementById('budget-modal');
         budgetCloseButton = document.getElementById('budget-close-button');
-        droneCategorySelect = document.getElementById('drone-category');
+        droneCategoryCheckboxes = document.querySelectorAll('input[name="drone-category"]'); // Seleciona todos os checkboxes de categoria
         itemTypeGroup = document.getElementById('item-type-group');
-        itemTypeSelect = document.getElementById('item-type');
+        itemTypeCheckboxes = document.querySelectorAll('input[name="item-type"]'); // Seleciona todos os checkboxes de tipo de item
         equipmentDetailsGroup = document.getElementById('equipment-details-group');
         equipmentDetailsTextarea = document.getElementById('equipment-details');
         sparePartsDetailsGroup = document.getElementById('spare-parts-details-group');
         sparePartsDetailsTextarea = document.getElementById('spare-parts-details');
         budgetSupplierSelectGroup = document.getElementById('supplier-select-group');
-        budgetSupplierSelect = document.getElementById('budget-supplier');
+        budgetSupplierCheckboxesContainer = document.getElementById('budget-supplier-checkboxes');
         selectedSupplierContactDiv = document.getElementById('selected-supplier-contact');
-        selectedSupplierNameSpan = document.getElementById('selected-supplier-name');
+        selectedSupplierNameDisplay = document.getElementById('selected-supplier-name-display');
         sendBudgetWhatsappButton = document.getElementById('send-budget-whatsapp');
 
 
@@ -2533,9 +2551,20 @@
         // --- EVENT LISTENERS para o Novo Modal de Orçamento ---
         if (openBudgetModalButton) openBudgetModalButton.addEventListener('click', openBudgetModal);
         if (budgetCloseButton) budgetCloseButton.addEventListener('click', closeBudgetModal);
-        if (droneCategorySelect) droneCategorySelect.addEventListener('change', handleBudgetCategoryChange);
-        if (itemTypeSelect) itemTypeSelect.addEventListener('change', handleBudgetItemTypeChange);
-        if (budgetSupplierSelect) budgetSupplierSelect.addEventListener('change', handleBudgetSupplierChange);
+        
+        // Adiciona event listeners para os checkboxes de categoria e tipo de item
+        droneCategoryCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', handleBudgetCategoryChange);
+        });
+        itemTypeCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', handleBudgetItemTypeChange);
+        });
+
+        // Event listener para os checkboxes de fornecedor (serão criados dinamicamente)
+        if (budgetSupplierCheckboxesContainer) {
+            budgetSupplierCheckboxesContainer.addEventListener('change', handleBudgetSupplierSelection);
+        }
+
         if (sendBudgetWhatsappButton) sendBudgetWhatsappButton.addEventListener('click', generateBudgetWhatsappMessage);
     });
 </script>
