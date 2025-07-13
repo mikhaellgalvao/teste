@@ -1609,3 +1609,1641 @@
             <div id="edit-supplier-search-results-modal" style="margin-top: 15px;"></div>
         </div>
     </div>
+document.addEventListener('DOMContentLoaded', () => {
+    // --- Elementos do DOM ---
+    const loginScreen = document.getElementById('login-screen');
+    const appScreen = document.getElementById('app-screen');
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+    const loginButton = document.getElementById('login-button');
+    const visitorModeButton = document.getElementById('visitor-mode-button');
+    const loginError = document.getElementById('login-error');
+    const logoutButton = document.getElementById('logout-button');
+    const welcomeMessage = document.getElementById('welcome-message');
+    const navToggleBtn = document.getElementById('nav-toggle-btn');
+    const navToggleBtnClose = document.getElementById('nav-toggle-btn-close');
+    const nav = document.querySelector('nav');
+    const mainContent = document.getElementById('main-content');
+    const navButtons = document.querySelectorAll('.nav-button');
+    const contentSections = document.querySelectorAll('.content-section');
+    const productSearchInput = document.getElementById('product-search');
+    const productListDiv = document.getElementById('product-list');
+    const scrollButton = document.getElementById('scroll-to-top');
+    const aiChatButton = document.getElementById('ai-chat-button');
+    const aiChatModal = document.getElementById('ai-chat-modal');
+    const aiQuestionInput = document.getElementById('ai-question-input');
+    const submitAiQuestionButton = document.getElementById('submit-ai-question');
+    const aiResponseArea = document.getElementById('ai-response-area');
+    const aiLoader = aiChatModal.querySelector('.loader');
+    const profileIconContainer = document.getElementById('profile-icon-container');
+    const profileIcon = document.getElementById('profile-icon');
+    const companyLogo = document.getElementById('company-logo'); // Adicionado para a logo na tela de login
+    const portalSubtitle = document.getElementById('portal-subtitle'); // Adicionado para o subtítulo
+
+    // --- Dados Mock (simulando um backend) ---
+    let currentUser = null; // Usuário logado
+    let isVisitorMode = false;
+
+    const USERS = [
+        { username: 'mikhaell', password: '123', role: 'admin', displayName: 'Mikhaell', email: 'contato@galvaodrones.com.br', phone: '62988887777', profilePic: 'https://i.imgur.com/8Yd00YF.png' },
+        { username: 'vendedor1', password: '123', role: 'sales', displayName: 'João', email: 'joao@galvaodrones.com.br', phone: '62999998888', profilePic: 'https://i.imgur.com/z02z02z.png' }, // Exemplo
+        { username: 'suporte', password: '123', role: 'support', displayName: 'Maria', email: 'maria@galvaodrones.com.br', phone: '62977776666', profilePic: 'https://i.imgur.com/y0y0y0y.png' }, // Exemplo
+    ];
+
+    let PRODUCTS = [
+        { id: 'P001', name: 'DJI Mini 4 Pro', spec: 'Drone compacto com câmera 4K, ideal para iniciantes e viagens. Tempo de voo: 34 min. Alcance: 20 km (FCC). Peso: 249g.', salePrice: 6999.00, costPrice: 5500.00, mainSupplierId: 'S001', category: 'Consumer' },
+        { id: 'P002', name: 'DJI Air 3', spec: 'Drone avançado com câmera dupla (wide e tele média 3x), ideal para criadores de conteúdo e uso profissional. Tempo de voo: 46 min. Alcance: 20 km (FCC). Peso: 720g.', salePrice: 9999.00, costPrice: 7800.00, mainSupplierId: 'S001', category: 'Consumer' },
+        { id: 'P003', name: 'DJI Mavic 3 Pro', spec: 'Drone profissional com sistema de câmera tripla (Hasselblad, tele média, tele), para cinematografia e inspeções. Tempo de voo: 43 min. Alcance: 28 km (FCC). Peso: 958g.', salePrice: 19999.00, costPrice: 15000.00, mainSupplierId: 'S001', category: 'Enterprise' },
+        { id: 'P004', name: 'DJI Agras T40', spec: 'Drone agrícola de pulverização com capacidade de 40L, radar ativo e sistema de pulverização dupla. Ideal para grandes áreas.', salePrice: 120000.00, costPrice: 95000.00, mainSupplierId: 'S002', category: 'Agriculture' },
+        { id: 'P005', name: 'Bateria DJI Mini 4 Pro', spec: 'Bateria de voo inteligente para DJI Mini 4 Pro. Capacidade: 2590 mAh.', salePrice: 799.00, costPrice: 600.00, mainSupplierId: 'S001', category: 'Acessorios' },
+        { id: 'P006', name: 'Hélices DJI Air 3 (Par)', spec: 'Hélices de baixo ruído para DJI Air 3. Inclui 1 par (CW + CCW).', salePrice: 150.00, costPrice: 100.00, mainSupplierId: 'S001', category: 'Acessorios' },
+        { id: 'P007', name: 'DJI Goggles 2', spec: 'Óculos FPV leves e portáteis com telas micro-OLED. Compatível com DJI Avata e O3 Air Unit.', salePrice: 3999.00, costPrice: 3000.00, mainSupplierId: 'S001', category: 'Acessorios' },
+        { id: 'P008', name: 'DJI Matrice 350 RTK', spec: 'Plataforma de drone empresarial robusta e versátil para inspeções, mapeamento e segurança. Tempo de voo: 55 min. Carga máxima: 2.7 kg.', salePrice: 85000.00, costPrice: 68000.00, mainSupplierId: 'S003', category: 'Enterprise' },
+        { id: 'P009', name: 'Câmera Zenmuse H20N', spec: 'Câmera híbrida com sensor noturno, zoom óptico e térmico para Matrice 300/350 RTK.', salePrice: 60000.00, costPrice: 48000.00, mainSupplierId: 'S003', category: 'Enterprise' },
+        { id: 'P010', name: 'DJI Avata 2 Fly More Combo', spec: 'Drone FPV imersivo com controle intuitivo, ideal para acrobacias e vídeos dinâmicos. Inclui Goggles 3 e RC Motion 3.', salePrice: 8999.00, costPrice: 7000.00, mainSupplierId: 'S001', category: 'Consumer' },
+        { id: 'P011', name: 'DJI Mini 3 Pro', spec: 'Drone compacto e leve com câmera 4K/60fps e detecção de obstáculos tridirecional. Ideal para criadores de conteúdo em movimento.', salePrice: 5999.00, costPrice: 4500.00, mainSupplierId: 'S001', category: 'Consumer' },
+        { id: 'P012', name: 'Mavic 3 Enterprise', spec: 'Drone compacto para mapeamento e inspeção, com câmera grande-angular de 20MP e zoom híbrido de 56x. RTK opcional.', salePrice: 35000.00, costPrice: 28000.00, mainSupplierId: 'S003', category: 'Enterprise' },
+        { id: 'P013', name: 'Controlador DJI RC 2', spec: 'Controle remoto com tela integrada de 5.5 polegadas para DJI Mini 4 Pro, Air 3, etc.', salePrice: 1899.00, costPrice: 1500.00, mainSupplierId: 'S001', category: 'Acessorios' },
+        { id: 'P014', name: 'DJI Inspire 3', spec: 'Drone cinematográfico full-frame 8K, com sistema de câmera Zenmuse X9-8K Air e sistema de transmissão O3 Pro. Para produções de alto nível.', salePrice: 90000.00, costPrice: 72000.00, mainSupplierId: 'S001', category: 'Enterprise' },
+        { id: 'P015', name: 'Bateria Agras T40', spec: 'Bateria de voo inteligente para DJI Agras T40. Capacidade: 30000 mAh.', salePrice: 12000.00, costPrice: 9500.00, mainSupplierId: 'S002', category: 'Pecas' },
+        { id: 'P016', name: 'Motor para Agras T40', spec: 'Motor de reposição para drone agrícola DJI Agras T40.', salePrice: 3500.00, costPrice: 2800.00, mainSupplierId: 'S002', category: 'Pecas' },
+        { id: 'P017', name: 'DJI Power 1000', spec: 'Estação de energia portátil com capacidade de 1024Wh, para carregar drones e outros dispositivos.', salePrice: 5999.00, costPrice: 4500.00, mainSupplierId: 'S001', category: 'Acessorios' },
+        { id: 'P018', name: 'DJI Osmo Pocket 3', spec: 'Câmera de bolso com gimbal de 3 eixos e sensor CMOS de 1 polegada, para vlogs e captura de momentos.', salePrice: 3499.00, costPrice: 2800.00, mainSupplierId: 'S001', category: 'Acessorios' },
+        { id: 'P019', name: 'DJI Osmo Action 4', spec: 'Câmera de ação robusta com sensor de 1/1.3 polegadas e excelente desempenho em baixa luz.', salePrice: 2499.00, costPrice: 1900.00, mainSupplierId: 'S001', category: 'Acessorios' },
+        { id: 'P020', name: 'DJI Mic 2', spec: 'Sistema de microfone sem fio com gravação interna de 32 bits float e cancelamento de ruído inteligente.', salePrice: 1999.00, costPrice: 1500.00, mainSupplierId: 'S001', category: 'Acessorios' },
+    ];
+
+    let SUPPLIERS = [
+        { id: 'S001', name: 'Drone Fly BR', details: 'Distribuidor oficial DJI no Brasil, grande variedade de produtos Consumer e Enterprise.', payment: 'Boleto 30/60/90, Cartão de Crédito', products: 'Drones DJI, Acessórios, Peças', categories: ['Consumer', 'Enterprise', 'Acessorios', 'Pecas'], contacts: [{ type: 'WhatsApp', value: '5511912345678' }, { type: 'Email', value: 'vendas@droneflybr.com.br' }] },
+        { id: 'S002', name: 'Agro Drones Solutions', details: 'Especializado em drones agrícolas DJI Agras e peças de reposição.', payment: 'Transferência, Boleto 45 dias', products: 'DJI Agras T40/T20P, Peças Agras', categories: ['Agriculture', 'Pecas'], contacts: [{ type: 'Telefone', value: '556230001122' }, { type: 'WhatsApp', value: '5562987654321' }] },
+        { id: 'S003', name: 'Tech Drones Pro', details: 'Foco em soluções Enterprise e drones de inspeção e mapeamento.', payment: 'Faturamento 30 dias', products: 'DJI Matrice, Zenmuse, Mavic Enterprise', categories: ['Enterprise', 'Equipamentos'], contacts: [{ type: 'Email', value: 'contato@techdronespro.com' }] },
+        { id: 'S004', name: 'Global Drone Parts', details: 'Importador de peças e componentes para diversas marcas de drones.', payment: 'Pagamento antecipado', products: 'Motores, Controladoras, Câmeras', categories: ['Pecas'], contacts: [{ type: 'WhatsApp', value: '5541998765432' }] },
+        { id: 'S005', name: 'Cine Drone Brasil', details: 'Fornecedor de drones e acessórios para produções cinematográficas.', payment: 'Negociável', products: 'DJI Inspire, Ronin, Câmeras', categories: ['Enterprise', 'Equipamentos', 'Acessorios'], contacts: [{ type: 'Telefone', value: '552134567890' }] },
+    ];
+
+    let TEMP_USERS = []; // Usuários temporários criados
+
+    // --- Funções Auxiliares ---
+
+    // Função para formatar moeda
+    const formatCurrency = (value) => {
+        return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
+    };
+
+    // Função para alternar abas
+    window.switchTab = (sectionId, fromNav = true) => {
+        contentSections.forEach(section => {
+            section.classList.remove('active');
+        });
+        document.getElementById(sectionId).classList.add('active');
+
+        navButtons.forEach(button => {
+            button.classList.remove('active');
+        });
+
+        // Ativa o botão de navegação principal
+        if (fromNav) {
+            const activeButton = document.querySelector(`.nav-button[data-section="${sectionId}"]`);
+            if (activeButton) {
+                activeButton.classList.add('active');
+            }
+        }
+
+        // Se estiver em mobile e a nav estiver aberta, fecha
+        if (window.innerWidth <= 768 && nav.classList.contains('nav-open')) {
+            nav.classList.remove('nav-open');
+        }
+
+        // Lógica para sub-navegação
+        const subNavs = document.querySelectorAll('.sub-nav');
+        subNavs.forEach(sn => sn.style.display = 'none');
+
+        const parentNavButton = document.querySelector(`.nav-button[data-section="${sectionId}"]`);
+        if (parentNavButton && parentNavButton.closest('.nav-item-group')) {
+            const parentGroup = parentNavButton.closest('.nav-item-group');
+            const subNav = parentGroup.querySelector('.sub-nav');
+            if (subNav) {
+                subNav.style.display = 'block';
+                // Ativa o botão pai se ele não for um sub-botão
+                if (!parentNavButton.classList.contains('sub-nav-button')) {
+                     parentNavButton.classList.add('active');
+                }
+            }
+        }
+        // Garante que o botão clicado (se for sub-botão) também fique ativo
+        const clickedSubButton = document.querySelector(`.nav-button.sub-nav-button[data-section="${sectionId}"]`);
+        if (clickedSubButton) {
+            clickedSubButton.classList.add('active');
+        }
+
+        // Esconde/mostra o botão de chat da IA dependendo da seção
+        if (sectionId === 'products-section' || sectionId === 'drones-visitor-section') {
+            aiChatButton.style.display = 'block';
+        } else {
+            aiChatButton.style.display = 'none';
+        }
+    };
+
+    // Função para mostrar modal
+    const showModal = (modalId, title = '', body = '') => {
+        const modal = document.getElementById(modalId);
+        if (!modal) {
+            console.error(`Modal com ID ${modalId} não encontrado.`);
+            return;
+        }
+
+        const modalTitleElement = modal.querySelector('#modal-title');
+        const modalBodyElement = modal.querySelector('#modal-body');
+
+        if (modalTitleElement && title) {
+            modalTitleElement.textContent = title;
+        }
+        if (modalBodyElement && body) {
+            modalBodyElement.innerHTML = body;
+        }
+
+        modal.style.display = 'block';
+    };
+
+    // Função para fechar modal
+    const closeModal = (modalId) => {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.style.display = 'none';
+        }
+    };
+
+    // --- Lógica de Login ---
+    loginButton.addEventListener('click', () => {
+        const username = usernameInput.value;
+        const password = passwordInput.value;
+        const user = USERS.find(u => u.username === username && u.password === password);
+        const tempUser = TEMP_USERS.find(u => u.username === username && u.password === password && new Date() < u.expiresAt);
+
+        if (user || tempUser) {
+            currentUser = user || tempUser;
+            isVisitorMode = false;
+            loginScreen.style.opacity = 0;
+            setTimeout(() => {
+                loginScreen.style.display = 'none';
+                appScreen.style.display = 'block';
+                appScreen.style.opacity = 1;
+                updateAppUI();
+                window.switchTab('products-section'); // Abre a tela de produtos por padrão
+                document.body.classList.remove('visitor-mode-bg'); // Remove fundo de visitante
+                // Restaura a logo original e o subtítulo
+                companyLogo.src = "https://i.imgur.com/b3lg2eE.png";
+                portalSubtitle.textContent = "Portal Interno";
+            }, 500);
+        } else {
+            loginError.style.display = 'block';
+        }
+    });
+
+    visitorModeButton.addEventListener('click', () => {
+        currentUser = { username: 'Visitante', role: 'visitor', displayName: 'Visitante', email: '', phone: '', profilePic: 'https://i.imgur.com/8Yd00YF.png' };
+        isVisitorMode = true;
+        loginScreen.style.opacity = 0;
+        setTimeout(() => {
+            loginScreen.style.display = 'none';
+            appScreen.style.display = 'block';
+            appScreen.style.opacity = 1;
+            updateAppUI();
+            window.switchTab('drones-visitor-section'); // Abre a tela de drones para visitantes
+            document.body.classList.add('visitor-mode-bg'); // Adiciona fundo de visitante
+            // Altera a logo para a logo do portal e o subtítulo
+            companyLogo.src = "https://i.imgur.com/b3lg2eE.png";
+            portalSubtitle.textContent = "Portal de Consultas Internas - Galvão Drones";
+        }, 500);
+    });
+
+    logoutButton.addEventListener('click', () => {
+        currentUser = null;
+        isVisitorMode = false;
+        appScreen.style.opacity = 0;
+        setTimeout(() => {
+            appScreen.style.display = 'none';
+            loginScreen.style.display = 'block';
+            loginScreen.style.opacity = 1;
+            usernameInput.value = '';
+            passwordInput.value = '';
+            loginError.style.display = 'none';
+            document.body.classList.remove('visitor-mode-bg'); // Remove fundo de visitante
+            // Restaura a logo original e o subtítulo
+            companyLogo.src = "https://i.imgur.com/b3lg2eE.png";
+            portalSubtitle.textContent = "Portal Interno";
+        }, 500);
+    });
+
+    // --- Atualização da UI do App ---
+    const updateAppUI = () => {
+        if (currentUser) {
+            welcomeMessage.textContent = `Bem-vindo(a), ${currentUser.displayName}!`;
+            profileIcon.src = currentUser.profilePic || 'https://i.imgur.com/8Yd00YF.png'; // Fallback para imagem padrão
+
+            // Oculta/mostra seções e botões de navegação com base na função
+            const adminSections = ['suppliers-section', 'settings-section', 'manage-users-section', 'create-product-section', 'edit-product-section'];
+            const salesSections = ['products-section', 'calculator-section', 'info-section', 'marketing-section', 'profile-section'];
+            const visitorSections = ['drones-visitor-section', 'info-section', 'marketing-section'];
+
+            navButtons.forEach(button => {
+                const sectionId = button.dataset.section;
+                button.classList.remove('hidden'); // Começa mostrando todos para reavaliar
+
+                if (currentUser.role === 'admin') {
+                    // Admin vê tudo, exceto a seção de visitante
+                    if (sectionId === 'drones-visitor-section') {
+                        button.classList.add('hidden');
+                    }
+                } else if (currentUser.role === 'sales' || currentUser.role === 'support') {
+                    if (!salesSections.includes(sectionId) && !adminSections.includes(sectionId)) {
+                        button.classList.add('hidden');
+                    }
+                    if (adminSections.includes(sectionId)) { // Esconde seções de admin para sales/support
+                        button.classList.add('hidden');
+                    }
+                    if (sectionId === 'drones-visitor-section') {
+                        button.classList.add('hidden');
+                    }
+                } else if (currentUser.role === 'visitor') {
+                    if (!visitorSections.includes(sectionId)) {
+                        button.classList.add('hidden');
+                    }
+                    // Esconde o botão de perfil para o modo visitante
+                    if (sectionId === 'profile-section') {
+                        button.classList.add('hidden');
+                    }
+                    // Esconde o botão de logout no modo visitante, adiciona classe para mudar header
+                    logoutButton.style.display = 'none';
+                    document.querySelector('header').classList.add('visitor-header');
+                    // Esconde o icone de perfil e o nome de boas-vindas no modo visitante
+                    profileIconContainer.style.display = 'none';
+                    welcomeMessage.style.display = 'none';
+                }
+            });
+
+            // Ajusta visibilidade do botão "Meu Perfil"
+            const profileNavButton = document.getElementById('profile-nav-button');
+            if (currentUser.role === 'visitor') {
+                profileNavButton.classList.add('hidden');
+            } else {
+                profileNavButton.classList.remove('hidden');
+            }
+
+            // Esconde/mostra o botão de chat da IA
+            if (currentUser.role === 'visitor') {
+                aiChatButton.style.display = 'block'; // Visitante pode usar IA na seção de drones
+            } else {
+                // Usuários logados só veem o botão de IA na seção de produtos
+                if (document.getElementById('products-section').classList.contains('active')) {
+                    aiChatButton.style.display = 'block';
+                } else {
+                    aiChatButton.style.display = 'none';
+                }
+            }
+
+            // Oculta/mostra o botão de logout e ajusta o header para o modo visitante
+            if (isVisitorMode) {
+                logoutButton.style.display = 'none';
+                document.querySelector('header').classList.add('visitor-header');
+                profileIconContainer.style.display = 'none';
+                welcomeMessage.style.display = 'none';
+            } else {
+                logoutButton.style.display = 'block';
+                document.querySelector('header').classList.remove('visitor-header');
+                profileIconContainer.style.display = 'flex'; // Volta a exibir
+                welcomeMessage.style.display = 'block'; // Volta a exibir
+            }
+        }
+    };
+
+    // --- Navegação entre Seções ---
+    navButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const sectionId = button.dataset.section;
+
+            // Lógica para acesso restrito à seção de Fornecedores
+            if (sectionId === 'suppliers-section' && currentUser.role !== 'admin') {
+                showModal('supplier-password-modal');
+                return;
+            }
+
+            window.switchTab(sectionId);
+        });
+    });
+
+    // --- Lógica do Menu Hambúrguer (Mobile) ---
+    navToggleBtn.addEventListener('click', () => {
+        nav.classList.add('nav-open');
+    });
+
+    navToggleBtnClose.addEventListener('click', () => {
+        nav.classList.remove('nav-open');
+    });
+
+    // Fechar nav ao clicar fora (apenas em mobile)
+    mainContent.addEventListener('click', (event) => {
+        if (window.innerWidth <= 768 && nav.classList.contains('nav-open') && !nav.contains(event.target) && !navToggleBtn.contains(event.target)) {
+            nav.classList.remove('nav-open');
+        }
+    });
+
+    // --- Funcionalidades da Seção de Produtos ---
+    const renderProducts = (productsToRender) => {
+        productListDiv.innerHTML = '';
+        if (productsToRender.length === 0) {
+            productListDiv.innerHTML = '<p>Nenhum produto encontrado.</p>';
+            return;
+        }
+        productsToRender.forEach(product => {
+            const productCard = document.createElement('div');
+            productCard.classList.add('card', 'product-card');
+            productCard.innerHTML = `
+                <h3>${product.name} (ID: ${product.id})</h3>
+                <p class="product-spec">${product.spec}</p>
+                <p><strong>Preço de Venda:</strong> <span class="price">${formatCurrency(product.salePrice)}</span></p>
+                ${currentUser && currentUser.role === 'admin' ? `<p><strong>Preço de Custo:</strong> <span class="cost-price">${formatCurrency(product.costPrice)}</span></p>` : ''}
+                ${product.mainSupplierId ? `<p><strong>Fornecedor Principal:</strong> <span class="supplier-info">${SUPPLIERS.find(s => s.id === product.mainSupplierId)?.name || 'N/A'}</span></p>` : ''}
+                <div class="calculator-container">
+                    <h4>Simular Preço para Cliente</h4>
+                    <div class="input-group">
+                        <label>Forma de Pagamento</label>
+                        <div class="payment-method-selector">
+                            <input type="radio" id="payment-vista-${product.id}" name="payment-method-${product.id}" value="vista" checked>
+                            <label for="payment-vista-${product.id}">À vista</label>
+                            <input type="radio" id="payment-parcelado-${product.id}" name="payment-method-${product.id}" value="parcelado">
+                            <label for="payment-parcelado-${product.id}">Parcelado</label>
+                        </div>
+                    </div>
+                    <div class="discount-option" id="discount-option-${product.id}">
+                        <label for="discount-percentage-${product.id}">Desconto (%):</label>
+                        <input type="number" id="discount-percentage-${product.id}" min="0" max="15" value="0">
+                    </div>
+                    <div class="input-group hidden" id="installments-container-${product.id}">
+                        <label for="parcelas-${product.id}">Número de Parcelas</label>
+                        <select id="parcelas-${product.id}">
+                            <option value="1">1x</option>
+                            <option value="2">2x</option>
+                            <option value="3">3x</option>
+                            <option value="4">4x</option>
+                            <option value="5">5x</option>
+                            <option value="6">6x</option>
+                            <option value="7">7x</option>
+                            <option value="8">8x</option>
+                            <option value="9">9x</option>
+                            <option value="10">10x</option>
+                            <option value="11">11x</option>
+                            <option value="12">12x</option>
+                        </select>
+                    </div>
+                    <button class="calculate-product-btn action-button" data-product-id="${product.id}">Calcular</button>
+                    <div class="product-calculator-result" id="calculator-result-${product.id}">O resultado da simulação aparecerá aqui.</div>
+                </div>
+                <div class="action-buttons-container">
+                    <button class="gemini-button action-button" data-product-name="${product.name}" data-product-spec="${product.spec}">Perguntar à IA</button>
+                    <a href="https://wa.me/556236360668?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20${encodeURIComponent(product.name)}." target="_blank" class="whatsapp-button action-button">WhatsApp</a>
+                    <a href="https://www.instagram.com/galvao_drones" target="_blank" class="instagram-button action-button">Instagram</a>
+                    <a href="https://www.youtube.com/@galvaodrones" target="_blank" class="youtube-button action-button">YouTube</a>
+                </div>
+            `;
+            productListDiv.appendChild(productCard);
+
+            // Lógica para mostrar/esconder opções de parcelamento e desconto
+            const paymentMethodRadios = productCard.querySelectorAll(`input[name="payment-method-${product.id}"]`);
+            const installmentsContainer = productCard.querySelector(`#installments-container-${product.id}`);
+            const discountOption = productCard.querySelector(`#discount-option-${product.id}`);
+
+            paymentMethodRadios.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    if (e.target.value === 'parcelado') {
+                        installmentsContainer.classList.remove('hidden');
+                        discountOption.classList.add('hidden'); // Esconde desconto no parcelado
+                    } else {
+                        installmentsContainer.classList.add('hidden');
+                        discountOption.classList.remove('hidden'); // Mostra desconto no à vista
+                    }
+                });
+            });
+
+            // Lógica do botão de calcular
+            productCard.querySelector(`.calculate-product-btn`).addEventListener('click', (e) => {
+                const currentProductId = e.target.dataset.productId;
+                const selectedProduct = PRODUCTS.find(p => p.id === currentProductId);
+                if (!selectedProduct) return;
+
+                const isParcelado = productCard.querySelector(`#payment-parcelado-${currentProductId}`).checked;
+                const resultDiv = productCard.querySelector(`#calculator-result-${currentProductId}`);
+                let finalPrice = selectedProduct.salePrice;
+
+                if (isParcelado) {
+                    const numParcelas = parseInt(productCard.querySelector(`#parcelas-${currentProductId}`).value);
+                    const taxaJuros = 0.0199; // 1.99% ao mês
+                    const montante = finalPrice * Math.pow((1 + taxaJuros), numParcelas);
+                    const valorParcela = montante / numParcelas;
+                    resultDiv.innerHTML = `<p class="result-parcelado"><strong>${numParcelas}x de ${formatCurrency(valorParcela)}</strong></p><small>Total parcelado: ${formatCurrency(montante)}</small>`;
+                } else {
+                    let discountPercentage = parseFloat(productCard.querySelector(`#discount-percentage-${currentProductId}`).value) || 0;
+                    if (discountPercentage > 15) discountPercentage = 15; // Limita o desconto máximo
+                    finalPrice = selectedProduct.salePrice * (1 - (discountPercentage / 100));
+                    resultDiv.innerHTML = `<p class="result-vista"><strong>Valor à vista: ${formatCurrency(finalPrice)}</strong></p>`;
+                }
+            });
+
+            // Lógica do botão "Perguntar à IA"
+            productCard.querySelector('.gemini-button').addEventListener('click', (e) => {
+                const productName = e.target.dataset.productName;
+                const productSpec = e.target.dataset.productSpec;
+                aiQuestionInput.value = `Quais as principais características do ${productName}? ${productSpec}`;
+                showModal('ai-chat-modal');
+            });
+        });
+    };
+
+    // Função de busca e filtro de produtos
+    let currentProductSortOrder = ''; // Para manter o estado da ordenação
+    let currentProductCategoryFilter = ''; // Para manter o estado do filtro de categoria
+
+    const filterAndSortProducts = () => {
+        const searchTerm = productSearchInput.value.toLowerCase();
+        let filteredProducts = PRODUCTS.filter(product =>
+            product.name.toLowerCase().includes(searchTerm) ||
+            product.spec.toLowerCase().includes(searchTerm)
+        );
+
+        if (currentProductCategoryFilter) {
+            filteredProducts = filteredProducts.filter(product =>
+                product.category === currentProductCategoryFilter
+            );
+        }
+
+        switch (currentProductSortOrder) {
+            case 'price-asc':
+                filteredProducts.sort((a, b) => a.salePrice - b.salePrice);
+                break;
+            case 'price-desc':
+                filteredProducts.sort((a, b) => b.salePrice - a.salePrice);
+                break;
+            case 'alpha-asc':
+                filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+                break;
+            case 'alpha-desc':
+                filteredProducts.sort((a, b) => b.name.localeCompare(a.name));
+                break;
+            case 'recent':
+                // Para "Mais Recentes", assumimos que os IDs mais altos são mais recentes ou a ordem original
+                // Se você tiver um timestamp de criação, use-o aqui.
+                filteredProducts.sort((a, b) => b.id.localeCompare(a.id));
+                break;
+            default:
+                // Sem ordenação específica, mantém a ordem original ou padrão
+                break;
+        }
+
+        renderProducts(filteredProducts);
+    };
+
+    productSearchInput.addEventListener('input', filterAndSortProducts);
+
+    // Lógica para o painel de filtro/ordenação de produtos
+    const toggleProductFilterPanelButton = document.getElementById('toggle-product-filter-panel');
+    const productFilterPanel = document.getElementById('product-filter-panel');
+    const productSortButtons = productFilterPanel.querySelectorAll('button[data-sort-by]');
+    const productCategorySortSelect = document.getElementById('product-category-sort');
+
+    toggleProductFilterPanelButton.addEventListener('click', () => {
+        productFilterPanel.classList.toggle('active');
+    });
+
+    productSortButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            productSortButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            currentProductSortOrder = button.dataset.sortBy;
+            filterAndSortProducts();
+        });
+    });
+
+    productCategorySortSelect.addEventListener('change', (e) => {
+        currentProductCategoryFilter = e.target.value;
+        filterAndSortProducts();
+    });
+
+    // --- Funcionalidades da Seção de Drones (Visitante) ---
+    const droneVisitorSearchInput = document.getElementById('drone-visitor-search');
+    const droneVisitorListDiv = document.getElementById('drone-visitor-list');
+
+    const renderDronesVisitor = (dronesToRender) => {
+        droneVisitorListDiv.innerHTML = '';
+        if (dronesToRender.length === 0) {
+            droneVisitorListDiv.innerHTML = '<p>Nenhum drone encontrado.</p>';
+            return;
+        }
+        dronesToRender.forEach(product => {
+            // Filtra apenas produtos que são drones (excluindo acessórios, peças, etc.)
+            if (product.category === 'Consumer' || product.category === 'Enterprise' || product.category === 'Agriculture') {
+                const productCard = document.createElement('div');
+                productCard.classList.add('card', 'product-card');
+                productCard.innerHTML = `
+                    <h3>${product.name}</h3>
+                    <p class="product-spec">${product.spec}</p>
+                    <p><strong>Preço Sugerido:</strong> <span class="price">${formatCurrency(product.salePrice)}</span></p>
+                    <div class="action-buttons-container">
+                        <button class="gemini-button action-button" data-product-name="${product.name}" data-product-spec="${product.spec}">Perguntar à IA</button>
+                        <a href="https://wa.me/556236360668?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20${encodeURIComponent(product.name)}." target="_blank" class="whatsapp-button action-button">WhatsApp</a>
+                    </div>
+                `;
+                droneVisitorListDiv.appendChild(productCard);
+
+                // Lógica do botão "Perguntar à IA" para visitantes
+                productCard.querySelector('.gemini-button').addEventListener('click', (e) => {
+                    const productName = e.target.dataset.productName;
+                    const productSpec = e.target.dataset.productSpec;
+                    aiQuestionInput.value = `Quais as principais características do ${productName}? ${productSpec}`;
+                    showModal('ai-chat-modal');
+                });
+            }
+        });
+    };
+
+    const filterDronesVisitor = () => {
+        const searchTerm = droneVisitorSearchInput.value.toLowerCase();
+        const filteredDrones = PRODUCTS.filter(product =>
+            (product.category === 'Consumer' || product.category === 'Enterprise' || product.category === 'Agriculture') &&
+            (product.name.toLowerCase().includes(searchTerm) || product.spec.toLowerCase().includes(searchTerm))
+        );
+        renderDronesVisitor(filteredDrones);
+    };
+
+    droneVisitorSearchInput.addEventListener('input', filterDronesVisitor);
+
+    // --- Funcionalidades da Calculadora Geral ---
+    const generalValorBaseInput = document.getElementById('general-valor-base');
+    const generalPaymentMethodRadios = document.querySelectorAll('input[name="general-payment-method"]');
+    const generalDiscountOption = document.getElementById('general-discount-option');
+    const generalDiscountPercentageInput = document.getElementById('general-discount-percentage');
+    const generalInstallmentsContainer = document.getElementById('general-installments-container');
+    const generalParcelasSelect = document.getElementById('general-parcelas');
+    const generalCalculateButton = document.getElementById('general-calculate-button');
+    const generalCalculatorResult = document.getElementById('general-calculator-result');
+
+    generalPaymentMethodRadios.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            if (e.target.value === 'parcelado') {
+                generalInstallmentsContainer.classList.remove('hidden');
+                generalDiscountOption.classList.add('hidden');
+            } else {
+                generalInstallmentsContainer.classList.add('hidden');
+                generalDiscountOption.classList.remove('hidden');
+            }
+        });
+    });
+
+    generalCalculateButton.addEventListener('click', () => {
+        let valorBase = parseFloat(generalValorBaseInput.value);
+        if (isNaN(valorBase) || valorBase <= 0) {
+            generalCalculatorResult.innerHTML = '<p style="color:red;">Por favor, insira um valor base válido.</p>';
+            return;
+        }
+
+        const isParcelado = document.getElementById('general-payment-parcelado').checked;
+        let finalPrice = valorBase;
+
+        if (isParcelado) {
+            const numParcelas = parseInt(generalParcelasSelect.value);
+            const taxaJuros = 0.0199; // 1.99% ao mês
+            const montante = finalPrice * Math.pow((1 + taxaJuros), numParcelas);
+            const valorParcela = montante / numParcelas;
+            generalCalculatorResult.innerHTML = `<p class="result-parcelado"><strong>${numParcelas}x de ${formatCurrency(valorParcela)}</strong></p><small>Total parcelado: ${formatCurrency(montante)}</small>`;
+        } else {
+            let discountPercentage = parseFloat(generalDiscountPercentageInput.value) || 0;
+            if (discountPercentage > 15) discountPercentage = 15;
+            finalPrice = valorBase * (1 - (discountPercentage / 100));
+            generalCalculatorResult.innerHTML = `<p class="result-vista"><strong>Valor à vista: ${formatCurrency(finalPrice)}</strong></p>`;
+        }
+    });
+
+    // --- Funcionalidades da Seção de Fornecedores (Acesso Restrito) ---
+    const supplierListDiv = document.getElementById('supplier-list');
+    const supplierSearchInput = document.getElementById('supplier-search');
+    const toggleSupplierFilterPanelButton = document.getElementById('toggle-supplier-filter-panel');
+    const supplierFilterPanel = document.getElementById('supplier-filter-panel');
+    const supplierSortButtons = supplierFilterPanel.querySelectorAll('button[data-sort-by]');
+    const supplierCategorySortSelect = document.getElementById('supplier-category-sort');
+
+    let currentSupplierSortOrder = '';
+    let currentSupplierCategoryFilter = '';
+
+    const renderSuppliers = (suppliersToRender) => {
+        supplierListDiv.innerHTML = '';
+        if (suppliersToRender.length === 0) {
+            supplierListDiv.innerHTML = '<p>Nenhum fornecedor encontrado.</p>';
+            return;
+        }
+        suppliersToRender.forEach(supplier => {
+            const supplierCard = document.createElement('div');
+            supplierCard.classList.add('card', 'supplier-card');
+            supplierCard.innerHTML = `
+                <h3>${supplier.name} (ID: ${supplier.id})</h3>
+                <p><strong>Detalhes:</strong> ${supplier.details}</p>
+                <p><strong>Condições de Pagamento:</strong> ${supplier.payment}</p>
+                <p><strong>Produtos Principais:</strong> ${supplier.products}</p>
+                <p><strong>Categorias:</strong> ${supplier.categories.join(', ')}</p>
+                <p><strong>Contatos:</strong></p>
+                <ul class="supplier-contacts-list">
+                    ${supplier.contacts.map(contact => `
+                        <li>
+                            ${contact.type}: ${contact.value}
+                            ${contact.type === 'WhatsApp' ? `<a href="https://wa.me/${contact.value.replace(/\D/g, '')}" target="_blank" class="whatsapp-button action-button" style="width: auto; padding: 5px 10px; margin-left: auto;">WhatsApp</a>` : ''}
+                        </li>
+                    `).join('')}
+                </ul>
+                <div class="action-buttons-container">
+                    <button class="edit-supplier-button" data-supplier-id="${supplier.id}">Editar Fornecedor</button>
+                </div>
+            `;
+            supplierListDiv.appendChild(supplierCard);
+
+            // Adiciona listener para o botão de editar fornecedor
+            supplierCard.querySelector('.edit-supplier-button').addEventListener('click', (e) => {
+                const supplierId = e.target.dataset.supplierId;
+                openManageSupplierModal('edit', supplierId);
+            });
+        });
+    };
+
+    const filterAndSortSuppliers = () => {
+        const searchTerm = supplierSearchInput.value.toLowerCase();
+        let filteredSuppliers = SUPPLIERS.filter(supplier =>
+            supplier.name.toLowerCase().includes(searchTerm) ||
+            supplier.details.toLowerCase().includes(searchTerm) ||
+            supplier.products.toLowerCase().includes(searchTerm) ||
+            supplier.categories.some(cat => cat.toLowerCase().includes(searchTerm))
+        );
+
+        if (currentSupplierCategoryFilter) {
+            filteredSuppliers = filteredSuppliers.filter(supplier =>
+                supplier.categories.includes(currentSupplierCategoryFilter)
+            );
+        }
+
+        switch (currentSupplierSortOrder) {
+            case 'name-asc':
+                filteredSuppliers.sort((a, b) => a.name.localeCompare(b.name));
+                break;
+            case 'name-desc':
+                filteredSuppliers.sort((a, b) => b.name.localeCompare(a.name));
+                break;
+            default:
+                break;
+        }
+
+        renderSuppliers(filteredSuppliers);
+    };
+
+    supplierSearchInput.addEventListener('input', filterAndSortSuppliers);
+
+    toggleSupplierFilterPanelButton.addEventListener('click', () => {
+        supplierFilterPanel.classList.toggle('active');
+    });
+
+    supplierSortButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            supplierSortButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            currentSupplierSortOrder = button.dataset.sortBy;
+            filterAndSortSuppliers();
+        });
+    });
+
+    supplierCategorySortSelect.addEventListener('change', (e) => {
+        currentSupplierCategoryFilter = e.target.value;
+        filterAndSortSuppliers();
+    });
+
+    // Lógica do modal de senha para fornecedores
+    const supplierPasswordModal = document.getElementById('supplier-password-modal');
+    const supplierAccessPasswordInput = document.getElementById('supplier-access-password');
+    const submitSupplierPasswordButton = document.getElementById('submit-supplier-password');
+    const supplierPasswordError = document.getElementById('supplier-password-error');
+
+    submitSupplierPasswordButton.addEventListener('click', () => {
+        // Senha fixa para acesso aos fornecedores (apenas para demonstração)
+        if (supplierAccessPasswordInput.value === 'galvao2025') {
+            closeModal('supplier-password-modal');
+            window.switchTab('suppliers-section', false); // Não ativa o botão de navegação principal novamente
+            supplierPasswordError.style.display = 'none';
+            supplierAccessPasswordInput.value = ''; // Limpa a senha
+            filterAndSortSuppliers(); // Renderiza os fornecedores após o acesso
+        } else {
+            supplierPasswordError.style.display = 'block';
+        }
+    });
+
+    document.getElementById('supplier-password-close-button').addEventListener('click', () => {
+        closeModal('supplier-password-modal');
+        supplierPasswordError.style.display = 'none';
+        supplierAccessPasswordInput.value = '';
+        window.switchTab('products-section'); // Volta para a seção de produtos se fechar o modal
+    });
+
+    // --- Funcionalidades da Seção de Configurações ---
+    const settingsOptionsGrid = document.getElementById('settings-options-grid');
+
+    const renderSettingsOptions = () => {
+        settingsOptionsGrid.innerHTML = `
+            <div class="card" onclick="window.switchTab('manage-users-section')">
+                <h3>Gerir Usuários Temporários</h3>
+                <p>Crie e gerencie acessos temporários ao portal.</p>
+            </div>
+            <div class="card" onclick="window.switchTab('create-product-section')">
+                <h3>Criar Novo Produto</h3>
+                <p>Adicione novos produtos ao catálogo.</p>
+            </div>
+            <div class="card" onclick="window.switchTab('edit-product-section')">
+                <h3>Alterar Produto Existente</h3>
+                <p>Edite os detalhes de um produto já cadastrado.</p>
+            </div>
+        `;
+    };
+
+    // --- Funcionalidades de Gerir Usuários Temporários ---
+    const createTempUserForm = document.getElementById('create-temp-user-form');
+    const tempUsernameInput = document.getElementById('temp-username');
+    const tempPasswordInput = document.getElementById('temp-password');
+    const tempDurationSelect = document.getElementById('temp-duration');
+    const tempUserFeedback = document.getElementById('temp-user-feedback');
+    const tempUserListDiv = document.getElementById('temp-user-list');
+
+    const renderTempUsers = () => {
+        tempUserListDiv.innerHTML = '';
+        if (TEMP_USERS.length === 0) {
+            tempUserListDiv.innerHTML = '<p>Nenhum usuário temporário ativo.</p>';
+            return;
+        }
+        TEMP_USERS.forEach(user => {
+            const expiresIn = Math.ceil((user.expiresAt - new Date()) / (1000 * 60 * 60)); // Horas restantes
+            const userItem = document.createElement('div');
+            userItem.classList.add('temp-user-item');
+            userItem.innerHTML = `
+                <div class="user-info">
+                    <p><strong>Usuário:</strong> ${user.username}</p>
+                    <p><strong>Senha:</strong> ${user.password}</p>
+                    <p><small>Expira em: ${expiresIn > 0 ? `${expiresIn} horas` : 'Expirado'}</small></p>
+                </div>
+                <div class="user-actions">
+                    <button class="delete-btn" data-username="${user.username}">Excluir</button>
+                </div>
+            `;
+            tempUserListDiv.appendChild(userItem);
+        });
+
+        // Adiciona listeners para os botões de exclusão
+        tempUserListDiv.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const usernameToDelete = e.target.dataset.username;
+                TEMP_USERS = TEMP_USERS.filter(u => u.username !== usernameToDelete);
+                renderTempUsers();
+                tempUserFeedback.textContent = `Usuário ${usernameToDelete} excluído.`;
+                tempUserFeedback.style.color = 'var(--secondary-color)';
+            });
+        });
+    };
+
+    createTempUserForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const username = tempUsernameInput.value;
+        const password = tempPasswordInput.value;
+        const durationHours = parseInt(tempDurationSelect.value);
+        const expiresAt = new Date(new Date().getTime() + durationHours * 60 * 60 * 1000);
+
+        if (USERS.some(u => u.username === username) || TEMP_USERS.some(u => u.username === username)) {
+            tempUserFeedback.textContent = 'Nome de usuário já existe.';
+            tempUserFeedback.style.color = 'var(--danger-color)';
+            return;
+        }
+
+        TEMP_USERS.push({ username, password, role: 'temp_user', displayName: username, expiresAt, profilePic: 'https://i.imgur.com/8Yd00YF.png' });
+        tempUserFeedback.textContent = `Usuário temporário "${username}" criado com sucesso!`;
+        tempUserFeedback.style.color = 'var(--secondary-color)';
+        createTempUserForm.reset();
+        renderTempUsers();
+    });
+
+    // --- Funcionalidades de Criar Produto ---
+    const createProductForm = document.getElementById('create-product-form');
+    const newProductNameInput = document.getElementById('new-product-name');
+    const newProductSpecTextarea = document.getElementById('new-product-spec');
+    const newProductSalePriceInput = document.getElementById('new-product-sale-price');
+    const newProductCostPriceInput = document.getElementById('new-product-cost-price');
+    const newProductSupplierSelect = document.getElementById('new-product-supplier');
+    const createProductFeedback = document.getElementById('create-product-feedback');
+
+    const populateSupplierSelect = (selectElement) => {
+        selectElement.innerHTML = '<option value="">Nenhum</option>';
+        SUPPLIERS.forEach(supplier => {
+            const option = document.createElement('option');
+            option.value = supplier.id;
+            option.textContent = supplier.name;
+            selectElement.appendChild(option);
+        });
+    };
+
+    createProductForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const newId = 'P' + (PRODUCTS.length + 1).toString().padStart(3, '0'); // Gera um ID simples
+        const newProduct = {
+            id: newId,
+            name: newProductNameInput.value,
+            spec: newProductSpecTextarea.value,
+            salePrice: parseFloat(newProductSalePriceInput.value),
+            costPrice: parseFloat(newProductCostPriceInput.value) || 0,
+            mainSupplierId: newProductSupplierSelect.value || null,
+            category: 'Drones' // Categoria padrão, pode ser aprimorado com um select
+        };
+
+        PRODUCTS.push(newProduct);
+        createProductFeedback.textContent = `Produto "${newProduct.name}" (ID: ${newId}) criado com sucesso!`;
+        createProductFeedback.style.color = 'var(--secondary-color)';
+        createProductForm.reset();
+        filterAndSortProducts(); // Atualiza a lista de produtos
+    });
+
+    // --- Funcionalidades de Alterar Produto ---
+    const editProductSearchInput = document.getElementById('edit-product-search-input');
+    const searchProductToEditButton = document.getElementById('search-product-to-edit');
+    const editProductSearchResults = document.getElementById('edit-product-search-results');
+    const editProductDisplay = document.getElementById('edit-product-display');
+    const editProductForm = document.getElementById('edit-product-form');
+    const editProductIdInput = document.getElementById('edit-product-id');
+    const editProductNameInput = document.getElementById('edit-product-name');
+    const editProductSpecTextarea = document.getElementById('edit-product-spec');
+    const editProductSalePriceInput = document.getElementById('edit-product-sale-price');
+    const editProductCostPriceInput = document.getElementById('edit-product-cost-price');
+    const editProductSupplierSelect = document.getElementById('edit-product-supplier');
+    const editProductFeedback = document.getElementById('edit-product-feedback');
+
+    let selectedProductToEdit = null;
+
+    searchProductToEditButton.addEventListener('click', () => {
+        const searchTerm = editProductSearchInput.value.toLowerCase();
+        const results = PRODUCTS.filter(p =>
+            p.id.toLowerCase().includes(searchTerm) ||
+            p.name.toLowerCase().includes(searchTerm)
+        );
+
+        editProductSearchResults.innerHTML = '';
+        if (results.length === 0) {
+            editProductSearchResults.innerHTML = '<p>Nenhum produto encontrado.</p>';
+            editProductForm.classList.add('hidden');
+            editProductDisplay.innerHTML = '<p>Use a busca acima para carregar os dados do produto.</p>';
+            return;
+        }
+
+        const ul = document.createElement('ul');
+        results.forEach(product => {
+            const li = document.createElement('li');
+            li.textContent = `${product.name} (ID: ${product.id})`;
+            li.style.cursor = 'pointer';
+            li.style.padding = '8px';
+            li.style.borderBottom = '1px solid #eee';
+            li.addEventListener('click', () => {
+                selectedProductToEdit = product;
+                loadProductForEdit(product);
+                editProductSearchResults.innerHTML = ''; // Limpa resultados após seleção
+            });
+            ul.appendChild(li);
+        });
+        editProductSearchResults.appendChild(ul);
+        editProductDisplay.innerHTML = ''; // Limpa a mensagem padrão
+    });
+
+    const loadProductForEdit = (product) => {
+        editProductIdInput.value = product.id;
+        editProductNameInput.value = product.name;
+        editProductSpecTextarea.value = product.spec;
+        editProductSalePriceInput.value = product.salePrice;
+        editProductCostPriceInput.value = product.costPrice;
+        populateSupplierSelect(editProductSupplierSelect); // Repopula antes de selecionar
+        editProductSupplierSelect.value = product.mainSupplierId || '';
+
+        editProductDisplay.innerHTML = `
+            <p><strong>Produto Carregado:</strong> ${product.name} (ID: ${product.id})</p>
+            <p>Edite os campos abaixo:</p>
+        `;
+        editProductForm.classList.remove('hidden');
+        editProductFeedback.textContent = '';
+    };
+
+    editProductForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (!selectedProductToEdit) {
+            editProductFeedback.textContent = 'Por favor, selecione um produto para editar.';
+            editProductFeedback.style.color = 'var(--danger-color)';
+            return;
+        }
+
+        const index = PRODUCTS.findIndex(p => p.id === selectedProductToEdit.id);
+        if (index !== -1) {
+            PRODUCTS[index] = {
+                ...PRODUCTS[index],
+                name: editProductNameInput.value,
+                spec: editProductSpecTextarea.value,
+                salePrice: parseFloat(editProductSalePriceInput.value),
+                costPrice: parseFloat(editProductCostPriceInput.value) || 0,
+                mainSupplierId: editProductSupplierSelect.value || null,
+            };
+            editProductFeedback.textContent = `Produto "${PRODUCTS[index].name}" atualizado com sucesso!`;
+            editProductFeedback.style.color = 'var(--secondary-color)';
+            filterAndSortProducts(); // Atualiza a lista de produtos
+            selectedProductToEdit = null; // Limpa a seleção
+            editProductForm.classList.add('hidden');
+            editProductDisplay.innerHTML = '<p>Use a busca acima para carregar os dados do produto.</p>';
+            editProductSearchInput.value = ''; // Limpa o campo de busca
+        } else {
+            editProductFeedback.textContent = 'Erro: Produto não encontrado para atualização.';
+            editProductFeedback.style.color = 'var(--danger-color)';
+        }
+    });
+
+    // --- Funcionalidades do Scroll to Top ---
+    window.onscroll = () => {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            scrollButton.style.display = "block";
+        } else {
+            scrollButton.style.display = "none";
+        }
+    };
+
+    scrollButton.addEventListener('click', () => {
+        document.body.scrollTop = 0; // Para Safari
+        document.documentElement.scrollTop = 0; // Para Chrome, Firefox, IE e Opera
+    });
+
+    // --- Funcionalidades do Chat com IA ---
+    aiChatButton.addEventListener('click', () => {
+        showModal('ai-chat-modal');
+        aiResponseArea.innerHTML = ''; // Limpa a área de resposta
+        aiLoader.style.display = 'none'; // Esconde o loader
+    });
+
+    submitAiQuestionButton.addEventListener('click', async () => {
+        const question = aiQuestionInput.value.trim();
+        if (!question) {
+            aiResponseArea.innerHTML = '<p style="color:red;">Por favor, digite sua pergunta.</p>';
+            return;
+        }
+
+        aiResponseArea.innerHTML = '';
+        aiLoader.style.display = 'block';
+        submitAiQuestionButton.disabled = true;
+
+        try {
+            // Simula uma chamada de API para a IA
+            const response = await simulateAIResponse(question);
+            aiResponseArea.innerHTML = `<p><strong>Resposta da IA:</strong></p><p>${response}</p>`;
+        } catch (error) {
+            aiResponseArea.innerHTML = `<p style="color:red;">Erro ao processar sua pergunta: ${error.message}</p>`;
+        } finally {
+            aiLoader.style.display = 'none';
+            submitAiQuestionButton.disabled = false;
+        }
+    });
+
+    // Função de simulação da resposta da IA (pode ser substituída por uma chamada real)
+    const simulateAIResponse = async (question) => {
+        await new Promise(resolve => setTimeout(resolve, 1500)); // Simula delay da API
+
+        const lowerQuestion = question.toLowerCase();
+
+        if (lowerQuestion.includes('dji mini 4 pro') || lowerQuestion.includes('mini 4 pro')) {
+            return "O DJI Mini 4 Pro é um drone compacto de 249g com câmera 4K/60fps HDR, detecção de obstáculos omnidirecional e transmissão de vídeo O4. Ideal para viagens e iniciantes, oferece voos seguros e imagens de alta qualidade.";
+        } else if (lowerQuestion.includes('dji air 3') || lowerQuestion.includes('air 3')) {
+            return "O DJI Air 3 se destaca pela câmera dupla, com uma grande-angular e uma tele média 3x, ambas capazes de gravar em 4K/60fps HDR. Possui tempo de voo estendido de 46 minutos e detecção de obstáculos omnidirecional, sendo ótimo para criadores de conteúdo.";
+        } else if (lowerQuestion.includes('dji agras t40') || lowerQuestion.includes('agras t40')) {
+            return "O DJI Agras T40 é um drone agrícola de pulverização com capacidade de 40 litros, ideal para grandes lavouras. Possui sistema de pulverização dupla, radar ativo para evitar obstáculos e mapeamento em tempo real, otimizando a aplicação de defensivos.";
+        } else if (lowerQuestion.includes('dji matrice 350 rtk') || lowerQuestion.includes('matrice 350 rtk')) {
+            return "O DJI Matrice 350 RTK é uma plataforma de drone empresarial robusta e confiável, projetada para inspeções industriais, mapeamento e segurança. Oferece tempo de voo de 55 minutos, capacidade de carga de 2.7 kg e alta precisão de posicionamento com RTK.";
+        } else if (lowerQuestion.includes('galvão drones') || lowerQuestion.includes('empresa')) {
+            return "A Galvão Drones é uma empresa especializada em drones DJI, oferecendo vendas, manutenção, treinamentos, consultoria técnica e conteúdo visual. Estamos localizados em Goiânia - GO e trabalhamos com modelos Consumer, Enterprise, FPV e Agrícolas.";
+        } else if (lowerQuestion.includes('contato') || lowerQuestion.includes('falar com a galvão drones')) {
+            return "Você pode entrar em contato com a Galvão Drones pelo WhatsApp: (62) 3636-0668, E-mail: contato@galvaodrones.com.br, ou visitar nosso site: www.galvaodrones.com.br. Nosso Instagram é @galvaodrones.";
+        } else if (lowerQuestion.includes('preço') && lowerQuestion.includes('drone')) {
+            return "Para informações de preço detalhadas, por favor, consulte a seção 'Consulta de Produtos' no portal ou entre em contato direto com nossa equipe de vendas via WhatsApp. Os preços podem variar conforme configurações e promoções.";
+        } else if (lowerQuestion.includes('manutenção') || lowerQuestion.includes('conserto')) {
+            return "A Galvão Drones oferece serviços de manutenção especializada para drones DJI. Para agendar um conserto ou obter um orçamento, por favor, entre em contato diretamente com nossa equipe de suporte técnico.";
+        } else if (lowerQuestion.includes('curso') || lowerQuestion.includes('treinamento')) {
+            return "Sim, a Galvão Drones oferece cursos e treinamentos completos sobre operação e manutenção de drones DJI, com apostilas técnicas, QR Codes e linguagem acessível. Entre em contato para saber sobre as próximas turmas!";
+        } else if (lowerQuestion.includes('diferenças') || lowerQuestion.includes('comparar')) {
+            if (lowerQuestion.includes('mini 4 pro') && lowerQuestion.includes('air 3')) {
+                return "As principais diferenças entre o DJI Mini 4 Pro e o Air 3 são: o Mini 4 Pro é ultraleve (249g), ideal para viagens, com câmera única e detecção omnidirecional. O Air 3 é mais pesado, mas oferece câmera dupla (wide e tele) e maior tempo de voo, sendo mais robusto para uso profissional.";
+            }
+            return "Para comparações detalhadas, por favor, especifique os modelos de drones que deseja comparar. Posso te ajudar com informações sobre suas características e usos.";
+        }
+        return "Desculpe, não tenho informações sobre isso no momento. Por favor, tente reformular sua pergunta ou consulte as seções específicas do portal.";
+    };
+
+    // --- Funcionalidades do Modal Principal (Genérico) ---
+    const mainModal = document.getElementById('main-modal');
+    mainModal.querySelector('.close-button').addEventListener('click', () => closeModal('main-modal'));
+    window.addEventListener('click', (event) => {
+        if (event.target === mainModal) {
+            closeModal('main-modal');
+        }
+        if (event.target === aiChatModal) {
+            closeModal('ai-chat-modal');
+        }
+        if (event.target === supplierPasswordModal) {
+            closeModal('supplier-password-modal');
+            supplierPasswordError.style.display = 'none';
+            supplierAccessPasswordInput.value = '';
+            // Volta para a tela de produtos se o usuário fechar o modal de senha sem logar
+            if (!currentUser || currentUser.role !== 'admin') {
+                 window.switchTab('products-section');
+            }
+        }
+        if (event.target === changePasswordModal) {
+            closeModal('change-password-modal');
+            changePasswordError.style.display = 'none';
+            changePasswordSuccess.style.display = 'none';
+            document.getElementById('new-password').value = '';
+            document.getElementById('confirm-new-password').value = '';
+        }
+        if (event.target === whatsappModal) {
+            closeModal('whatsapp-modal');
+        }
+        if (event.target === budgetModal) {
+            closeModal('budget-modal');
+            resetBudgetModal();
+        }
+        if (event.target === manageSupplierModal) {
+            closeModal('manage-supplier-modal');
+        }
+        if (event.target === editSupplierSearchModal) {
+            closeModal('edit-supplier-search-modal');
+        }
+    });
+
+    // --- Funcionalidades da Seção de Perfil ---
+    const profileSection = document.getElementById('profile-section');
+    const profilePicDisplay = document.getElementById('profile-pic-display');
+    const profileDisplayName = document.getElementById('profile-display-name');
+    const profileEmail = document.getElementById('profile-email');
+    const profilePhone = document.getElementById('profile-phone');
+
+    const editDisplayNameInput = document.getElementById('edit-display-name');
+    const editEmailInput = document.getElementById('edit-email');
+    const editPhoneInput = document.getElementById('edit-phone');
+    const editProfilePicInput = document.getElementById('edit-profile-pic');
+    const uploadProfilePicButton = document.getElementById('upload-profile-pic-button');
+    const profileEditForm = document.getElementById('profile-edit-form');
+    const profileFeedback = document.getElementById('profile-feedback');
+    const openChangePasswordModalButton = document.getElementById('open-change-password-modal');
+
+    const loadProfileData = () => {
+        if (currentUser) {
+            profilePicDisplay.src = currentUser.profilePic || 'https://i.imgur.com/8Yd00YF.png';
+            profileDisplayName.textContent = currentUser.displayName;
+            profileEmail.textContent = currentUser.email || 'Não informado';
+            profilePhone.textContent = currentUser.phone || 'Não informado';
+
+            editDisplayNameInput.value = currentUser.displayName;
+            editEmailInput.value = currentUser.email || '';
+            editPhoneInput.value = currentUser.phone || '';
+
+            // Preenche prévias do WhatsApp Modal
+            document.getElementById('whatsapp-display-name-preview').textContent = currentUser.displayName;
+            document.getElementById('whatsapp-email-preview').textContent = currentUser.email || 'Não informado';
+            document.getElementById('whatsapp-phone-preview').textContent = currentUser.phone || 'Não informado';
+        }
+    };
+
+    profileEditForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (currentUser) {
+            currentUser.displayName = editDisplayNameInput.value;
+            currentUser.email = editEmailInput.value;
+            currentUser.phone = editPhoneInput.value;
+
+            // Atualiza o usuário na lista USERS ou TEMP_USERS
+            const userIndex = USERS.findIndex(u => u.username === currentUser.username);
+            if (userIndex !== -1) {
+                USERS[userIndex] = { ...USERS[userIndex], ...currentUser };
+            } else {
+                const tempUserIndex = TEMP_USERS.findIndex(u => u.username === currentUser.username);
+                if (tempUserIndex !== -1) {
+                    TEMP_USERS[tempUserIndex] = { ...TEMP_USERS[tempUserIndex], ...currentUser };
+                }
+            }
+
+            loadProfileData(); // Recarrega os dados para atualizar a UI
+            updateAppUI(); // Atualiza a mensagem de boas-vindas no header
+            profileFeedback.textContent = 'Perfil atualizado com sucesso!';
+            profileFeedback.style.color = 'var(--secondary-color)';
+        }
+    });
+
+    uploadProfilePicButton.addEventListener('click', () => {
+        const file = editProfilePicInput.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                if (currentUser) {
+                    currentUser.profilePic = e.target.result; // Salva como Data URL (para mock)
+                    profilePicDisplay.src = e.target.result;
+                    profileIcon.src = e.target.result; // Atualiza o ícone no header
+
+                    // Atualiza o usuário na lista USERS ou TEMP_USERS
+                    const userIndex = USERS.findIndex(u => u.username === currentUser.username);
+                    if (userIndex !== -1) {
+                        USERS[userIndex] = { ...USERS[userIndex], profilePic: e.target.result };
+                    } else {
+                        const tempUserIndex = TEMP_USERS.findIndex(u => u.username === currentUser.username);
+                        if (tempUserIndex !== -1) {
+                            TEMP_USERS[tempUserIndex] = { ...TEMP_USERS[tempUserIndex], profilePic: e.target.result };
+                        }
+                    }
+                    profileFeedback.textContent = 'Foto de perfil carregada com sucesso!';
+                    profileFeedback.style.color = 'var(--secondary-color)';
+                }
+            };
+            reader.readAsDataURL(file);
+        } else {
+            profileFeedback.textContent = 'Por favor, selecione uma imagem.';
+            profileFeedback.style.color = 'var(--danger-color)';
+        }
+    });
+
+    // --- Funcionalidades de Alterar Senha (Modal) ---
+    const changePasswordModal = document.getElementById('change-password-modal');
+    const newPasswordInput = document.getElementById('new-password');
+    const confirmNewPasswordInput = document.getElementById('confirm-new-password');
+    const submitChangePasswordButton = document.getElementById('submit-change-password');
+    const changePasswordError = document.getElementById('change-password-error');
+    const changePasswordSuccess = document.getElementById('change-password-success');
+
+    openChangePasswordModalButton.addEventListener('click', () => {
+        showModal('change-password-modal');
+        changePasswordError.style.display = 'none';
+        changePasswordSuccess.style.display = 'none';
+        newPasswordInput.value = '';
+        confirmNewPasswordInput.value = '';
+    });
+
+    document.getElementById('change-password-close-button').addEventListener('click', () => {
+        closeModal('change-password-modal');
+        changePasswordError.style.display = 'none';
+        changePasswordSuccess.style.display = 'none';
+        newPasswordInput.value = '';
+        confirmNewPasswordInput.value = '';
+    });
+
+    submitChangePasswordButton.addEventListener('click', () => {
+        const newPassword = newPasswordInput.value;
+        const confirmPassword = confirmNewPasswordInput.value;
+
+        if (newPassword.length < 6) {
+            changePasswordError.textContent = 'A nova senha deve ter no mínimo 6 caracteres.';
+            changePasswordError.style.display = 'block';
+            changePasswordSuccess.style.display = 'none';
+            return;
+        }
+
+        if (newPassword !== confirmPassword) {
+            changePasswordError.textContent = 'As senhas não conferem.';
+            changePasswordError.style.display = 'block';
+            changePasswordSuccess.style.display = 'none';
+            return;
+        }
+
+        if (currentUser) {
+            currentUser.password = newPassword; // Atualiza a senha do usuário logado
+            // Atualiza também na lista de usuários mock
+            const userIndex = USERS.findIndex(u => u.username === currentUser.username);
+            if (userIndex !== -1) {
+                USERS[userIndex].password = newPassword;
+            } else {
+                const tempUserIndex = TEMP_USERS.findIndex(u => u.username === currentUser.username);
+                if (tempUserIndex !== -1) {
+                    TEMP_USERS[tempUserIndex].password = newPassword;
+                }
+            }
+
+            changePasswordSuccess.textContent = 'Senha alterada com sucesso!';
+            changePasswordSuccess.style.display = 'block';
+            changePasswordError.style.display = 'none';
+            newPasswordInput.value = '';
+            confirmNewPasswordInput.value = '';
+        }
+    });
+
+    // --- Funcionalidades do WhatsApp Modal ---
+    const whatsappModal = document.getElementById('whatsapp-modal');
+    const whatsappMessageInput = document.getElementById('whatsapp-message-input');
+    const includeDisplayName = document.getElementById('include-display-name');
+    const includeEmail = document.getElementById('include-email');
+    const includePhone = document.getElementById('include-phone');
+    const sendWhatsappButton = document.getElementById('send-whatsapp-button');
+    const cancelWhatsappButton = document.getElementById('cancel-whatsapp-button');
+
+    let currentWhatsappRecipient = null; // Para guardar o número do WhatsApp do produto/fornecedor
+
+    // Abre o modal do WhatsApp com uma mensagem pré-definida
+    window.openWhatsappModal = (message, recipientNumber = '556236360668') => {
+        whatsappMessageInput.value = message;
+        currentWhatsappRecipient = recipientNumber.replace(/\D/g, ''); // Limpa o número
+        includeDisplayName.checked = false;
+        includeEmail.checked = false;
+        includePhone.checked = false;
+        showModal('whatsapp-modal');
+    };
+
+    // Listener para o botão WhatsApp na seção de informações da empresa
+    document.getElementById('company-whatsapp-link').addEventListener('click', (e) => {
+        e.preventDefault();
+        const companyPhone = document.getElementById('company-phone').textContent.replace(/\D/g, '');
+        window.openWhatsappModal('Olá, gostaria de mais informações sobre a Galvão Drones.', companyPhone);
+    });
+
+    // Atualiza a mensagem de prévia ao mudar os checkboxes
+    [includeDisplayName, includeEmail, includePhone, whatsappMessageInput].forEach(element => {
+        element.addEventListener('input', updateWhatsappMessagePreview);
+        element.addEventListener('change', updateWhatsappMessagePreview); // Para checkboxes
+    });
+
+    function updateWhatsappMessagePreview() {
+        let message = whatsappMessageInput.value;
+        let profileInfo = [];
+
+        if (includeDisplayName.checked && currentUser.displayName) {
+            profileInfo.push(`Nome: ${currentUser.displayName}`);
+        }
+        if (includeEmail.checked && currentUser.email) {
+            profileInfo.push(`Email: ${currentUser.email}`);
+        }
+        if (includePhone.checked && currentUser.phone) {
+            profileInfo.push(`Celular: ${currentUser.phone}`);
+        }
+
+        let finalMessage = message;
+        if (profileInfo.length > 0) {
+            finalMessage += `\n\n--- Meus Dados ---\n${profileInfo.join('\n')}`;
+        }
+        // A prévia não é exibida na UI, mas a lógica de construção da mensagem final está aqui.
+        // O valor real para o link do WhatsApp será construído no `sendWhatsappButton` click.
+    }
+
+    sendWhatsappButton.addEventListener('click', () => {
+        let message = whatsappMessageInput.value;
+        let profileInfo = [];
+
+        if (includeDisplayName.checked && currentUser.displayName) {
+            profileInfo.push(`Nome: ${currentUser.displayName}`);
+        }
+        if (includeEmail.checked && currentUser.email) {
+            profileInfo.push(`Email: ${currentUser.email}`);
+        }
+        if (includePhone.checked && currentUser.phone) {
+            profileInfo.push(`Celular: ${currentUser.phone}`);
+        }
+
+        let finalMessage = message;
+        if (profileInfo.length > 0) {
+            finalMessage += `\n\n--- Meus Dados ---\n${profileInfo.join('\n')}`;
+        }
+
+        const whatsappUrl = `https://wa.me/${currentWhatsappRecipient}?text=${encodeURIComponent(finalMessage)}`;
+        window.open(whatsappUrl, '_blank');
+        closeModal('whatsapp-modal');
+    });
+
+    cancelWhatsappButton.addEventListener('click', () => {
+        closeModal('whatsapp-modal');
+    });
+
+
+    // --- Funcionalidades do Modal de Orçamento ---
+    const budgetModal = document.getElementById('budget-modal');
+    const openBudgetModalButton = document.getElementById('open-budget-modal-button');
+    const droneCategoryCheckboxes = document.getElementById('drone-category-checkboxes');
+    const itemTypeGroup = document.getElementById('item-type-group');
+    const itemTypeCheckboxes = document.getElementById('item-type-checkboxes');
+    const equipmentDetailsGroup = document.getElementById('equipment-details-group');
+    const equipmentDetailsTextarea = document.getElementById('equipment-details');
+    const sparePartsDetailsGroup = document.getElementById('spare-parts-details-group');
+    const sparePartsDetailsTextarea = document.getElementById('spare-parts-details');
+    const supplierSelectGroup = document.getElementById('supplier-select-group');
+    const budgetSupplierCheckboxes = document.getElementById('budget-supplier-checkboxes');
+    const selectedSupplierContact = document.getElementById('selected-supplier-contact');
+    const selectedSupplierNameDisplay = document.getElementById('selected-supplier-name-display');
+    const sendBudgetWhatsappButton = document.getElementById('send-budget-whatsapp');
+
+    let selectedBudgetSuppliers = [];
+
+    openBudgetModalButton.addEventListener('click', () => {
+        showModal('budget-modal');
+        resetBudgetModal();
+        populateBudgetSuppliers();
+    });
+
+    document.getElementById('budget-close-button').addEventListener('click', () => {
+        closeModal('budget-modal');
+        resetBudgetModal();
+    });
+
+    function resetBudgetModal() {
+        // Reseta todos os campos e estados do modal
+        document.querySelectorAll('#budget-modal input[type="checkbox"]').forEach(cb => cb.checked = false);
+        equipmentDetailsTextarea.value = '';
+        sparePartsDetailsTextarea.value = '';
+        itemTypeGroup.classList.add('hidden');
+        equipmentDetailsGroup.classList.add('hidden');
+        sparePartsDetailsGroup.classList.add('hidden');
+        supplierSelectGroup.classList.add('hidden');
+        selectedSupplierContact.classList.add('hidden');
+        selectedBudgetSuppliers = [];
+    }
+
+    droneCategoryCheckboxes.addEventListener('change', () => {
+        const anyDroneCategorySelected = Array.from(droneCategoryCheckboxes.querySelectorAll('input[type="checkbox"]')).some(cb => cb.checked);
+        if (anyDroneCategorySelected) {
+            itemTypeGroup.classList.remove('hidden');
+            supplierSelectGroup.classList.remove('hidden'); // Mostra seleção de fornecedor se alguma categoria de drone for selecionada
+        } else {
+            itemTypeGroup.classList.add('hidden');
+            equipmentDetailsGroup.classList.add('hidden');
+            sparePartsDetailsGroup.classList.add('hidden');
+            supplierSelectGroup.classList.add('hidden');
+            selectedSupplierContact.classList.add('hidden');
+            selectedBudgetSuppliers = [];
+        }
+    });
+
+    itemTypeCheckboxes.addEventListener('change', () => {
+        const equipmentSelected = itemTypeCheckboxes.querySelector('input[value="Equipamentos"]').checked;
+        const piecesSelected = itemTypeCheckboxes.querySelector('input[value="Pecas"]').checked;
+
+        if (equipmentSelected) {
+            equipmentDetailsGroup.classList.remove('hidden');
+        } else {
+            equipmentDetailsGroup.classList.add('hidden');
+            equipmentDetailsTextarea.value = '';
+        }
+
+        if (piecesSelected) {
+            sparePartsDetailsGroup.classList.remove('hidden');
+        } else {
+            sparePartsDetailsGroup.classList.add('hidden');
+            sparePartsDetailsTextarea.value = '';
+        }
+    });
+
+    function populateBudgetSuppliers() {
+        budgetSupplierCheckboxes.innerHTML = '';
+        SUPPLIERS.forEach(supplier => {
+            const label = document.createElement('label');
+            label.innerHTML = `<input type="checkbox" name="budget-supplier" value="${supplier.id}"> ${supplier.name}`;
+            budgetSupplierCheckboxes.appendChild(label);
+        });
+
+        budgetSupplierCheckboxes.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', (e) => {
+                const supplierId = e.target.value;
+                if (e.target.checked) {
+                    selectedBudgetSuppliers.push(supplierId);
+                } else {
+                    selectedBudgetSuppliers = selectedBudgetSuppliers.filter(id => id !== supplierId);
+                }
+                updateBudgetWhatsappButton();
+            });
+        });
+    }
+
+    function updateBudgetWhatsappButton() {
+        if (selectedBudgetSuppliers.length === 1) {
+            const supplier = SUPPLIERS.find(s => s.id === selectedBudgetSuppliers[0]);
+            if (supplier) {
+                selectedSupplierNameDisplay.textContent = `Enviar para: ${supplier.name}`;
+                selectedSupplierContact.classList.remove('hidden');
+            }
+        } else {
+            selectedSupplierContact.classList.add('hidden');
+        }
+    }
+
+    sendBudgetWhatsappButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (selectedBudgetSuppliers.length === 1) {
+            const supplier = SUPPLIERS.find(s => s.id === selectedBudgetSuppliers[0]);
+            if (supplier) {
+                const whatsappContact = supplier.contacts.find(c => c.type === 'WhatsApp');
+                if (whatsappContact) {
+                    let message = "Olá, gostaria de solicitar um orçamento para:\n\n";
+
+                    const selectedDroneCategories = Array.from(droneCategoryCheckboxes.querySelectorAll('input[type="checkbox"]:checked'))
+                        .map(cb => cb.value);
+                    if (selectedDroneCategories.length > 0) {
+                        message += `Categorias de Drones: ${selectedDroneCategories.join(', ')}\n`;
+                    }
+
+                    const equipmentDetails = equipmentDetailsTextarea.value.trim();
+                    if (equipmentDetails) {
+                        message += `Equipamentos/Drones: ${equipmentDetails}\n`;
+                    }
+
+                    const sparePartsDetails = sparePartsDetailsTextarea.value.trim();
+                    if (sparePartsDetails) {
+                        message += `Peças de Reposição: ${sparePartsDetails}\n`;
+                    }
+
+                    message += "\nPor favor, me envie as opções e valores. Obrigado!";
+
+                    // Abre o modal de WhatsApp para personalizar antes de enviar
+                    window.openWhatsappModal(message, whatsappContact.value);
+                    closeModal('budget-modal'); // Fecha o modal de orçamento
+                } else {
+                    alert('Este fornecedor não possui um contato de WhatsApp cadastrado.');
+                }
+            }
+        } else if (selectedBudgetSuppliers.length === 0) {
+            alert('Por favor, selecione um fornecedor para enviar o orçamento.');
+        } else {
+            alert('Por favor, selecione APENAS UM fornecedor por vez para enviar o orçamento.');
+        }
+    });
+
+    // --- Funcionalidades de Gerenciar Fornecedores (Criar/Editar) ---
+    const manageSupplierModal = document.getElementById('manage-supplier-modal');
+    const manageSupplierModalTitle = document.getElementById('manage-supplier-modal-title');
+    const manageSupplierForm = document.getElementById('manage-supplier-form');
+    const supplierIdToEditInput = document.getElementById('supplier-id-to-edit');
+    const supplierNameInput = document.getElementById('supplier-name');
+    const supplierDetailsTextarea = document.getElementById('supplier-details');
+    const supplierPaymentTextarea = document.getElementById('supplier-payment');
+    const supplierProductsInput = document.getElementById('supplier-products');
+    const supplierCategoryCheckboxes = manageSupplierModal.querySelectorAll('input[name="supplier-category"]');
+    const supplierContactsContainer = document.getElementById('supplier-contacts-container');
+    const addSupplierContactButton = document.getElementById('add-supplier-contact-button');
+    const saveSupplierButton = document.getElementById('save-supplier-button');
+    const manageSupplierFeedback = document.getElementById('manage-supplier-feedback');
+
+    document.getElementById('open-create-supplier-modal-button').addEventListener('click', () => openManageSupplierModal('create'));
+    document.getElementById('manage-supplier-close-button').addEventListener('click', () => closeModal('manage-supplier-modal'));
+
+    function openManageSupplierModal(mode, supplierId = null) {
+        manageSupplierForm.reset();
+        supplierContactsContainer.innerHTML = ''; // Limpa contatos existentes
+        manageSupplierFeedback.textContent = '';
+        supplierIdToEditInput.value = '';
+
+        if (mode === 'create') {
+            manageSupplierModalTitle.textContent = 'Criar Novo Fornecedor';
+            saveSupplierButton.textContent = 'Salvar Novo Fornecedor';
+        } else if (mode === 'edit' && supplierId) {
+            manageSupplierModalTitle.textContent = 'Alterar Fornecedor';
+            saveSupplierButton.textContent = 'Salvar Alterações';
+            const supplier = SUPPLIERS.find(s => s.id === supplierId);
+            if (supplier) {
+                supplierIdToEditInput.value = supplier.id;
+                supplierNameInput.value = supplier.name;
+                supplierDetailsTextarea.value = supplier.details;
+                supplierPaymentTextarea.value = supplier.payment;
+                supplierProductsInput.value = supplier.products;
+
+                supplierCategoryCheckboxes.forEach(checkbox => {
+                    checkbox.checked = supplier.categories.includes(checkbox.value);
+                });
+
+                supplier.contacts.forEach(contact => addContactField(contact.type, contact.value));
+            }
+        }
+        showModal('manage-supplier-modal');
+    }
+
+    function addContactField(type = '', value = '') {
+        const contactEntry = document.createElement('div');
+        contactEntry.classList.add('contact-entry');
+        contactEntry.innerHTML = `
+            <div class="input-group">
+                <label>Tipo de Contato</label>
+                <select class="contact-type">
+                    <option value="WhatsApp" ${type === 'WhatsApp' ? 'selected' : ''}>WhatsApp</option>
+                    <option value="Telefone" ${type === 'Telefone' ? 'selected' : ''}>Telefone</option>
+                    <option value="Email" ${type === 'Email' ? 'selected' : ''}>Email</option>
+                    <option value="Site" ${type === 'Site' ? 'selected' : ''}>Site</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Valor do Contato</label>
+                <input type="text" class="contact-value" value="${value}" placeholder="Ex: 5562988887777 ou email@exemplo.com">
+            </div>
+            <button type="button" class="remove-contact-button">×</button>
+        `;
+        supplierContactsContainer.appendChild(contactEntry);
+
+        contactEntry.querySelector('.remove-contact-button').addEventListener('click', () => {
+            contactEntry.remove();
+        });
+    }
+
+    addSupplierContactButton.addEventListener('click', () => addContactField());
+
+    manageSupplierForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const supplierId = supplierIdToEditInput.value;
+        const name = supplierNameInput.value.trim();
+        const details = supplierDetailsTextarea.value.trim();
+        const payment = supplierPaymentTextarea.value.trim();
+        const products = supplierProductsInput.value.trim();
+        const categories = Array.from(supplierCategoryCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
+
+        const contacts = [];
+        supplierContactsContainer.querySelectorAll('.contact-entry').forEach(entry => {
+            const type = entry.querySelector('.contact-type').value;
+            const value = entry.querySelector('.contact-value').value.trim();
+            if (value) {
+                contacts.push({ type, value });
+            }
+        });
+
+        if (!name) {
+            manageSupplierFeedback.textContent = 'O nome do fornecedor é obrigatório.';
+            manageSupplierFeedback.style.color = 'var(--danger-color)';
+            return;
+        }
+
+        if (supplierId) { // Editando
+            const index = SUPPLIERS.findIndex(s => s.id === supplierId);
+            if (index !== -1) {
+                SUPPLIERS[index] = { id: supplierId, name, details, payment, products, categories, contacts };
+                manageSupplierFeedback.textContent = `Fornecedor "${name}" atualizado com sucesso!`;
+            } else {
+                manageSupplierFeedback.textContent = 'Erro: Fornecedor não encontrado.';
+                manageSupplierFeedback.style.color = 'var(--danger-color)';
+                return;
+            }
+        } else { // Criando
+            const newId = 'S' + (SUPPLIERS.length + 1).toString().padStart(3, '0');
+            SUPPLIERS.push({ id: newId, name, details, payment, products, categories, contacts });
+            manageSupplierFeedback.textContent = `Fornecedor "${name}" criado com sucesso!`;
+        }
+        manageSupplierFeedback.style.color = 'var(--secondary-color)';
+        filterAndSortSuppliers(); // Atualiza a lista de fornecedores
+        populateSupplierSelect(newProductSupplierSelect); // Atualiza o select de produtos
+        closeModal('manage-supplier-modal');
+    });
+
+    // --- Modal de Busca para Alterar Fornecedor ---
+    const editSupplierSearchModal = document.getElementById('edit-supplier-search-modal');
+    const editSupplierSearchInputModal = document.getElementById('edit-supplier-search-input-modal');
+    const searchSupplierToEditModalButton = document.getElementById('search-supplier-to-edit-modal-button');
+    const editSupplierSearchResultsModal = document.getElementById('edit-supplier-search-results-modal');
+
+    document.getElementById('open-edit-supplier-search-modal-button').addEventListener('click', () => {
+        showModal('edit-supplier-search-modal');
+        editSupplierSearchInputModal.value = '';
+        editSupplierSearchResultsModal.innerHTML = '';
+    });
+    document.getElementById('edit-supplier-search-close-button').addEventListener('click', () => closeModal('edit-supplier-search-modal'));
+
+    searchSupplierToEditModalButton.addEventListener('click', () => {
+        const searchTerm = editSupplierSearchInputModal.value.toLowerCase();
+        const results = SUPPLIERS.filter(s =>
+            s.name.toLowerCase().includes(searchTerm) ||
+            s.details.toLowerCase().includes(searchTerm)
+        );
+
+        editSupplierSearchResultsModal.innerHTML = '';
+        if (results.length === 0) {
+            editSupplierSearchResultsModal.innerHTML = '<p>Nenhum fornecedor encontrado.</p>';
+            return;
+        }
+
+        const ul = document.createElement('ul');
+        results.forEach(supplier => {
+            const li = document.createElement('li');
+            li.textContent = `${supplier.name} (ID: ${supplier.id})`;
+            li.addEventListener('click', () => {
+                openManageSupplierModal('edit', supplier.id);
+                closeModal('edit-supplier-search-modal');
+            });
+            ul.appendChild(li);
+        });
+        editSupplierSearchResultsModal.appendChild(ul);
+    });
+
+
+    // --- Inicialização ---
+    // Chama as funções de renderização iniciais
+    renderProducts(PRODUCTS);
+    renderDronesVisitor(PRODUCTS); // Renderiza drones para o modo visitante
+    renderSettingsOptions();
+    renderTempUsers();
+    populateSupplierSelect(newProductSupplierSelect);
+    populateSupplierSelect(editProductSupplierSelect);
+
+    // Carrega dados de perfil ao entrar na seção
+    document.getElementById('profile-nav-button').addEventListener('click', loadProfileData);
+
+    // Esconde o botão de chat da IA inicialmente
+    aiChatButton.style.display = 'none';
+});
