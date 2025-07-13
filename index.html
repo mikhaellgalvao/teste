@@ -479,7 +479,11 @@
                                 <div class="input-group"><label for="edit-product-spec">Especificações</label><textarea id="edit-product-spec" rows="5"></textarea></div>
                                 <div class="input-group"><label for="edit-product-sale-price">Preço de Venda (R$)</label><input type="number" id="edit-product-sale-price" step="0.01" min="0" required></div>
                                 <div class="input-group"><label for="edit-product-cost-price">Preço de Custo (R$)</label><input type="number" id="edit-product-cost-price" step="0.01" min="0"></div>
-                                <div class="input-group"><label for="edit-product-supplier">Fornecedor Principal</label><input type="text" id="edit-product-supplier"></div>
+                                <div class="input-group">
+                                    <label for="edit-product-supplier">Fornecedor Principal</label>
+                                    <select id="edit-product-supplier">
+                                        </select>
+                                </div>
                                 <button type="submit" class="action-button">Salvar Alterações</button>
                                 <p id="edit-product-feedback" class="profile-feedback"></p>
                             </form>
@@ -714,7 +718,7 @@
 
                 <div id="selected-supplier-contact" class="supplier-contact-info hidden">
                     <span id="selected-supplier-name-display"></span>
-                    <a href="#" target="_blank" class="action-button whatsapp-button" id="send-budget-whatsapp">
+                    <a href="#" class="action-button whatsapp-button" id="send-budget-whatsapp">
                         <img src="https://i.imgur.com/XF9rY8D.png" alt="WhatsApp" style="height: 20px; width: 20px; margin-right: 5px; vertical-align: middle;">
                         Solicitar Orçamento
                     </a>
@@ -983,13 +987,13 @@
     ];
 
     const SUPPLIERS = [
-        { name: 'Arroba Celulares', details: 'Aroba celulares é um dos principais distribuidores e centros de manutenção de eletrônicos no Brasil.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mini, Osmo Mobile, Acessórios', whatsapp: '556281145767', categories: ['Consumer', 'Equipamentos'] },
-        { name: 'DJI Grupo Multi', details: 'Atuam desde 2012 no mercado de drones e fotografia. Grupo Multi é importador de drones e estabilizadores.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mini, DJI Air, Osmo Action, Acessórios', whatsapp: '551145731093', categories: ['Consumer', 'Equipamentos'] },
-        { name: 'GoHobby Distribuidora de VANT LTDA', details: 'A GoHobby é importadora exclusiva de drones profissionais e tecnologias anti-drone no Brasil.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mavic, DJI Matrice, Linha Enterprise, Soluções Anti-drone', whatsapp: '5511955973434', categories: ['Enterprise', 'Agriculture', 'Equipamentos'] },
-        // Novos fornecedores de peças
-        { name: 'Pedro - FlyUp (Anápolis)', details: 'Fornecedor de peças e serviços de manutenção em Anápolis.', payment: 'A combinar.', products: 'Peças diversas, componentes eletrônicos', whatsapp: '556292065116', categories: ['Pecas'] },
-        { name: 'Eber - (Aparecida de Goiânia)', details: 'Especialista em peças e reparos de drones em Aparecida de Goiânia.', payment: 'A combinar.', products: 'Peças de reposição, baterias genéricas', whatsapp: '556293147403', categories: ['Pecas'] },
-        { name: 'Cristiano - (Goiânia)', details: 'Fornecedor local de peças e acessórios para drones em Goiânia.', payment: 'A combinar.', products: 'Peças e acessórios DJI, serviços de reparo', whatsapp: '556292506411', categories: ['Pecas'] }
+        { name: 'Arroba Celulares', contactName: 'Atendimento', details: 'Aroba celulares é um dos principais distribuidores e centros de manutenção de eletrônicos no Brasil.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mini, Osmo Mobile, Acessórios', whatsapp: '556281145767', categories: ['Consumer', 'Equipamentos'] },
+        { name: 'DJI Grupo Multi', contactName: 'Atendimento', details: 'Atuam desde 2012 no mercado de drones e fotografia. Grupo Multi é importador de drones e estabilizadores.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mini, DJI Air, Osmo Action, Acessórios', whatsapp: '551145731093', categories: ['Consumer', 'Equipamentos'] },
+        { name: 'GoHobby Distribuidora de VANT LTDA', contactName: 'Alexandre Elias', details: 'A GoHobby é importadora exclusiva de drones profissionais e tecnologias anti-drone no Brasil.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mavic, DJI Matrice, Linha Enterprise, Soluções Anti-drone', whatsapp: '5511955973434', categories: ['Enterprise', 'Agriculture', 'Equipamentos'] },
+        { name: 'Pedro - FlyUp (Anápolis)', contactName: 'Pedro', details: 'Fornecedor de peças e serviços de manutenção em Anápolis.', payment: 'A combinar.', products: 'Peças diversas, componentes eletrônicos', whatsapp: '556292065116', categories: ['Pecas', 'Consumer'] },
+        { name: 'Eber - (Aparecida de Goiânia)', contactName: 'Eber', details: 'Especialista em peças e reparos de drones em Aparecida de Goiânia.', payment: 'A combinar.', products: 'Peças de reposição, baterias genéricas', whatsapp: '556293147403', categories: ['Pecas', 'Consumer', 'Enterprise'] },
+        { name: 'Cristiano - (Goiânia)', contactName: 'Cristiano', details: 'Fornecedor local de peças e acessórios para drones em Goiânia.', payment: 'A combinar.', products: 'Peças e acessórios DJI, serviços de reparo', whatsapp: '556292506411', categories: ['Pecas', 'Consumer'] },
+        { name: 'Agrobox Drones', contactName: 'Marcos', details: 'Peças e Equipamentos para Agricultura. Local: Goiânia, Goiás.', payment: 'A combinar.', products: 'Peças e Equipamentos para Drones Agrícolas', whatsapp: '556281628361', categories: ['Agriculture', 'Equipamentos', 'Pecas'] }
     ];
 
     const INSTALLMENT_RATES = {
@@ -1091,9 +1095,7 @@
         }
 
         const encodedMessage = encodeURIComponent(message);
-        const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
-
-        window.open(whatsappUrl, '_blank');
+        window.open(`https://wa.me/?text=${encodedMessage}`, '_blank'); // Abre em nova aba
         closeWhatsAppModal();
     }
 
@@ -1604,7 +1606,17 @@
             editProductSpecTextarea.value = product.spec;
             editProductSalePriceInput.value = product.salePrice;
             editProductCostPriceInput.value = product.sources[0] ? product.sources[0].costPrice : '';
-            editProductSupplierInput.value = product.sources[0] ? product.sources[0].supplierName : '';
+
+            // Preencher o select de fornecedores para edição
+            const editProductSupplierSelect = document.getElementById('edit-product-supplier');
+            editProductSupplierSelect.innerHTML = ''; // Limpa opções existentes
+            SUPPLIERS.forEach(supplier => {
+                const option = document.createElement('option');
+                option.value = supplier.name;
+                option.textContent = supplier.name;
+                editProductSupplierSelect.appendChild(option);
+            });
+            editProductSupplierSelect.value = product.sources[0] ? product.sources[0].supplierName : '';
         }
     }
 
@@ -1700,6 +1712,7 @@
             supplierCard.className = 'card supplier-card';
             supplierCard.innerHTML = `
                 <h3><strong data-supplier-name="${supplier.name}">${supplier.name}</strong></h3>
+                <p><strong>Nome de Contato:</strong> ${supplier.contactName || 'Não Informado'}</p>
                 <p><strong>Detalhes:</strong> ${supplier.details}</p>
                 <div><strong>Pagamento:</strong><br>${supplier.payment.replace(/\n/g, '<br>')}</div>
                 <p><strong>Produtos Principais:</strong> ${supplier.products}</p>
@@ -1843,7 +1856,7 @@
         }
     }
 
-    async function callGeminiAPI(prompt, title, isProductHelp = false, productSpecs = '', isGeneralAI = false) {
+    async function callGeminiAPI(prompt, title, isProductHelp = false, isGeneralAI = false) { // Removido productSpecs
         if (!isGeneralAI) {
             modalTitle.textContent = title;
             modalBody.innerHTML = '<div class="loader"></div>';
@@ -2044,7 +2057,7 @@
         if (relevantSuppliers.length > 0) {
             relevantSuppliers.forEach(supplier => {
                 const label = document.createElement('label');
-                label.innerHTML = `<input type="checkbox" name="budget-supplier" value="${supplier.name}" data-whatsapp="${supplier.whatsapp}"> ${supplier.name}`;
+                label.innerHTML = `<input type="checkbox" name="budget-supplier" value="${supplier.name}" data-whatsapp="${supplier.whatsapp}" data-contact-name="${supplier.contactName || supplier.name.split(' ')[0]}"> ${supplier.name}`;
                 budgetSupplierCheckboxesContainer.appendChild(label);
             });
             budgetSupplierSelectGroup.classList.remove('hidden');
@@ -2122,11 +2135,11 @@
         const userEmail = window.currentUser.email || 'Não informado';
 
         selectedSuppliersCheckboxes.forEach(checkbox => {
-            const supplierName = checkbox.value;
             const supplierWhatsapp = checkbox.dataset.whatsapp; // Pega o WhatsApp do dataset
+            const supplierContactName = checkbox.dataset.contactName; // Pega o nome de contato do dataset
 
             if (supplierWhatsapp) {
-                let message = `${greeting}, ${supplierName}!\n\n`;
+                let message = `${greeting}, ${supplierContactName}!\n\n`; // Usa o nome de contato
                 message += `Sou o(a) *${userName}* da Galvão Drones e gostaria de solicitar um orçamento para:\n\n`;
                 message += `*Categorias de Drone:* ${selectedCategories.join(', ')}\n`;
                 message += `*Tipos de Item:* ${selectedItemTypes.join(', ')}\n\n`;
@@ -2135,14 +2148,13 @@
                 message += `*Meus Contatos:*\nCelular: ${userPhone}\nEmail: ${userEmail}`;
 
                 const encodedMessage = encodeURIComponent(message);
-                const whatsappUrl = `https://wa.me/${supplierWhatsapp}?text=${encodedMessage}`;
-                window.open(whatsappUrl, '_blank');
+                window.open(`https://wa.me/${supplierWhatsapp}?text=${encodedMessage}`, '_blank');
             } else {
-                console.warn(`Número de WhatsApp não encontrado para o fornecedor: ${supplierName}`);
+                console.warn(`Número de WhatsApp não encontrado para o fornecedor: ${checkbox.value}`);
             }
         });
 
-        closeBudgetModal(); // Fecha o modal após enviar as mensagens
+        closeBudgetModal();
     }
 
 
@@ -2369,7 +2381,7 @@
                         discountPercentage = parseFloat(discountInput.value);
                     }
 
-                    resultContainer.innerHTML = calculate(product.salePrice, numInstallments, paymentMethod, discountPercentage);
+                    resultContainer.innerHTML = calculate(baseValue, numInstallments, paymentMethod, discountPercentage);
                 }
             }
         });
@@ -2500,7 +2512,7 @@
         if(submitAiQuestionButton) submitAiQuestionButton.addEventListener('click', () => {
             const question = aiQuestionInput.value.trim();
             if (question) {
-                callGeminiAPI(question, "Resposta da IA", false, '', true);
+                callGeminiAPI(question, "Resposta da IA", false, true); // Removido productSpecs
             }
         });
 
