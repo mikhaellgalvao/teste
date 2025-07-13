@@ -4,14 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal de Consultas Internas - Galvão Drones</title>
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230E5847'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-12h2v4h4v2h-4v4h-2v-4H7v-2h4V8z'%3E%3C/path%3E%3Cpath d='M13.25 7.15c-.24-.24-.58-.36-.92-.36s-.68.12-.92.36L8.4 9.16c-.24.24-.36.58-.36.92s.12.68.36.92l.71.71c.24.24.58.36.92.36s-.68-.12.92-.36l2.93-2.93c-.24-.24-.36-.58-.36-.92s-.12-.68-.36-.92l-.71-.71zM10.75 16.85c.24.24.58.36.92.36s-.68-.12.92-.36l2.93-2.93c-.24-.24-.36-.58-.36-.92s-.12-.68-.36-.92l-.71-.71c-.24-.24-.58-.36-.92-.36s-.68.12-.92.36l-2.93 2.93c-.24.24-.36.58-.36.92s-.12.68.36.92l.71.71zM18.8 8.4l-.71-.71c-.24-.24-.58-.36-.92-.36s-.68.12-.92.36L13.3 9.77c-.24.24-.36.58-.36.92s-.12.68.36.92l.71.71c.24.24.58.36.92.36s-.68-.12.92-.36l3.85-3.85c-.24-.24-.36-.58-.36.92s-.12-.68-.36-.92zM5.2 15.6l.71.71c-.24.24-.58.36-.92.36s-.68-.12-.92.36l3.85-3.85c-.24.24-.36.58-.36.92s-.12.68-.36.92l-.71-.71c-.24-.24-.58-.36-.92-.36s-.68.12-.92.36L5.2 14.68c-.24.24-.36.58-.36.92s-.12.68.36.92z'%3E%3C/path%3E%3C/svg%3E" type="image/svg+xml">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230E5847'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-12h2v4h4v2h-4v4h-2v-4H7v-2h4V8z'%3E%3C/path%3E%3Cpath d='M13.25 7.15c-.24-.24-.58-.36-.92-.36s-.68.12-.92.36L8.4 9.16c-.24.24-.36.58-.36.92s-.12.68.36.92l.71.71c.24.24.58.36.92.36s-.68-.12.92-.36l2.93-2.93c-.24-.24-.36-.58-.36-.92s-.12-.68-.36-.92l-.71-.71zM10.75 16.85c.24.24.58.36.92.36s-.68-.12.92-.36l2.93-2.93c-.24-.24-.36-.58-.36-.92s-.12-.68-.36-.92l-.71-.71c-.24-.24-.58-.36-.92-.36s-.68.12-.92.36l-2.93 2.93c-.24.24-.36.58-.36.92s-.12.68.36.92l.71.71zM18.8 8.4l-.71-.71c-.24-.24-.58-.36-.92-.36s-.68.12-.92.36L13.3 9.77c-.24.24-.36.58-.36.92s-.12.68.36.92l.71.71c.24.24.58.36.92.36s-.68-.12.92-.36l3.85-3.85c-.24-.24-.36-.58-.36.92s-.12-.68-.36-.92zM5.2 15.6l.71.71c-.24.24-.58.36-.92.36s-.68-.12-.92.36l3.85-3.85c-.24.24-.36.58-.36.92s-.12.68-.36.92l-.71-.71c-.24-.24-.58-.36-.92-.36s-.68.12-.92.36L5.2 14.68c-.24.24-.36.58-.36.92s-.12.68.36.92z'%3E%3C/path%3E%3C/svg%3E" type="image/svg+xml">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
         :root {
             --primary-color: #EF7E13; /* Laranja Galvão Drones */
             --secondary-color: #0E5847; /* Verde Galvão Drones */
-            --light-grey: #f4f7f6; --medium-grey: #ecf0f1; --dark-grey: #bdc3c7;
-            --danger-color: #e74c3c; --whatsapp-color: #25D366; --instagram-color: #C13584; --youtube-color: #FF0000; --help-color: #5865F2;
+            --light-grey: #f4f7f6; /* Ligeiramente alterado para tom mais suave */
+            --medium-grey: #ecf0f1;
+            --dark-grey: #bdc3c7;
+            --danger-color: #e74c3c;
+            --whatsapp-color: #25D366;
+            --instagram-color: #C13584;
+            --youtube-color: #FF0000;
+            --help-color: #5865F2;
         }
         body {
             font-family: 'Roboto', sans-serif; margin: 0; background-color: var(--light-grey); color: #333;
@@ -280,47 +286,20 @@
         #whatsapp-modal .action-button-group .action-button { width: auto; }
         #whatsapp-modal .action-button-group .cancel-button { background-color: var(--dark-grey); }
         #whatsapp-modal .action-button-group .cancel-button:hover { background-color: #95a5a6; }
-        #marketing-section .marketing-content { display: flex; flex-direction: column; gap: 20px; }
-        #marketing-section .marketing-item { background-color: #f9f9f9; border: 1px solid #ddd; border-radius: 8px; padding: 20px; text-align: center; }
-        #marketing-section .marketing-item h3 { color: var(--primary-color); margin-top: 0; border-bottom: none; }
-        #marketing-section .marketing-item img { max-width: 80%; height: auto; margin: 15px auto; display: block; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        #marketing-section .marketing-item .download-button {
-            background-color: var(--secondary-color); color: white; padding: 10px 20px; border: none;
-            border-radius: 5px; cursor: pointer; font-weight: bold; transition: background-color 0.3s;
-            text-decoration: none; display: inline-block; margin-top: 15px;
+
+        /* Estilos para o novo modal de orçamento */
+        #budget-modal .modal-content { max-width: 500px; }
+        #budget-modal .modal-body-content div { margin-bottom: 15px; }
+        #budget-modal .modal-body-content select, #budget-modal .modal-body-content textarea {
+            width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;
         }
-        #marketing-section .marketing-item .download-button:hover { background-color: #0A4538; }
-        @media (max-width: 768px) {
-            main .content-section > * { margin-left: auto; margin-right: auto; max-width: 100%; padding: 0 10px; box-sizing: border-box; }
-            .card { padding: 15px; margin-bottom: 10px; }
-            .card h3 { font-size: 1.1em; }
-            .product-spec, .price, .cost-price, .supplier-info { font-size: 0.9em; }
-            .action-buttons-container { flex-direction: column; gap: 8px; }
-            .action-buttons-container button, .action-buttons-container a.action-button { width: 100%; padding: 10px; font-size: 0.9em; }
-            .calculator-container .input-group { margin-bottom: 10px; }
-            .payment-method-selector label { margin-right: 10px; font-size: 0.9em; }
-            .discount-option { flex-direction: column; align-items: flex-start; gap: 5px; }
-            .discount-option input[type="number"] { width: 100px; padding: 5px; }
-            .discount-option::after {
-                content: "max. 15%"; position: absolute; left: 0; top: auto; bottom: -15px;
-                transform: none; font-size: 0.7em; pointer-events: none; white-space: nowrap; transform: translateY(2px); z-index: 0;
-            }
-            .calculate-product-btn { width: 100%; padding: 10px; }
-            .product-calculator-result, #general-calculator-result { font-size: 1em; padding: 10px; }
-            .result-parcelado small { font-size: 0.8em; }
-            .search-bar input { padding: 10px 10px 10px 35px; font-size: 0.95em; }
-            .search-bar::before { left: 10px; font-size: 16px; }
-            .temp-user-item { flex-direction: column; align-items: flex-start; padding: 10px; }
-            .user-info p { font-size: 0.95em; }
-            .user-actions { width: 100%; display: flex; justify-content: flex-start; margin-top: 10px; }
-            .user-actions button { margin-left: 0; margin-right: 10px; padding: 8px 10px; font-size: 0.9em; }
-            .info-card p { font-size: 0.95em; }
-            .contact-buttons-container { flex-direction: column; gap: 8px; }
-            .contact-buttons-container a.action-button { width: 100%; }
-            #ai-chat-modal .modal-content { width: 90%; margin: 20px auto; }
-            #ai-question-input { font-size: 0.95em; }
-            #ai-response-area { font-size: 0.9em; padding: 8px; }
+        #budget-modal .modal-body-content textarea { min-height: 100px; }
+        #budget-modal .supplier-contact-info {
+            display: flex; align-items: center; justify-content: space-between;
+            background-color: var(--light-grey); padding: 10px; border-radius: 5px; margin-top: 15px;
         }
+        #budget-modal .supplier-contact-info img { width: 40px; height: 40px; margin-right: 10px; }
+        #budget-modal .supplier-contact-info .whatsapp-button { width: auto; margin-top: 0; }
     </style>
 </head>
 <body>
@@ -411,7 +390,11 @@
                            <div id="general-calculator-result">O resultado da simulação aparecerá aqui.</div>
                           </div>
                     </section>
-                    <section id="suppliers-section" class="content-section"><h2>Fornecedores (Acesso Confidencial)</h2><div id="supplier-list"></div></section>
+                    <section id="suppliers-section" class="content-section">
+                        <h2>Fornecedores (Acesso Confidencial)</h2>
+                        <button id="open-budget-modal-button" class="action-button" style="width: auto; margin-bottom: 20px;">Fazer Orçamento</button>
+                        <div id="supplier-list"></div>
+                    </section>
 
                     <section id="settings-section" class="content-section">
                         <h2>Configurações do Sistema</h2>
@@ -668,6 +651,58 @@
             </div>
         </div>
     </div>
+
+    <div id="budget-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="budget-close-button">×</span>
+            <h3>Solicitar Orçamento ao Fornecedor</h3>
+            <div id="budget-modal-body-content" class="modal-body-content">
+                <div class="input-group">
+                    <label for="drone-category">Categoria do Drone</label>
+                    <select id="drone-category">
+                        <option value="">Selecione uma categoria</option>
+                        <option value="Consumer">Consumer</option>
+                        <option value="Enterprise">Enterprise</option>
+                        <option value="Agriculture">Agriculture</option>
+                    </select>
+                </div>
+
+                <div class="input-group hidden" id="item-type-group">
+                    <label for="item-type">Tipo de Item</label>
+                    <select id="item-type">
+                        <option value="">Selecione o tipo</option>
+                        <option value="Equipamentos">Equipamentos</option>
+                        <option value="Pecas">Peças</option>
+                    </select>
+                </div>
+
+                <div class="input-group hidden" id="equipment-details-group">
+                    <label for="equipment-details">Modelos, quantidades e baterias (Ex: DJI Mini 4 Pro x2, Baterias x4)</label>
+                    <textarea id="equipment-details" rows="5" placeholder="Descreva os modelos, quantidades e baterias..."></textarea>
+                </div>
+
+                <div class="input-group hidden" id="spare-parts-details-group">
+                    <label for="spare-parts-details">Peças necessárias (Ex: Hélices DJI Mini 3 x4, Motor x1)</label>
+                    <textarea id="spare-parts-details" rows="5" placeholder="Descreva as peças e quantidades..."></textarea>
+                </div>
+
+                <div class="input-group hidden" id="supplier-select-group">
+                    <label for="budget-supplier">Selecione o Fornecedor</label>
+                    <select id="budget-supplier">
+                        <option value="">Selecione o fornecedor</option>
+                    </select>
+                </div>
+
+                <div id="selected-supplier-contact" class="supplier-contact-info hidden">
+                    <span id="selected-supplier-name"></span>
+                    <a href="#" target="_blank" class="action-button whatsapp-button" id="send-budget-whatsapp">
+                        <img src="https://i.imgur.com/XF9rY8D.png" alt="WhatsApp" style="height: 20px; width: 20px; margin-right: 5px; vertical-align: middle;">
+                        Solicitar Orçamento
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 <script>
     // --- VARIÁVEIS GLOBAIS ---
     const currentYear = new Date().getFullYear();
@@ -710,20 +745,20 @@
             sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 19920.00 }] },
         { id: 71, name: 'DJI Mavic 4 Pro Creator Combo (HDMI, 512GB)', spec: '🚀 DJI Mavic 4 Pro Creator Combo\nMesmo conjunto do Mavic 4 Pro com:\n🎒 Acessórios profissionais\n🔋 Baterias extras e hub inteligente\n🧳 Maleta reforçada para transporte\n🎮 Controle com tela (DJI RC Pro 2)', salePrice: 35650.00,
             sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 26650.00 }] },
-        { id: 39, name: 'DJI Mavic 3 Multispectral', spec: '🌱 DJI Mavic 3 Multispectral (Versão Standard)\n🎥 Câmera RGB 20 MP + 4 sensores multispectrais\n⏱️ Até 43 minutos por voo\n📡 Alcance de 15 km\n⚖️ 951 g\n🎮 Controle com tela (DJI RC Pro Enterprise)\n🧪 Ideal para agricultura de precisão e NDVI', salePrice: 44302.70, // Atualizado
-            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 31011.89 }] }, // Atualizado
-        { id: 40, name: 'DJI Mavic 3 Thermal', spec: '🔥 DJI Mavic 3 Thermal (Versão Standard)\n🎥 4K + câmera térmica 640x512 px\n⏱️ Até 45 minutos por voo\n📡 Alcance de 15 km\n⚖️ 920 g\n🎮 Controle com tela (DJI RC Pro Enterprise)\n🔥 Ideal para inspeção, resgate e segurança', salePrice: 42533.55, // Atualizado
-            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 29773.48 }] }, // Atualizado
-        { id: 41, name: 'DJI Mavic 3 Enterprise', spec: '🗺️ DJI Mavic 3 Enterprise (Versão Standard)\n🎥 Câmera RGB 20 MP com obturador mecânico\n🗺️ Compatível com RTK, alto-falante e holofote\n⏱️ Até 45 minutos de voo\n📡 Alcance de 15 km\n⚖️ 915 g\n🎮 Controle com tela (DJI RC Pro Enterprise)\n📐 Indicado para mapeamentos e medições técnicas', salePrice: 31474.83, // Atualizado
-            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 22032.38 }] }, // Atualizado
-        { id: 42, name: 'DJI Matrice 4T', spec: '🛠️ DJI Matrice 4T (Versão Standard)\n🎥 RGB 48 MP + Zoom híbrido 56x + Câmera térmica de alta resolução\n🧭 Visão tripla: Wide, Zoom e Térmica\n⏱️ Até 55 minutos por voo\n📡 Alcance de até 20 km\n⚖️ Peso: 3,7 kg\n🎮 Controle DJI RC Plus com tela de 7” ultra brilhante\n💼 IP55 – Ideal para resgate, combate a incêndio e inspeções', salePrice: 61589.97, // Atualizado
-            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 43112.98 }] }, // Atualizado
-        { id: 43, name: 'DJI Matrice 4E', spec: '🛠️ DJI Matrice 4E (Versão Standard)\n🎥 Câmera ampla de 20 MP com obturador mecânico\n🧭 Suporte a RTK, payloads e expansões avançadas\n⏱️ Até 55 minutos de voo\n📡 Alcance de até 20 km\n⚖️ Peso: 3,4 kg\n🎮 Controle DJI RC Plus\n🔧 Ideal para mapeamento, segurança e vigilância industrial', salePrice: 46075.84, // Atualizado
-            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 32253.09 }] }, // Atualizado
-        { id: 113, name: 'DJI Matrice 30T', spec: '🛠️ DJI Matrice 30T (Versão Standard)\n🎥 Câmera Wide 48 MP + Zoom Híbrido + Câmera Térmica\n⏱️ Até 41 minutos por voo\n📡 Alcance de até 15 km\n⚖️ Peso: 3,77 kg\n🎮 Controle DJI RC Plus com tela de 7”\n💼 Proteção IP55 – Ideal para operações em campo aberto', salePrice: 67494.47, // Atualizado
-            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 48663.51 }] }, // Atualizado
-        { id: 114, name: 'DJI Matrice 350 RTK', spec: '🛠️ DJI Matrice 350 RTK (Versão Standard)\n🎥 Compatível com payloads L2, P1, H30T e sensores externos\n🧭 RTK integrado para mapeamento de alta precisão\n⏱️ Até 55 minutos de voo\n📡 Alcance de até 20 km\n⚖️ Peso médio de 3,8 kg sem carga\n🎮 Controle DJI RC Plus com tela de 7”\n💼 Estrutura reforçada com proteção IP55', salePrice: 51991.62, // Atualizado
-            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 37485.95 }] }, // Atualizado
+        { id: 39, name: 'DJI Mavic 3 Multispectral', spec: '🌱 DJI Mavic 3 Multispectral (Versão Standard)\n🎥 Câmera RGB 20 MP + 4 sensores multispectrais\n⏱️ Até 43 minutos por voo\n📡 Alcance de 15 km\n⚖️ 951 g\n🎮 Controle com tela (DJI RC Pro Enterprise)\n🧪 Ideal para agricultura de precisão e NDVI', salePrice: 44302.70,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 31011.89 }] },
+        { id: 40, name: 'DJI Mavic 3 Thermal', spec: '🔥 DJI Mavic 3 Thermal (Versão Standard)\n🎥 4K + câmera térmica 640x512 px\n⏱️ Até 45 minutos por voo\n📡 Alcance de 15 km\n⚖️ 920 g\n🎮 Controle com tela (DJI RC Pro Enterprise)\n🔥 Ideal para inspeção, resgate e segurança', salePrice: 42533.55,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 29773.48 }] },
+        { id: 41, name: 'DJI Mavic 3 Enterprise', spec: '🗺️ DJI Mavic 3 Enterprise (Versão Standard)\n🎥 Câmera RGB 20 MP com obturador mecânico\n🗺️ Compatível com RTK, alto-falante e holofote\n⏱️ Até 45 minutos de voo\n📡 Alcance de 15 km\n⚖️ 915 g\n🎮 Controle com tela (DJI RC Pro Enterprise)\n📐 Indicado para mapeamentos e medições técnicas', salePrice: 31474.83,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 22032.38 }] },
+        { id: 42, name: 'DJI Matrice 4T', spec: '🛠️ DJI Matrice 4T (Versão Standard)\n🎥 RGB 48 MP + Zoom híbrido 56x + Câmera térmica de alta resolução\n🧭 Visão tripla: Wide, Zoom e Térmica\n⏱️ Até 55 minutos por voo\n📡 Alcance de até 20 km\n⚖️ Peso: 3,7 kg\n🎮 Controle DJI RC Plus com tela de 7” ultra brilhante\n💼 IP55 – Ideal para resgate, combate a incêndio e inspeções', salePrice: 61589.97,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 43112.98 }] },
+        { id: 43, name: 'DJI Matrice 4E', spec: '🛠️ DJI Matrice 4E (Versão Standard)\n🎥 Câmera ampla de 20 MP com obturador mecânico\n🧭 Suporte a RTK, payloads e expansões avançadas\n⏱️ Até 55 minutos de voo\n📡 Alcance de até 20 km\n⚖️ Peso: 3,4 kg\n🎮 Controle DJI RC Plus\n🔧 Ideal para mapeamento, segurança e vigilância industrial', salePrice: 46075.84,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 32253.09 }] },
+        { id: 113, name: 'DJI Matrice 30T', spec: '🛠️ DJI Matrice 30T (Versão Standard)\n🎥 Câmera Wide 48 MP + Zoom Híbrido + Câmera Térmica\n⏱️ Até 41 minutos por voo\n📡 Alcance de até 15 km\n⚖️ Peso: 3,77 kg\n🎮 Controle DJI RC Plus com tela de 7”\n💼 Proteção IP55 – Ideal para operações em campo aberto', salePrice: 67494.47,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 48663.51 }] },
+        { id: 114, name: 'DJI Matrice 350 RTK', spec: '🛠️ DJI Matrice 350 RTK (Versão Standard)\n🎥 Compatível com payloads L2, P1, H30T e sensores externos\n🧭 RTK integrado para mapeamento de alta precisão\n⏱️ Até 55 minutos de voo\n📡 Alcance de até 20 km\n⚖️ Peso médio de 3,8 kg sem carga\n🎮 Controle DJI RC Plus com tela de 7”\n💼 Estrutura reforçada com proteção IP55', salePrice: 51991.62,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 37485.95 }] },
         { id: 44, name: 'GOHOBBY SENTINEL', spec: '🛡️ GOHOBBY Sentinel\nUm sistema passivo de detecção, sem interferências, ideal para monitoramento discreto:\n📡 Frequências: 2.4 GHz, 5.1 GHz, 5.8 GHz\n🛩️ Protocolos suportados: DJI (O1–O4), Autel, eWiFi, PAL, NTSC, LightBridge, Datalink\n📍 Alcance de detecção: até 5 km\n🔁 Detecção simultânea: até 10 drones\n⏱️ Tempo de localização: ≤ 3 s\n🕒 Autonomia da bateria: até 12 h\n🎯 Precisão de localização: ≤ 3 m\n💻 Tela: 6.3” touchscreen\n🌐 Conectividade: Wi‑Fi e LTE\n⚖️ Peso: 0,65 kg + bateria externa (~0,6 kg)\n⚙️ IP: IP54', salePrice: 155128.57,
             sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 108590.00 }] },
         { id: 45, name: 'SKYFEND HUNTER', spec: '🌩️ Skyfend Hunter (AFA100)\nUm jammer portátil com detecção e contra-ação integrada, típico “gun”:\n📡 Detecção omnidirecional: até 2 km\n🚫 Jamming direcional: até 3 km\n📶 Cobertura de frequência: 400 MHz–6 GHz (RF + GNSS: GPS, Glonass, Beidou, Galileo)\n⏱️ Autonomia: até 8 h em espera e 1 h com jamming ativo\n🕌 Tela: touchscreen 3,5”\n🔄 Adaptabilidade: adaptação automática de frequência\n⚙️ IP: IP65\n⚖️ Peso: aprox. 6,5 kg', salePrice: 379745.85,
@@ -929,9 +964,9 @@
     ];
 
     const SUPPLIERS = [
-        { name: 'Arroba Celulares', details: 'Aroba celulares é um dos principais distribuidores e centros de manutenção de eletrônicos no Brasil.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mini, Osmo Mobile, Acessórios' },
-        { name: 'DJI Grupo Multi', details: 'Atuam desde 2012 no mercado de drones e fotografia. Grupo Multi é importador de drones e estabilizadores.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mini, DJI Air, Osmo Action, Acessórios' },
-        { name: 'GoHobby Distribuidora de VANT LTDA', details: 'A GoHobby é importadora exclusiva de drones profissionais e tecnologias anti-drone no Brasil.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mavic, DJI Matrice, Linha Enterprise, Soluções Anti-drone' }
+        { name: 'Arroba Celulares', details: 'Aroba celulares é um dos principais distribuidores e centros de manutenção de eletrônicos no Brasil.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mini, Osmo Mobile, Acessórios', whatsapp: '5562999991111' }, // Exemplo de WhatsApp
+        { name: 'DJI Grupo Multi', details: 'Atuam desde 2012 no mercado de drones e fotografia. Grupo Multi é importador de drones e estabilizadores.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mini, DJI Air, Osmo Action, Acessórios', whatsapp: '5562999992222' }, // Exemplo de WhatsApp
+        { name: 'GoHobby Distribuidora de VANT LTDA', details: 'A GoHobby é importadora exclusiva de drones profissionais e tecnologias anti-drone no Brasil.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mavic, DJI Matrice, Linha Enterprise, Soluções Anti-drone', whatsapp: '5562999993333' } // Exemplo de WhatsApp
     ];
 
     const INSTALLMENT_RATES = {
@@ -940,7 +975,6 @@
     };
 
     // --- ELEMENTOS DO HTML (DOM) ---
-    // Declaração de variáveis no escopo global para garantir que sejam acessíveis
     let loginScreen, appScreen, loginButton, logoutButton, usernameInput, passwordInput, loginError, visitorModeButton;
     let navButtons, contentSections, productsNavButton, calculatorNavButton, suppliersNavButton, settingsNavButton, dronesNavButton, infoEmpresaNavButton, marketingNavButton, profileNavButton;
     let manageUsersNavButton, createProductNavButton, editProductNavButton, settingsSubNav;
@@ -962,12 +996,19 @@
     let whatsappModal, whatsappCloseButton, whatsappMessageInput, includeDisplayNameCheckbox, whatsappDisplayNamePreview, includeEmailCheckbox, whatsappEmailPreview, includePhoneCheckbox, whatsappPhonePreview, sendWhatsappButton, cancelWhatsappButton;
     let generalDiscountOption, generalDiscountPercentageInput;
 
+    // Novos elementos para o modal de orçamento
+    let openBudgetModalButton, budgetModal, budgetCloseButton, droneCategorySelect, itemTypeGroup, itemTypeSelect, equipmentDetailsGroup, equipmentDetailsTextarea, sparePartsDetailsGroup, sparePartsDetailsTextarea, budgetSupplierSelectGroup, budgetSupplierSelect, selectedSupplierContactDiv, selectedSupplierNameSpan, sendBudgetWhatsappButton;
+
 
     // --- FUNÇÕES GLOBAIS ---
-    // Funções para o modal de WhatsApp
+    function getGreeting() {
+        const hour = new Date().getHours();
+        if (hour < 12) return 'Bom dia';
+        if (hour < 18) return 'Boa tarde';
+        return 'Boa noite';
+    }
+
     function openWhatsAppModal(product) {
-        // Obtenha os elementos do DOM dentro da função para garantir que estão disponíveis
-        const whatsappModal = document.getElementById('whatsapp-modal');
         const whatsappMessageInput = document.getElementById('whatsapp-message-input');
         const includeDisplayNameCheckbox = document.getElementById('include-display-name');
         const whatsappDisplayNamePreview = document.getElementById('whatsapp-display-name-preview');
@@ -976,21 +1017,18 @@
         const includePhoneCheckbox = document.getElementById('include-phone');
         const whatsappPhonePreview = document.getElementById('whatsapp-phone-preview');
 
-        // Certifique-se de que 'currentUser' está definido
         if (!window.currentUser) {
             console.error("Erro: Usuário atual não definido para abrir o modal do WhatsApp.");
             return;
         }
 
-        window.currentProductForWhatsapp = product; // Armazena o produto para uso posterior
+        window.currentProductForWhatsapp = product;
         const salePrice = product.salePrice.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
 
-        // Mensagem padrão
-        const defaultMessage = `Olá! 👋\n\nEstou a enviar os detalhes sobre o *${product.name}* que conversámos. É um equipamento fantástico! 🚀\n\n*Especificações Principais:*\n${product.spec}\n\n*Valor de Venda:* ${salePrice}\n\nQualquer dúvida, estou à disposição!\n- Equipa Galvão Drones`;
+        const defaultMessage = `${getGreeting()}! 👋\n\nEstou a enviar os detalhes sobre o *${product.name}* que conversámos. É um equipamento fantástico! 🚀\n\n*Especificações Principais:*\n${product.spec}\n\n*Valor de Venda:* ${salePrice}\n\nQualquer dúvida, estou à disposição!\n- Equipa Galvão Drones`;
 
         whatsappMessageInput.value = defaultMessage;
 
-        // Preenche e habilita/desabilita checkboxes de acordo com o perfil do usuário
         whatsappDisplayNamePreview.textContent = window.currentUser.displayName || 'Não informado';
         includeDisplayNameCheckbox.checked = !!window.currentUser.displayName;
         includeDisplayNameCheckbox.disabled = !window.currentUser.displayName;
@@ -1007,17 +1045,11 @@
     }
 
     function closeWhatsAppModal() {
-        const whatsappModal = document.getElementById('whatsapp-modal');
         whatsappModal.style.display = 'none';
-        window.currentProductForWhatsapp = null; // Limpa o produto armazenado
+        window.currentProductForWhatsapp = null;
     }
 
     function sendWhatsAppMessage() {
-        const whatsappMessageInput = document.getElementById('whatsapp-message-input');
-        const includeDisplayNameCheckbox = document.getElementById('include-display-name');
-        const includeEmailCheckbox = document.getElementById('include-email');
-        const includePhoneCheckbox = document.getElementById('include-phone');
-
         let message = whatsappMessageInput.value;
         const contactInfo = [];
 
@@ -1035,20 +1067,16 @@
             message += `\n\n--- Contato do Vendedor ---\n${contactInfo.join('\n')}`;
         }
 
-        // Garante que a mensagem inteira (incluindo emojis) seja codificada corretamente
         const encodedMessage = encodeURIComponent(message);
         const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
 
-        // Abre em nova aba/janela
         window.open(whatsappUrl, '_blank');
         closeWhatsAppModal();
     }
 
-    // Funções de modal genéricas
-    function openModal() { document.getElementById('main-modal').style.display = 'block'; }
-    function closeModal() { document.getElementById('main-modal').style.display = 'none'; document.getElementById('modal-body').innerHTML = ''; clearInterval(window.tempUserInterval); }
+    function openModal() { mainModal.style.display = 'block'; }
+    function closeModal() { mainModal.style.display = 'none'; modalBody.innerHTML = ''; clearInterval(window.tempUserInterval); }
 
-    // Funções de navegação e renderização de conteúdo
     function switchTab(newSectionId) {
         const currentUser = window.currentUser;
         const isVisitor = currentUser.isVisitor;
@@ -1066,9 +1094,9 @@
                 if (window.pendingSupplierSectionAccess) {
                     canAccess = true;
                 } else {
-                    document.getElementById('supplier-password-modal').style.display = 'block';
-                    document.getElementById('supplier-access-password').value = '';
-                    document.getElementById('supplier-password-error').style.display = 'none';
+                    supplierPasswordModal.style.display = 'block';
+                    supplierAccessPasswordInput.value = '';
+                    supplierPasswordError.style.display = 'none';
                     return;
                 }
             }
@@ -1091,7 +1119,7 @@
             let fallbackButton = document.querySelector(`[data-section="${fallbackSection}"]`);
             if (fallbackButton) fallbackButton.classList.add('active');
 
-            document.getElementById('settings-sub-nav').style.display = 'none';
+            settingsSubNav.style.display = 'none';
 
             alert('Você não tem permissão para acessar esta seção.');
             window.activeSectionId = fallbackSection;
@@ -1112,9 +1140,9 @@
         }
 
         if (newSectionId.includes('settings') && isAdmin) {
-            document.getElementById('settings-sub-nav').style.display = 'block';
+            settingsSubNav.style.display = 'block';
         } else {
-            document.getElementById('settings-sub-nav').style.display = 'none';
+            settingsSubNav.style.display = 'none';
         }
 
         window.activeSectionId = newSectionId;
@@ -1131,7 +1159,6 @@
         if (newSectionId === 'profile-section') {
             renderProfilePage();
         }
-        // Close mobile nav after selection
         closeMobileNav();
     }
 
@@ -1152,12 +1179,10 @@
         }, 300);
     }
 
-    window.handleScroll = function() { document.getElementById('main-content').scrollTop > 200 ? document.getElementById('scroll-to-top').style.display = "block" : document.getElementById('scroll-to-top').style.display = "none"; }
-    window.scrollTop = function() { document.getElementById('main-content').scrollTo({ top: 0, behavior: 'smooth' }); }
+    window.handleScroll = function() { scrollToTopButton.style.display = mainContent.scrollTop > 200 ? "block" : "none"; }
+    window.scrollTop = function() { mainContent.scrollTo({ top: 0, behavior: 'smooth' }); }
 
-    // --- FUNÇÕES DE RENDERIZAÇÃO DE CONTEÚDO ---
     function renderProducts(searchTerm = '') {
-        const productList = document.getElementById('product-list');
         productList.innerHTML = '';
         const lowerCaseSearchTerm = searchTerm.toLowerCase();
 
@@ -1244,7 +1269,6 @@
     }
 
     function renderDroneVisitorList(searchTerm = '') {
-        const droneVisitorList = document.getElementById('drone-visitor-list');
         droneVisitorList.innerHTML = '';
         const lowerCaseSearchTerm = searchTerm.toLowerCase();
         const dronesToShow = PRODUCTS.filter(p =>
@@ -1281,7 +1305,7 @@
             return '<p style="color:red;">Valor base inválido.</p>';
         }
 
-        let valorFinalVista = valor * (1 + (INSTALLMENT_RATES[1] || 0)); // Preço à vista com a menor taxa
+        let valorFinalVista = valor * (1 + (INSTALLMENT_RATES[1] || 0));
         if (window.currentUser.role === 'admin' && paymentMethod === 'vista' && discountPercentage > 0 && discountPercentage <= 15) {
             valorFinalVista = valorFinalVista * (1 - (discountPercentage / 100));
         }
@@ -1356,7 +1380,6 @@
     }
 
     function renderTempUserList() {
-        const tempUserListContainer = document.getElementById('temp-user-list');
         tempUserListContainer.innerHTML = '';
         const tempUsers = Object.entries(USERS).filter(([_, user]) => user.type === 'temporary');
 
@@ -1387,9 +1410,6 @@
 
     function openEditTempUserModal(username) {
         const user = USERS[username];
-        const modalTitle = document.getElementById('modal-title');
-        const modalBody = document.getElementById('modal-body');
-
         modalTitle.textContent = `Editar Usuário: ${username}`;
         modalBody.innerHTML = `
             <form id="edit-temp-user-form">
@@ -1433,9 +1453,6 @@
 
     function showTemporaryUserWarning() {
         clearInterval(window.tempUserInterval);
-        const modalBody = document.getElementById('modal-body');
-        const modalTitle = document.getElementById('modal-title');
-
         function updateWarning() {
             const { hours, minutes, seconds } = getRemainingTime(window.currentUser.expiresAt);
             if (hours < 0 || minutes < 0 || seconds < 0) {
@@ -1444,7 +1461,7 @@
                 clearInterval(window.tempUserInterval);
             } else {
                 modalBody.innerHTML = `<h2>Acesso Temporário</h2><p>Esta é a conta de convidado. O seu acesso irá expirar em:</p>
-                <h3 style="text-align:center;">${hours}h ${minutes}m ${seconds}s</h3>`; // Adicionado segundos para melhor visualização
+                <h3 style="text-align:center;">${hours}h ${minutes}m ${seconds}s</h3>`;
             }
         }
         updateWarning();
@@ -1493,12 +1510,7 @@
     }
 
     function handleSearchProductToEdit() {
-        const searchTerm = document.getElementById('edit-product-search-input').value.trim().toLowerCase();
-        const editProductSearchResults = document.getElementById('edit-product-search-results');
-        const editProductForm = document.getElementById('edit-product-form');
-        const editProductDisplay = document.getElementById('edit-product-display');
-        const editProductFeedback = document.getElementById('edit-product-feedback');
-
+        const searchTerm = editProductSearchInput.value.trim().toLowerCase();
         editProductSearchResults.innerHTML = '';
         editProductForm.classList.add('hidden');
         editProductDisplay.innerHTML = '<p>Use a busca acima para carregar os dados do produto.</p>';
@@ -1558,17 +1570,6 @@
 
     function loadProductForEdit(productId) {
         const product = PRODUCTS.find(p => p.id === productId);
-        const editProductDisplay = document.getElementById('edit-product-display');
-        const editProductForm = document.getElementById('edit-product-form');
-        const editProductFeedback = document.getElementById('edit-product-feedback');
-        const editProductSearchResults = document.getElementById('edit-product-search-results');
-        const editProductIdInput = document.getElementById('edit-product-id');
-        const editProductNameInput = document.getElementById('edit-product-name');
-        const editProductSpecTextarea = document.getElementById('edit-product-spec');
-        const editProductSalePriceInput = document.getElementById('edit-product-sale-price');
-        const editProductCostPriceInput = document.getElementById('edit-product-cost-price');
-        const editProductSupplierInput = document.getElementById('edit-product-supplier');
-
         if (product) {
             editProductDisplay.innerHTML = `<p>Editando: <strong>${product.name}</strong> (ID: ${product.id})</p>`;
             editProductForm.classList.remove('hidden');
@@ -1578,7 +1579,7 @@
             editProductIdInput.value = product.id;
             editProductNameInput.value = product.name;
             editProductSpecTextarea.value = product.spec;
-            editProductSalePriceInput.value = product.salePrice; // Corrigido
+            editProductSalePriceInput.value = product.salePrice;
             editProductCostPriceInput.value = product.sources[0] ? product.sources[0].costPrice : '';
             editProductSupplierInput.value = product.sources[0] ? product.sources[0].supplierName : '';
         }
@@ -1586,19 +1587,8 @@
 
     function handleEditProduct(event) {
         event.preventDefault();
-        const productId = parseInt(document.getElementById('edit-product-id').value);
+        const productId = parseInt(editProductIdInput.value);
         const productIndex = PRODUCTS.findIndex(p => p.id === productId);
-        const editProductFeedback = document.getElementById('edit-product-feedback');
-        const editProductNameInput = document.getElementById('edit-product-name');
-        const editProductSpecTextarea = document.getElementById('edit-product-spec');
-        const editProductSalePriceInput = document.getElementById('edit-product-sale-price');
-        const editProductCostPriceInput = document.getElementById('edit-product-cost-price');
-        const editProductSupplierInput = document.getElementById('edit-product-supplier');
-        const editProductForm = document.getElementById('edit-product-form');
-        const editProductDisplay = document.getElementById('edit-product-display');
-        const editProductSearchInput = document.getElementById('edit-product-search-input');
-
-
         if (productIndex === -1) {
             editProductFeedback.textContent = 'Erro: Produto não encontrado para alteração.';
             editProductFeedback.style.color = 'red';
@@ -1608,8 +1598,8 @@
         const name = editProductNameInput.value.trim();
         const spec = editProductSpecTextarea.value.trim();
         const salePrice = parseFloat(editProductSalePriceInput.value);
-        const costPrice = parseFloat(document.getElementById('edit-product-cost-price').value);
-        const supplier = document.getElementById('edit-product-supplier').value.trim();
+        const costPrice = parseFloat(editProductCostPriceInput.value);
+        const supplier = editProductSupplierInput.value.trim();
 
         if (!name || !spec || isNaN(salePrice) || salePrice <= 0) {
             editProductFeedback.textContent = 'Preenchimento obrigatório (Nome, Especificações, Preço de Venda).';
@@ -1640,9 +1630,6 @@
     }
 
     function handleCustomerHelp(product) {
-        const modalTitle = document.getElementById('modal-title');
-        const modalBody = document.getElementById('modal-body');
-
         modalTitle.textContent = `Assistente para: ${product.name}`;
         modalBody.innerHTML = `
             <div class="input-group">
@@ -1664,9 +1651,6 @@
     }
 
     function handleVisitorProductHelp(productName, productSpec) {
-        const modalTitle = document.getElementById('modal-title');
-        const modalBody = document.getElementById('modal-body');
-
         modalTitle.textContent = `Ajuda sobre: ${productName}`;
         modalBody.innerHTML = `
             <div class="input-group">
@@ -1687,9 +1671,6 @@
     }
 
     function showSuppliers() {
-        const supplierList = document.getElementById('supplier-list');
-        const supplierPasswordModal = document.getElementById('supplier-password-modal');
-
         supplierList.innerHTML = '';
         SUPPLIERS.forEach(supplier => {
             const supplierCard = document.createElement('div');
@@ -1706,15 +1687,6 @@
     }
 
     function showChangePasswordModal(isMandatory = false) {
-        const changePasswordModal = document.getElementById('change-password-modal');
-        const newPasswordInput = document.getElementById('new-password');
-        const confirmNewPasswordInput = document.getElementById('confirm-new-password');
-        const changePasswordError = document.getElementById('change-password-error');
-        const changePasswordSuccess = document.getElementById('change-password-success');
-        const changePasswordModalTitle = document.getElementById('change-password-modal-title');
-        const changePasswordMessage = document.getElementById('change-password-message');
-        const changePasswordCloseButton = document.getElementById('change-password-close-button');
-
         changePasswordModal.style.display = 'block';
         newPasswordInput.value = '';
         confirmNewPasswordInput.value = '';
@@ -1733,12 +1705,6 @@
     }
 
     function handleChangePassword() {
-        const newPasswordInput = document.getElementById('new-password');
-        const confirmNewPasswordInput = document.getElementById('confirm-new-password');
-        const changePasswordError = document.getElementById('change-password-error');
-        const changePasswordSuccess = document.getElementById('change-password-success');
-        const changePasswordModal = document.getElementById('change-password-modal');
-
         const newPass = newPasswordInput.value;
         const confirmPass = confirmNewPasswordInput.value;
         changePasswordError.style.display = 'none';
@@ -1747,7 +1713,7 @@
         if (newPass.length < 6) {
             changePasswordError.textContent = 'A nova senha deve ter no mínimo 6 dígitos.';
             changePasswordError.style.color = 'red';
-            changePasswordError.style.display = 'block'; // Make sure it's visible
+            changePasswordError.style.display = 'block';
             return;
         }
         if (newPass !== confirmPass) {
@@ -1771,17 +1737,6 @@
     }
 
     function renderProfilePage() {
-        const profileDisplayName = document.getElementById('profile-display-name');
-        const profileEmail = document.getElementById('profile-email');
-        const profilePhone = document.getElementById('profile-phone');
-        const profilePicDisplay = document.getElementById('profile-pic-display');
-        const editDisplayNameInput = document.getElementById('edit-display-name');
-        const editEmailInput = document.getElementById('edit-email');
-        const editPhoneInput = document.getElementById('edit-phone');
-        const profileFeedback = document.getElementById('profile-feedback');
-        const profileIcon = document.getElementById('profile-icon');
-
-
         if (!window.currentUser) return;
 
         profileDisplayName.textContent = window.currentUser.displayName || window.currentUser.username;
@@ -1791,7 +1746,7 @@
 
         editDisplayNameInput.value = window.currentUser.displayName || '';
         editEmailInput.value = window.currentUser.email || '';
-        editPhoneInput.value = window.currentUser.phone || ''; // Corrigido para não pré-preencher com um número fixo
+        editPhoneInput.value = window.currentUser.phone || '';
         profileFeedback.textContent = '';
         profileFeedback.style.color = 'black';
     }
@@ -1799,11 +1754,9 @@
     function handleProfileEdit(event) {
         event.preventDefault();
 
-        const newDisplayName = document.getElementById('edit-display-name').value.trim();
-        const newEmail = document.getElementById('edit-email').value.trim();
-        const newPhone = document.getElementById('edit-phone').value.trim();
-        const profileFeedback = document.getElementById('profile-feedback');
-
+        const newDisplayName = editDisplayNameInput.value.trim();
+        const newEmail = editEmailInput.value.trim();
+        const newPhone = editPhoneInput.value.trim();
         if (!newDisplayName) {
             profileFeedback.textContent = 'O nome de exibição não pode ser vazio.';
             profileFeedback.style.color = 'red';
@@ -1839,11 +1792,7 @@
     }
 
     function handleProfilePicUpload() {
-        const file = document.getElementById('edit-profile-pic').files[0];
-        const profilePicDisplay = document.getElementById('profile-pic-display');
-        const profileIcon = document.getElementById('profile-icon');
-        const profileFeedback = document.getElementById('profile-feedback');
-
+        const file = editProfilePicInput.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onload = (e) => {
@@ -1871,31 +1820,23 @@
     }
 
     async function callGeminiAPI(prompt, title, isProductHelp = false, productSpecs = '', isGeneralAI = false) {
-        const modalTitle = document.getElementById('modal-title');
-        const modalBody = document.getElementById('modal-body');
-        const aiChatModal = document.getElementById('ai-chat-modal');
-        const aiLoader = document.querySelector('#ai-chat-modal .loader'); // Selecionar o loader dentro do modal AI
-        const aiResponseArea = document.getElementById('ai-response-area');
-        const mainModal = document.getElementById('main-modal');
-
         if (!isGeneralAI) {
             modalTitle.textContent = title;
             modalBody.innerHTML = '<div class="loader"></div>';
             openModal();
         } else {
             aiChatModal.style.display = 'block';
-            if (aiLoader) aiLoader.style.display = 'block'; // Mostrar o loader do chat AI
-            aiResponseArea.innerHTML = ''; // Limpar a área de resposta
+            if (aiLoader) aiLoader.style.display = 'block';
+            aiResponseArea.innerHTML = '';
             aiResponseArea.style.display = 'none';
             mainModal.style.display = 'none';
         }
 
         // FIXME: Substitua "SUA_CHAVE_DE_API_GEMINI" pela sua chave de API real do Google Gemini.
-        // Você pode obter uma chave de API aqui: https://aistudio.google.com/app/apikey
-        const apiKey = "AIzaSyBCzB3IMokv3U44ACFOwjSAmeOwwPlvnxs";
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`; // Usando gemini-pro para melhor desempenho
+        const apiKey = "SUA_CHAVE_DE_API_GEMINI"; // ATENÇÃO: Substitua pela sua chave de API!
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
 
-        if (apiKey === "AIzaSyBCzB3IMokv3U44ACFOwjSAmeOwwPlvnxs" || apiKey === "") {
+        if (apiKey === "SUA_CHAVE_DE_API_GEMINI" || apiKey === "") {
              console.error("ERRO: Chave da API do Gemini não configurada. Por favor, adicione sua chave de API no código JavaScript para que a funcionalidade de IA funcione.");
              const errorMessage = "<p style='color:red;'>Erro: Chave da API do Gemini não configurada. Por favor, adicione sua chave de API no código JavaScript para que a funcionalidade de IA funcione.</p>";
              if (isGeneralAI) {
@@ -1905,7 +1846,7 @@
              } else {
                  modalBody.innerHTML = errorMessage;
              }
-             return; // Interrompe a execução se a chave não estiver configurada
+             return;
          }
 
         let chatHistory = [];
@@ -1941,16 +1882,13 @@
         }
     }
 
-
-    // --- FUNÇÕES DE LÓGICA DE AUTENTICAÇÃO E INICIALIZAÇÃO DO APP ---
     function handleLogin() {
         const username = usernameInput.value;
         const password = passwordInput.value;
         const user = USERS[username];
 
         if (user && user.password === password) {
-            window.currentUser = { ...user, username: username }; // Store current user globally
-            // Load user profile data from localStorage if available
+            window.currentUser = { ...user, username: username };
             const storedProfile = localStorage.getItem(username + '_profile');
             if (storedProfile) {
                 Object.assign(window.currentUser, JSON.parse(storedProfile));
@@ -1959,12 +1897,11 @@
             loginError.style.display = 'none';
             loginScreen.style.display = 'none';
             appScreen.style.display = 'block';
-            document.body.classList.remove('visitor-mode-bg'); // Remove visitor background if present
+            document.body.classList.remove('visitor-mode-bg');
             setupAppForUser();
 
-            // Check for first login to prompt password change
             if (user.firstLogin) {
-                showChangePasswordModal(true); // True for mandatory change
+                showChangePasswordModal(true);
             }
         } else {
             loginError.textContent = 'Usuário ou senha inválidos.';
@@ -1973,24 +1910,22 @@
     }
 
     function handleVisitorMode() {
-        window.currentUser = { username: 'Visitante', role: 'visitor', isVisitor: true, displayName: 'Visitante', email: '', phone: '', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' }; // Set visitor user
+        window.currentUser = { username: 'Visitante', role: 'visitor', isVisitor: true, displayName: 'Visitante', email: '', phone: '', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' };
         loginScreen.style.display = 'none';
         appScreen.style.display = 'block';
-        document.body.classList.add('visitor-mode-bg'); // Add specific background for visitor mode
+        document.body.classList.add('visitor-mode-bg');
         setupAppForUser();
     }
 
     function handleLogout() {
-        window.currentUser = null; // Clear current user
+        window.currentUser = null;
         appScreen.style.display = 'none';
         loginScreen.style.display = 'block';
         usernameInput.value = '';
         passwordInput.value = '';
         loginError.style.display = 'none';
-        document.body.classList.remove('visitor-mode-bg'); // Remove visitor background if present
-        // Hide AI chat button on logout
-        document.getElementById('ai-chat-button').style.display = 'none';
-        // Clear any active intervals for temporary users
+        document.body.classList.remove('visitor-mode-bg');
+        aiChatButton.style.display = 'none';
         if (window.tempUserInterval) {
             clearInterval(window.tempUserInterval);
         }
@@ -2001,51 +1936,159 @@
         const isAdmin = window.currentUser.role === 'admin';
         const isMarketing = window.currentUser.role === 'marketing';
 
-        // Update welcome message and profile icon
         document.getElementById('welcome-message').textContent = `Olá, ${window.currentUser.displayName || window.currentUser.username}!`;
         profileIcon.src = window.currentUser.profilePicUrl || 'https://i.imgur.com/8Yd00YF.png';
 
-        // Toggle visibility of navigation buttons based on user role
         productsNavButton.style.display = isVisitor ? 'none' : 'block';
         calculatorNavButton.style.display = isVisitor ? 'none' : 'block';
         suppliersNavButton.style.display = isAdmin ? 'block' : 'none';
         settingsNavButton.style.display = isAdmin ? 'block' : 'none';
-        manageUsersNavButton = document.getElementById('manage-users-nav-button'); // Re-assign within setupAppForUser
-        createProductNavButton = document.getElementById('create-product-nav-button'); // Re-assign
-        editProductNavButton = document.getElementById('edit-product-nav-button'); // Re-assign
 
         if (manageUsersNavButton) manageUsersNavButton.style.display = (isAdmin && window.currentUser.username === 'mikhaell') ? 'block' : 'none';
         if (createProductNavButton) createProductNavButton.style.display = isAdmin ? 'block' : 'none';
         if (editProductNavButton) editProductNavButton.style.display = isAdmin ? 'block' : 'none';
 
-        dronesNavButton.style.display = 'block'; // Always visible
-        infoEmpresaNavButton.style.display = 'block'; // Always visible
-        marketingNavButton.style.display = isMarketing || isAdmin ? 'block' : 'none'; // Marketing and Admin can see
+        dronesNavButton.style.display = 'block';
+        infoEmpresaNavButton.style.display = 'block';
+        marketingNavButton.style.display = isMarketing || isAdmin ? 'block' : 'none';
 
-        // Profile nav button always visible for logged-in users
         profileNavButton.classList.remove('hidden');
-
-        // Show AI chat button for all logged-in users and visitors
         aiChatButton.style.display = 'block';
 
-        // Set initial active tab
         if (isVisitor) {
             switchTab('drones-visitor-section');
         } else {
             switchTab('products-section');
         }
 
-        // Show temporary user warning if applicable
         if (window.currentUser.type === 'temporary' && window.currentUser.expiresAt) {
             showTemporaryUserWarning();
         }
     }
 
-    // Função para fechar o menu mobile
     function closeMobileNav() {
         if (window.innerWidth <= 768) {
             navElement.classList.remove('nav-open');
         }
+    }
+
+    // --- FUNÇÕES DO NOVO MODAL DE ORÇAMENTO ---
+    function openBudgetModal() {
+        // Resetar os campos e a visibilidade
+        droneCategorySelect.value = '';
+        itemTypeGroup.classList.add('hidden');
+        itemTypeSelect.value = '';
+        equipmentDetailsGroup.classList.add('hidden');
+        equipmentDetailsTextarea.value = '';
+        sparePartsDetailsGroup.classList.add('hidden');
+        sparePartsDetailsTextarea.value = '';
+        budgetSupplierSelectGroup.classList.add('hidden');
+        budgetSupplierSelect.innerHTML = '<option value="">Selecione o fornecedor</option>';
+        selectedSupplierContactDiv.classList.add('hidden');
+        selectedSupplierNameSpan.textContent = '';
+        sendBudgetWhatsappButton.href = '#';
+        budgetModal.style.display = 'block';
+    }
+
+    function closeBudgetModal() {
+        budgetModal.style.display = 'none';
+    }
+
+    function handleBudgetCategoryChange() {
+        itemTypeGroup.classList.remove('hidden');
+        itemTypeSelect.value = ''; // Resetar seleção
+        equipmentDetailsGroup.classList.add('hidden');
+        sparePartsDetailsGroup.classList.add('hidden');
+        budgetSupplierSelectGroup.classList.add('hidden');
+        selectedSupplierContactDiv.classList.add('hidden');
+        selectedSupplierNameSpan.textContent = '';
+        sendBudgetWhatsappButton.href = '#';
+
+        // Filtrar fornecedores com base na categoria
+        const selectedCategory = droneCategorySelect.value;
+        const relevantSuppliers = SUPPLIERS.filter(supplier => {
+            const productsLower = supplier.products.toLowerCase();
+            if (selectedCategory === 'Consumer') {
+                return productsLower.includes('mini') || productsLower.includes('osmo mobile');
+            } else if (selectedCategory === 'Enterprise' || selectedCategory === 'Agriculture') {
+                return productsLower.includes('matrice') || productsLower.includes('mavic') || productsLower.includes('enterprise') || productsLower.includes('anti-drone');
+            }
+            return false;
+        });
+
+        budgetSupplierSelect.innerHTML = '<option value="">Selecione o fornecedor</option>';
+        relevantSuppliers.forEach(supplier => {
+            const option = document.createElement('option');
+            option.value = supplier.name;
+            option.textContent = supplier.name;
+            budgetSupplierSelect.appendChild(option);
+        });
+        budgetSupplierSelectGroup.classList.remove('hidden'); // Mostrar o select de fornecedor após a categoria
+    }
+
+    function handleBudgetItemTypeChange() {
+        const itemType = itemTypeSelect.value;
+        equipmentDetailsGroup.classList.add('hidden');
+        sparePartsDetailsGroup.classList.add('hidden');
+        if (itemType === 'Equipamentos') {
+            equipmentDetailsGroup.classList.remove('hidden');
+        } else if (itemType === 'Pecas') {
+            sparePartsDetailsGroup.classList.remove('hidden');
+        }
+    }
+
+    function handleBudgetSupplierChange() {
+        const selectedSupplierName = budgetSupplierSelect.value;
+        const selectedSupplier = SUPPLIERS.find(s => s.name === selectedSupplierName);
+
+        if (selectedSupplier) {
+            selectedSupplierNameSpan.textContent = selectedSupplier.name;
+            selectedSupplierContactDiv.classList.remove('hidden');
+        } else {
+            selectedSupplierContactDiv.classList.add('hidden');
+        }
+    }
+
+    function generateBudgetWhatsappMessage() {
+        const category = droneCategorySelect.value;
+        const itemType = itemTypeSelect.value;
+        let details = '';
+
+        if (itemType === 'Equipamentos') {
+            details = equipmentDetailsTextarea.value.trim();
+        } else if (itemType === 'Pecas') {
+            details = sparePartsDetailsTextarea.value.trim();
+        }
+
+        if (!category || !itemType || !details) {
+            alert('Por favor, preencha todos os campos necessários para o orçamento.');
+            return;
+        }
+
+        const supplierName = budgetSupplierSelect.value;
+        const selectedSupplier = SUPPLIERS.find(s => s.name === supplierName);
+        if (!selectedSupplier || !selectedSupplier.whatsapp) {
+            alert('Erro: Fornecedor ou número de WhatsApp não encontrado.');
+            return;
+        }
+
+        const greeting = getGreeting();
+        const userName = window.currentUser.displayName || window.currentUser.username;
+        const userPhone = window.currentUser.phone ? `(${window.currentUser.phone.substring(0,2)}) ${window.currentUser.phone.substring(2,7)}-${window.currentUser.phone.substring(7)}` : 'Não informado';
+        const userEmail = window.currentUser.email || 'Não informado';
+
+        let message = `${greeting}, ${selectedSupplier.name}!\n\n`;
+        message += `Sou o(a) *${userName}* da Galvão Drones e gostaria de solicitar um orçamento.\n\n`;
+        message += `*Categoria:* ${category}\n`;
+        message += `*Tipo de Item:* ${itemType}\n\n`;
+        message += `*Detalhes da solicitação:*\n${details}\n\n`;
+        message += `Aguardamos o retorno. Obrigado(a)!\n\n`;
+        message += `*Meus Contatos:*\nCelular: ${userPhone}\nEmail: ${userEmail}`;
+
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/${selectedSupplier.whatsapp}?text=${encodedMessage}`;
+        window.open(whatsappUrl, '_blank');
+        closeBudgetModal();
     }
 
 
@@ -2072,7 +2115,6 @@
         profileNavButton = document.getElementById('profile-nav-button');
 
         settingsSubNav = document.getElementById('settings-sub-nav');
-        // Re-atribuição de variáveis globais após o DOM ter sido carregado
         manageUsersNavButton = document.getElementById('manage-users-nav-button');
         createProductNavButton = document.getElementById('create-product-nav-button');
         editProductNavButton = document.getElementById('edit-product-nav-button');
@@ -2086,7 +2128,7 @@
         mainModal = document.getElementById('main-modal');
         modalTitle = document.getElementById('modal-title');
         modalBody = document.getElementById('modal-body');
-        closeModalButton = document.querySelector('#main-modal .close-button'); // Mais específico para evitar conflito
+        closeModalButton = document.querySelector('#main-modal .close-button');
 
         createTempUserForm = document.getElementById('create-temp-user-form');
         tempUserFeedback = document.getElementById('temp-user-feedback');
@@ -2127,7 +2169,7 @@
 
         aiChatButton = document.getElementById('ai-chat-button');
         aiChatModal = document.getElementById('ai-chat-modal');
-        aiChatCloseButton = document.querySelector('#ai-chat-modal .close-button'); // Mais específico
+        aiChatCloseButton = document.querySelector('#ai-chat-modal .close-button');
         aiQuestionInput = document.getElementById('ai-question-input');
         submitAiQuestionButton = document.getElementById('submit-ai-question');
         aiResponseArea = document.getElementById('ai-response-area');
@@ -2182,6 +2224,23 @@
         sendWhatsappButton = document.getElementById('send-whatsapp-button');
         cancelWhatsappButton = document.getElementById('cancel-whatsapp-button');
 
+        // Novas atribuições de elementos para o modal de orçamento
+        openBudgetModalButton = document.getElementById('open-budget-modal-button');
+        budgetModal = document.getElementById('budget-modal');
+        budgetCloseButton = document.getElementById('budget-close-button');
+        droneCategorySelect = document.getElementById('drone-category');
+        itemTypeGroup = document.getElementById('item-type-group');
+        itemTypeSelect = document.getElementById('item-type');
+        equipmentDetailsGroup = document.getElementById('equipment-details-group');
+        equipmentDetailsTextarea = document.getElementById('equipment-details');
+        sparePartsDetailsGroup = document.getElementById('spare-parts-details-group');
+        sparePartsDetailsTextarea = document.getElementById('spare-parts-details');
+        budgetSupplierSelectGroup = document.getElementById('supplier-select-group');
+        budgetSupplierSelect = document.getElementById('budget-supplier');
+        selectedSupplierContactDiv = document.getElementById('selected-supplier-contact');
+        selectedSupplierNameSpan = document.getElementById('selected-supplier-name');
+        sendBudgetWhatsappButton = document.getElementById('send-budget-whatsapp');
+
 
         // --- EVENT LISTENERS ---
         if(loginButton) loginButton.addEventListener('click', handleLogin);
@@ -2194,7 +2253,7 @@
         if(profileIconContainer) profileIconContainer.addEventListener('click', () => {
             if (window.currentUser && !window.currentUser.isVisitor) {
                 switchTab('profile-section');
-                closeMobileNav(); // Fechar o menu móvel ao clicar no ícone de perfil
+                closeMobileNav();
             } else {
                 alert('Acesso ao perfil restrito. Faça login para gerenciar suas informações.');
             }
@@ -2221,7 +2280,6 @@
             }
 
             if (window.currentUser && window.currentUser.isVisitor && productCard) {
-                // Previne ações de botões se estiver em modo visitante em product-card
                 if (target.closest('.action-buttons-container') || target.closest('.calculator-container')) {
                     return;
                 }
@@ -2247,8 +2305,8 @@
                 } else if (target.classList.contains('calculate-product-btn')) {
                     const resultContainer = productCard.querySelector('.product-calculator-result');
                     const paymentMethod = productCard.querySelector(`input[name="payment-method-${productId}"]:checked`).value;
-                    const numInstallmentsSelect = productCard.querySelector(`#parcelas-${product.id}`); // Selecionar o select correto
-                    const numInstallments = numInstallmentsSelect ? numInstallmentsSelect.value : 1; // Usar 1 como fallback
+                    const numInstallmentsSelect = productCard.querySelector(`#parcelas-${product.id}`);
+                    const numInstallments = numInstallmentsSelect ? numInstallmentsSelect.value : 1;
 
                     let discountPercentage = 0;
                     const discountInput = productCard.querySelector(`#discount-percentage-${product.id}`);
@@ -2270,14 +2328,14 @@
 
                 installmentsDiv.classList.toggle('hidden', e.target.value !== 'parcelado');
 
-                if (discountOptionDiv) { // Verifica se discountOptionDiv existe
+                if (discountOptionDiv) {
                     if (window.currentUser.role === 'admin' && e.target.value === 'vista') {
                         discountOptionDiv.classList.remove('hidden');
                     } else {
                         discountOptionDiv.classList.add('hidden');
                     }
                 }
-            } else if (e.target.matches('input[name="general-payment-method"]')) { // General Calculator Payment Method
+            } else if (e.target.matches('input[name="general-payment-method"]')) {
                 generalCalcInstallmentsContainer.classList.toggle('hidden', e.target.value !== 'parcelado');
                 if (generalDiscountOption) {
                     if (window.currentUser.role === 'admin' && e.target.value === 'vista') {
@@ -2298,7 +2356,7 @@
                         const isSubNavVisible = settingsSubNav.style.display === 'block';
                         settingsSubNav.style.display = isSubNavVisible ? 'none' : 'block';
                         settingsNavButton.classList.toggle('active', !isSubNavVisible);
-                        if (!isSubNavVisible) { // If opening sub-nav, go to settings section
+                        if (!isSubNavVisible) {
                             window.switchTab('settings-section');
                         }
                     } else {
@@ -2434,5 +2492,14 @@
         if(sendWhatsappButton) sendWhatsappButton.addEventListener('click', sendWhatsAppMessage);
         if(cancelWhatsappButton) cancelWhatsappButton.addEventListener('click', closeWhatsAppModal);
         if(whatsappCloseButton) whatsappCloseButton.addEventListener('click', closeWhatsAppModal);
+
+
+        // --- EVENT LISTENERS para o Novo Modal de Orçamento ---
+        if (openBudgetModalButton) openBudgetModalButton.addEventListener('click', openBudgetModal);
+        if (budgetCloseButton) budgetCloseButton.addEventListener('click', closeBudgetModal);
+        if (droneCategorySelect) droneCategorySelect.addEventListener('change', handleBudgetCategoryChange);
+        if (itemTypeSelect) itemTypeSelect.addEventListener('change', handleBudgetItemTypeChange);
+        if (budgetSupplierSelect) budgetSupplierSelect.addEventListener('change', handleBudgetSupplierChange);
+        if (sendBudgetWhatsappButton) sendBudgetWhatsappButton.addEventListener('click', generateBudgetWhatsappMessage);
     });
 </script>
