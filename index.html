@@ -3401,3 +3401,2422 @@
         });
     });
 </script>
+<script>
+    // --- VARIÁVEIS GLOBAIS ---
+    const currentYear = new Date().getFullYear();
+
+    const USERS = {
+        'mikhaell': { password: 'mk0639', role: 'admin', type: 'permanent', firstLogin: false, displayName: 'Mikhaell Galvão', email: 'contato@galvaodrones.com.br', phone: '6236360668', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' },
+        'Maikhon':  { password: `mai${currentYear}`, role: 'admin', type: 'permanent', firstLogin: false, displayName: 'Maikhon', email: 'maikhon@galvaodrones.com.br', phone: '62987654321', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' },
+        'Ryan':     { password: `rya${currentYear}`, role: 'admin', type: 'permanent', firstLogin: false, displayName: 'Ryan', email: 'ryan@galvaodrones.com.br', phone: '62912345678', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' },
+        'Fineias':  { password: `fin${currentYear}`, role: 'seller', type: 'permanent', firstLogin: false, displayName: 'Fineias', email: 'fineias@galvaodrones.com.br', phone: '62998765432', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' },
+        'Rafael':   { password: `raf${currentYear}`, role: 'seller', type: 'permanent', firstLogin: false, displayName: 'Rafael', email: 'rafael@galvaodrones.com.br', phone: '62991234567', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' },
+        'Eduardo':  { password: `edu${currentYear}`, role: 'seller', type: 'permanent', firstLogin: true, displayName: 'Eduardo', email: 'eduardo@galvaodrones.com.br', phone: '62988881111', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' },
+        'Afranio':  { password: `afr${currentYear}`, role: 'marketing', type: 'permanent', firstLogin: false, displayName: 'Afranio Marketing', email: 'afranio@galvaodrones.com.br', phone: '62988885555', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' },
+
+        'mikhaellven': { password: `mik${currentYear}`, role: 'seller', type: 'permanent', firstLogin: true, displayName: 'Mikhaell Vendedor', email: 'mikhaell.ven@galvaodrones.com.br', phone: '62988882222', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' },
+        'maikhonven':  { password: `mai${currentYear}`, role: 'seller', type: 'permanent', firstLogin: true, displayName: 'Maikhon Vendedor', email: 'maikhon.ven@galvaodrones.com.br', phone: '62988883333', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' },
+        'ryanven':     { password: `rya${currentYear}`, role: 'seller', type: 'permanent', firstLogin: true, displayName: 'Ryan Vendedor', email: 'ryan.ven@galvaodrones.com.br', phone: '62988884444', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' },
+    };
+    const CONFIDENTIAL_CODE = '@0639';
+
+    let PRODUCTS = [
+        { id: 1, name: 'DJI Neo Standard', spec: '🛸 DJI Neo Standard ou Combo fly more\n🎥 Grava em 4K/30fps\n⏱️ Até 18 minutos de voo\n📡 Alcance de até 6 km\n⚖️ Peso de apenas 135 g\n🎮 Controle via app, com controle ou controle motion ( três versões)', salePrice: 1900,
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 1340 }] },
+        { id: 2, name: 'DJI Neo Combo', spec: '🛸 DJI Neo Standard ou Combo fly more\n🎥 Grava em 4K/30fps\n⏱️ Até 18 minutos de voo\n📡 Alcance de até 6 km\n⚖️ Peso de apenas 135 g\n🎮 Controle via app, com controle ou controle motion ( três versões)', salePrice: 3500,
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 2460 }] },
+        { id: 3, name: 'DJI Mini 3 (sem tela)', spec: '🛸 DJI Mini 3\n🎥 Grava em 4K HDR a 30fps\n⏱️ Até 38 minutos de voo\n📡 Distância de até 18 km\n⚖️ Peso leve: 249 g\n🎮 Controle com ou sem tela (duas versões)', salePrice: 3990,
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 2990 }] },
+        { id: 4, name: 'DJI Mini 3 (com tela)', spec: '🛸 DJI Mini 3\n🎥 Grava em 4K HDR a 30fps\n⏱️ Até 38 minutos de voo\n📡 Distância de até 18 km\n⚖️ Peso leve: 249 g\n🎮 Controle com ou sem tela (duas versões)', salePrice: 4785,
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 3785 }] },
+        { id: 5, name: 'DJI Flip Fly More Combo (com tela)', spec: '🛸 DJI Flip\n🎥 4K a 60fps (com slow motion de até 100fps!)\n⏱️ Até 31 minutos no ar\n📡 Alcance médio de 13 km\n⚖️ Menos de 249 g\n🎮 Disponível com ou sem controle com tela', salePrice: 7990,
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 5320 }] },
+        { id: 64, name: 'DJI Mini 4 Pro Fly More Combo Plus (com tela)', spec: '🛸 DJI Mini 4 Pro\n🎥 Incrível 4K HDR a 100fps + fotos de 48 MP\n⏱️ Até 45 minutos no air\n📡 Alcance de até 25 km\n⚖️ Abaixo de 249 g\n🎮 Controle com tela (DJI RC 2)', salePrice: 9000.00,
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 6990.00 }] },
+        { id: 67, name: 'DJI Avata 2 Fly More Combo (1 bateria)', spec: '🛸 DJI Avata 2\n🎥 Gravação 4K 60fps com lente ultrawide\n⏱️ Até 23 minutos de voo imersivo\n📡 Alcance de até 13 km\n⚖️ Peso de 377 g\n🎮 Controle por movimento + óculos FPV (sem tela)', salePrice: 10590.00,
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 7069.91 }] },
+        { id: 68, name: 'DJI Avata 2 Fly More Combo (3 baterias)', spec: '🛸 DJI Avata 2\n🎥 Gravação 4K 60fps com lente ultrawide\n⏱️ Até 23 minutos de voo imersivo\n📡 Alcance de até 13 km\n⚖️ Peso de 377 g\n🎮 Controle por movimento + óculos FPV (sem tela)', salePrice: 12990.00,
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 8674.53 }] },
+        { id: 65, name: 'DJI Air 3S Standard (sem tela)', spec: '🛸 DJI Air 3S (Versão Standard)\n🎥 4K 60fps com sensores duplos (wide + tele)\n⏱️ Até 45 minutos no ar\n📡 Alcance de 32 km\n⚖️ Peso de 724 g\n🎮 Controle sem tela (standard)', salePrice: 12790.00,
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 8532.92 }] },
+        { id: 72, name: 'DJI Mavic 4 Pro Combo (com tela)', spec: '🚀 DJI Mavic 4 Pro\n🎥 5.1K a 120fps com sensor 4/3 CMOS\n⏱️ Até 46 minutos de voo\n📡 Alcance de até 32 km\n⚖️ 958 g\n🎮 Controle com tela (DJI RC Pro)', salePrice: 26670.00,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 19920.00 }] },
+        { id: 71, name: 'DJI Mavic 4 Pro Creator Combo (HDMI, 512GB)', spec: '🚀 DJI Mavic 4 Pro Creator Combo\nMesmo conjunto do Mavic 4 Pro com:\n🎒 Acessórios profissionais\n🔋 Baterias extras e hub inteligente\n🧳 Maleta reforçada para transporte\n🎮 Controle com tela (DJI RC Pro 2)', salePrice: 35650.00,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 26650.00 }] },
+        { id: 39, name: 'DJI Mavic 3 Multispectral', spec: '🌱 DJI Mavic 3 Multispectral (Versão Standard)\n🎥 Câmera RGB 20 MP + 4 sensores multispectrais\n⏱️ Até 43 minutos por voo\n📡 Alcance de 15 km\n⚖️ 951 g\n🎮 Controle com tela (DJI RC Pro Enterprise)\n🧪 Ideal para agricultura de precisão e NDVI', salePrice: 44302.70,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 31011.89 }] },
+        { id: 40, name: 'DJI Mavic 3 Thermal', spec: '🔥 DJI Mavic 3 Thermal (Versão Standard)\n🎥 4K + câmera térmica 640x512 px\n⏱️ Até 45 minutos por voo\n📡 Alcance de 15 km\n⚖️ 920 g\n🎮 Controle com tela (DJI RC Pro Enterprise)\n🔥 Ideal para inspeção, resgate e segurança', salePrice: 42533.55,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 29773.48 }] },
+        { id: 41, name: 'DJI Mavic 3 Enterprise', spec: '🗺️ DJI Mavic 3 Enterprise (Versão Standard)\n🎥 Câmera RGB 20 MP com obturador mecânico\n🗺️ Compatível com RTK, alto-falante e holofote\n⏱️ Até 45 minutos de voo\n📡 Alcance de 15 km\n⚖️ 915 g\n🎮 Controle com tela (DJI RC Pro Enterprise)\n📐 Indicado para mapeamentos e medições técnicas', salePrice: 31474.83,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 22032.38 }] },
+        { id: 42, name: 'DJI Matrice 4T', spec: '🛠️ DJI Matrice 4T (Versão Standard)\n🎥 RGB 48 MP + Zoom híbrido 56x + Câmera térmica de alta resolução\n🧭 Visão tripla: Wide, Zoom e Térmica\n⏱️ Até 55 minutos por voo\n📡 Alcance de até 20 km\n⚖️ Peso: 3,7 kg\n🎮 Controle DJI RC Plus com tela de 7” ultra brilhante\n💼 IP55 – Ideal para resgate, combate a incêndio e inspeções', salePrice: 61589.97,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 43112.98 }] },
+        { id: 43, name: 'DJI Matrice 4E', spec: '🛠️ DJI Matrice 4E (Versão Standard)\n🎥 Câmera ampla de 20 MP com obturador mecânico\n🧭 Suporte a RTK, payloads e expansões avançadas\n⏱️ Até 55 minutos de voo\n📡 Alcance de até 20 km\n⚖️ Peso: 3,4 kg\n🎮 Controle DJI RC Plus\n🔧 Ideal para mapeamento, segurança e vigilância industrial', salePrice: 46075.84,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 32253.09 }] },
+        { id: 113, name: 'DJI Matrice 30T', spec: '🛠️ DJI Matrice 30T (Versão Standard)\n🎥 Câmera Wide 48 MP + Zoom Híbrido + Câmera Térmica\n⏱️ Até 41 minutos por voo\n📡 Alcance de até 15 km\n⚖️ Peso: 3,77 kg\n🎮 Controle DJI RC Plus com tela de 7”\n💼 Proteção IP55 – Ideal para operações em campo aberto', salePrice: 67494.47,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 48663.51 }] },
+        { id: 114, name: 'DJI Matrice 350 RTK', spec: '🛠️ DJI Matrice 350 RTK (Versão Standard)\n🎥 Compatível com payloads L2, P1, H30T e sensores externos\n🧭 RTK integrado para mapeamento de alta precisão\n⏱️ Até 55 minutos de voo\n📡 Alcance de até 20 km\n⚖️ Peso médio de 3,8 kg sem carga\n🎮 Controle DJI RC Plus com tela de 7”\n💼 Estrutura reforçada com proteção IP55', salePrice: 51991.62,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 37485.95 }] },
+        { id: 44, name: 'GOHOBBY SENTINEL', spec: '🛡️ GOHOBBY Sentinel\nUm sistema passivo de detecção, sem interferências, ideal para monitoramento discreto:\n📡 Frequências: 2.4 GHz, 5.1 GHz, 5.8 GHz\n🛩️ Protocolos suportados: DJI (O1–O4), Autel, eWiFi, PAL, NTSC, LightBridge, Datalink\n📍 Alcance de detecção: até 5 km\n🔁 Detecção simultânea: até 10 drones\n⏱️ Tempo de localização: ≤ 3 s\n🕒 Autonomia da bateria: até 12 h\n🎯 Precisão de localização: ≤ 3 m\n💻 Tela: 6.3” touchscreen\n🌐 Conectividade: Wi‑Fi e LTE\n⚖️ Peso: 0,65 kg + bateria externa (~0,6 kg)\n⚙️ IP: IP54', salePrice: 155128.57,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 108590.00 }] },
+        { id: 45, name: 'SKYFEND HUNTER', spec: '🌩️ Skyfend Hunter (AFA100)\nUm jammer portátil com detecção e contra-ação integrada, típico “gun”:\n📡 Detecção omnidirecional: até 2 km\n🚫 Jamming direcional: até 3 km\n📶 Cobertura de frequência: 400 MHz–6 GHz (RF + GNSS: GPS, Glonass, Beidou, Galileo)\n⏱️ Autonomia: até 8 h em espera e 1 h com jamming ativo\n🕌 Tela: touchscreen 3,5”\n🔄 Adaptabilidade: adaptação automática de frequência\n⚙️ IP: IP65\n⚖️ Peso: aprox. 6,5 kg', salePrice: 379745.85,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 265822.10 }] },
+        { id: 46, name: 'SKYFEND BLADER', spec: '⚡ Skyfend Blader\nUm jammer portátil de alta potência, enxuto e focado na neutralização:\n🌐 Alcance de jamming: até 1,5 km\n📶 Cobertura de frequência: 868 MHz, 915 MHz, 1.2 GHz, 1.4 GHz, 1.6 GHz, 2.4 GHz, 4.95 GHz, 5.2–5.8 GHz\n⏱️ Jamming ativado: até 30 min\n🧭 Direção e campo de visão: azimute ±15°, pitch ±10°\n⚖️ Peso: ≈ 4 kg\n⚙️ IP: IP65', salePrice: 151898.28,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 106328.80 }] },
+        { id: 31, name: 'Câmera DJI Osmo Pocket 3 Standard', spec: '📷 DJI Osmo Pocket 3 Standard\n🎥 Gravação em 4K com sensor grande\n📱 Tela articulada touchscreen\n🔁 Gimbal mecânico de 3 eixos\n💡 Ideal para criadores que filmam em movimento\n🔋 Autonomia de até 120 minutos\n📦 Compacta e leve: cabe no bolso', salePrice: 6990,
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 4658.47 }] },
+        { id: 92, name: 'Câmera DJI Osmo Action 4 Adventure Combo', spec: '📷 DJI Osmo Action 4 Adventure Combo\n🎥 Vídeos em 4K HDR a 120 fps\n🌊 À prova d’agua até 18 metros (sem case)\n🔋 Inclui 2 baterias extras + suporte de carregamento\n📱 Controle via app DJI Mimo\n📦 Pensada para esportes e ambientes extremos', salePrice: 4790.00,
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 3194.13 }] },
+        { id: 94, name: 'Câmera DJI Osmo Action 4 Standard Combo', spec: '📷 DJI Osmo Action 4 Standard Combo\n🎥 4K ultra amplo com estabilização RockSteady\n🎯 Lente grande angular com excelente captação de luz\n📱 Integração total com o app DJI\n🧳 Compacta, ideal para vloggers e aventureiros iniciantes', salePrice: 3490.00,
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 2400.00 }] },
+        { id: 93, name: 'Câmera DJI Osmo Action 5 Pro Standard Combo', spec: '📷 DJI Osmo Action 5 Pro Standard Combo\n🎥 4K a 120 fps com sensor aprimorado para pouca luz\n🌀 Estabilização RockSteady 3.0 + HorizonSteady\n🔋 Bateria de longa duração com carregamento rápido\n🎧 Áudio com 3 microfones e cancelamento de ruído\n📦 Perfeita para profissionais e criadores exigentes', salePrice: 4490.00,
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 2992.69 }] },
+        { id: 97, name: 'Estabilizador DJI Osmo Mobile 7P', spec: '🎮 DJI Osmo Mobile 7P BR\n📱 Compatível com celulares grandes\n🌀 Modos de acompanhamento e gestos\n🔋 Bateria para até 10h de uso', salePrice: 2090.00,
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 1396.50 }] },
+        { id: 96, name: 'Estabilizador DJI Osmo Mobile 7', spec: '🎮 DJI Osmo Mobile 7 BR\n📱 Novo sistema de equilíbrio automático\n🔋 Leve, com autonomia prolongada\n🧠 Integração nativa com app DJI', salePrice: 1249.00,
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 835.23 }] },
+        { id: 99, name: 'Estabilizador DJI Osmo Mobile 6', spec: '🎮 DJI Osmo Mobile 6 (Cinza Escuro ou Platinum)\n🔋 6h de uso, com ActiveTrack 5.0\n📱 Compacto e retrátil\n🧲 Design magnético para montagem rápida', salePrice: 1390.00,
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 930.10 }] },
+        { id: 95, name: 'Estabilizador DJI Osmo Mobile SE', spec: '🎮 DJI Osmo Mobile SE\n📱 Versão acessível e eficiente\n🎯 Boa estabilidade para vídeos casuais\n🧳 Ideal para iniciantes', salePrice: 990.00,
+            sources: [{ supplierName: 'Arroroba Celulares', costPrice: 663.49 }] },
+        { id: 33, name: 'Estabilizador DJI RS 3 Pro Combo', spec: '🎮 DJI RS 3 Pro Combo\n🎥 Suporte para câmeras profissionais até 4,5 kg\n🧠 LIDAR focagem + ActiveTrack Pro\n🔋 Até 12h de uso com bateria BG30', salePrice: 7990,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 5790.00 }] },
+        { id: 35, name: 'Estabilizador DJI RS 4 Pro Combo', spec: '🎮 DJI RS 4 Pro Combo\n🎥 Suporte avançado para rigs pesados\n📡 Conectividade profissional\n🔋 Bateria BG70 de alta duração', salePrice: 12790,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 8900.00 }] },
+        { id: 34, name: 'Estabilizador DJI RS 4 Mini', spec: '🎮 DJI RS 4 Mini\n🎥 Câmeras até 2 kg\n🔧 Ultra leve, com braço de rotação larga\n🔋 Até 10h com autonomia', salePrice: 3890,
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 2840.00 }] },
+        { id: 32, name: 'Estabilizador DJI RS 3 Mini', spec: '🎮 DJI RS 3 Mini\n🎥 Ideal para câmeras mirrorless\n📦 Compacto e balanceado\n🔋 10h de bateria', salePrice: 2690,
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 2335.00 }] },
+        { id: 18, name: 'Controle DJI Motion 3', spec: '🎮 DJI Motion 3\n🖐️ Controle por movimento\n🎮 Compatível com DJI Neo, Avata 2 e Air 3\n📡 Transmissão precisa + experiência imersiva', salePrice: 1099,
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 734.09 }] },
+        { id: 19, name: 'Controle DJI RC', spec: '🎮 DJI RC\n📱 Suporte para smartphone\n📡 Alcance até 10 km\n⚖️ Design leve e ergonômico', salePrice: 3290,
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 2195.65 }] },
+        { id: 20, name: 'Controle DJI RC 2', spec: '🎮 DJI RC 2\n📺 Tela HD integrada\n📡 Alcance de até 20 km\n🔋 Autonomia de 4h', salePrice: 3590,
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 2395.43 }] },
+        { id: 21, name: 'Controle DJI RC Pro (HDMI)', spec: '🎮 DJI RC Pro (HDMI)\n🎥 Saída HDMI e sistema Android\n📡 Ultra responsivo com controle DJI Fly\n📺 Tela de alto brilho com 1000 nits', salePrice: 10990,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 7330.69 }] },
+        { id: 100, name: 'Microfone DJI Mic 2 (2 TX + 1 RX + Case)', spec: '🎤 DJI Mic 2 (2 transmissores + 1 receptor + case)\n🎧 Áudio estéreo digital de altíssima fidelidade (24-bit)\n🔋 Gravação interna com backup automático\n📡 Alcance de até 250 metros em área aberto\n🧳 Case com recarga rápida e transporte seguro\n🔗 Compatível com câmeras DSLR, celulares e computadores', salePrice: 4090.00,
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 2731.69 }] },
+        { id: 36, name: 'Microfone DJI Mic Mini (1 TX + 1 RX)', spec: '🎤 DJI Mic Mini (1 transmissor + 1 receptor)\n🎧 Super compacto e leve – ideal para creators\n🔋 Autonomia de até 6 horas por unidade\n📦 Sem case de recarga – prático para uso imediato\n🎯 Plug and play com portas USB-C e Lightning', salePrice: 859,
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 523.29 }] },
+        { id: 37, name: 'Microfone DJI Mic Mini (2 TX + 1 RX + Case)', spec: '🎤 DJI Mic Mini (2 transmissores + 1 receptor + case)\n🎧 Gravação estéreo dupla com sincronização inteligente\n🔋 Case de transporte com recarga automática\n📡 Conexão simultânea com dispositivos duplos\n📱 Perfeito para entrevistas, podcasts e vídeos de equipe.', salePrice: 1590,
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 1062.43 }] },
+        { id: 115, name: 'Bateria DJI Neo', spec: '🔋 Bateria DJI Neo\n⏱️ Autonomia de até 18 minutos por carga\n⚡ Tecnologia LiPo com proteção inteligente\n🔌 Recarga via hub ou carregador USB-C\n📦 Compatível exclusivamente com o DJI Neo', salePrice: 0,
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 0 }] },
+        { id: 12, name: 'Bateria DJI Avata', spec: '🔋 Bateria DJI Avata\n⏱️ Cerca de 18 minutos de voo FPV\n🎮 Ideal para uso com goggles e motion controller\n⚡ Proteção contra curto, descarga e superaquecimento\n📦 Peso médio: 162 g', salePrice: 1489,
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 994.06 }] },
+        { id: 13, name: 'Bateria DJI Avata 2', spec: '🔋 Bateria DJI Avata 2\n⏱️ Aproximadamente 23 minutos de voo imersivo\n📡 Otimizada para voos com DJI Goggles 3\n⚡ Equilíbrio entre leveza e performance\n📦 Recarregável via hub dedicado', salePrice: 1149,
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 767.21 }] },
+        { id: 104, name: 'Bateria Mini 3 Pro / 4 Pro', spec: '🔋 Bateria DJI Mini 3 / Mini 4 Pro (Standard)\n⏱️ Até 34 minutos de voo\n⚡ Compacta, com sensores de segurança\n🔋 Indicador de carga inteligente\n📦 Peso médio: 80 g', salePrice: 749.00,
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 570.00 }] },
+        { id: 105, name: 'Bateria Mini 3 Pro Plus', spec: '🔋 Bateria DJI Plus Mini 3 / Mini 4 Pro (Alta Capacidade)\n⏱️ Até 45 minutos por carga\n⚡ Ideal para voos longos e gravações contínuas\n🔋 Compatível com DJI Fly – modo “max performance”\n📦 Leve e resistente', salePrice: 1190.00,
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 825.00 }] },
+        { id: 15, name: 'Bateria DJI Air 3S / Air 3', spec: '🔋 Bateria DJI Air 3S / Air 3\n⏱️ Até 45 minutos por carga\n⚡ Células de alta densidade e vida útil prolongada\n📦 Compatível com modo de priorização de carga via hub\n🔋 Recarga otimizada via carregador 100W', salePrice: 1890,
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 1261.94 }] },
+        { id: 82, name: 'Bateria DJI Mini 2 / SE / 2 SE / 4K', spec: '🔋 Bateria DJI Mini 2 / SE / 2 SE / 4K\n⏱️ Entre 22 e 31 minutos de voo (varia conforme o modelo)\n⚡ Bateria compacta, estável e eficiente\n📦 Ideal para pilotos iniciantes ou voos recreativos\n🔋 Recarregável via hub Mini 2', salePrice: 649.00,
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 433.38 }] },
+        { id: 83, name: 'Bateria TB51 DJI Inspire 3', spec: '🔋 Bateria TB51 (Inspire 3)\n⏱️ Performance profissional com tempo estendido de voo\n📦 Sistema avançado de aquecimento automático\n⚡ Compatível com estação de carga DJI BS51\n🔋 Controle inteligente de ciclo e temperatura', salePrice: 3999.00,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 2669.76 }] },
+        { id: 81, name: 'Bateria de alta capacidade DJI RS BG70', spec: '🔋 Bateria DJI RS BG70 (para RS 4 Pro)\n⏱️ Até 12 horas de autonomia contínua\n⚙️ Fixação direta no estabilizador RS 4 Pro\n📦 Indicador de status em tempo real\n🔋 Recarga via conector magnético de alta voltagem', salePrice: 1490.00,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 996.07 }] },
+        { id: 79, name: 'Protetores de Hélices DJI Neo', spec: '🛡️ Protetores de Hélice DJI Neo\n⚙️ Leves, seguros e ideais para indoor', salePrice: 119.00,
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 100.00 }] },
+        { id: 78, name: 'Protetores de Hélices DJI Mini 3', spec: '🛡️ Protetores de Hélice DJI Mini 3\n⚙️ Encaixe rápido, protege hélices em espaços apertados', salePrice: 379.00,
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 285.00 }] },
+        { id: 77, name: 'Hélices DJI Neo – 2 Pares', spec: '🌀 Hélices DJI Neo – 2 Pares', salePrice: 79.00,
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 53.06 }] },
+        { id: 75, name: 'Hélices DJI Flip – 2 Pares', spec: '🌀 Hélices DJI Flip – 2 Pares', salePrice: 104.90,
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 70.31 }] },
+        { id: 73, name: 'Hélices DJI Mini 2/SE/2 SE/4K – 2 Pares', spec: '🌀 Hélices DJI Mini 2/SE/2 SE/4K – 2 Pares', salePrice: 119.00,
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 433.38 }] },
+        { id: 76, name: 'Hélices DJI Inspire 3 – Par', spec: '🌀 Hélices DJI Inspire 3 – Par', salePrice: 499.00,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 391.91 }] },
+        { id: 74, name: 'Hélices DJI Avata 2 – 2 Pares', spec: '🌀 Hélices DJI Avata 2 – 2 Pares', salePrice: 109.00,
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 70.31 }] },
+        { id: 38, name: 'DJI Goggles 3', spec: '👓 DJI Goggles 3\n📺 Duas telas OLED 1080p de alta nitidez\n🧠 Sistema de head tracking imersivo com baixa latência\n🔋 Bateria interna com até 3 horas de autonomia\n📡 Transmissão O4 compatível com Avata 2, Mini 4 Pro,  Air 3 e Neo\n🧳 Ajuste ergonômico para conforto prolongado', salePrice: 6490,
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 4327.89 }] },
+        { id: 88, name: 'DJI Goggles N3', spec: '👓 DJI Goggles N3\n📺 Compatíveis com o DJI Neo e Motion Controller 3\n🔋 Bateria interna com até 2 horas de uso contínuo\n🌀 Imersão FPV com mínima latência\n📦 Design leve e dobrável, ideal para transporte', salePrice: 2990.00,
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 1999.56 }] },
+        { id: 25, name: 'Hub de Carregamento DJI Avata 2', spec: '🔁 Hub de Carregamento DJI Avata 2\n🔋 Sistema inteligente de carregamento e equalização\n⚡ Alta eficiência térmica\n🔌 Compatível com powerbanks USB-C PD\n📦 Ideal para voos FPV com múltiplas baterias', salePrice: 499,
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 333.62 }] },
+        { id: 26, name: 'Hub de Carregamento DJI Neo', spec: '🔁 Hub de Carregamento DJI Neo\n🔋 Carga sequencial de até 3 baterias\n⚡ Tempo médio por unidade: 75 minutos\n🔌 Compatível com carregadores 65W DJI\n📦 Leve, portátil e de encaixe rápido', salePrice: 419,
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 280.00 }] },
+        { id: 27, name: 'Hub de Carregamento DJI Mini 3 / 3 Pro / 4 Pro', spec: '🔁 Hub de Carregamento DJI Mini 3 / 3 Pro / 4 Pro\n🔋 Até 3 baterias com transferência de carga\n⚡ Balanceamento automático\n📦 Ideal para operação em campo', salePrice: 519,
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 347.01 }] },
+        { id: 28, name: 'Hub de Carregamento DJI Air 3 / Air 3S', spec: '🔁 Hub de Carregamento DJI Air 3 / Air 3S\n🔋 Gestão automática da ordem de carga\n⚡ Suporte a carregamento paralelo\n📱 Status visível via app DJI Fly\n📦 Compacto com LEDs indicadores', salePrice: 799,
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 500.09 }] },
+        { id: 29, name: 'Carregador USB-C DJI 100W', spec: '⚡ Carregador USB-C DJI 100W\n🔌 Carga dupla simultânea (hub + controle)\n⚡ Reconhecimento inteligente de voltagem\n⏱️ Carga total entre 60 e 90 min por bateria\n📱 Compatível com outros dispositivos USB-C', salePrice: 619,
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 415.23 }] },
+        { id: 30, name: 'Carregador USB-C DJI 65W', spec: '⚡ Carregador USB-C DJI 65W\n🔋 Leve e versátil\n⚡ Ideal para controles e baterias padrão DJI\n📦 Proteção contra sobrecarga e superaquecimento\n🧳 Perfeito para uso portátil', salePrice: 389,
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 573.86 }] },
+        { id: 16, name: 'Estação de Energia DJI Power 1000', spec: '🔌 DJI Power 1000\n⚡ Potência total: 1000W\n🔋 Bateria interna de longa duração (1024 Wh)\n🔌 Diversas saídas: USB-C, AC, DC e carregamento solar\n📦 Ideal para operações em campo, emergências e drones de grande porte\n🧳 Design robusto, com alça retrátil e tela inteligente', salePrice: 9590,
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 6314.47 }] },
+        { id: 17, name: 'Estação de Energia DJI Power 500', spec: '🔌 DJI Power 500\n⚡ Potência total: 500W\n🔋 Capacidade de 512 Wh\n🔌 Entradas e saídas para múltiplos dispositivos simultâneos\n📦 Portátil e eficiente para filmagens externas, inspeções ou backup em locais remotos\n🧳 Compacta e fácil de transportar', salePrice: 6190,
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 4071.35 }] },
+        { id: 80, name: 'Sistema DJI Focus Pro – All-In-One Combo', spec: '🎯 Sistema DJI Focus Pro – All-In-One Combo\n🎥 Foco automático inteligente para câmeras profissionais\n📡 Controle remoto de alta precisão com delay ultrabaixo\n🔋 Motor silencioso com bateria integrada de longa duração\n⚙️ Compatível com estabilizadores da linha RS e câmeras DSLR/cinema\n🧠 Modos: foco manual, automático e via reconhecimento facial\n📦 Inclui motor, controle, cabo de dados e acessórios profissionais\n🧳 Ideal para produções de alto nível, cinema, comerciais e conteúdo técnico', salePrice: 16990.00,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 11133.54 }] },
+        { id: 86, name: 'Sistema DJI SDR Transmission Combo', spec: '📶 Sistema DJI SDR Transmission Combo\n📡 Transmissão de vídeo em tempo real com ultra baixa latência\n📺 Entrada HDMI para câmeras externas (profissionais ou drone FPV customizado)\n📱 Compatível com smartphones ou tablets via suportes dedicados\n🔌 Alimentação via bateria integrada ou ou fonte externa\n🎯 Ideal para transmissões ao vivo, monitoramento técnico ou gravações de precisão\n📦 Combo inclui receptor SDR, cabos, suporte de fixação e encaixes ajustáveis', salePrice: 5990.00,
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 4004.27 }] },
+        { id: 84, name: 'Suporte de Telefone SDR', spec: '📱 Suporte de Telefone SDR\n🧲 Suporte magnético com ajuste de ângulo e altura\n📦 Compatível com celulares de até 7”', salePrice: 579.00,
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 257.45 }] },
+        { id: 85, name: 'Suporte de Tablet SDR', spec: '💻 Suporte de Tablet SDR\n📐 Estrutura expandida para tablets de até 10”\n⚙️ Base firme com regulagem personalizada\n🧳 Ideal para visualização ampla em campo', salePrice: 579.00,
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 500.09 }] },
+        { id: 89, name: 'Hard Case Mavic Air 2 / Air 2S', spec: '🎒 Hard Case Mavic Air 2 / Air 2S\n💼 Proteção rígida + interior espumado', salePrice: 599.00,
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 339.72 }] },
+        { id: 90, name: 'Kit Apoio DJI RC Plus', spec: '🎒 Kit Apoio DJI RC Plus\n🧳 Tira de ombro + apoio de cintura\n🎮 Ideal para longas operações', salePrice: 769.00,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 140.73 }] },
+        { id: 91, name: 'Garrafa DJI 650mL – Preto Gradiente', spec: '🥤 Garrafa DJI 650mL – Preto Gradiente\n💧 Estilo DJI com hidratação', salePrice: 149.00,
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 79.88 }] },
+        // Exemplo de produto com MÚLTIPLOS fornecedores
+        { id: 1000, name: 'Bateria Universal P-Drone', spec: '🔋 Bateria de alta capacidade universal', salePrice: 1500.00,
+            sources: [
+                { supplierName: 'Arroba Celulares', costPrice: 1000.00 },
+                { supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 950.00 }
+            ]
+        },
+        { id: 1001, name: 'Kit Hélice Super Resistente (2 Pares)', spec: '🌀 Hélices de fibra de carbono para alta durabilidade.', salePrice: 250.00,
+            sources: [
+                { supplierName: 'DJI Grupo Multi', costPrice: 150.00 },
+                { supplierName: 'Arroba Celulares', costPrice: 160.00 }
+            ]
+        },
+        // --- NOVOS PRODUTOS E ATUALIZAÇÕES DA GOHOBBY ---
+        // Novos kits de bateria para Mavic 3 (IDs exclusivas para evitar conflito com produtos base)
+        { id: 1002, name: 'DJI MAVIC 3 THERMAL + KIT DE BATERIAS ENTERPRISE', spec: '🔥 DJI Mavic 3 Thermal com kit de baterias extra.\n🎥 4K + câmera térmica 640x512 px\n⏱️ Até 45 minutos por voo (com baterias extras)\n📡 Alcance de 15 km\n⚖️ 920 g\n🎮 Controle com tela (DJI RC Pro Enterprise)\n🔥 Ideal para inspeção, resgate e segurança', salePrice: 45700.00,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 31990.00 }] },
+        { id: 1003, name: 'DJI MAVIC 3 ENTERPRISE + KIT DE BATERIAS ENTERPRISE', spec: '🗺️ DJI Mavic 3 Enterprise com kit de baterias extra.\n🎥 Câmera RGB 20 MP com obturador mecânico\n🗺️ Compatível com RTK, alto-falante e holofote\n⏱️ Até 45 minutos de voo (com baterias extras)\n📡 Alcance de 15 km\n⚖️ 915 g\n🎮 Controle com tela (DJI RC Pro Enterprise)\n📐 Indicado para mapeamentos e medições técnicas', salePrice: 34271.42,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 23990.00 }] },
+        { id: 1004, name: 'DJI MAVIC 3 MULTISPECTRAL + KIT DE BATERIAS ENTERPRISE', spec: '🌱 DJI Mavic 3 Multispectral com kit de baterias extra.\n🎥 Câmera RGB 20 MP + 4 sensores multispectrais\n⏱️ Até 43 minutos por voo (com baterias extras)\n📡 Alcance de 15 km\n⚖️ 951 g\n🎮 Controle com tela (DJI RC Pro Enterprise)\n🧪 Ideal para agricultura de precisão e NDVI', salePrice: 47128.57,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 32990.00 }] },
+        // Novos Matrice 4T e 4E com descrição atualizada de baterias
+        { id: 1005, name: 'DJI MATRICE 4T - 2X BATERIA MATRICE 4 SERIES', spec: '🛠️ DJI Matrice 4T com 2 baterias da Série Matrice 4.\n🎥 RGB 48 MP + Zoom híbrido 56x + Câmera térmica de alta resolução\n🧭 Visão tripla: Wide, Zoom e Térmica\n⏱️ Até 55 minutos por voo\n📡 Alcance de até 20 km\n⚖️ Peso: 3,7 kg\n🎮 Controle DJI RC Plus com tela de 7” ultra brilhante\n💼 IP55 – Ideal para resgate, combate a incêndio e inspeções', salePrice: 64718.07,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 45302.65 }] },
+        { id: 1006, name: 'DJI MATRICE 4E - 2X BATERIA MATRICE 4 SERIES', spec: '🛠️ DJI Matrice 4E com 2 baterias da Série Matrice 4.\n🎥 Câmera ampla de 20 MP com obturador mecânico\n🧭 Suporte a RTK, payloads e expansões avançadas\n⏱️ Até 55 minutos de voo\n📡 Alcance de até 20 km\n⚖️ Peso: 3,4 kg\n🎮 Controle DJI RC Plus\n🔧 Ideal para mapeamento, segurança e vigilância industrial', salePrice: 46075.84,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 32253.09 }] },
+        // Novas variações de Matrice 30T com diferentes quantidades de bateria
+        { id: 1007, name: 'DJI MATRICE 30T + 2x TB30 BATERIA INTELIGENTE', spec: '🛠️ DJI Matrice 30T com 2 baterias inteligentes TB30.\n🎥 Câmera Wide 48 MP + Zoom Híbrido + Câmera Térmica\n⏱️ Até 41 minutos por voo\n📡 Alcance de até 15 km\n⚖️ Peso: 3,77 kg\n🎮 Controle DJI RC Plus com tela de 7”\n💼 Proteção IP55 – Ideal para operações em campo aberto', salePrice: 67125.62,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 46987.94 }] },
+        { id: 1008, name: 'DJI MATRICE 30T + 4x TB30 BATERIA INTELIGENTE', spec: '🛠️ DJI Matrice 30T com 4 baterias inteligentes TB30.\n🎥 Câmera Wide 48 MP + Zoom Híbrido + Câmera Térmica\n⏱️ Até 41 minutos por voo\n📡 Alcance de até 15 km\n⚖️ Peso: 3,77 kg\n🎮 Controle DJI RC Plus com tela de 7”\n💼 Proteção IP55 – Ideal para operações em campo aberto', salePrice: 74181.48,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 51927.04 }] },
+        { id: 1009, name: 'DJI MATRICE 30T + 6x TB30 BATERIA INTELIGENTE', spec: '🛠️ DJI Matrice 30T com 6 baterias inteligentes TB30.\n🎥 Câmera Wide 48 MP + Zoom Híbrido + Câmera Térmica\n⏱️ Até 41 minutos por voo\n📡 Alcance de até 15 km\n⚖️ Peso: 3,77 kg\n🎮 Controle DJI RC Plus com tela de 7”\n💼 Proteção IP55 – Ideal para operações em campo aberto', salePrice: 81237.35,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 56866.15 }] },
+        { id: 1010, name: 'DJI MATRICE 30T + 8x TB30 BATERIA INTELIGENTE', spec: '🛠️ DJI Matrice 30T com 8 baterias inteligentes TB30.\n🎥 Câmera Wide 48 MP + Zoom Híbrido + Câmera Térmica\n⏱️ Até 41 minutos por voo\n📡 Alcance de até 15 km\n⚖️ Peso: 3,77 kg\n🎮 Controle DJI RC Plus com tela de 7”\n💼 Proteção IP55 – Ideal para operações em campo aberto', salePrice: 88293.21,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 61805.25 }] },
+        // Novas variações de Matrice 350 RTK com diferentes quantidades de bateria
+        { id: 1011, name: 'DJI MATRICE 350 RTK + BS65 + 2X TB65 BATERIA', spec: '🛠️ DJI Matrice 350 RTK, Estação BS65 e 2 baterias TB65.\n🎥 Compatível com payloads L2, P1, H30T e sensores externos\n🧭 RTK integrado para mapeamento de alta precisão\n⏱️ Até 55 minutos de voo\n📡 Alcance de até 20 km\n⚖️ Peso médio de 3,8 kg sem carga\n🎮 Controle DJI RC Plus com tela de 7”\n💼 Estrutura reforçada com proteção IP55', salePrice: 90840.01,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 63336.01 }] },
+        { id: 1012, name: 'DJI MATRICE 350 RTK + BS65 + 4X TB65 BATERIA', spec: '🛠️ DJI Matrice 350 RTK, Estação BS65 e 4 baterias TB65.\n🎥 Compatível com payloads L2, P1, H30T e sensores externos\n🧭 RTK integrado para mapeamento de alta precisão\n⏱️ Até 55 minutos de voo\n📡 Alcance de até 20 km\n⚖️ Peso médio de 3,8 kg sem carga\n🎮 Controle DJI RC Plus com tela de 7”\n💼 Estrutura reforçada com proteção IP55', salePrice: 101829.15,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 71280.41 }] },
+        { id: 1013, name: 'DJI MATRICE 350 RTK + BS65 + 6X TB65 BATERIA', spec: '🛠️ DJI Matrice 350 RTK, Estação BS65 e 6 baterias TB65.\n🎥 Compatível com payloads L2, P1, H30T e sensores externos\n🧭 RTK integrado para mapeamento de alta precisão\n⏱️ Até 55 minutos de voo\n📡 Alcance de até 20 km\n⚖️ Peso médio de 3,8 kg sem carga\n🎮 Controle DJI RC Plus com tela de 7”\n💼 Estrutura reforçada com proteção IP55', salePrice: 119068.24,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 83347.77 }] },
+        { id: 1014, name: 'DJI MATRICE 350 RTK + BS65 + 8X TB65 BATERIA', spec: '🛠️ DJI Matrice 350 RTK, Estação BS65 e 8 baterias TB65.\n🎥 Compatível com payloads L2, P1, H30T e sensores externos\n🧭 RTK integrado para mapeamento de alta precisão\n⏱️ Até 55 minutos de voo\n📡 Alcance de até 20 km\n⚖️ Peso médio de 3,8 kg sem carga\n🎮 Controle DJI RC Plus com tela de 7”\n💼 Estrutura reforçada com proteção IP55', salePrice: 136307.34,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 95415.14 }] },
+        // Novos Docks e seus combos
+        { id: 1015, name: 'DJI DOCK + MATRICE 30T + 2x TB30 + RC PLUS', spec: '🚀 DJI Dock com Matrice 30T, 2 baterias TB30 e controle RC Plus.\nTotalmente automatizado, ideal para monitoramento remoto.', salePrice: 130148.68,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 91104.08 }] },
+        { id: 1016, name: 'DJI DOCK 2 + MATRICE 3D + CARREGADOR + BATERIA + RC PRO', spec: '🚀 DJI Dock 2 com Matrice 3D, carregador, bateria e controle RC Pro.\nSolução compacta para implantação rápida e operações autônomas.', salePrice: 130636.17,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 91445.32 }] },
+        { id: 1017, name: 'DJI DOCK 2 + MATRICE 3TD + CARREGADOR + BATERIA + RC PRO', spec: '🚀 DJI Dock 2 com Matrice 3TD (versão térmica), carregador, bateria e controle RC Pro.\nIdeal para inspeções térmicas autônomas e resposta rápida.', salePrice: 150078.14,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 105054.70 }] },
+        // Itens diversos da GOHOBBY (atualizados ou novos)
+        { id: 1018, name: 'DJI Mavic 2 Enterprise - Módulo RTK', spec: '🛰️ Módulo RTK para DJI Mavic 2 Enterprise.\nPrecisão centimétrica para levantamentos e mapeamentos.', salePrice: 3971.24,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 2779.87 }] },
+        { id: 1019, name: 'DJI AL1 SPOTLIGHT (Matrice 4 Series)', spec: '💡 Holofote DJI AL1 para Matrice 4 Series.\nAcessório de iluminação para operações noturnas.', salePrice: 3743.81,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 2620.67 }] },
+        { id: 1020, name: 'DJI AS1 SPEAKER (Matrice 4 Series)', spec: '📣 Alto-falante DJI AS1 para Matrice 4 Series.\nPermite comunicação em campo e operações de segurança.', salePrice: 2911.54,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 2038.08 }] },
+        { id: 1021, name: 'DJI Mavic 3 Enterprise - Kit de Baterias', spec: '🔋 Kit de Baterias para DJI Mavic 3 Enterprise.\nGaranta maior tempo de voo para suas missões.', salePrice: 7812.40,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 5468.68 }] },
+        { id: 1022, name: 'DJI MATRICE 4T Series - Bateria Individual', spec: '🔋 Bateria individual para DJI Matrice 4T Series.\nBateria de reposição ou adicional para Matrice 4T/4E.', salePrice: 2992.62,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 2094.84 }] },
+        { id: 1023, name: 'DJI MATRICE 3D SERIES - Bateria Inteligente', spec: '🔋 Bateria Inteligente para DJI Matrice 3D Series.\nBateria de alta capacidade para os drones DJI Matrice 3D e 3TD.', salePrice: 3451.28,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 2415.90 }] },
+        { id: 1024, name: 'DJI Mavic 3 - Speaker', spec: '📣 Alto-falante DJI para DJI Mavic 3.\nComunicação eficiente para operações com o Mavic 3.', salePrice: 1456.88,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 1258.58 }] },
+        { id: 1025, name: 'DJI Mavic 3 Enterprise - Módulo RTK', spec: '🛰️ Módulo RTK para DJI Mavic 3 Enterprise.\nAumente a precisão de posicionamento do seu Mavic 3 Enterprise.', salePrice: 6987.17,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 4891.02 }] },
+        { id: 1026, name: 'DJI Mavic 3 - Hub de carregamento', spec: '🔁 Hub de carregamento para DJI Mavic 3.\nCarrega múltiplas baterias do Mavic 3 de forma sequencial.', salePrice: 780.56,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 546.39 }] },
+        { id: 1027, name: 'DJI Mavic 3 Enterprise - Hélices', spec: '🌀 Hélices de reposição para DJI Mavic 3 Enterprise.\nGaranta a segurança e performance do seu voo.', salePrice: 212.99,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 149.09 }] },
+        { id: 1028, name: 'DJI Matrice 300 - Hélice 2110', spec: '🌀 Hélice 2110 para DJI Matrice 300 RTK.\nPeça essencial para a propulsão e estabilidade do drone.', salePrice: 591.55,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 414.08 }] },
+        { id: 1029, name: 'DJI MATRICE 350 RTK + H30T PAYLOAD', spec: '🛠️ DJI Matrice 350 RTK com Payload H30T.\nSolução completa para inspeções, com câmera termográfica de alta resolução.', salePrice: 141237.96,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 101832.57 }] },
+        { id: 1030, name: 'DJI Matrice 350 RTK - Hélices 2112', spec: '🌀 Hélices 2112 para DJI Matrice 350 RTK.\nAssegura a performance ideal de voo e a segurança da operação.', salePrice: 353.68,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 247.57 }] },
+        { id: 1031, name: 'DJI Carregador Portátil 65W', spec: '⚡ Carregador Portátil DJI 65W.\nIdeal para carregar baterias de drones e outros dispositivos em movimento.', salePrice: 623.78,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 436.65 }] },
+        { id: 1032, name: 'DJI WB37 - HUB de Carregamento (USB-C)', spec: '🔁 Hub de Carregamento WB37 com USB-C.\nCarrega as baterias WB37, essenciais para controles RC Plus e Smart Controller.', salePrice: 646.75,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 452.73 }] },
+        { id: 1033, name: 'DJI WB37 - Bateria', spec: '🔋 Bateria DJI WB37.\nBateria de alta capacidade para controles remotos DJI RC Plus e Smart Controller.', salePrice: 875.44,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 612.80 }] },
+        { id: 1034, name: 'DJI D-RTK Estação Móvel GNSS', spec: '🛰️ Estação Móvel DJI D-RTK GNSS.\nAumenta a precisão de posicionamento para mapeamentos e inspeções críticas.', salePrice: 27857.14,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 18753.81 }] },
+        { id: 1035, name: 'DJI D-RTK Tripé', spec: ' tripod para Estação Móvel DJI D-RTK.\nEstabilidade essencial para operações RTK em campo.', salePrice: 3672.87,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 2571.01 }] },
+        { id: 1036, name: 'Gohobby Turbo - Micro SD 128GB', spec: '💾 Cartão Micro SD 128GB - Gohobby Turbo.\nArmazenamento de alta velocidade para seus vídeos e fotos de drone.', salePrice: 195.14,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 136.60 }] },
+        { id: 1037, name: 'Gohobby Turbo - Micro SD 256GB', spec: '💾 Cartão Micro SD 256GB - Gohobby Turbo.\nMais espaço e velocidade para capturar todos os momentos do seu voo.', salePrice: 254.53,
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 178.17 }] }
+    ];
+
+    let SUPPLIERS = [ // Use let para permitir que novos fornecedores sejam adicionados dinamicamente
+        {
+            id: 1,
+            name: 'Arroba Celulares',
+            details: 'Aroba celulares é um dos principais distribuidores e centros de manutenção de eletrônicos no Brasil.',
+            payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.',
+            products: 'DJI Mini, Osmo Mobile, Acessórios',
+            categories: ['Consumer', 'Equipamentos'],
+            contacts: [
+                { role: 'Atendimento Geral', name: 'Atendimento Arroba', whatsapp: '556281145767', email: '' }
+            ]
+        },
+        {
+            id: 2,
+            name: 'DJI Grupo Multi',
+            details: 'Atuam desde 2012 no mercado de drones e fotografia. Grupo Multi é importador de drones e estabilizadores.',
+            payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.',
+            products: 'DJI Mini, DJI Air, Osmo Action, Acessórios',
+            categories: ['Consumer', 'Equipamentos'],
+            contacts: [
+                { role: 'Atendimento Geral', name: 'Atendimento Grupo Multi', whatsapp: '551145731093', email: '' }
+            ]
+        },
+        {
+            id: 3,
+            name: 'GoHobby Distribuidora de VANT LTDA',
+            details: 'A GoHobby é importadora exclusiva de drones profissionais e tecnologias anti-drone no Brasil.',
+            payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.',
+            products: 'DJI Mavic, DJI Matrice, Linha Enterprise, Soluções Anti-drone',
+            categories: ['Enterprise', 'Agriculture', 'Equipamentos'],
+            contacts: [
+                { role: 'Gerente', name: 'Alexandre Elias', whatsapp: '5511955973434', email: '' }
+            ]
+        },
+        // Fornecedores de peças
+        {
+            id: 4,
+            name: 'Pedro - FlyUp (Anápolis)',
+            details: 'Fornecedor de peças e serviços de manutenção em Anápolis.',
+            payment: 'A combinar.',
+            products: 'Peças diversas, componentes eletrônicos',
+            categories: ['Pecas', 'Consumer'],
+            contacts: [
+                { role: 'Vendedor', name: 'Pedro', whatsapp: '556292065116', email: '' }
+            ]
+        },
+        {
+            id: 5,
+            name: 'Eber - (Aparecida de Goiânia)',
+            details: 'Especialista em peças e reparos de drones em Aparecida de Goiânia.',
+            payment: 'A combinar.',
+            products: 'Peças de reposição, baterias genéricas',
+            categories: ['Pecas', 'Consumer', 'Enterprise'],
+            contacts: [
+                { role: 'Vendedor', name: 'Eber', whatsapp: '556293147403', email: '' }
+            ]
+        },
+        {
+            id: 6,
+            name: 'Cristiano - (Goiânia)',
+            details: 'Fornecedor local de peças e acessórios para drones em Goiânia.',
+            payment: 'A combinar.',
+            products: 'Peças e acessórios DJI, serviços de reparo',
+            categories: ['Pecas', 'Consumer'],
+            contacts: [
+                { role: 'Vendedor', name: 'Cristiano', whatsapp: '556292506411', email: '' }
+            ]
+        },
+        {
+            id: 7,
+            name: 'Agrobox Drones',
+            details: 'Peças e Equipamentos para Agricultura. Local: Goiânia, Goiás.',
+            payment: 'A combinar.',
+            products: 'Peças e Equipamentos para Drones Agrícolas',
+            categories: ['Agriculture', 'Equipamentos', 'Pecas'],
+            contacts: [
+                { role: 'Dono', name: 'Frederico', whatsapp: '5562982237211', email: '' },
+                { role: 'Gerente', name: 'Marcos', whatsapp: '556281628361', email: '' },
+                { role: 'Vendedor', name: 'Heverton', whatsapp: 'EM_BREVE', email: '' }
+            ]
+        }
+    ];
+
+    const INSTALLMENT_RATES = {
+        1: 0.0309, 2: 0.0579, 3: 0.0609, 4: 0.0799, 5: 0.0809, 6: 0.0818,
+        7: 0.0949, 8: 0.0966, 9: 0.1037, 10: 0.1105, 11: 0.1227, 12: 0.1238
+    };
+
+    // --- ELEMENTOS DO HTML (DOM) ---
+    let loginScreen, appScreen, loginButton, logoutButton, usernameInput, passwordInput, loginError, visitorModeButton;
+    let navButtons, contentSections, productsNavButton, calculatorNavButton, suppliersNavButton, settingsNavButton, dronesNavButton, infoEmpresaNavButton, marketingNavButton, profileNavButton;
+    let manageUsersNavButton, createProductNavButton, editProductNavButton, settingsSubNav;
+    let productList, supplierList, productSearchInput, droneVisitorList, droneVisitorSearchInput;
+    let mainModal, modalTitle, modalBody, closeModalButton;
+    let createTempUserForm, tempUserFeedback, tempUserListContainer;
+    let createProductForm, createProductFeedback;
+    let editProductSearchInput, searchProductToEditButton, editProductSearchResults, editProductDisplay, editProductForm, editProductIdInput, editProductNameInput, editProductSpecTextarea, editProductSalePriceInput, editProductCostPriceInput, editProductSupplierInput, editProductFeedback;
+    let mainContent, scrollToTopButton;
+    let generalCalcValorBase, generalCalcPaymentRadios, generalCalcInstallmentsContainer, generalCalcParcelasSelect, generalCalculateButton, generalCalculatorResult;
+    let navToggleButton, navToggleButtonClose, navElement, appBody, headerElement;
+    let bodyElement;
+    let aiChatButton, aiChatModal, aiChatCloseButton, aiQuestionInput, submitAiQuestionButton, aiResponseArea, aiLoader;
+    let supplierPasswordModal, supplierAccessPasswordInput, submitSupplierPasswordButton, supplierPasswordError, supplierPasswordCloseButton;
+    let changePasswordModal, changePasswordModalTitle, changePasswordMessage, newPasswordInput, confirmNewPasswordInput, submitChangePasswordButton, changePasswordError, changePasswordSuccess, changePasswordCloseButton;
+    let profileIconContainer, profileIcon;
+    let profileSection, profileDisplayName, profileEmail, profilePhone, profilePicDisplay, editDisplayNameInput, editEmailInput, editPhoneInput, editProfilePicInput, uploadProfilePicButton, profileEditForm, profileFeedback, openChangePasswordModalButton;
+    let companyPhoneSpan, companyWhatsappLink;
+    let whatsappModal, whatsappCloseButton, whatsappMessageInput, includeDisplayNameCheckbox, whatsappDisplayNamePreview, includeEmailCheckbox, whatsappEmailPreview, includePhoneCheckbox, whatsappPhonePreview, sendWhatsappButton, cancelWhatsappButton;
+    let generalDiscountOption, generalDiscountPercentageInput;
+
+    // Novos elementos para o modal de orçamento
+    let openBudgetModalButton, budgetModal, budgetCloseButton, droneCategoryCheckboxes, itemTypeGroup, itemTypeCheckboxes, equipmentDetailsGroup, equipmentDetailsTextarea, sparePartsDetailsGroup, sparePartsDetailsTextarea, budgetSupplierSelectGroup, budgetSupplierCheckboxesContainer, selectedSupplierContactDiv, selectedSupplierNameDisplay, sendBudgetWhatsappButton;
+
+    // Elementos para gestão de fornecedores
+    let openCreateSupplierModalButton, openEditSupplierSearchModalButton, manageSupplierModal, manageSupplierCloseButton, manageSupplierModalTitle, manageSupplierForm, supplierIdToEditInput, supplierNameInput, supplierDetailsTextarea, supplierPaymentTextarea, supplierProductsInput, supplierCategoryCheckboxes, supplierContactsContainer, addSupplierContactButton, saveSupplierButton, manageSupplierFeedback;
+    let editSupplierSearchModal, editSupplierSearchInputModal, searchSupplierToEditModalButton, editSupplierSearchResultsModal;
+
+    // Novos elementos para o modal de filtro/ordenação
+    let openProductFilterSortModalButton, openSupplierFilterSortModalButton;
+    let filterSortModal, filterSortCloseButton, filterSortModalTitle, filterSortSearchInput, filterSortOrderButtons, filterSortCategoryButtons, applyFilterSortButton;
+
+    // Variáveis de estado para filtros e ordenação
+    let currentProductFilter = { searchTerm: '', sortBy: 'default', category: '' };
+    let currentSupplierFilter = { searchTerm: '', sortBy: 'default', category: '' };
+
+
+    // --- FUNÇÕES GLOBAIS ---
+    function getGreeting() {
+        const hour = new Date().getHours();
+        if (hour >= 6 && hour < 12) return 'Bom dia';
+        if (hour >= 12 && hour < 18) return 'Boa tarde';
+        return 'Boa noite';
+    }
+
+    function openWhatsAppModal(product) {
+        const whatsappMessageInput = document.getElementById('whatsapp-message-input');
+        const includeDisplayNameCheckbox = document.getElementById('include-display-name');
+        const whatsappDisplayNamePreview = document.getElementById('whatsapp-display-name-preview');
+        const includeEmailCheckbox = document.getElementById('include-email');
+        const whatsappEmailPreview = document.getElementById('whatsapp-email-preview');
+        const includePhoneCheckbox = document.getElementById('include-phone');
+        const whatsappPhonePreview = document.getElementById('whatsapp-phone-preview');
+
+        if (!window.currentUser) {
+            console.error("Erro: Usuário atual não definido para abrir o modal do WhatsApp.");
+            return;
+        }
+
+        window.currentProductForWhatsapp = product;
+        const salePrice = product.salePrice.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+
+        const defaultMessage = `${getGreeting()}! 👋\n\nEstou a enviar os detalhes sobre o *${product.name}* que conversámos. É um equipamento fantástico! 🚀\n\n*Especificações Principais:*\n${product.spec}\n\n*Valor de Venda:* ${salePrice}\n\nQualquer dúvida, estou à disposição!\n- Equipa Galvão Drones`;
+
+        whatsappMessageInput.value = defaultMessage;
+
+        whatsappDisplayNamePreview.textContent = window.currentUser.displayName || 'Não informado';
+        includeDisplayNameCheckbox.checked = !!window.currentUser.displayName;
+        includeDisplayNameCheckbox.disabled = !window.currentUser.displayName;
+
+        whatsappEmailPreview.textContent = window.currentUser.email || 'Não informado';
+        includeEmailCheckbox.checked = !!window.currentUser.email;
+        includeEmailCheckbox.disabled = !window.currentUser.email;
+
+        whatsappPhonePreview.textContent = window.currentUser.phone ? `(${window.currentUser.phone.substring(0,2)}) ${window.currentUser.phone.substring(2,7)}-${window.currentUser.phone.substring(7)}` : 'Não informado';
+        includePhoneCheckbox.checked = !!window.currentUser.phone;
+        includePhoneCheckbox.disabled = !window.currentUser.phone;
+
+        whatsappModal.style.display = 'block';
+    }
+
+    function closeWhatsAppModal() {
+        whatsappModal.style.display = 'none';
+        window.currentProductForWhatsapp = null;
+    }
+
+    function sendWhatsAppMessage() {
+        let message = whatsappMessageInput.value;
+        const contactInfo = [];
+
+        if (includeDisplayNameCheckbox.checked && window.currentUser.displayName) {
+            contactInfo.push(`Nome: ${window.currentUser.displayName}`);
+        }
+        if (includeEmailCheckbox.checked && window.currentUser.email) {
+            contactInfo.push(`Email: ${window.currentUser.email}`);
+        }
+        if (includePhoneCheckbox.checked && window.currentUser.phone) {
+            contactInfo.push(`Celular: (${window.currentUser.phone.substring(0,2)}) ${window.currentUser.phone.substring(2,7)}-${window.currentUser.phone.substring(7)}`);
+        }
+
+        if (contactInfo.length > 0) {
+            message += `\n\n--- Contato do Vendedor ---\n${contactInfo.join('\n')}`;
+        }
+
+        const encodedMessage = encodeURIComponent(message);
+        window.open(`https://wa.me/?text=${encodedMessage}`, '_blank'); // Abre em nova aba
+        closeWhatsAppModal();
+    }
+
+    function openModal(modalElement) {
+        if (modalElement) modalElement.style.display = 'block';
+    }
+    function closeModal(modalElement) {
+        if (modalElement) {
+            modalElement.style.display = 'none';
+            // Limpa o conteúdo apenas do modal principal se for ele
+            if (modalElement.id === 'main-modal') {
+                modalBody.innerHTML = '';
+                clearInterval(window.tempUserInterval);
+            } else if (modalElement.id === 'manage-supplier-modal') {
+                manageSupplierForm.reset(); // Reseta o formulário do modal de fornecedor
+                supplierContactsContainer.innerHTML = ''; // Limpa os contatos
+                manageSupplierFeedback.textContent = ''; // Limpa feedback
+                document.querySelectorAll('#manage-supplier-modal input[type="checkbox"]').forEach(cb => cb.checked = false);
+            } else if (modalElement.id === 'edit-supplier-search-modal') {
+                editSupplierSearchInputModal.value = '';
+                editSupplierSearchResultsModal.innerHTML = '';
+            }
+        }
+    }
+
+    function switchTab(newSectionId) {
+        const currentUser = window.currentUser;
+        const isVisitor = currentUser.isVisitor;
+        const isAdmin = currentUser.role === 'admin';
+        const isMikhaell = currentUser.username === 'mikhaell';
+
+        let canAccess = false;
+
+        if (newSectionId === 'products-section' || newSectionId === 'calculator-section') {
+            canAccess = !isVisitor;
+        } else if (newSectionId === 'drones-visitor-section' || newSectionId === 'info-section' || newSectionId === 'marketing-section') {
+            canAccess = true;
+        } else if (newSectionId === 'suppliers-section') {
+            if (isAdmin) {
+                if (window.pendingSupplierSectionAccess) {
+                    canAccess = true;
+                } else {
+                    openModal(supplierPasswordModal);
+                    supplierAccessPasswordInput.value = '';
+                    supplierPasswordError.style.display = 'none';
+                    return;
+                }
+            }
+        } else if (newSectionId === 'settings-section' || newSectionId === 'create-product-section' || newSectionId === 'edit-product-section') {
+            canAccess = isAdmin;
+        } else if (newSectionId === 'manage-users-section') {
+            canAccess = isMikhaell;
+        } else if (newSectionId === 'profile-section') {
+            canAccess = !isVisitor;
+        }
+
+        if (!canAccess) {
+            let fallbackSection = 'products-section';
+            if (isVisitor) fallbackSection = 'drones-visitor-section';
+
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-button').forEach(b => b.classList.remove('active'));
+
+            document.getElementById(fallbackSection).classList.add('active');
+            let fallbackButton = document.querySelector(`[data-section="${fallbackSection}"]`);
+            if (fallbackButton) fallbackButton.classList.add('active');
+
+            settingsSubNav.style.display = 'none';
+
+            alert('Você não tem permissão para acessar esta seção.');
+            window.activeSectionId = fallbackSection;
+            return;
+        }
+
+        document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.nav-button').forEach(b => b.classList.remove('active'));
+
+        document.getElementById(newSectionId).classList.add('active');
+
+        let targetButton = document.querySelector(`[data-section="${newSectionId}"]`);
+        if (targetButton) {
+            targetButton.classList.add('active');
+            if (targetButton.classList.contains('sub-nav-button')) {
+                document.getElementById('settings-nav-button').classList.add('active');
+            }
+        }
+
+        if (newSectionId.includes('settings') && isAdmin) {
+            settingsSubNav.style.display = 'block';
+        } else {
+            settingsSubNav.style.display = 'none';
+        }
+
+        window.activeSectionId = newSectionId;
+
+        if (newSectionId === 'manage-users-section') renderTempUserList();
+        if (newSectionId === 'products-section') {
+            // Ao mudar para a seção de produtos, reinicializa os filtros específicos dela
+            currentProductFilter = { searchTerm: '', sortBy: 'default', category: '' };
+            renderProducts();
+        }
+        if (newSectionId === 'drones-visitor-section') renderDroneVisitorList();
+        if (newSectionId === 'settings-section' && isAdmin) {
+            renderSettingsOptionsGrid();
+        }
+        if (newSectionId === 'suppliers-section') {
+            // Ao mudar para a seção de fornecedores, reinicializa os filtros específicos dela
+            currentSupplierFilter = { searchTerm: '', sortBy: 'default', category: '' };
+            showSuppliers();
+        }
+        if (newSectionId === 'profile-section') {
+            renderProfilePage();
+        }
+        closeMobileNav();
+    }
+
+    window.navigateToSupplierSection = function(supplierName) {
+        window.switchTab('suppliers-section');
+
+        setTimeout(() => {
+            const targetSupplierCard = document.querySelector(`#supplier-list .supplier-card h3 strong[data-supplier-name="${supplierName}"]`);
+            if (targetSupplierCard) {
+                targetSupplierCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                targetSupplierCard.closest('.supplier-card').style.backgroundColor = '#fffacd';
+                setTimeout(() => {
+                    targetSupplierCard.closest('.supplier-card').style.backgroundColor = '';
+                }, 3000);
+            } else {
+                console.log(`Fornecedor "${supplierName}" não encontrado na lista detalhada.`);
+            }
+        }, 300);
+    }
+
+    window.handleScroll = function() { scrollToTopButton.style.display = mainContent.scrollTop > 200 ? "block" : "none"; }
+    window.scrollTop = function() { mainContent.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+    function renderProducts() {
+        productList.innerHTML = '';
+
+        if (window.currentUser.isVisitor) {
+            productList.innerHTML = '<p>Funcionalidade de produtos não disponível no modo visitante. Use a seção "Drones".</p>';
+            return;
+        }
+
+        let productsToShow = PRODUCTS.filter(p =>
+            p.name.toLowerCase().includes(currentProductFilter.searchTerm) ||
+            p.spec.toLowerCase().includes(currentProductFilter.searchTerm) ||
+            (p.sources && p.sources.some(source => source.supplierName.toLowerCase().includes(currentProductFilter.searchTerm)))
+        );
+
+        productsToShow = sortProductsArray(productsToShow, currentProductFilter.sortBy);
+
+        if (currentProductFilter.category) {
+            productsToShow = productsToShow.filter(p => {
+                const productName = p.name.toLowerCase();
+                const category = currentProductFilter.category;
+                if (category === 'Consumer' && (productName.includes('mini') || productName.includes('neo') || productName.includes('flip') || productName.includes('osmo'))) return true;
+                if (category === 'Enterprise' && (productName.includes('mavic 3 enterprise') || productName.includes('matrice') || productName.includes('dock') || productName.includes('sentinel') || productName.includes('skyfend'))) return true;
+                if (category === 'Agriculture' && (productName.includes('mavic 3 multispectral') || productName.includes('agr'))) return true;
+                if (category === 'Acessorios' && (productName.includes('controle') || productName.includes('microfone') || productName.includes('óculos') || productName.includes('estabilizador') || productName.includes('case') || productName.includes('suporte') || productName.includes('garrafa') || productName.includes('modulo') || productName.includes('speaker') || productName.includes('spotlight') || productName.includes('sistema') || productName.includes('tripé') || productName.includes('sd') || productName.includes('hélice') || productName.includes('protetor'))) return true;
+                if (category === 'Baterias' && productName.includes('bateria')) return true;
+                return false;
+            });
+        }
+
+
+        if (productsToShow.length === 0) {
+            productList.innerHTML = '<p>Nenhum produto encontrado.</p>';
+        }
+
+        productsToShow.forEach(product => {
+            const productCard = document.createElement('div');
+            productCard.className = 'card product-card';
+            productCard.dataset.productId = product.id;
+            const isAdmin = window.currentUser.role === 'admin';
+            const isSeller = window.currentUser.role === 'seller';
+
+            const salePriceLabel = isSeller ? 'Valor' : 'Valor de Venda';
+
+            let adminCostInfoHTML = '';
+            if (isAdmin) {
+                adminCostInfoHTML = `<p><strong>Custos por Fornecedor:</strong></p><ul class="product-suppliers-list">`;
+                if (product.sources && product.sources.length > 0) {
+                    product.sources.forEach(source => {
+                        adminCostInfoHTML += `
+                            <li>
+                                <a href="#" class="supplier-name-link" data-supplier-name="${source.supplierName}">
+                                    ${source.supplierName}
+                                </a>
+                                <span class="cost-value">${source.costPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
+                            </li>
+                        `;
+                    });
+                } else {
+                    adminCostInfoHTML += `<li><span class="cost-value">N/A (Sem Fornecedor Registrado)</span></li>`;
+                }
+                adminCostInfoHTML += `</ul>`;
+            }
+
+            productCard.innerHTML = `
+                <h3>${product.name}</h3>
+                <p class="product-spec"><strong>Especificações:</strong><br>${product.spec}</p>
+                <p class="price">${salePriceLabel}: ${product.salePrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
+                ${isAdmin ? adminCostInfoHTML : ''}
+                <div class="action-buttons-container">
+                    <button class="gemini-button desc-button">✨ Gerar Descrição</button>
+                    <button class="gemini-button args-button">✨ Criar Argumentos</button>
+                    <button class="whatsapp-button" data-product-id="${product.id}">💬 WhatsApp</button>
+                    <button class="help-button">💡 Ajudar Cliente</button>
+                </div>
+                <div class="calculator-container">
+                    <div class="payment-method-selector">
+                        <input type="radio" id="payment-vista-${product.id}" name="payment-method-${product.id}" value="vista" checked>
+                        <label for="payment-vista-${product.id}">À vista</label>
+                        <input type="radio" id="payment-parcelado-${product.id}" name="payment-method-${product.id}" value="parcelado">
+                        <label for="payment-parcelado-${product.id}">Parcelado</label>
+                    </div>
+                    ${isAdmin ? `
+                    <div class="discount-option" id="discount-option-${product.id}">
+                        <label for="discount-percentage-${product.id}">Desconto (%):</label>
+                        <input type="number" id="discount-percentage-${product.id}" min="0" max="15" value="0">
+                    </div>
+                    ` : ''}
+                    <div class="installments-container hidden">
+                        <label for="parcelas-${product.id}">Parcelas:</label>
+                        <select id="parcelas-${product.id}" class="parcelas-select">
+                           <option value="1">1x</option><option value="2">2x</option><option value="3">3x</option><option value="4">4x</option><option value="5">5x</option><option value="6">6x</option><option value="7">7x</option><option value="8">8x</option><option value="9">9x</option><option value="10">10x</option><option value="11">11x</option><option value="12">12x</option>
+                        </select>
+                    </div>
+                    <button class="calculate-product-btn">Calcular</button>
+                    <div class="product-calculator-result"></div>
+                </div>
+            `;
+            productList.appendChild(productCard);
+        });
+    }
+
+
+    function sortProductsArray(products, sortBy) {
+        let sortedProducts = [...products]; // Cria uma cópia para não alterar o array original
+        switch (sortBy) {
+            case 'price-asc':
+                sortedProducts.sort((a, b) => a.salePrice - b.salePrice);
+                break;
+            case 'price-desc':
+                sortedProducts.sort((a, b) => b.salePrice - a.salePrice);
+                break;
+            case 'alpha-asc':
+                sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
+                break;
+            case 'alpha-desc':
+                sortedProducts.sort((a, b) => b.name.localeCompare(a.name));
+                break;
+            case 'recent':
+                sortedProducts.sort((a, b) => b.id - a.id); // Considerando que IDs maiores são mais recentes
+                break;
+            default:
+                sortedProducts.sort((a, b) => a.id - b.id); // Ordenação padrão por ID
+                break;
+        }
+        return sortedProducts;
+    }
+
+    // Não precisamos mais de sortProducts e filterProductsByCategory separadas
+    // A lógica de aplicação dos filtros e ordenação é centralizada no `applyFilterSort`
+
+    function renderDroneVisitorList(searchTerm = '') {
+        droneVisitorList.innerHTML = '';
+        const lowerCaseSearchTerm = searchTerm.toLowerCase();
+        const dronesToShow = PRODUCTS.filter(p =>
+            (p.name.toLowerCase().includes("dji") || p.name.toLowerCase().includes("drone") || p.name.toLowerCase().includes("mavic") || p.name.toLowerCase().includes("avata") || p.name.toLowerCase().includes("matrice") || p.name.toLowerCase().includes("skyfend") || p.name.toLowerCase().includes("sentinel") || p.name.toLowerCase().includes("neo") || p.name.toLowerCase().includes("osmo")) &&
+            (p.name.toLowerCase().includes(lowerCaseSearchTerm) || p.spec.toLowerCase().includes(lowerCaseSearchTerm))
+        );
+
+
+        if (dronesToShow.length === 0) {
+            droneVisitorList.innerHTML = '<p>Nenhum drone encontrado com esse termo.</p>';
+        }
+
+        dronesToShow.forEach(product => {
+            const droneCard = document.createElement('div');
+            droneCard.className = 'card product-card';
+            droneCard.dataset.productId = product.id;
+
+            droneCard.innerHTML = `
+                <h3>${product.name}</h3>
+                <p class="product-spec"><strong>Especificações:</strong><br>${product.spec}</p>
+                <p class="price" style="color: var(--secondary-color);">Consultar valor e disponibilidade</p>
+                <div class="action-buttons-container">
+                    <a href="https://wa.me/556236360668?text=${encodeURIComponent('Olá, gostaria de saber mais sobre o ' + product.name + ' e sua disponibilidade.')}" target="_blank" class="action-button whatsapp-button" style="width: auto;">Consultar via WhatsApp</a>
+                    <button class="action-button help-product-visitor-btn" data-product-name="${product.name}" data-product-spec="${product.spec}">Precisa de ajuda com esse produto?</button>
+                </div>
+            `;
+            droneVisitorList.appendChild(droneCard);
+        });
+    }
+
+    function calculate(baseValue, numInstallments, paymentMethod, discountPercentage = 0) {
+        const valor = parseFloat(baseValue);
+        if (isNaN(valor) || valor <= 0) {
+            return '<p style="color:red;">Valor base inválido.</p>';
+        }
+
+        let valorFinalVista = valor * (1 + (INSTALLMENT_RATES[1] || 0));
+        if (window.currentUser.role === 'admin' && paymentMethod === 'vista' && discountPercentage > 0 && discountPercentage <= 15) {
+            valorFinalVista = valorFinalVista * (1 - (discountPercentage / 100));
+        }
+        valorFinalVista = parseFloat(valorFinalVista.toFixed(2));
+
+        let resultHTML = `<div class="result-vista">Valor à Vista: ${valorFinalVista.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</div>`;
+
+        if (paymentMethod === 'parcelado') {
+            const parcelas = parseInt(numInstallments);
+            const taxaParcelado = INSTALLMENT_RATES[parcelas] || 0;
+            const valorFinalParcelado = valor * (1 + taxaParcelado);
+            const valorParcela = valorFinalParcelado / parcelas;
+            const valorTaxa = valorFinalParcelado - valor;
+
+            resultHTML += `
+                <div class="result-parcelado">
+                    <strong>Opção Parcelado:</strong><br>
+                    <span>Valor Final: <strong>${valorFinalParcelado.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</strong></span><br>
+                    <small>${parcelas}x de ${valorParcela.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</small><br>
+                    <small>Valor da taxa: ${valorTaxa.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</small>
+                </div>
+            `;
+        }
+        return resultHTML;
+    }
+
+    function renderSettingsOptionsGrid() {
+        const settingsOptionsGrid = document.getElementById('settings-options-grid');
+        settingsOptionsGrid.innerHTML = '';
+
+        const isMikhaell = window.currentUser.username === 'mikhaell';
+        const isAdmin = window.currentUser.role === 'admin';
+
+        if (isMikhaell) {
+            const manageUsersCard = document.createElement('div');
+            manageUsersCard.className = 'card';
+            manageUsersCard.innerHTML = `<h3>Gerir Usuários</h3><p>Crie e gerencie acessos temporários.</p>`;
+            manageUsersCard.addEventListener('click', () => window.switchTab('manage-users-section'));
+            settingsOptionsGrid.appendChild(manageUsersCard);
+        }
+
+        if (isAdmin) {
+            const createProductCard = document.createElement('div');
+            createProductCard.className = 'card';
+            createProductCard.innerHTML = `<h3>Criar Produto</h3><p>Adicione novos produtos ao sistema.</p>`;
+            createProductCard.addEventListener('click', () => window.switchTab('create-product-section'));
+            settingsOptionsGrid.appendChild(createProductCard);
+
+            const editProductCard = document.createElement('div');
+            editProductCard.className = 'card';
+            editProductCard.innerHTML = `<h3>Alterar Produto</h3><p>Edite dados de produtos existentes.</p>`;
+            editProductCard.addEventListener('click', () => window.switchTab('edit-product-section'));
+            settingsOptionsGrid.appendChild(editProductCard);
+        }
+    }
+
+    function createTemporaryUser(event) {
+        event.preventDefault();
+        const username = document.getElementById('temp-username').value;
+        const password = document.getElementById('temp-password').value;
+        const durationHours = parseInt(document.getElementById('temp-duration').value);
+
+        if (USERS[username]) {
+            document.getElementById('temp-user-feedback').textContent = 'Erro: Nome de usuário já existe.'; document.getElementById('temp-user-feedback').style.color = 'red'; return;
+        }
+
+        USERS[username] = { password, role: 'seller', type: 'temporary', expiresAt: Date.now() + durationHours * 60 * 60 * 1000, firstLogin: false, displayName: username, email: '', phone: '', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' };
+
+        document.getElementById('temp-user-feedback').textContent = `Usuário "${username}" criado com sucesso!`; document.getElementById('temp-user-feedback').style.color = 'green';
+        document.getElementById('create-temp-user-form').reset(); renderTempUserList();
+        setTimeout(() => document.getElementById('temp-user-feedback').textContent = '', 5000);
+    }
+
+    function renderTempUserList() {
+        tempUserListContainer.innerHTML = '';
+        const tempUsers = Object.entries(USERS).filter(([_, user]) => user.type === 'temporary');
+
+        if(tempUsers.length === 0) {
+            tempUserListContainer.innerHTML = '<p>Nenhum usuário temporário criado.</p>';
+            return;
+        }
+
+        tempUsers.forEach(([username, user]) => {
+            const item = document.createElement('div');
+            item.className = 'temp-user-item';
+            const expires = new Date(user.expiresAt).toLocaleString('pt-BR');
+            item.innerHTML = `
+                <div class="user-info">
+                    <p><strong>${username}</strong></p>
+                    <p><small>Expira em: ${expires}</small></p>
+                </div>
+                <div class="user-actions">
+                    <button class="edit-btn" data-username="${username}">Editar</button>
+                    <button class="delete-btn" data-username="${username}">Excluir</button>
+                </div>
+            `;
+            item.querySelector('.edit-btn').addEventListener('click', () => openEditTempUserModal(username));
+            item.querySelector('.delete-btn').addEventListener('click', () => deleteTempUser(username));
+            tempUserListContainer.appendChild(item);
+        });
+    }
+
+    function openEditTempUserModal(username) {
+        const user = USERS[username];
+        modalTitle.textContent = `Editar Usuário: ${username}`;
+        modalBody.innerHTML = `
+            <form id="edit-temp-user-form">
+                <div class="input-group"><label for="edit-temp-password">Nova Senha</label><input type="text" id="edit-temp-password" value="${user.password}" required></div>
+                <div class="input-group"><label for="edit-temp-duration">Estender Duração (a partir de agora)</label><select id="edit-temp-duration">
+                    <option value="1">1 Hora</option><option value="8">8 Horas</option><option value="24">24 Horas</option><option value="72">72 Horas</option>
+                </select></div>
+                <button type="submit" class="action-button">Salvar Alterações</button>
+            </form>
+        `;
+        openModal(mainModal);
+        document.getElementById('edit-temp-user-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newPassword = document.getElementById('edit-temp-password').value;
+            const newDuration = parseInt(document.getElementById('edit-temp-duration').value);
+            USERS[username].password = newPassword;
+            USERS[username].expiresAt = Date.now() + newDuration * 60 * 60 * 1000;
+            closeModal(mainModal);
+            renderTempUserList();
+        });
+    }
+
+    function deleteTempUser(username) {
+        if (confirm(`Tem certeza que deseja excluir o usuário temporário "${username}"?`)) {
+            delete USERS[username];
+            renderTempUserList();
+            if (window.currentUser && window.currentUser.username === username) {
+                handleLogout();
+                alert('Sua sessão foi encerrada, pois o usuário temporário foi excluído.');
+            }
+        }
+    }
+
+    function getRemainingTime(expiry) {
+        const total = expiry - Date.now();
+        const seconds = Math.floor((total / 1000) % 60);
+        const minutes = Math.floor((total / 1000 / 60) % 60);
+        const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
+        return { hours, minutes, seconds };
+    }
+
+    function showTemporaryUserWarning() {
+        clearInterval(window.tempUserInterval);
+        function updateWarning() {
+            const { hours, minutes, seconds } = getRemainingTime(window.currentUser.expiresAt);
+            if (hours < 0 || minutes < 0 || seconds < 0) {
+                modalBody.innerHTML = '<h2>Acesso Expirado</h2><p>O seu tempo de acesso terminou. A sessão será encerrada.</p>';
+                setTimeout(handleLogout, 3000);
+                clearInterval(window.tempUserInterval);
+            } else {
+                modalBody.innerHTML = `<h2>Acesso Temporário</h2><p>Esta é a conta de convidado. O seu acesso irá expirar em:</p>
+                <h3 style="text-align:center;">${hours}h ${minutes}m ${seconds}s</h3>`;
+            }
+        }
+        updateWarning();
+        openModal(mainModal);
+        window.tempUserInterval = setInterval(updateWarning, 1000);
+    }
+
+    function generateNewProductId() {
+        if (PRODUCTS.length === 0) return 1;
+        const maxId = Math.max(...PRODUCTS.map(p => p.id));
+        return maxId + 1;
+    }
+
+    function handleCreateProduct(event) {
+        event.preventDefault();
+        const name = document.getElementById('new-product-name').value.trim();
+        const spec = document.getElementById('new-product-spec').value.trim();
+        const salePrice = parseFloat(document.getElementById('new-product-sale-price').value);
+        const costPrice = parseFloat(document.getElementById('new-product-cost-price').value);
+        const supplier = document.getElementById('new-product-supplier').value.trim();
+        const createProductFeedback = document.getElementById('create-product-feedback');
+
+        if (!name || !spec || isNaN(salePrice) || salePrice <= 0) {
+            createProductFeedback.textContent = 'Preencha todos os campos obrigatórios (Nome, Especificações, Preço de Venda).';
+            createProductFeedback.style.color = 'red';
+            return;
+        }
+
+        const newProduct = {
+            id: generateNewProductId(),
+            name,
+            spec,
+            salePrice,
+            sources: [{
+                supplierName: supplier || 'Não especificado',
+                costPrice: isNaN(costPrice) ? 0 : costPrice
+            }]
+        };
+
+        PRODUCTS.push(newProduct);
+        createProductFeedback.textContent = `Produto "${newProduct.name}" (ID: ${newProduct.id}) criado com sucesso!`;
+        createProductFeedback.style.color = 'green';
+        document.getElementById('create-product-form').reset();
+        renderProducts();
+    }
+
+    function handleSearchProductToEdit() {
+        const searchTerm = editProductSearchInput.value.trim().toLowerCase();
+        editProductSearchResults.innerHTML = '';
+        editProductForm.classList.add('hidden');
+        editProductDisplay.innerHTML = '<p>Use a busca acima para carregar os dados do produto.</p>';
+        editProductFeedback.textContent = '';
+
+        if (!searchTerm) {
+            editProductSearchResults.innerHTML = '<p style="color:orange;">Por favor, digite um ID ou nome para pesquisar.</p>';
+            return;
+        }
+
+        let foundProducts = [];
+
+        const parsedId = parseInt(searchTerm);
+        if (!isNaN(parsedId)) {
+            const productById = PRODUCTS.find(p => p.id === parsedId);
+            if (productById) {
+                foundProducts.push(productById);
+            }
+        }
+
+        if (foundProducts.length === 0) {
+            foundProducts = PRODUCTS.filter(p => p.name.toLowerCase().includes(searchTerm));
+        }
+
+        if (foundProducts.length > 0) {
+            const fragment = document.createDocumentFragment();
+            const ul = document.createElement('ul');
+            ul.style.listStyle = 'none';
+            ul.style.padding = '0';
+
+            foundProducts.forEach(product => {
+                const listItem = document.createElement('li');
+                listItem.style.padding = '8px';
+                listItem.style.borderBottom = '1px solid #eee';
+                listItem.style.cursor = 'pointer';
+                listItem.style.backgroundColor = 'white';
+
+                listItem.innerHTML = `<strong>ID: ${product.id}</strong> - ${product.name}`;
+
+                listItem.addEventListener('mouseover', () => listItem.style.backgroundColor = '#ecf0f1');
+                listItem.addEventListener('mouseout', () => listItem.style.backgroundColor = 'white');
+
+                listItem.addEventListener('click', () => {
+                    loadProductForEdit(product.id);
+                });
+                ul.appendChild(listItem);
+            });
+            fragment.appendChild(ul);
+            editProductSearchResults.appendChild(fragment);
+            const selectPrompt = document.createElement('p');
+            selectPrompt.textContent = 'Selecione um produto para alterar:';
+            editProductSearchResults.prepend(selectPrompt);
+        } else {
+            editProductSearchResults.innerHTML = '<p style="color:orange;">Nenhum produto encontrado com o termo fornecido.</p>';
+        }
+    }
+
+    function loadProductForEdit(productId) {
+        const product = PRODUCTS.find(p => p.id === productId);
+        if (product) {
+            editProductDisplay.innerHTML = `<p>Editando: <strong>${product.name}</strong> (ID: ${product.id})</p>`;
+            editProductForm.classList.remove('hidden');
+            editProductFeedback.textContent = '';
+            editProductSearchResults.innerHTML = '';
+
+            editProductIdInput.value = product.id;
+            editProductNameInput.value = product.name;
+            editProductSpecTextarea.value = product.spec;
+            editProductSalePriceInput.value = product.salePrice;
+            editProductCostPriceInput.value = product.sources[0] ? product.sources[0].costPrice : '';
+
+            // Preencher o select de fornecedores para edição
+            const editProductSupplierSelect = document.getElementById('edit-product-supplier');
+            editProductSupplierSelect.innerHTML = ''; // Limpa opções existentes
+            SUPPLIERS.forEach(supplier => {
+                const option = document.createElement('option');
+                option.value = supplier.name;
+                option.textContent = supplier.name;
+                editProductSupplierSelect.appendChild(option);
+            });
+            editProductSupplierSelect.value = product.sources[0] ? product.sources[0].supplierName : '';
+        }
+    }
+
+    function handleEditProduct(event) {
+        event.preventDefault();
+        const productId = parseInt(editProductIdInput.value);
+        const productIndex = PRODUCTS.findIndex(p => p.id === productId);
+        if (productIndex === -1) {
+            editProductFeedback.textContent = 'Erro: Produto não encontrado para alteração.';
+            editProductFeedback.style.color = 'red';
+            return;
+        }
+
+        const name = editProductNameInput.value.trim();
+        const spec = editProductSpecTextarea.value.trim();
+        const salePrice = parseFloat(editProductSalePriceInput.value);
+        const costPrice = parseFloat(editProductCostPriceInput.value);
+        const supplier = editProductSupplierInput.value.trim();
+
+        if (!name || !spec || isNaN(salePrice) || salePrice <= 0) {
+            editProductFeedback.textContent = 'Preenchimento obrigatório (Nome, Especificações, Preço de Venda).';
+            editProductFeedback.style.color = 'red';
+            return;
+        }
+
+        PRODUCTS[productIndex].name = name;
+        PRODUCTS[productIndex].spec = spec;
+        PRODUCTS[productIndex].salePrice = salePrice;
+
+        if (PRODUCTS[productIndex].sources && PRODUCTS[productIndex].sources.length > 0) {
+            PRODUCTS[productIndex].sources[0].supplierName = supplier || 'Não especificado';
+            PRODUCTS[productIndex].sources[0].costPrice = isNaN(costPrice) ? 0 : costPrice;
+        } else {
+            PRODUCTS[productIndex].sources = [{
+                supplierName: supplier || 'Não especificado',
+                costPrice: isNaN(costPrice) ? 0 : costPrice
+            }];
+        }
+
+        editProductFeedback.textContent = `Produto "${name}" (ID: ${productId}) atualizado com sucesso!`;
+        editProductFeedback.style.color = 'green';
+        renderProducts();
+        editProductForm.classList.add('hidden');
+        editProductDisplay.innerHTML = '<p>Use a busca acima para carregar os dados do produto.</p>';
+        editProductSearchInput.value = '';
+    }
+
+    function handleCustomerHelp(product) {
+        modalTitle.textContent = `Assistente para: ${product.name}`;
+        modalBody.innerHTML = `
+            <div class="input-group">
+                <label for="customer-question">Copie e cole a pergunta do cliente abaixo:</label>
+                <textarea id="customer-question" rows="4"></textarea>
+            </div>
+            <button id="ask-gemini-button" class="action-button">Perguntar à IA</button>
+        `;
+        openModal(mainModal);
+
+        document.getElementById('ask-gemini-button').addEventListener('click', () => {
+            const customerQuestion = document.getElementById('customer-question').value;
+             if (customerQuestion && customerQuestion.trim() !== '') {
+                 const title = "Sugestão de Resposta para Cliente";
+                 const prompt = `R2D2: Responda de forma direta e clara (máximo 3 frases) à seguinte dúvida do cliente, considerando estas especificações do produto: "${product.spec}". Dúvida do cliente: "${customerQuestion}"`;
+                 callGeminiAPI(prompt, title);
+             }
+        });
+    }
+
+    function handleVisitorProductHelp(productName, productSpec) {
+        modalTitle.textContent = `Ajuda sobre: ${productName}`;
+        modalBody.innerHTML = `
+            <div class="input-group">
+                <label for="visitor-product-question">Qual sua dúvida sobre o ${productName}?</label>
+                <textarea id="visitor-product-question" rows="4"></textarea>
+            </div>
+            <button id="ask-gemini-visitor-product-button" class="action-button">Obter Ajuda da IA</button>
+        `;
+        openModal(mainModal);
+
+        document.getElementById('ask-gemini-visitor-product-button').addEventListener('click', () => {
+            const visitorQuestion = document.getElementById('visitor-product-question').value;
+            if (visitorQuestion && visitorQuestion.trim() !== '') {
+                const title = "Resposta da Galvão Drones";
+                callGeminiAPI(visitorQuestion, title, true);
+            }
+        });
+    }
+
+    function showSuppliers() {
+        supplierList.innerHTML = '';
+
+        let suppliersToShow = [...SUPPLIERS];
+
+        suppliersToShow = sortSuppliersArray(suppliersToShow, currentSupplierFilter.sortBy);
+
+        if (currentSupplierFilter.category) {
+            suppliersToShow = suppliersToShow.filter(s => s.categories.includes(currentSupplierFilter.category));
+        }
+
+        if (currentSupplierFilter.searchTerm) {
+            const lowerCaseSearchTerm = currentSupplierFilter.searchTerm.toLowerCase();
+            suppliersToShow = suppliersToShow.filter(s =>
+                s.name.toLowerCase().includes(lowerCaseSearchTerm) ||
+                s.details.toLowerCase().includes(lowerCaseSearchTerm) ||
+                s.products.toLowerCase().includes(lowerCaseSearchTerm) ||
+                s.contacts.some(c => c.name.toLowerCase().includes(lowerCaseSearchTerm) || c.role.toLowerCase().includes(lowerCaseSearchTerm))
+            );
+        }
+
+
+        if (suppliersToShow.length === 0) {
+            supplierList.innerHTML = '<p>Nenhum fornecedor encontrado.</p>';
+        }
+
+        suppliersToShow.forEach(supplier => {
+            const supplierCard = document.createElement('div');
+            supplierCard.className = 'card supplier-card';
+            supplierCard.dataset.supplierId = supplier.id;
+
+            let contactsHtml = '';
+            if (supplier.contacts && supplier.contacts.length > 0) {
+                contactsHtml += '<ul class="supplier-contacts-list">';
+                supplier.contacts.forEach(contact => {
+                    contactsHtml += `
+                        <li>
+                            <strong>${contact.role}:</strong> ${contact.name}
+                    `;
+                    if (contact.whatsapp && contact.whatsapp !== 'EM_BREVE') {
+                        contactsHtml += `
+                                <a href="https://wa.me/${contact.whatsapp}" target="_blank" class="action-button whatsapp-button" style="padding: 5px 10px; font-size: 0.8em; margin-left: 10px;">
+                                    <img src="https://i.imgur.com/XF9rY8D.png" alt="WhatsApp" style="height: 15px; width: 15px; margin-right: 5px; vertical-align: middle;">
+                                    WhatsApp
+                                </a>`;
+                    } else if (contact.whatsapp === 'EM_BREVE') {
+                        contactsHtml += ` (WhatsApp em breve)`;
+                    }
+                    contactsHtml += `</li>`;
+                });
+                contactsHtml += '</ul>';
+            }
+
+            supplierCard.innerHTML = `
+                <h3><strong data-supplier-name="${supplier.name}">${supplier.name}</strong></h3>
+                <p><strong>Detalhes:</strong> ${supplier.details}</p>
+                <div><strong>Pagamento:</strong><br>${supplier.payment.replace(/\n/g, '<br>')}</div>
+                <p><strong>Produtos Principais:</strong> ${supplier.products}</p>
+                <p><strong>Categorias:</strong> ${supplier.categories ? supplier.categories.join(', ') : 'N/A'}</p>
+                ${contactsHtml}
+                <button class="edit-supplier-button" data-supplier-id="${supplier.id}">✏️ Alterar</button>
+            `;
+            supplierList.appendChild(supplierCard);
+        });
+        closeModal(supplierPasswordModal);
+    }
+
+    function sortSuppliersArray(suppliers, sortBy) {
+        let sortedSuppliers = [...suppliers];
+        switch (sortBy) {
+            case 'name-asc':
+                sortedSuppliers.sort((a, b) => a.name.localeCompare(b.name));
+                break;
+            case 'name-desc':
+                sortedSuppliers.sort((a, b) => b.name.localeCompare(a.name));
+                break;
+            case 'recent': // Considerando que IDs maiores são mais recentes
+                sortedSuppliers.sort((a, b) => b.id - a.id);
+                break;
+            default:
+                sortedSuppliers.sort((a, b) => a.id - b.id); // Ordenação padrão por ID
+                break;
+        }
+        return sortedSuppliers;
+    }
+
+    // A lógica de aplicação dos filtros e ordenação é centralizada no `applyFilterSort`
+
+    function showChangePasswordModal(isMandatory = false) {
+        openModal(changePasswordModal);
+        newPasswordInput.value = '';
+        confirmNewPasswordInput.value = '';
+        changePasswordError.style.display = 'none';
+        changePasswordSuccess.style.display = 'none';
+
+        if (isMandatory) {
+            changePasswordModalTitle.textContent = 'Defina Sua Senha';
+            changePasswordMessage.textContent = 'Por favor, defina uma nova senha para sua conta. É obrigatório no primeiro acesso.';
+            changePasswordCloseButton.style.display = 'none';
+        } else {
+            changePasswordModalTitle.textContent = 'Alterar Senha';
+            changePasswordMessage.textContent = 'Digite sua nova senha abaixo.';
+            changePasswordCloseButton.style.display = 'block';
+        }
+    }
+
+    function handleChangePassword() {
+        const newPass = newPasswordInput.value;
+        const confirmPass = confirmNewPasswordInput.value;
+        changePasswordError.style.display = 'none';
+        changePasswordSuccess.style.display = 'none';
+
+        if (newPass.length < 6) {
+            changePasswordError.textContent = 'A nova senha deve ter no mínimo 6 dígitos.';
+            changePasswordError.style.color = 'red';
+            changePasswordError.style.display = 'block';
+            return;
+        }
+        if (newPass !== confirmPass) {
+            changePasswordError.textContent = 'As senhas não conferem.';
+            changePasswordError.style.display = 'block';
+            return;
+        }
+
+        USERS[window.currentUser.username].password = newPass;
+        USERS[window.currentUser.username].firstLogin = false;
+        window.currentUser.password = newPass;
+        window.currentUser.firstLogin = false;
+
+        changePasswordSuccess.textContent = 'Senha alterada com sucesso!';
+        changePasswordSuccess.style.display = 'block';
+
+        setTimeout(() => {
+            closeModal(changePasswordModal);
+            setupAppForUser();
+        }, 1500);
+    }
+
+    function renderProfilePage() {
+        if (!window.currentUser) return;
+
+        profileDisplayName.textContent = window.currentUser.displayName || window.currentUser.username;
+        profileEmail.textContent = window.currentUser.email || 'Não informado';
+        profilePhone.textContent = window.currentUser.phone ? `(${window.currentUser.phone.substring(0,2)}) ${window.currentUser.phone.substring(2,7)}-${window.currentUser.phone.substring(7)}` : 'Não informado';
+        profilePicDisplay.src = window.currentUser.profilePicUrl || 'https://i.imgur.com/8Yd00YF.png';
+
+        editDisplayNameInput.value = window.currentUser.displayName || '';
+        editEmailInput.value = window.currentUser.email || '';
+        editPhoneInput.value = window.currentUser.phone || '';
+        profileFeedback.textContent = '';
+        profileFeedback.style.color = 'black';
+    }
+
+    function handleProfileEdit(event) {
+        event.preventDefault();
+
+        const newDisplayName = editDisplayNameInput.value.trim();
+        const newEmail = editEmailInput.value.trim();
+        const newPhone = editPhoneInput.value.trim();
+        if (!newDisplayName) {
+            profileFeedback.textContent = 'O nome de exibição não pode ser vazio.';
+            profileFeedback.style.color = 'red';
+            return;
+        }
+        if (newEmail && !/\S+@\S+\.\S+/.test(newEmail)) {
+            profileFeedback.textContent = 'Por favor, insira um email válido.';
+            profileFeedback.style.color = 'red';
+            return;
+        }
+        if (newPhone && !/^\d{10,11}$/.test(newPhone)) {
+            profileFeedback.textContent = 'Por favor, insira um número de telefone válido (apenas dígitos, com DDD).';
+            profileFeedback.style.color = 'red';
+            return;
+        }
+
+        window.currentUser.displayName = newDisplayName;
+        window.currentUser.email = newEmail;
+        window.currentUser.phone = newPhone;
+
+        localStorage.setItem(window.currentUser.username + '_profile', JSON.stringify({
+            displayName: window.currentUser.displayName,
+            email: window.currentUser.email,
+            phone: window.currentUser.phone,
+            profilePicUrl: window.currentUser.profilePicUrl
+        }));
+
+        profileFeedback.textContent = 'Perfil atualizado com sucesso!';
+        profileFeedback.style.color = 'green';
+        setupAppForUser();
+        renderProfilePage();
+        setTimeout(() => profileFeedback.textContent = '', 3000);
+    }
+
+    function handleProfilePicUpload() {
+        const file = editProfilePicInput.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const dataUrl = e.target.result;
+                profilePicDisplay.src = dataUrl;
+                profileIcon.src = dataUrl;
+                window.currentUser.profilePicUrl = dataUrl;
+
+                localStorage.setItem(window.currentUser.username + '_profile', JSON.stringify({
+                    displayName: window.currentUser.displayName,
+                    email: window.currentUser.email,
+                    phone: window.currentUser.phone,
+                    profilePicUrl: window.currentUser.profilePicUrl
+                }));
+
+                profileFeedback.textContent = 'Foto de perfil atualizada!';
+                profileFeedback.style.color = 'green';
+                setTimeout(() => profileFeedback.textContent = '', 3000);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            profileFeedback.textContent = 'Nenhuma foto selecionada.';
+            profileFeedback.style.color = 'orange';
+        }
+    }
+
+    async function callGeminiAPI(prompt, title, isProductHelp = false, isGeneralAI = false) { // Removido productSpecs
+        if (!isGeneralAI) {
+            modalTitle.textContent = title;
+            modalBody.innerHTML = '<div class="loader"></div>';
+            openModal(mainModal);
+        } else {
+            openModal(aiChatModal);
+            if (aiLoader) aiLoader.style.display = 'block';
+            aiResponseArea.innerHTML = '';
+            aiResponseArea.style.display = 'none';
+            closeModal(mainModal);
+        }
+
+        // FIXME: Substitua "SUA_CHAVE_DE_API_GEMINI" pela sua chave de API real do Google Gemini.
+        const apiKey = "SUA_CHAVE_DE_API_GEMINI"; // ATENÇÃO: Substitua pela sua chave de API!
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
+
+        if (apiKey === "SUA_CHAVE_DE_API_GEMINI" || apiKey === "") {
+             console.error("ERRO: Chave da API do Gemini não configurada. Por favor, adicione sua chave de API no código JavaScript para que a funcionalidade de IA funcione.");
+             const errorMessage = "<p style='color:red;'>Erro: Chave da API do Gemini não configurada. Por favor, adicione sua chave de API no código JavaScript para que a funcionalidade de IA funcione.</p>";
+             if (isGeneralAI) {
+                 aiResponseArea.innerHTML = errorMessage;
+                 aiResponseArea.style.display = 'block';
+                 if (aiLoader) aiLoader.style.display = 'none';
+             } else {
+                 modalBody.innerHTML = errorMessage;
+             }
+             return;
+         }
+
+        let chatHistory = [];
+        chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+        const payload = { contents: chatHistory };
+
+        try {
+            const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            if (!response.ok) {
+                 const errorData = await response.json();
+                 throw new Error(errorData.error.message || `Erro na API: ${response.statusText}`);
+            }
+            const result = await response.json();
+            if (result.candidates && result.candidates.length > 0 && result.candidates[0].content && result.candidates[0].content.parts) {
+                const text = result.candidates[0].content.parts[0].text;
+                if (isGeneralAI) {
+                    aiResponseArea.innerHTML = text.replace(/\n/g, '<br>');
+                    aiResponseArea.style.display = 'block';
+                    if (aiLoader) aiLoader.style.display = 'none';
+                } else {
+                    modalBody.innerHTML = text.replace(/\n/g, '<br>');
+                }
+            } else { throw new Error("A resposta da API não contém o conteúdo esperado."); }
+        } catch (error) {
+            console.error("Erro ao chamar a API Gemini:", error);
+            if (isGeneralAI) {
+                aiResponseArea.innerHTML = `<p style="color:red;">Ocorreu um erro ao comunicar com a IA. Tente novamente.<br><small>Detalhe: ${error.message}</small></p>`;
+                aiResponseArea.style.display = 'block';
+                if (aiLoader) aiLoader.style.display = 'none';
+            } else {
+                modalBody.innerHTML = `<p style="color:red;">Ocorreu um erro ao comunicar com a IA. Tente novamente.<br><small>Detalhe: ${error.message}</small></p>`;
+            }
+        }
+    }
+
+    function handleLogin() {
+        const username = usernameInput.value;
+        const password = passwordInput.value;
+        const user = USERS[username];
+
+        if (user && user.password === password) {
+            window.currentUser = { ...user, username: username };
+            const storedProfile = localStorage.getItem(username + '_profile');
+            if (storedProfile) {
+                Object.assign(window.currentUser, JSON.parse(storedProfile));
+            }
+
+            loginError.style.display = 'none';
+            closeModal(loginScreen);
+            openModal(appScreen);
+            document.body.classList.remove('visitor-mode-bg');
+            setupAppForUser();
+
+            if (user.firstLogin) {
+                showChangePasswordModal(true);
+            }
+        } else {
+            loginError.textContent = 'Usuário ou senha inválidos.';
+            loginError.style.display = 'block';
+        }
+    }
+
+    function handleVisitorMode() {
+        window.currentUser = { username: 'Visitante', role: 'visitor', isVisitor: true, displayName: 'Visitante', email: '', phone: '', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' };
+        closeModal(loginScreen);
+        openModal(appScreen);
+        document.body.classList.add('visitor-mode-bg');
+        setupAppForUser();
+    }
+
+    function handleLogout() {
+        window.currentUser = null;
+        closeModal(appScreen);
+        openModal(loginScreen);
+        usernameInput.value = '';
+        passwordInput.value = '';
+        loginError.style.display = 'none';
+        document.body.classList.remove('visitor-mode-bg');
+        aiChatButton.style.display = 'none';
+        if (window.tempUserInterval) {
+            clearInterval(window.tempUserInterval);
+        }
+    }
+
+    function setupAppForUser() {
+        const isVisitor = window.currentUser.isVisitor;
+        const isAdmin = window.currentUser.role === 'admin';
+        const isMarketing = window.currentUser.role === 'marketing';
+
+        document.getElementById('welcome-message').textContent = `Olá, ${window.currentUser.displayName || window.currentUser.username}!`;
+        profileIcon.src = window.currentUser.profilePicUrl || 'https://i.imgur.com/8Yd00YF.png';
+
+        productsNavButton.style.display = isVisitor ? 'none' : 'block';
+        calculatorNavButton.style.display = isVisitor ? 'none' : 'block';
+        suppliersNavButton.style.display = isAdmin ? 'block' : 'none';
+        settingsNavButton.style.display = isAdmin ? 'block' : 'none';
+
+        if (manageUsersNavButton) manageUsersNavButton.style.display = (isAdmin && window.currentUser.username === 'mikhaell') ? 'block' : 'none';
+        if (createProductNavButton) createProductNavButton.style.display = isAdmin ? 'block' : 'none';
+        if (editProductNavButton) editProductNavButton.style.display = isAdmin ? 'block' : 'none';
+
+        dronesNavButton.style.display = 'block';
+        infoEmpresaNavButton.style.display = 'block';
+        marketingNavButton.style.display = isMarketing || isAdmin ? 'block' : 'none';
+
+        profileNavButton.classList.remove('hidden');
+        aiChatButton.style.display = 'block';
+
+        if (isVisitor) {
+            switchTab('drones-visitor-section');
+        } else {
+            switchTab('products-section');
+        }
+
+        if (window.currentUser.type === 'temporary' && window.currentUser.expiresAt) {
+            showTemporaryUserWarning();
+        }
+    }
+
+    function closeMobileNav() {
+        if (window.innerWidth <= 768) {
+            navElement.classList.remove('nav-open');
+        }
+    }
+
+    // --- FUNÇÕES DO NOVO MODAL DE ORÇAMENTO ---
+    function openBudgetModal() {
+        // Resetar os campos e a visibilidade
+        document.querySelectorAll('#drone-category-checkboxes input[type="checkbox"]').forEach(cb => cb.checked = false);
+        itemTypeGroup.classList.add('hidden');
+        document.querySelectorAll('#item-type-checkboxes input[type="checkbox"]').forEach(cb => cb.checked = false);
+        equipmentDetailsGroup.classList.add('hidden');
+        equipmentDetailsTextarea.value = '';
+        sparePartsDetailsGroup.classList.add('hidden');
+        sparePartsDetailsTextarea.value = '';
+        budgetSupplierSelectGroup.classList.add('hidden');
+        budgetSupplierCheckboxesContainer.innerHTML = ''; // Limpa os checkboxes de fornecedores
+        selectedSupplierContactDiv.classList.add('hidden');
+        selectedSupplierNameDisplay.textContent = '';
+        sendBudgetWhatsappButton.href = '#';
+        openModal(budgetModal);
+    }
+
+    function closeBudgetModal() {
+        closeModal(budgetModal);
+    }
+
+    function updateSupplierCheckboxes() {
+        const selectedCategories = Array.from(droneCategoryCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
+        const selectedItemTypes = Array.from(itemTypeCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
+
+        let relevantSuppliers = [];
+
+        if (selectedItemTypes.includes('Pecas')) {
+            relevantSuppliers = SUPPLIERS.filter(s => s.categories.includes('Pecas'));
+        } else if (selectedItemTypes.includes('Equipamentos')) {
+            if (selectedCategories.length > 0) {
+                relevantSuppliers = SUPPLIERS.filter(s =>
+                    s.categories.includes('Equipamentos') &&
+                    selectedCategories.some(cat => s.categories.includes(cat))
+                );
+            } else {
+                relevantSuppliers = SUPPLIERS.filter(s => s.categories.includes('Equipamentos'));
+            }
+        }
+
+        budgetSupplierCheckboxesContainer.innerHTML = ''; // Limpa os checkboxes existentes
+        if (relevantSuppliers.length > 0) {
+            relevantSuppliers.forEach(supplier => {
+                // Para cada contato do fornecedor, crie um checkbox
+                supplier.contacts.forEach(contact => {
+                    const label = document.createElement('label');
+                    const uniqueId = `supplier-contact-${supplier.id}-${contact.name.replace(/\s+/g, '-')}`;
+                    label.innerHTML = `
+                        <input type="checkbox" id="${uniqueId}" name="budget-supplier-contact"
+                               value="${supplier.name}"
+                               data-whatsapp="${contact.whatsapp}"
+                               data-contact-name="${contact.name}">
+                        ${supplier.name} (${contact.role}: ${contact.name})
+                    `;
+                    budgetSupplierCheckboxesContainer.appendChild(label);
+                });
+            });
+            budgetSupplierSelectGroup.classList.remove('hidden');
+        } else {
+            budgetSupplierSelectGroup.classList.add('hidden');
+        }
+
+        equipmentDetailsGroup.classList.toggle('hidden', !selectedItemTypes.includes('Equipamentos'));
+        sparePartsDetailsGroup.classList.toggle('hidden', !selectedItemTypes.includes('Pecas'));
+
+        selectedSupplierContactDiv.classList.add('hidden');
+        selectedSupplierNameDisplay.textContent = '';
+    }
+
+
+    function handleBudgetCategoryChange() {
+        itemTypeGroup.classList.remove('hidden');
+        document.querySelectorAll('#item-type-checkboxes input[type="checkbox"]').forEach(cb => cb.checked = false);
+        updateSupplierCheckboxes();
+    }
+
+    function handleBudgetItemTypeChange() {
+        updateSupplierCheckboxes();
+    }
+
+    function handleBudgetSupplierSelection() {
+        const selectedContacts = Array.from(document.querySelectorAll('#budget-supplier-checkboxes input[type="checkbox"]:checked'));
+        if (selectedContacts.length > 0) {
+            // Atualiza o display com o nome do(s) fornecedor(es) selecionado(s)
+            selectedSupplierNameDisplay.textContent = selectedContacts.map(cb => {
+                const supplierName = cb.value;
+                const contactName = cb.dataset.contactName;
+                return `${supplierName} (${contactName})`;
+            }).join('; ');
+            selectedSupplierContactDiv.classList.remove('hidden');
+        } else {
+            selectedSupplierContactDiv.classList.add('hidden');
+            selectedSupplierNameDisplay.textContent = '';
+        }
+    }
+
+
+    function generateBudgetWhatsappMessage() {
+        const selectedCategories = Array.from(droneCategoryCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
+        const selectedItemTypes = Array.from(itemTypeCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
+        const selectedContactsCheckboxes = Array.from(document.querySelectorAll('#budget-supplier-checkboxes input[type="checkbox"]:checked'));
+
+        if (selectedCategories.length === 0) {
+            alert('Por favor, selecione ao menos uma Categoria de Drone.');
+            return;
+        }
+        if (selectedItemTypes.length === 0) {
+            alert('Por favor, selecione ao menos um Tipo de Item (Equipamentos ou Peças).');
+            return;
+        }
+        if (selectedContactsCheckboxes.length === 0) {
+            alert('Por favor, selecione ao menos um Fornecedor/Contato.');
+            return;
+        }
+
+        let details = '';
+        if (selectedItemTypes.includes('Equipamentos')) {
+            details += `*Equipamentos:* ${equipmentDetailsTextarea.value.trim()}\n`;
+        }
+        if (selectedItemTypes.includes('Pecas')) {
+            details += `*Peças:* ${sparePartsDetailsTextarea.value.trim()}\n`;
+        }
+        if (!details.trim()) {
+            alert('Por favor, descreva os itens para o orçamento (Modelos/Quantidades ou Peças).');
+            return;
+        }
+
+        const greeting = getGreeting();
+        const userName = window.currentUser.displayName || window.currentUser.username;
+        const userPhone = window.currentUser.phone ? `(${window.currentUser.phone.substring(0,2)}) ${window.currentUser.phone.substring(2,7)}-${window.currentUser.phone.substring(7)}` : 'Não informado';
+        const userEmail = window.currentUser.email || 'Não informado';
+
+        selectedContactsCheckboxes.forEach(checkbox => {
+            const supplierWhatsapp = checkbox.dataset.whatsapp;
+            const contactName = checkbox.dataset.contactName;
+            const supplierCompanyName = checkbox.value; // Nome da empresa do fornecedor
+
+            if (supplierWhatsapp && supplierWhatsapp !== 'EM_BREVE') {
+                let message = `${greeting}, ${contactName} da ${supplierCompanyName}!\n\n`; // Saudação personalizada
+                message += `Sou o(a) *${userName}* da Galvão Drones e gostaria de solicitar um orçamento para:\n\n`;
+                message += `*Categorias de Drone:* ${selectedCategories.join(', ')}\n`;
+                message += `*Tipos de Item:* ${selectedItemTypes.join(', ')}\n\n`;
+                message += `*Detalhes da solicitação:*\n${details}\n\n`;
+                message += `Aguardamos o retorno. Obrigado(a)!\n\n`;
+                message += `*Meus Contatos:*\nCelular: ${userPhone}\nEmail: ${userEmail}`;
+
+                const encodedMessage = encodeURIComponent(message);
+                window.open(`https://wa.me/${supplierWhatsapp}?text=${encodedMessage}`, '_blank');
+            } else {
+                console.warn(`Número de WhatsApp não encontrado ou não disponível para o contato: ${contactName} (${supplierCompanyName})`);
+                alert(`O WhatsApp para "${contactName} (${supplierCompanyName})" não está disponível ou está como "em breve".`);
+            }
+        });
+
+        closeBudgetModal();
+    }
+
+    // --- FUNÇÕES DE CRIAÇÃO/EDIÇÃO DE FORNECEDORES ---
+    function generateNewSupplierId() {
+        if (SUPPLIERS.length === 0) return 1;
+        const maxId = Math.max(...SUPPLIERS.map(s => s.id));
+        return maxId + 1;
+    }
+
+    function addContactField(contact = {}) {
+        const index = supplierContactsContainer.children.length; // Usar o número atual de filhos como índice
+        const contactDiv = document.createElement('div');
+        contactDiv.className = 'contact-entry';
+        contactDiv.innerHTML = `
+            <button type="button" class="remove-contact-button">×</button>
+            <div class="input-group">
+                <label for="contact-name-${index}">Nome do Contato</label>
+                <input type="text" id="contact-name-${index}" value="${contact.name || ''}" required>
+            </div>
+            <div class="input-group">
+                <label for="contact-role-${index}">Cargo</label>
+                <input type="text" id="contact-role-${index}" value="${contact.role || ''}" required>
+            </div>
+            <div class="input-group">
+                <label for="contact-whatsapp-${index}">WhatsApp/Celular</label>
+                <input type="text" id="contact-whatsapp-${index}" value="${contact.whatsapp || ''}" placeholder="Ex: 5562981234567" required>
+            </div>
+            <div class="input-group">
+                <label for="contact-email-${index}">E-mail</label>
+                <input type="email" id="contact-email-${index}" value="${contact.email || ''}">
+            </div>
+            <div class="input-group">
+                <label for="contact-department-${index}">Departamento</label>
+                <input type="text" id="contact-department-${index}" value="${contact.department || ''}">
+            </div>
+            <div class="input-group">
+                <label for="contact-branch-${index}">Filial/Matriz</label>
+                <input type="text" id="contact-branch-${index}" value="${contact.branch || ''}">
+            </div>
+        `;
+        contactDiv.querySelector('.remove-contact-button').addEventListener('click', () => {
+            contactDiv.remove();
+        });
+        supplierContactsContainer.appendChild(contactDiv);
+    }
+
+    function openCreateSupplierModal() {
+        manageSupplierModalTitle.textContent = 'Criar Novo Fornecedor';
+        supplierIdToEditInput.value = ''; // Limpa o ID para indicar criação
+        manageSupplierForm.reset();
+        supplierContactsContainer.innerHTML = ''; // Limpa contatos anteriores
+        addContactField(); // Adiciona um campo de contato vazio por padrão
+        manageSupplierFeedback.textContent = '';
+        openModal(manageSupplierModal);
+    }
+
+    function openEditSupplierSearchModal() {
+        editSupplierSearchInputModal.value = '';
+        editSupplierSearchResultsModal.innerHTML = '';
+        openModal(editSupplierSearchModal);
+    }
+
+    function handleSearchSupplierToEdit() {
+        const searchTerm = editSupplierSearchInputModal.value.trim().toLowerCase();
+        editSupplierSearchResultsModal.innerHTML = '';
+
+        if (!searchTerm) {
+            editSupplierSearchResultsModal.innerHTML = '<p style="color:orange;">Por favor, digite o nome do fornecedor para pesquisar.</p>';
+            return;
+        }
+
+        const foundSuppliers = SUPPLIERS.filter(s => s.name.toLowerCase().includes(searchTerm));
+
+        if (foundSuppliers.length > 0) {
+            const ul = document.createElement('ul');
+            ul.style.listStyle = 'none';
+            ul.style.padding = '0';
+            foundSuppliers.forEach(supplier => {
+                const li = document.createElement('li');
+                li.style.padding = '8px';
+                li.style.borderBottom = '1px solid #eee';
+                li.style.cursor = 'pointer';
+                li.textContent = supplier.name;
+                li.addEventListener('click', () => loadSupplierForEdit(supplier.id));
+                ul.appendChild(li);
+            });
+            editSupplierSearchResultsModal.appendChild(ul);
+        } else {
+            editSupplierSearchResultsModal.innerHTML = '<p style="color:orange;">Nenhum fornecedor encontrado.</p>';
+        }
+    }
+
+    function loadSupplierForEdit(supplierId) {
+        const supplier = SUPPLIERS.find(s => s.id === supplierId);
+        if (!supplier) {
+            alert('Fornecedor não encontrado!');
+            return;
+        }
+
+        closeModal(editSupplierSearchModal);
+        manageSupplierModalTitle.textContent = `Alterar Fornecedor: ${supplier.name}`;
+        supplierIdToEditInput.value = supplier.id;
+
+        supplierNameInput.value = supplier.name;
+        supplierDetailsTextarea.value = supplier.details;
+        supplierPaymentTextarea.value = supplier.payment;
+        supplierProductsInput.value = supplier.products;
+
+        // Limpa e preenche checkboxes de categorias
+        document.querySelectorAll('#manage-supplier-modal input[name="supplier-category"]').forEach(cb => {
+            cb.checked = supplier.categories.includes(cb.value);
+        });
+
+        // Limpa e preenche contatos
+        supplierContactsContainer.innerHTML = '';
+        supplier.contacts.forEach(contact => addContactField(contact));
+        if (supplier.contacts.length === 0) { // Garante pelo menos um campo vazio se não houver contatos
+            addContactField();
+        }
+
+        manageSupplierFeedback.textContent = '';
+        openModal(manageSupplierModal);
+    }
+
+    function handleSaveSupplier(event) {
+        event.preventDefault();
+
+        const id = supplierIdToEditInput.value ? parseInt(supplierIdToEditInput.value) : generateNewSupplierId();
+        const name = supplierNameInput.value.trim();
+        const details = supplierDetailsTextarea.value.trim();
+        const payment = supplierPaymentTextarea.value.trim();
+        const products = supplierProductsInput.value.trim();
+        const categories = Array.from(document.querySelectorAll('#manage-supplier-modal input[name="supplier-category"]:checked')).map(cb => cb.value);
+
+        const contacts = [];
+        const contactEntries = supplierContactsContainer.querySelectorAll('.contact-entry');
+        let isValidContacts = true;
+        contactEntries.forEach((entry, index) => {
+            const contactName = entry.querySelector(`#contact-name-${index}`).value.trim();
+            const contactRole = entry.querySelector(`#contact-role-${index}`).value.trim();
+            const contactWhatsapp = entry.querySelector(`#contact-whatsapp-${index}`).value.trim();
+            const contactEmail = entry.querySelector(`#contact-email-${index}`).value.trim();
+            const contactDepartment = entry.querySelector(`#contact-department-${index}`).value.trim();
+            const contactBranch = entry.querySelector(`#contact-branch-${index}`).value.trim();
+
+            if (!contactName || !contactRole || !contactWhatsapp) {
+                isValidContacts = false;
+                return;
+            }
+            contacts.push({
+                name: contactName,
+                role: contactRole,
+                whatsapp: contactWhatsapp,
+                email: contactEmail,
+                department: contactDepartment,
+                branch: contactBranch
+            });
+        });
+
+        if (!name || categories.length === 0 || !isValidContacts || contacts.length === 0) {
+            manageSupplierFeedback.textContent = 'Por favor, preencha todos os campos obrigatórios (Nome, Cargo, WhatsApp/Celular e ao menos uma Categoria de Fornecedor).';
+            manageSupplierFeedback.style.color = 'red';
+            return;
+        }
+
+        const newSupplierData = {
+            id,
+            name,
+            details,
+            payment,
+            products,
+            categories,
+            contacts
+        };
+
+        const existingIndex = SUPPLIERS.findIndex(s => s.id === id);
+        if (existingIndex > -1) {
+            SUPPLIERS[existingIndex] = newSupplierData;
+            manageSupplierFeedback.textContent = `Fornecedor "${name}" atualizado com sucesso!`;
+        } else {
+            // Gerar um ID novo para o fornecedor
+            let newSupplierId = 1;
+            if (SUPPLIERS.length > 0) {
+                newSupplierId = Math.max(...SUPPLIERS.map(s => s.id)) + 1;
+            }
+            newSupplierData.id = newSupplierId;
+            SUPPLIERS.push(newSupplierData);
+            manageSupplierFeedback.textContent = `Fornecedor "${name}" criado com sucesso!`;
+        }
+        manageSupplierFeedback.style.color = 'green';
+
+        showSuppliers(); // Atualiza a lista de fornecedores na tela principal
+        setTimeout(() => closeModal(manageSupplierModal), 1500);
+    }
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Atribuição de elementos DOM a variáveis globais
+        loginScreen = document.getElementById('login-screen');
+        appScreen = document.getElementById('app-screen');
+        loginButton = document.getElementById('login-button');
+        logoutButton = document.getElementById('logout-button');
+        usernameInput = document.getElementById('username');
+        passwordInput = document.getElementById('password');
+        loginError = document.getElementById('login-error');
+        visitorModeButton = document.getElementById('visitor-mode-button');
+
+        navButtons = document.querySelectorAll('.nav-button');
+        contentSections = document.querySelectorAll('.content-section');
+        productsNavButton = document.getElementById('products-nav-button');
+        calculatorNavButton = document.getElementById('calculator-nav-button');
+        suppliersNavButton = document.getElementById('suppliers-nav-button');
+        settingsNavButton = document.getElementById('settings-nav-button');
+        dronesNavButton = document.getElementById('drones-nav-button');
+        infoEmpresaNavButton = document.getElementById('info-empresa-nav-button');
+        marketingNavButton = document.getElementById('marketing-nav-button');
+        profileNavButton = document.getElementById('profile-nav-button');
+
+        settingsSubNav = document.getElementById('settings-sub-nav');
+        manageUsersNavButton = document.getElementById('manage-users-nav-button');
+        createProductNavButton = document.getElementById('create-product-nav-button');
+        editProductNavButton = document.getElementById('edit-product-nav-button');
+
+        productList = document.getElementById('product-list');
+        supplierList = document.getElementById('supplier-list');
+        productSearchInput = document.getElementById('product-search');
+        droneVisitorList = document.getElementById('drone-visitor-list');
+        droneVisitorSearchInput = document.getElementById('drone-visitor-search');
+
+        mainModal = document.getElementById('main-modal');
+        modalTitle = document.getElementById('modal-title');
+        modalBody = document.getElementById('modal-body');
+        closeModalButton = document.querySelector('#main-modal .close-button');
+
+        createTempUserForm = document.getElementById('create-temp-user-form');
+        tempUserFeedback = document.getElementById('temp-user-feedback');
+        tempUserListContainer = document.getElementById('temp-user-list');
+        createProductForm = document.getElementById('create-product-form');
+        createProductFeedback = document.getElementById('create-product-feedback');
+        editProductSearchInput = document.getElementById('edit-product-search-input');
+        searchProductToEditButton = document.getElementById('search-product-to-edit');
+        editProductSearchResults = document.getElementById('edit-product-search-results');
+        editProductDisplay = document.getElementById('edit-product-display');
+        editProductForm = document.getElementById('edit-product-form');
+        editProductIdInput = document.getElementById('edit-product-id');
+        editProductNameInput = document.getElementById('edit-product-name');
+        editProductSpecTextarea = document.getElementById('edit-product-spec');
+        editProductSalePriceInput = document.getElementById('edit-product-sale-price');
+        editProductCostPriceInput = document.getElementById('edit-product-cost-price');
+        editProductSupplierInput = document.getElementById('edit-product-supplier');
+        editProductFeedback = document.getElementById('edit-product-feedback');
+
+        mainContent = document.getElementById('main-content');
+        scrollToTopButton = document.getElementById('scroll-to-top');
+
+        generalCalcValorBase = document.getElementById('general-valor-base');
+        generalCalcPaymentRadios = document.querySelectorAll('input[name="general-payment-method"]');
+        generalCalcInstallmentsContainer = document.getElementById('general-installments-container');
+        generalCalcParcelasSelect = document.getElementById('general-parcelas');
+        generalCalculateButton = document.getElementById('general-calculate-button');
+        generalCalculatorResult = document.getElementById('general-calculator-result');
+        generalDiscountOption = document.getElementById('general-discount-option');
+        generalDiscountPercentageInput = document.getElementById('general-discount-percentage');
+
+        navToggleButton = document.getElementById('nav-toggle-btn');
+        navToggleButtonClose = document.getElementById('nav-toggle-btn-close');
+        navElement = document.querySelector('nav');
+        appBody = document.querySelector('.app-body');
+        headerElement = document.querySelector('header');
+        bodyElement = document.body;
+
+        aiChatButton = document.getElementById('ai-chat-button');
+        aiChatModal = document.getElementById('ai-chat-modal');
+        aiChatCloseButton = document.querySelector('#ai-chat-modal .close-button');
+        aiQuestionInput = document.getElementById('ai-question-input');
+        submitAiQuestionButton = document.getElementById('submit-ai-question');
+        aiResponseArea = document.getElementById('ai-response-area');
+        aiLoader = document.querySelector('#ai-chat-modal .loader');
+
+        supplierPasswordModal = document.getElementById('supplier-password-modal');
+        supplierAccessPasswordInput = document.getElementById('supplier-access-password');
+        submitSupplierPasswordButton = document.getElementById('submit-supplier-password');
+        supplierPasswordError = document.getElementById('supplier-password-error');
+        supplierPasswordCloseButton = document.getElementById('supplier-password-close-button');
+
+        changePasswordModal = document.getElementById('change-password-modal');
+        changePasswordModalTitle = document.getElementById('change-password-modal-title');
+        changePasswordMessage = document.getElementById('change-password-message');
+        newPasswordInput = document.getElementById('new-password');
+        confirmNewPasswordInput = document.getElementById('confirm-new-password');
+        submitChangePasswordButton = document.getElementById('submit-change-password');
+        changePasswordError = document.getElementById('change-password-error');
+        changePasswordSuccess = document.getElementById('change-password-success');
+        changePasswordCloseButton = document.getElementById('change-password-close-button');
+        openChangePasswordModalButton = document.getElementById('open-change-password-modal');
+
+
+        profileIconContainer = document.getElementById('profile-icon-container');
+        profileIcon = document.getElementById('profile-icon');
+
+        profileSection = document.getElementById('profile-section');
+        profileDisplayName = document.getElementById('profile-display-name');
+        profileEmail = document.getElementById('profile-email');
+        profilePhone = document.getElementById('profile-phone');
+        profilePicDisplay = document.getElementById('profile-pic-display');
+        editDisplayNameInput = document.getElementById('edit-display-name');
+        editEmailInput = document.getElementById('edit-email');
+        editPhoneInput = document.getElementById('edit-phone');
+        editProfilePicInput = document.getElementById('edit-profile-pic');
+        uploadProfilePicButton = document.getElementById('upload-profile-pic-button');
+        profileEditForm = document.getElementById('profile-edit-form');
+        profileFeedback = document.getElementById('profile-feedback');
+
+        companyPhoneSpan = document.getElementById('company-phone');
+        companyWhatsappLink = document.getElementById('company-whatsapp-link');
+
+        whatsappModal = document.getElementById('whatsapp-modal');
+        whatsappCloseButton = document.getElementById('whatsapp-close-button');
+        whatsappMessageInput = document.getElementById('whatsapp-message-input');
+        includeDisplayNameCheckbox = document.getElementById('include-display-name');
+        whatsappDisplayNamePreview = document.getElementById('whatsapp-display-name-preview');
+        includeEmailCheckbox = document.getElementById('include-email');
+        whatsappEmailPreview = document.getElementById('whatsapp-email-preview');
+        includePhoneCheckbox = document.getElementById('include-phone');
+        whatsappPhonePreview = document.getElementById('whatsapp-phone-preview');
+        sendWhatsappButton = document.getElementById('send-whatsapp-button');
+        cancelWhatsappButton = document.getElementById('cancel-whatsapp-button');
+
+        // Novas atribuições de elementos para o modal de orçamento
+        openBudgetModalButton = document.getElementById('open-budget-modal-button');
+        budgetModal = document.getElementById('budget-modal');
+        budgetCloseButton = document.getElementById('budget-close-button');
+        droneCategoryCheckboxes = document.querySelectorAll('input[name="drone-category"]');
+        itemTypeGroup = document.getElementById('item-type-group');
+        itemTypeCheckboxes = document.querySelectorAll('input[name="item-type"]');
+        equipmentDetailsGroup = document.getElementById('equipment-details-group');
+        equipmentDetailsTextarea = document.getElementById('equipment-details');
+        sparePartsDetailsGroup = document.getElementById('spare-parts-details-group');
+        sparePartsDetailsTextarea = document.getElementById('spare-parts-details');
+        budgetSupplierSelectGroup = document.getElementById('supplier-select-group');
+        budgetSupplierCheckboxesContainer = document.getElementById('budget-supplier-checkboxes');
+        selectedSupplierContactDiv = document.getElementById('selected-supplier-contact');
+        selectedSupplierNameDisplay = document.getElementById('selected-supplier-name-display');
+        sendBudgetWhatsappButton = document.getElementById('send-budget-whatsapp');
+
+        // Elementos para gestão de fornecedores
+        openCreateSupplierModalButton = document.getElementById('open-create-supplier-modal-button');
+        openEditSupplierSearchModalButton = document.getElementById('open-edit-supplier-search-modal-button');
+        manageSupplierModal = document.getElementById('manage-supplier-modal');
+        manageSupplierCloseButton = document.getElementById('manage-supplier-close-button');
+        manageSupplierModalTitle = document.getElementById('manage-supplier-modal-title');
+        manageSupplierForm = document.getElementById('manage-supplier-form');
+        supplierIdToEditInput = document.getElementById('supplier-id-to-edit');
+        supplierNameInput = document.getElementById('supplier-name');
+        supplierDetailsTextarea = document.getElementById('supplier-details');
+        supplierPaymentTextarea = document.getElementById('supplier-payment');
+        supplierProductsInput = document.getElementById('supplier-products');
+        supplierCategoryCheckboxes = document.querySelectorAll('#manage-supplier-modal input[name="supplier-category"]');
+        supplierContactsContainer = document.getElementById('supplier-contacts-container');
+        addSupplierContactButton = document.getElementById('add-supplier-contact-button');
+        saveSupplierButton = document.getElementById('save-supplier-button');
+        manageSupplierFeedback = document.getElementById('manage-supplier-feedback');
+        editSupplierSearchModal = document.getElementById('edit-supplier-search-modal');
+        editSupplierSearchInputModal = document.getElementById('edit-supplier-search-input-modal');
+        searchSupplierToEditModalButton = document.getElementById('search-supplier-to-edit-modal-button');
+        editSupplierSearchResultsModal = document.getElementById('edit-supplier-search-results-modal');
+
+        // Novos elementos para o modal de filtro/ordenação
+        openProductFilterSortModalButton = document.getElementById('open-product-filter-sort-modal');
+        openSupplierFilterSortModalButton = document.getElementById('open-supplier-filter-sort-modal');
+        filterSortModal = document.getElementById('filter-sort-modal');
+        filterSortCloseButton = document.getElementById('filter-sort-close-button');
+        filterSortModalTitle = document.getElementById('filter-sort-modal-title');
+        filterSortSearchInput = document.getElementById('filter-sort-search-input');
+        filterSortOrderButtons = document.getElementById('filter-sort-order-buttons');
+        filterSortCategoryButtons = document.getElementById('filter-sort-category-buttons');
+        applyFilterSortButton = document.getElementById('apply-filter-sort-button');
+
+
+        // --- EVENT LISTENERS ---
+        if(loginButton) loginButton.addEventListener('click', handleLogin);
+        if(visitorModeButton) visitorModeButton.addEventListener('click', handleVisitorMode);
+        if (passwordInput) {
+            passwordInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleLogin(); });
+        }
+        if(logoutButton) logoutButton.addEventListener('click', handleLogout);
+
+        if(profileIconContainer) profileIconContainer.addEventListener('click', () => {
+            if (window.currentUser && !window.currentUser.isVisitor) {
+                switchTab('profile-section');
+                closeMobileNav();
+            } else {
+                alert('Acesso ao perfil restrito. Faça login para gerenciar suas informações.');
+            }
+        });
+
+        if(mainContent) mainContent.addEventListener('click', (e) => {
+            const target = e.target;
+            const productCard = target.closest('.product-card');
+            const supplierCard = target.closest('.supplier-card'); // Captura o card do fornecedor
+
+            if (target.classList.contains('supplier-name-link')) {
+                e.preventDefault();
+                const supplierName = target.dataset.supplierName;
+                if (window.currentUser && window.currentUser.role === 'admin') {
+                    navigateToSupplierSection(supplierName);
+                }
+                return;
+            }
+
+            // Adiciona evento para o botão de Alterar no card do fornecedor
+            if (target.classList.contains('edit-supplier-button') && supplierCard) {
+                const supplierId = parseInt(supplierCard.dataset.supplierId);
+                loadSupplierForEdit(supplierId);
+                return; // Impede que o clique se propague para outros listeners
+            }
+
+            if (window.currentUser && window.currentUser.isVisitor && target.classList.contains('help-product-visitor-btn')) {
+                const productName = target.dataset.productName;
+                const productSpec = target.dataset.productSpec;
+                handleVisitorProductHelp(productName, productSpec);
+                return;
+            }
+
+            if (window.currentUser && window.currentUser.isVisitor && productCard) {
+                if (target.closest('.action-buttons-container') || target.closest('.calculator-container')) {
+                    return;
+                }
+            }
+
+            if (productCard) {
+                const productId = parseInt(productCard.dataset.productId);
+                const product = PRODUCTS.find(p => p.id === productId);
+                if (!product) return;
+
+                if (target.classList.contains('desc-button')) {
+                    const title = `Descrição para: ${product.name}`;
+                    const prompt = `R2D2: Gere uma descrição de venda curta e apelativa para o produto "${product.name}", focando nos benefícios e usando as especificações: ${product.spec}. Não inclua o preço.`;
+                    callGeminiAPI(prompt, title);
+                } else if (target.classList.contains('args-button')) {
+                    const title = `Argumentos para: ${product.name}`;
+                    const prompt = `R2D2: Liste 3 a 4 argumentos de venda concisos para o produto "${product.name}", explicando brevemente por que cada um é importante para o cliente, com base nas especificações: ${product.spec}.`;
+                    callGeminiAPI(prompt, title);
+                } else if (target.classList.contains('whatsapp-button')) {
+                    openWhatsAppModal(product);
+                } else if (target.classList.contains('help-button')) {
+                    handleCustomerHelp(product);
+                } else if (target.classList.contains('calculate-product-btn')) {
+                    const resultContainer = productCard.querySelector('.product-calculator-result');
+                    const paymentMethod = productCard.querySelector(`input[name="payment-method-${productId}"]:checked`).value;
+                    const numInstallmentsSelect = productCard.querySelector(`#parcelas-${product.id}`);
+                    const numInstallments = numInstallmentsSelect ? numInstallmentsSelect.value : 1;
+
+                    let discountPercentage = 0;
+                    const discountInput = productCard.querySelector(`#discount-percentage-${product.id}`);
+
+                    if (window.currentUser.role === 'admin' && paymentMethod === 'vista' && discountInput) {
+                        discountPercentage = parseFloat(discountInput.value);
+                    }
+
+                    resultContainer.innerHTML = calculate(product.salePrice, numInstallments, paymentMethod, discountPercentage);
+                }
+            }
+        });
+
+        if(mainContent) mainContent.addEventListener('change', (e) => {
+            if (e.target.matches('input[name^="payment-method-"]')) {
+                const card = e.target.closest('.product-card');
+                const installmentsDiv = card.querySelector('.installments-container');
+                const discountOptionDiv = card.querySelector('.discount-option');
+
+                installmentsDiv.classList.toggle('hidden', e.target.value !== 'parcelado');
+
+                if (discountOptionDiv) {
+                    if (window.currentUser.role === 'admin' && e.target.value === 'vista') {
+                        discountOptionDiv.classList.remove('hidden');
+                    } else {
+                        discountOptionDiv.classList.add('hidden');
+                    }
+                }
+            } else if (e.target.matches('input[name="general-payment-method"]')) {
+                generalCalcInstallmentsContainer.classList.toggle('hidden', e.target.value !== 'parcelado');
+                if (generalDiscountOption) {
+                    if (window.currentUser.role === 'admin' && e.target.value === 'vista') {
+                        generalDiscountOption.classList.remove('hidden');
+                    } else {
+                        generalDiscountOption.classList.add('hidden');
+                    }
+                }
+            }
+        });
+
+        document.querySelectorAll('nav button').forEach(button => {
+            button.addEventListener('click', () => {
+                const sectionId = button.dataset.section;
+
+                if (button.id === 'settings-nav-button') {
+                    if (window.currentUser && window.currentUser.role === 'admin') {
+                        const isSubNavVisible = settingsSubNav.style.display === 'block';
+                        settingsSubNav.style.display = isSubNavVisible ? 'none' : 'block';
+                        settingsNavButton.classList.toggle('active', !isSubNavVisible);
+                        if (!isSubNavVisible) {
+                            switchTab('settings-section');
+                        }
+                    } else {
+                        alert('Esta seção está restrita ao perfil de administrador.');
+                    }
+                    return;
+                }
+
+                switchTab(sectionId);
+            });
+        });
+
+        if(closeModalButton) closeModalButton.addEventListener('click', () => closeModal(mainModal));
+
+        window.addEventListener('click', (event) => {
+            if (event.target.classList.contains('modal')) {
+                // Fechar o modal clicado, não todos
+                if (event.target.id === 'main-modal') closeModal(mainModal);
+                if (event.target.id === 'ai-chat-modal') closeModal(aiChatModal);
+                if (event.target.id === 'supplier-password-modal') {
+                    closeModal(supplierPasswordModal);
+                    // Se o modal de senha for fechado sem sucesso, volta para a aba de produtos
+                    if (window.activeSectionId === 'suppliers-section' && !window.pendingSupplierSectionAccess) {
+                        switchTab('products-section');
+                    }
+                }
+                if (event.target.id === 'change-password-modal') closeModal(changePasswordModal);
+                if (event.target.id === 'whatsapp-modal') closeModal(whatsappModal);
+                if (event.target.id === 'budget-modal') closeModal(budgetModal);
+                if (event.target.id === 'manage-supplier-modal') closeModal(manageSupplierModal);
+                if (event.target.id === 'edit-supplier-search-modal') closeModal(editSupplierSearchModal);
+                if (event.target.id === 'filter-sort-modal') closeModal(filterSortModal); // Fechar o novo modal de filtro
+            }
+        });
+
+
+        if(searchProductToEditButton) searchProductToEditButton.addEventListener('click', handleSearchProductToEdit);
+
+        // Remove o event listener direto da barra de pesquisa principal
+        // if(productSearchInput) productSearchInput.addEventListener('input', (e) => renderProducts(e.target.value));
+        if(droneVisitorSearchInput) droneVisitorSearchInput.addEventListener('input', (e) => renderDroneVisitorList(e.target.value));
+
+        if(createTempUserForm) createTempUserForm.addEventListener('submit', createTemporaryUser);
+        if(createProductForm) createProductForm.addEventListener('submit', handleCreateProduct);
+        if(editProductForm) editProductForm.addEventListener('submit', handleEditProduct);
+
+        if(profileEditForm) profileEditForm.addEventListener('submit', handleProfileEdit);
+        if(uploadProfilePicButton) uploadProfilePicButton.addEventListener('click', handleProfilePicUpload);
+        if(openChangePasswordModalButton) openChangePasswordModalButton.addEventListener('click', () => showChangePasswordModal(false));
+
+
+        if(mainContent) mainContent.addEventListener('scroll', handleScroll);
+        if(scrollToTopButton) scrollToTopButton.addEventListener('click', scrollTop);
+
+        if(generalCalculateButton) generalCalculateButton.addEventListener('click', () => {
+            const baseValue = generalCalcValorBase.value;
+            const paymentMethod = document.querySelector('input[name="general-payment-method"]:checked').value;
+            const numInstallments = generalCalcParcelasSelect.value;
+
+            let discountPercentage = 0;
+            if (window.currentUser && window.currentUser.role === 'admin' && paymentMethod === 'vista' && generalDiscountPercentageInput) {
+                discountPercentage = parseFloat(generalDiscountPercentageInput.value);
+            }
+
+            generalCalculatorResult.innerHTML = calculate(baseValue, numInstallments, paymentMethod, discountPercentage);
+        });
+
+        if(generalCalcPaymentRadios) generalCalcPaymentRadios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                generalCalcInstallmentsContainer.classList.toggle('hidden', e.target.value !== 'parcelado');
+                if (generalDiscountOption) {
+                    if (window.currentUser.role === 'admin' && e.target.value === 'vista') {
+                        generalDiscountOption.classList.remove('hidden');
+                    } else {
+                        generalDiscountOption.classList.add('hidden');
+                    }
+                }
+            });
+        });
+
+        if(navToggleButton) navToggleButton.addEventListener('click', () => {
+            navElement.classList.toggle('nav-open');
+        });
+
+        if(navToggleButtonClose) navToggleButtonClose.addEventListener('click', () => {
+            closeMobileNav();
+        });
+
+        if(aiChatButton) aiChatButton.addEventListener('click', () => {
+            openModal(aiChatModal);
+            aiQuestionInput.value = '';
+            aiResponseArea.innerHTML = '';
+            aiResponseArea.style.display = 'none';
+            if (aiLoader) aiLoader.style.display = 'none';
+        });
+
+        if(aiChatCloseButton) aiChatCloseButton.addEventListener('click', () => closeModal(aiChatModal));
+
+        if(submitAiQuestionButton) submitAiQuestionButton.addEventListener('click', () => {
+            const question = aiQuestionInput.value.trim();
+            if (question) {
+                callGeminiAPI(question, "Resposta da IA", false, true);
+            }
+        });
+
+        if(submitSupplierPasswordButton) submitSupplierPasswordButton.addEventListener('click', () => {
+            const enteredPassword = supplierAccessPasswordInput.value.trim();
+            if (enteredPassword === CONFIDENTIAL_CODE) {
+                closeModal(supplierPasswordModal);
+                window.pendingSupplierSectionAccess = true;
+                switchTab('suppliers-section');
+            } else {
+                supplierPasswordError.textContent = 'Senha incorreta.';
+                supplierPasswordError.style.display = 'block';
+                supplierAccessPasswordInput.value = '';
+            }
+        });
+
+        if(supplierAccessPasswordInput) supplierAccessPasswordInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                submitSupplierPasswordButton.click();
+            }
+        });
+
+        if(supplierPasswordCloseButton) supplierPasswordCloseButton.addEventListener('click', () => {
+            closeModal(supplierPasswordModal);
+            window.pendingSupplierSectionAccess = false;
+            if (window.activeSectionId === 'suppliers-section') {
+                switchTab('products-section');
+            }
+        });
+
+        if(submitChangePasswordButton) submitChangePasswordButton.addEventListener('click', handleChangePassword);
+        if(newPasswordInput) newPasswordInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleChangePassword(); });
+        if(confirmNewPasswordInput) confirmNewPasswordInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleChangePassword(); });
+
+        if(changePasswordCloseButton) changePasswordCloseButton.addEventListener('click', () => {
+            if (window.currentUser && window.currentUser.firstLogin && changePasswordModal.style.display === 'block') {
+                alert('A alteração de senha é obrigatória para o primeiro acesso. Por favor, defina sua nova senha.');
+            } else {
+                closeModal(changePasswordModal);
+            }
+        });
+
+        if(sendWhatsappButton) sendWhatsappButton.addEventListener('click', sendWhatsAppMessage);
+        if(cancelWhatsappButton) cancelWhatsappButton.addEventListener('click', closeWhatsAppModal);
+        if(whatsappCloseButton) whatsappCloseButton.addEventListener('click', closeWhatsAppModal);
+
+
+        // --- EVENT LISTENERS para o Novo Modal de Orçamento ---
+        if (openBudgetModalButton) openBudgetModalButton.addEventListener('click', openBudgetModal);
+        if (budgetCloseButton) budgetCloseButton.addEventListener('click', closeBudgetModal);
+
+        droneCategoryCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', handleBudgetCategoryChange);
+        });
+        itemTypeCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', handleBudgetItemTypeChange);
+        });
+
+        if (budgetSupplierCheckboxesContainer) {
+            budgetSupplierCheckboxesContainer.addEventListener('change', handleBudgetSupplierSelection);
+        }
+
+        if (sendBudgetWhatsappButton) sendBudgetWhatsappButton.addEventListener('click', generateBudgetWhatsappMessage);
+
+        // --- EVENT LISTENERS para Gestão de Fornecedores ---
+        if (openCreateSupplierModalButton) openCreateSupplierModalButton.addEventListener('click', openCreateSupplierModal);
+        if (manageSupplierCloseButton) manageSupplierCloseButton.addEventListener('click', () => closeModal(manageSupplierModal));
+        if (addSupplierContactButton) addSupplierContactButton.addEventListener('click', () => addContactField());
+        if (manageSupplierForm) manageSupplierForm.addEventListener('submit', handleSaveSupplier);
+        if (openEditSupplierSearchModalButton) openEditSupplierSearchModalButton.addEventListener('click', openEditSupplierSearchModal);
+        if (editSupplierSearchCloseButton) editSupplierSearchCloseButton.addEventListener('click', () => closeModal(editSupplierSearchModal));
+        if (searchSupplierToEditModalButton) searchSupplierToEditModalButton.addEventListener('click', handleSearchSupplierToEdit);
+
+        // Adiciona listener para cliques nos botões "Alterar" dos cards de fornecedor
+        if (supplierList) {
+            supplierList.addEventListener('click', (e) => {
+                if (e.target.classList.contains('edit-supplier-button')) {
+                    const supplierId = parseInt(e.target.dataset.supplierId);
+                    loadSupplierForEdit(supplierId);
+                }
+            });
+        }
+
+        // Adiciona listener para a busca dentro do modal de edição de fornecedor
+        if (editSupplierSearchInputModal) {
+            editSupplierSearchInputModal.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    handleSearchSupplierToEdit();
+                }
+            });
+        }
+
+        // --- Novas Funções e Event Listeners para o Modal de Filtro/Ordenação ---
+
+        const productCategories = ['Consumer', 'Enterprise', 'Agriculture', 'Acessorios', 'Baterias'];
+        const supplierCategories = ['Consumer', 'Enterprise', 'Agriculture', 'Pecas', 'Equipamentos'];
+
+        // Função para abrir o modal de filtro e preencher com as opções corretas
+        function openFilterSortModal(type) { // 'product' ou 'supplier'
+            filterSortModal.dataset.filterType = type;
+            filterSortModalTitle.textContent = `Filtros e Ordenação de ${type === 'product' ? 'Produtos' : 'Fornecedores'}`;
+
+            filterSortSearchInput.value = type === 'product' ? currentProductFilter.searchTerm : currentSupplierFilter.searchTerm;
+
+            filterSortOrderButtons.innerHTML = '';
+            filterSortCategoryButtons.innerHTML = '';
+
+            const orderOptions = [
+                { text: 'Preço ↑', value: 'price-asc', type: 'product' },
+                { text: 'Preço ↓', value: 'price-desc', type: 'product' },
+                { text: 'A-Z ↑', value: 'alpha-asc', type: 'both' },
+                { text: 'Z-A ↓', value: 'alpha-desc', type: 'both' },
+                { text: 'Mais Recentes', value: 'recent', type: 'product' }
+            ];
+
+            orderOptions.forEach(option => {
+                if (option.type === type || option.type === 'both') {
+                    const button = document.createElement('button');
+                    button.textContent = option.text;
+                    button.dataset.sortBy = option.value;
+                    if ((type === 'product' && currentProductFilter.sortBy === option.value) ||
+                        (type === 'supplier' && currentSupplierFilter.sortBy === option.value)) {
+                        button.classList.add('active');
+                    }
+                    button.addEventListener('click', () => {
+                        Array.from(filterSortOrderButtons.children).forEach(btn => btn.classList.remove('active'));
+                        button.classList.add('active');
+                    });
+                    filterSortOrderButtons.appendChild(button);
+                }
+            });
+
+            const categories = type === 'product' ? productCategories : supplierCategories;
+
+            categories.forEach(cat => {
+                const button = document.createElement('button');
+                button.textContent = cat;
+                button.dataset.category = cat;
+                if ((type === 'product' && currentProductFilter.category === cat) ||
+                    (type === 'supplier' && currentSupplierFilter.category === cat)) {
+                    button.classList.add('active');
+                }
+                button.addEventListener('click', () => {
+                    Array.from(filterSortCategoryButtons.children).forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                });
+                filterSortCategoryButtons.appendChild(button);
+            });
+
+            openModal(filterSortModal);
+        }
+
+        //
