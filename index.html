@@ -159,18 +159,17 @@
             justify-content: space-between;
             align-items: center;
             height: 60px; /* Altura fixa para o header */
-            box-sizing: border-box;
         }
-        /* Botão de menu hambúrguer */
-        #nav-toggle-btn {
-            font-size: 24px;
+        
+        /* Botão de menu hambúrguer no cabeçalho */
+        .nav-toggle-btn {
             background: none;
             border: none;
             color: white;
+            font-size: 28px;
             cursor: pointer;
             padding: 0 10px;
             display: none; /* Oculto em desktop */
-            margin-right: 10px;
         }
 
         /* Container do ícone de perfil */
@@ -187,9 +186,11 @@
             flex-shrink: 0;
             transition: transform 0.2s ease-in-out;
         }
+
         #profile-icon-container:hover {
             transform: scale(1.05);
         }
+
         #profile-icon {
             width: 100%;
             height: 100%;
@@ -197,24 +198,19 @@
             display: block;
         }
 
-        /* Container do meio do header (Boas-vindas e Título) */
-        .header-center {
-            display: flex;
-            align-items: center;
-            gap: 15px; /* Espaço entre o ícone e o texto */
-            flex-grow: 1; /* Ocupa o espaço disponível */
+        /* Container do nome de boas-vindas e título */
+        .header-content { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px;
+            flex-grow: 1;
         }
 
         header h1 {
             margin: 0;
             font-size: 24px;
             text-align: center;
-            flex-grow: 1; /* Centraliza o título */
-        }
-        
-        #welcome-message {
-            font-size: 1.1em;
-            white-space: nowrap;
+            flex-grow: 1;
         }
         
         header #logout-button {
@@ -227,16 +223,25 @@
             cursor: pointer;
             transition: background-color 0.3s;
             display: block; 
-            flex-shrink: 0; /* Não encolhe */
+            flex-shrink: 0;
         }
         header #logout-button:hover {
             background-color: #c0392b;
         }
 
+        .visitor-header #welcome-message {
+            display: none;
+        }
+
+        #change-password-link {
+            display: none !important;
+        }
+
+
         .app-body {
             display: flex;
             position: relative;
-            min-height: calc(100vh - 60px - 40px); /* Ajustado para margin do container */
+            min-height: calc(100vh - 60px);
         }
         nav {
             width: 200px;
@@ -274,31 +279,89 @@
             color: white;
         }
 
+        /* --- FILTROS --- */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .section-header h2 {
+            margin: 0;
+        }
+        .filter-container {
+            position: relative;
+        }
+        .filter-button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .filter-button:hover {
+            opacity: 0.9;
+        }
+        .filter-options {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+            width: 220px;
+            padding: 10px;
+        }
+        .filter-options.show {
+            display: block;
+        }
+        .filter-group {
+            margin-bottom: 10px;
+        }
+        .filter-group label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+        .filter-group select, .filter-group div {
+            width: 100%;
+        }
+        .filter-group input[type="radio"], .filter-group input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+
         /* Oculta nav por padrão no mobile, prepara para slide-in */
         @media (max-width: 768px) {
             header {
-                padding: 0 15px;
-                position: sticky;
-                top: 0;
-                z-index: 1000;
+                padding: 10px 15px;
+                justify-content: space-between;
             }
-            #nav-toggle-btn {
+            .nav-toggle-btn {
                 display: block; /* Mostra o botão no mobile */
-            }
-
-            .header-center {
-                gap: 10px;
-            }
-            #profile-icon-container {
-                width: 35px;
-                height: 35px;
-            }
-            #welcome-message {
-                display: none; /* Esconde a mensagem de boas vindas para dar espaço ao título */
+                order: -1; /* Coloca no início */
             }
             header h1 {
                 font-size: 20px;
-                text-align: left; /* Alinha o título à esquerda no espaço restante */
+                text-align: left; /* Alinha o título à esquerda no mobile */
+                margin-left: 10px;
+            }
+            #welcome-message {
+                display: none; /* Oculta a mensagem de boas-vindas para dar espaço */
+            }
+            .header-content {
+                justify-content: flex-start;
             }
 
             nav {
@@ -309,9 +372,9 @@
                 width: 250px;
                 min-width: 250px;
                 transform: translateX(-100%);
-                z-index: 1001; /* Z-index maior que o header */
+                z-index: 999;
                 box-shadow: 2px 0 5px rgba(0,0,0,0.2);
-                padding-top: 60px;
+                padding-top: 0; /* Remove o padding-top antigo */
                 border-right: 1px solid var(--dark-grey);
             }
             nav.nav-open {
@@ -319,8 +382,7 @@
             }
             .nav-header {
                 display: flex;
-                position: absolute;
-                top: 0;
+                position: relative; /* Mudado de absolute */
                 width: 100%;
                 height: 60px;
                 background-color: var(--secondary-color);
@@ -373,12 +435,20 @@
         }
         .nav-header {
             display: none; 
+            align-items: center;
+            padding: 15px 20px;
+            background-color: var(--dark-grey);
+            color: var(--secondary-color);
+            font-weight: 700;
+        }
+        .nav-header span {
+            margin-left: 10px;
         }
 
         main {
             flex-grow: 1;
             padding: 30px;
-            max-height: calc(100vh - 60px - 40px); /* Ajustado para margin do container */
+            max-height: calc(100vh - 60px);
             overflow-y: auto;
             position: relative;
             transition: margin-left 0.3s ease;
@@ -398,208 +468,1707 @@
         .content-section.active {
             display: block;
         }
+        .content-section h2, .content-section h3 {
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            color: var(--secondary-color);
+        }
+        .content-section h3 {
+             border-bottom: 1px solid var(--dark-grey);
+             font-size: 1.2em;
+             margin-top: 30px;
+        }
+
+        #settings-options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        #settings-options-grid .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        #settings-options-grid .card h3 {
+            color: var(--primary-color);
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            border-bottom: none;
+        }
+        #settings-options-grid .card p {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .back-to-settings-button {
+            background-color: var(--dark-grey);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            margin-bottom: 20px;
+            display: inline-block;
+            width: auto;
+        }
+
+        .back-to-settings-button:hover {
+            background-color: #95a5a6;
+        }
+
+
+        .search-bar {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .search-bar input {
+            width: 100%; padding: 12px 12px 12px 40px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box;
+        }
+        .search-bar::before {
+            content: '🔎'; position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 18px; opacity: 0.6;
+        }
         
-        .section-header {
+        .card {
+            position: relative;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            transition: box-shadow 0.3s;
+            z-index: 1;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("https://i.imgur.com/b3lg2eE.png");
+            background-size: 50%;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.08;
+            z-index: -1;
+            border-radius: 5px;
+        }
+        .card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .card h3 { margin-top: 0; color: var(--secondary-color); border: none; font-size: 1.3em; }
+        .product-card { border-left: 5px solid var(--primary-color); }
+        .supplier-card { border-left: 5px solid var(--secondary-color); }
+        .info-card { border-left: 5px solid var(--secondary-color); }
+        .product-spec { white-space: pre-wrap; line-height: 1.6; font-size: 0.95em; }
+
+        .price { font-size: 1.2em; font-weight: 700; color: #27ae60; }
+        .cost-price { font-size: 1.1em; font-weight: 700; color: var(--danger-color); background-color: #fdd; padding: 5px; border-radius: 4px; display: inline-block; margin-top: 10px; }
+        .supplier-info { font-size: 0.9em; font-weight: 500; color: var(--secondary-color); background-color: #e8f8f5; padding: 5px 8px; border-radius: 4px; display: inline-block; margin-top: 10px; margin-left: 10px;}
+        
+        /* --- ESTILOS PARA FORNECEDORES --- */
+        #supplier-actions {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        #supplier-actions .action-button {
+            width: auto;
+            padding: 10px 15px;
+            font-size: 0.95em;
+        }
+        .supplier-card .contact-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+        .supplier-card .contact-list li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .supplier-card .contact-list li:last-child {
+            border-bottom: none;
+        }
+        .supplier-card .contact-info {
+            font-size: 0.95em;
+        }
+        .supplier-card .contact-info strong {
+            color: #333;
+        }
+        .supplier-card .contact-info span {
+            color: #777;
+            font-style: italic;
+        }
+        .whatsapp-contact-btn {
+            background-color: var(--whatsapp-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 18px;
+            transition: transform 0.2s;
+        }
+        .whatsapp-contact-btn:hover {
+            transform: scale(1.1);
+        }
+        .supplier-card .categories {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .supplier-card .category-tag {
+            background-color: var(--medium-grey);
+            color: #555;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: 500;
+        }
+
+
+        .product-suppliers-list {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 0 0;
+            font-size: 0.9em;
+        }
+        .product-suppliers-list li {
+            background-color: #f8f8f8;
+            padding: 5px 10px;
+            border-radius: 3px;
+            margin-bottom: 5px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-            position: relative; /* Para o posicionamento do menu de filtro */
+            border: 1px solid #eee;
         }
-        .section-header h2 {
+        .product-suppliers-list li .supplier-name-link {
             color: var(--secondary-color);
-            margin: 0;
-            border-bottom: none;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .product-suppliers-list li .cost-value {
+            color: var(--danger-color);
+            font-weight: 500;
         }
 
-        .filter-button {
-            background-color: var(--medium-grey);
-            border: 1px solid var(--dark-grey);
-            border-radius: 50%;
-            width: 36px;
-            height: 36px;
-            cursor: pointer;
-            font-size: 18px;
-            display: flex;
+        .action-buttons-container { margin-top: 15px; display: flex; flex-wrap: wrap; gap: 10px; }
+        .action-buttons-container button, .action-buttons-container a.action-button {
+            color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; font-weight: 500; transition: background-color 0.3s;
+            font-size: 0.9em;
+            text-decoration: none;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            transition: background-color 0.3s;
         }
-        .filter-button:hover {
-            background-
-import React, { useState } from 'react';
-import { Menu, X, Filter, Phone, Building, Mail, User, BotMessageSquare, Send, ShoppingCart, Wrench, ChevronDown, CheckSquare, Square } from 'lucide-react';
+        .gemini-button { background-color: var(--secondary-color); }
+        .whatsapp-button { background-color: var(--whatsapp-color); }
+        .instagram-button { background-color: var(--instagram-color); }
+        .youtube-button { background-color: var(--youtube-color); }
+        .google-maps-button { background-color: #4285F4; }
 
-// --- Ícone do WhatsApp ---
-const WhatsAppIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="text-green-500">
-    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01s-.521.074-.792.372c-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-  </svg>
-);
+        .help-button { background-color: var(--help-color); }
+        .action-buttons-container button:hover, .action-buttons-container a.action-button:hover { opacity: 0.9; }
+
+        .calculator-container { margin-top: 20px; padding-top: 20px; border-top: 1px dashed var(--dark-grey); }
+        .payment-method-selector label { display: inline-block; margin-right: 15px; cursor: pointer; font-size: 0.95em; }
+        .payment-method-selector input { margin-right: 5px; }
+        .installments-container { margin-top: 10px; }
+        .calculate-product-btn { background-color: var(--secondary-color); color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; margin-top: 10px;}
+        .product-calculator-result, #general-calculator-result { margin-top: 15px; font-size: 1.1em; color: var(--secondary-color); background-color: #eaf5ff; padding: 15px; border-radius: 5px; }
+        .result-vista { font-weight: bold; }
+        .result-parcelado { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--dark-grey); }
+        .result-parcelado small { font-size: 0.9em; font-weight: normal; color: #555; }
+        
+        .discount-option {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+        }
+        .discount-option input[type="number"] {
+            width: 80px;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            background-color: transparent;
+            position: relative;
+            z-index: 1;
+        }
+        .discount-option label {
+            margin-bottom: 0;
+        }
+        .discount-option::after {
+            content: "max. 15%";
+            position: absolute;
+            left: 105px;
+            color: #ccc;
+            font-size: 0.8em;
+            opacity: 0.8;
+            pointer-events: none;
+            white-space: nowrap;
+            transform: translateY(2px);
+            z-index: 0;
+        }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.6); padding-top: 60px; }
+        .modal-content { background-color: #fefefe; margin: 5% auto; padding: 20px; border: 1px solid #888; width: 80%; max-width: 600px; border-radius: 8px; position: relative; }
+        .close-button { color: #aaa; position: absolute; top: 10px; right: 20px; font-size: 28px; font-weight: bold; cursor: pointer; }
+        .loader { border: 8px solid #f3f3f3; border-radius: 50%; border-top: 8px solid var(--primary-color); width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 20px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        #scroll-to-top { position: fixed; bottom: 20px; right: 30px; z-index: 99; border: none; outline: none; background-color: var(--primary-color); color: white; cursor: pointer; padding: 12px 15px; border-radius: 50%; font-size: 18px; display: none; }
+
+        #temp-user-list-container { margin-top: 30px; }
+        .temp-user-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid var(--medium-grey); }
+        .temp-user-item:last-child { border-bottom: none; }
+        .user-info p { margin: 0; }
+        .user-info p small { color: #555; }
+        .user-actions button { margin-left: 10px; padding: 5px 10px; border-radius: 4px; border: none; color: white; cursor: pointer; }
+        .edit-btn { background-color: var(--primary-color); }
+        .delete-btn { background-color: var(--danger-color); }
+
+        .hidden { display: none !important; }
+
+        #ai-chat-button {
+            position: fixed;
+            bottom: 90px;
+            right: 30px;
+            z-index: 99;
+            border: none;
+            outline: none;
+            background-color: var(--secondary-color);
+            color: white;
+            cursor: pointer;
+            padding: 15px 18px;
+            border-radius: 50%;
+            font-size: 24px;
+            display: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        #ai-chat-button:hover {
+            background-color: #0A4538;
+            transform: translateY(-3px);
+        }
+
+        #ai-chat-button:active {
+            transform: translateY(0);
+        }
+
+        #ai-chat-modal .modal-content {
+            max-width: 700px;
+            text-align: left;
+        }
+
+        #ai-chat-modal-body {
+            text-align: left;
+        }
+
+        #ai-question-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 1em;
+            margin-bottom: 15px;
+        }
+
+        #submit-ai-question {
+            width: auto;
+            padding: 10px 20px;
+            font-size: 1em;
+        }
+
+        #ai-response-area {
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        #supplier-password-modal .modal-content {
+            max-width: 400px;
+            text-align: center;
+        }
+        #supplier-password-modal .input-group input {
+            text-align: center;
+        }
+        #supplier-password-modal .error-message {
+            color: var(--danger-color);
+            margin-top: 10px;
+            display: none;
+        }
+
+        #change-password-modal .modal-content {
+            max-width: 450px;
+            text-align: center;
+        }
+        #change-password-modal .input-group {
+            margin-bottom: 15px;
+        }
+        #change-password-modal .input-group label {
+            font-size: 0.9em;
+        }
+        #change-password-modal .error-message {
+            color: var(--danger-color);
+            margin-top: 10px;
+            font-weight: 500;
+            display: none;
+        }
+        #change-password-modal .success-message {
+            color: var(--secondary-color);
+            margin-top: 10px;
+            font-weight: 500;
+            display: none;
+        }
+
+        #profile-section .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        #profile-section .profile-pic-large {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-color);
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        #profile-section .profile-info h3 {
+            margin: 0;
+            font-size: 1.8em;
+            color: var(--secondary-color);
+            border-bottom: none;
+        }
+        #profile-section .profile-info p {
+            margin: 5px 0;
+            font-size: 1.1em;
+            color: #555;
+        }
+        #profile-section .profile-edit-form .input-group {
+            margin-bottom: 15px;
+        }
+        #profile-section .profile-edit-form .action-button {
+            width: auto;
+            padding: 10px 20px;
+            margin-right: 10px;
+        }
+        #profile-section .profile-edit-form .action-button.secondary {
+            background-color: var(--dark-grey);
+        }
+        #profile-section .profile-edit-form .action-button.secondary:hover {
+            background-color: #95a5a6;
+        }
+        #profile-section .profile-feedback {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        #profile-section .profile-pic-upload-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        #profile-section .profile-pic-upload-container input[type="file"] {
+            flex-grow: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #profile-section .profile-pic-upload-container button {
+            padding: 8px 15px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #whatsapp-modal .modal-content {
+            max-width: 500px;
+            text-align: left;
+        }
+        #whatsapp-modal textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 1em;
+            min-height: 120px;
+            margin-bottom: 15px;
+        }
+        #whatsapp-modal .profile-info-options {
+            margin-bottom: 15px;
+        }
+        #whatsapp-modal .profile-info-options label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: normal;
+            font-size: 0.95em;
+        }
+        #whatsapp-modal .profile-info-options input[type="checkbox"] {
+            margin-right: 8px;
+        }
+        #whatsapp-modal .action-button-group {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        #whatsapp-modal .action-button-group .action-button {
+            width: auto;
+        }
+        #whatsapp-modal .action-button-group .cancel-button {
+            background-color: var(--dark-grey);
+        }
+        #whatsapp-modal .action-button-group .cancel-button:hover {
+            background-color: #95a5a6;
+        }
+
+        #marketing-section .marketing-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        #marketing-section .marketing-item {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+        #marketing-section .marketing-item h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            border-bottom: none;
+        }
+        #marketing-section .marketing-item img {
+            max-width: 80%;
+            height: auto;
+            margin: 15px auto;
+            display: block;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        #marketing-section .marketing-item .download-button {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 15px;
+        }
+        #marketing-section .marketing-item .download-button:hover {
+            background-color: #0A4538;
+        }
 
 
-// --- Dados Iniciais ---
-const initialSuppliers = [
-  {
-    id: 1,
-    name: "Agrobox Drones",
-    details: "Peças e Equipamentos para Agricultura.",
-    location: "Goiânia, Goiás",
-    payment: "A combinar",
-    mainProducts: "Peças e Equipamentos para Drones Agrícolas",
-    categories: ["Agriculture", "Equipamentos", "Pecas"],
-    contacts: [
-      { name: "Frederico", role: "Dono", phone: "62999999999" },
-      { name: "Marcos", role: "Gerente", phone: "62999999998" },
-      { name: "Heverton", role: "Vendedor", phone: "62999999997" },
-    ]
-  }
-];
+        @media (max-width: 768px) {
+            main .content-section > * {
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 100%;
+                padding: 0 10px;
+                box-sizing: border-box;
+            }
 
+            .card {
+                padding: 15px;
+                margin-bottom: 10px;
+            }
 
-// --- Componente do Card do Fornecedor ---
-const SupplierCard = ({ supplier }) => {
-  const handleWhatsAppClick = (phone, contactName) => {
-    const message = encodeURIComponent(`Olá ${contactName}, tudo bem? Encontrei seu contato pela plataforma da Galvão Drones.`);
-    window.open(`https://wa.me/55${phone}?text=${message}`, '_blank');
-  };
+            .card h3 {
+                font-size: 1.1em;
+            }
 
-  return (
-    <div className="bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-700 hover:border-orange-500 transition-all duration-300">
-      <h3 className="text-2xl font-bold text-orange-500 mb-2">{supplier.name}</h3>
-      <p className="text-gray-400 mb-4">{supplier.details} | <span className="font-semibold">{supplier.location}</span></p>
-      
-      <div className="mb-4">
-        <p className="text-gray-300"><span className="font-bold text-gray-200">Produtos Principais:</span> {supplier.mainProducts}</p>
-        <p className="text-gray-300"><span className="font-bold text-gray-200">Pagamento:</span> {supplier.payment}</p>
-      </div>
+            .product-spec, .price, .cost-price, .supplier-info {
+                font-size: 0.9em;
+            }
 
-      <div className="flex flex-wrap gap-2 mb-6">
-        {supplier.categories.map(cat => (
-          <span key={cat} className="bg-gray-700 text-orange-400 text-xs font-semibold px-3 py-1 rounded-full">{cat}</span>
-        ))}
-      </div>
+            .action-buttons-container {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .action-buttons-container button, .action-buttons-container a.action-button {
+                width: 100%;
+                padding: 10px;
+                font-size: 0.9em;
+            }
 
-      <div>
-        <h4 className="text-lg font-semibold text-gray-200 mb-3 border-b border-gray-600 pb-2">Contatos</h4>
-        <div className="space-y-3">
-          {supplier.contacts.map(contact => (
-            <div key={contact.name} className="flex justify-between items-center">
-              <div>
-                <p className="font-bold text-gray-100">{contact.name}</p>
-                <p className="text-sm text-gray-400">{contact.role}</p>
-              </div>
-              <button 
-                onClick={() => handleWhatsAppClick(contact.phone, contact.name)}
-                className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition-transform duration-200 hover:scale-105"
-              >
-                <WhatsAppIcon />
-                WhatsApp
-              </button>
-            </div>
-          ))}
+            .calculator-container .input-group {
+                margin-bottom: 10px;
+            }
+            .payment-method-selector label {
+                margin-right: 10px;
+                font-size: 0.9em;
+            }
+            .discount-option {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+            .discount-option input[type="number"] {
+                width: 100px;
+                padding: 5px;
+            }
+            .discount-option::after {
+                content: "max. 15%";
+                position: absolute;
+                left: 0;
+                top: auto;
+                bottom: -15px;
+                transform: none;
+                font-size: 0.7em;
+                pointer-events: none;
+                white-space: nowrap;
+                transform: translateY(2px);
+                z-index: 0;
+            }
+            .calculate-product-btn {
+                width: 100%;
+                padding: 10px;
+            }
+            .product-calculator-result, #general-calculator-result {
+                font-size: 1em;
+                padding: 10px;
+            }
+            .result-parcelado small {
+                font-size: 0.8em;
+            }
+
+            .search-bar input {
+                padding: 10px 10px 10px 35px;
+                font-size: 0.95em;
+            }
+            .search-bar::before {
+                left: 10px;
+                font-size: 16px;
+            }
+
+            .temp-user-item {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 10px;
+            }
+            .user-info p {
+                font-size: 0.95em;
+            }
+            .user-actions {
+                width: 100%;
+                display: flex;
+                justify-content: flex-start;
+                margin-top: 10px;
+            }
+            .user-actions button {
+                margin-left: 0;
+                margin-right: 10px;
+                padding: 8px 10px;
+                font-size: 0.9em;
+            }
+
+            .info-card p {
+                font-size: 0.95em;
+            }
+            .contact-buttons-container {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .contact-buttons-container a.action-button {
+                width: 100%;
+            }
+
+            #ai-chat-modal .modal-content {
+                width: 90%;
+                margin: 20px auto;
+            }
+            #ai-question-input {
+                font-size: 0.95em;
+            }
+            #ai-response-area {
+                font-size: 0.9em;
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="login-screen">
+            <img src="https://i.imgur.com/b3lg2eE.png" alt="Logotipo Galvão Drones" id="company-logo">
+            <h2 id="portal-subtitle">Portal Interno</h2>
+            <div class="input-group"><label for="username">Usuário</label><input type="text" id="username" placeholder="Digite seu nome"></div>
+            <div class="input-group"><label for="password">Senha</label><input type="password" id="password" placeholder="Sua senha"></div>
+            <button id="login-button" class="action-button">Entrar</button>
+            <button id="visitor-mode-button" class="action-button">Modo Visitante</button>
+            <p id="login-error">Usuário ou senha inválidos.</p>
         </div>
-      </div>
-    </div>
-  );
-};
 
+        <div id="app-screen">
+            <header>
+                <button id="nav-toggle-btn" class="nav-toggle-btn">☰</button>
+                <div class="header-content">
+                    <div id="profile-icon-container">
+                        <img id="profile-icon" src="https://i.imgur.com/8Yd00YF.png" alt="Foto de Perfil"> 
+                    </div>
+                    <span id="welcome-message"></span>
+                    <h1>Portal Interno</h1>
+                </div>
+                <button id="logout-button">Sair</button>
+            </header>
+            <div class="app-body">
+                <nav>
+                    <div class="nav-header">
+                        <button id="nav-toggle-btn-close" class="nav-toggle-btn">✕</button>
+                        <span>Menu</span>
+                    </div>
+                    <button class="nav-button" data-section="products-section" id="products-nav-button" style="order: 1;">Produtos</button>
+                    <button class="nav-button" data-section="calculator-section" id="calculator-nav-button" style="order: 2;">Calculadora</button>
+                    <button class="nav-button" data-section="suppliers-section" id="suppliers-nav-button" style="order: 3;">Fornecedores</button>
+                    
+                    <div class="nav-item-group" style="order: 4;">
+                        <button class="nav-button" data-section="settings-section" id="settings-nav-button">Configurações</button>
+                        <div class="sub-nav" id="settings-sub-nav" style="display: none;">
+                            <button class="nav-button sub-nav-button" data-section="manage-users-section" id="manage-users-nav-button">Gerir Usuários</button>
+                            <button class="nav-button sub-nav-button" data-section="create-product-section" id="create-product-nav-button">Criar Produto</button>
+                            <button class="nav-button sub-nav-button" data-section="edit-product-section" id="edit-product-nav-button">Alterar Produto</button>
+                        </div>
+                    </div>
+                    
+                    <button class="nav-button" data-section="drones-visitor-section" id="drones-nav-button" style="order: 5;">Drones</button>
+                    <button class="nav-button" data-section="info-section" id="info-empresa-nav-button" style="order: 6;">Info Empresa</button>
+                    <button class="nav-button" data-section="marketing-section" id="marketing-nav-button" style="order: 7;">Marketing</button>
+                    <button class="nav-button hidden" data-section="profile-section" id="profile-nav-button" style="order: 8;">Meu Perfil</button>
+                </nav>
+                <main id="main-content">
+                    <section id="products-section" class="content-section active">
+                        <div class="section-header">
+                            <h2>Consulta de Produtos</h2>
+                            <!-- O filtro de produtos pode ser adicionado aqui futuramente se necessário -->
+                        </div>
+                        <div class="search-bar"><input type="text" id="product-search" placeholder="Pesquisar por nome ou especificação..."></div>
+                        <div id="product-list"></div>
+                    </section>
+                    <section id="calculator-section" class="content-section">
+                        <h2>Calculadora Geral</h2>
+                        <div class="card">
+                           <div class="input-group">
+                                <label for="general-valor-base">Valor Base</label>
+                                <input type="number" id="general-valor-base" class="input-full" placeholder="Digite o valor para simulação">
+                           </div>
+                           <div class="input-group">
+                                <label>Forma de Pagamento</label>
+                                <div id="general-payment-method-selector">
+                                    <input type="radio" id="general-payment-vista" name="general-payment-method" value="vista" checked>
+                                    <label for="general-payment-vista">À vista</label>
+                                    <input type="radio" id="general-payment-parcelado" name="general-payment-method" value="parcelado">
+                                    <label for="general-payment-parcelado">Parcelado</label>
+                                </div>
+                           </div>
+                           <div class="discount-option hidden" id="general-discount-option">
+                               <label for="general-discount-percentage">Desconto (%):</label>
+                               <input type="number" id="general-discount-percentage" min="0" max="15" value="0">
+                           </div>
+                           <div class="input-group hidden" id="general-installments-container">
+                                <label for="general-parcelas">Número de Parcelas</label>
+                                <select id="general-parcelas">
+                                    <option value="1">1x</option><option value="2">2x</option><option value="3">3x</option><option value="4">4x</option><option value="5">5x</option><option value="6">6x</option><option value="7">7x</option><option value="8">8x</option><option value="9">9x</option><option value="10">10x</option><option value="11">11x</option><option value="12">12x</option>
+                                </select>
+                           </div>
+                           <button id="general-calculate-button" class="action-button" style="width: auto; padding: 10px 20px;">Calcular</button>
+                           <div id="general-calculator-result">O resultado da simulação aparecerá aqui.</div>
+                          </div>
+                    </section>
+                    <section id="suppliers-section" class="content-section">
+                        <div class="section-header">
+                            <h2>Fornecedores (Acesso Confidencial)</h2>
+                            <div class="filter-container">
+                                <button class="filter-button" id="supplier-filter-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/></svg>
+                                    Filtrar
+                                </button>
+                                <div class="filter-options" id="supplier-filter-options">
+                                    <div class="filter-group">
+                                        <label>Ordenar por:</label>
+                                        <div>
+                                            <input type="radio" id="sort-supplier-alpha" name="sort-supplier" value="alpha" checked>
+                                            <label for="sort-supplier-alpha">Ordem Alfabética</label>
+                                        </div>
+                                    </div>
+                                    <div class="filter-group">
+                                        <label>Filtrar por Categoria:</label>
+                                        <div>
+                                            <input type="checkbox" id="cat-supplier-consumer" name="cat-supplier" value="Consumer">
+                                            <label for="cat-supplier-consumer">Consumer</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="cat-supplier-enterprise" name="cat-supplier" value="Enterprise">
+                                            <label for="cat-supplier-enterprise">Enterprise</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="cat-supplier-agriculture" name="cat-supplier" value="Agriculture">
+                                            <label for="cat-supplier-agriculture">Agriculture</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="cat-supplier-pecas" name="cat-supplier" value="Peças">
+                                            <label for="cat-supplier-pecas">Peças</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="supplier-actions">
+                            <button id="create-supplier-btn" class="action-button">Criar Fornecedor</button>
+                            <button id="edit-supplier-btn" class="action-button">Alterar Fornecedor</button>
+                            <button id="request-quote-btn" class="action-button">Solicitar Orçamento</button>
+                        </div>
+                        <div id="supplier-list"></div>
+                    </section>
+                    
+                    <section id="settings-section" class="content-section">
+                        <h2>Configurações do Sistema</h2>
+                        <p>Selecione uma opção de configuração no menu lateral, ou clique nos atalhos abaixo:</p>
+                        <div id="settings-options-grid"></div>
+                    </section>
 
-// --- Componente Principal da Aplicação ---
-export default function App() {
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('fornecedores');
-  const [suppliers, setSuppliers] = useState(initialSuppliers);
+                    <!-- ================================================================== -->
+                    <!-- =================== FIM DA PARTE 1 DE 2 ====================== -->
+                    <!-- ================================================================== -->
 
-  const renderSection = () => {
-    switch (activeSection) {
-      case 'drones':
-        return (
-          <div>
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-3xl font-bold text-white">Drones</h2>
-              <button className="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors">
-                <Filter size={20} />
-                Filtrar
-              </button>
+                    <section id="manage-users-section" class="content-section">
+                        <button class="back-to-settings-button" onclick="window.switchTab('settings-section')">← Voltar para Configurações</button>
+                        <h2>Gerir Usuários Temporários</h2>
+                        <div class="card">
+                            <h3>Criar Usuário Temporário</h3>
+                            <form id="create-temp-user-form">
+                                <div class="input-group"><label for="temp-username">Nome de Usuário</label><input type="text" id="temp-username" required></div>
+                                <div class="input-group"><label for="temp-password">Senha</label><input type="text" id="temp-password" required></div>
+                                <div class="input-group"><label for="temp-duration">Duração do Acesso</label><select id="temp-duration"><option value="1">1 Hora</option><option value="8">8 Horas</option><option value="24" selected>24 Horas</option><option value="72">72 Horas</option></select></div>
+                                <button type="submit" class="action-button">Criar Usuário</button>
+                                <p id="temp-user-feedback" style="margin-top: 15px; font-weight: bold;"></p>
+                            </form>
+                        </div>
+                        <div id="temp-user-list-container">
+                            <h3>Usuários Temporários Ativos</h3>
+                            <div id="temp-user-list" class="card"></div>
+                        </div>
+                    </section>
+
+                    <section id="create-product-section" class="content-section">
+                        <button class="back-to-settings-button" onclick="window.switchTab('settings-section')">← Voltar para Configurações</button>
+                        <h2>Criar Novo Produto</h2>
+                        <div class="card">
+                            <form id="create-product-form">
+                                <div class="input-group"><label for="new-product-name">Nome do Produto</label><input type="text" id="new-product-name" required></div>
+                                <div class="input-group"><label for="new-product-spec">Especificações</label><textarea id="new-product-spec" rows="5"></textarea></div>
+                                <div class="input-group"><label for="new-product-sale-price">Preço de Venda (R$)</label><input type="number" id="new-product-sale-price" step="0.01" min="0" required></div>
+                                <div class="input-group"><label for="new-product-cost-price">Preço de Custo (R$)</label><input type="number" id="new-product-cost-price" step="0.01" min="0"></div>
+                                <div class="input-group"><label for="new-product-supplier">Fornecedor Principal</label><input type="text" id="new-product-supplier"></div>
+                                <button type="submit" class="action-button">Salvar Novo Produto</button>
+                                <p id="create-product-feedback" style="margin-top: 15px; font-weight: bold;"></p>
+                            </form>
+                        </div>
+                    </section>
+
+                    <section id="edit-product-section" class="content-section">
+                        <button class="back-to-settings-button" onclick="window.switchTab('settings-section')">← Voltar para Configurações</button>
+                        <h2>Alterar Produto Existente</h2>
+                        <div class="card">
+                            <div class="input-group">
+                                <label for="edit-product-search-input">Buscar Produto (ID ou Nome)</label>
+                                <input type="text" id="edit-product-search-input" placeholder="Digite o ID ou nome do produto">
+                                <button id="search-product-to-edit" class="action-button" style="width: auto; margin-top: 10px;">Buscar</button>
+                            </div>
+                            <div id="edit-product-search-results" style="margin-top: 15px;"></div>
+                            
+                            <div id="edit-product-display" style="margin-top: 20px;">
+                                <p>Use a busca acima para carregar os dados do produto.</p>
+                            </div>
+                            <form id="edit-product-form" class="hidden">
+                                <input type="hidden" id="edit-product-id">
+                                <div class="input-group"><label for="edit-product-name">Nome do Produto</label><input type="text" id="edit-product-name" required></div>
+                                <div class="input-group"><label for="edit-product-spec">Especificações</label><textarea id="edit-product-spec" rows="5"></textarea></div>
+                                <div class="input-group"><label for="edit-product-sale-price">Preço de Venda (R$)</label><input type="number" id="edit-product-sale-price" step="0.01" min="0" required></div>
+                                <div class="input-group"><label for="edit-product-cost-price">Preço de Custo (R$)</label><input type="number" id="edit-product-cost-price" step="0.01" min="0"></div>
+                                <div class="input-group"><label for="edit-product-supplier">Fornecedor Principal</label><input type="text" id="edit-product-supplier"></div>
+                                <button type="submit" class="action-button">Salvar Alterações</button>
+                                <p id="edit-product-feedback" class="profile-feedback"></p>
+                            </form>
+                        </div>
+                    </section>
+
+                    <section id="drones-visitor-section" class="content-section">
+                        <div class="section-header">
+                            <h2>Modelos de Drones</h2>
+                            <div class="filter-container">
+                                <button class="filter-button" id="drone-filter-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/></svg>
+                                    Filtrar
+                                </button>
+                                <div class="filter-options" id="drone-filter-options">
+                                    <div class="filter-group">
+                                        <label>Ordenar por:</label>
+                                        <select id="sort-drone-order">
+                                            <option value="alpha">Ordem Alfabética</option>
+                                            <option value="price-asc">Menor Valor</option>
+                                            <option value="price-desc">Maior Valor</option>
+                                        </select>
+                                    </div>
+                                    <div class="filter-group">
+                                        <label>Filtrar por Linha:</label>
+                                        <div>
+                                            <input type="checkbox" id="line-drone-consumer" name="line-drone" value="Consumer">
+                                            <label for="line-drone-consumer">Consumer</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="line-drone-enterprise" name="line-drone" value="Enterprise">
+                                            <label for="line-drone-enterprise">Enterprise</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="line-drone-agriculture" name="line-drone" value="Agriculture">
+                                            <label for="line-drone-agriculture">Agriculture</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="search-bar"><input type="text" id="drone-visitor-search" placeholder="Pesquisar por modelo ou especificação..."></div>
+                        <div id="drone-visitor-list"></div>
+                    </section>
+                    <section id="info-section" class="content-section">
+                        <h2>Informações da Empresa</h2>
+                        <div class="card info-card">
+                            <p><strong>Nome da Empresa:</strong> Galvão Drones</p>
+                            <p id="cnpj-display-line"><strong>CNPJ:</strong> 60.102.179/0001-10</p>
+                            <p><strong>Endereço:</strong> Rua 16, nº 304 – Setor Aeroviário, Goiânia – GO, CEP: 74435-240</p>
+                            <p><a href="https://www.google.com/maps/search/?api=1&query=Rua+16,+304,+Setor+Aerovi%C3%A1rio,+Goi%C3%A2nia+-+GO,+74435-240" target="_blank" class="action-button google-maps-button" style="width: auto; padding: 10px 15px; margin-right: 10px;">Ver no Google Maps</a></p>
+                            <p><strong>Contato:</strong> <span id="company-phone">(62) 3636-0668</span></p>
+                            <div class="contact-buttons-container" style="display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap;">
+                                <a href="https://www.instagram.com/galvao_drones" target="_blank" class="action-button instagram-button" style="width: auto; padding: 10px 15px;">Instagram</a>
+                                <a href="https://wa.me/556236360668" target="_blank" class="action-button whatsapp-button" id="company-whatsapp-link" style="width: auto; padding: 10px 15px;">WhatsApp</a>
+                                <a href="https://www.youtube.com/@galvaodrones" target="_blank" class="action-button youtube-button" style="width: auto; padding: 10px 15px;">YouTube</a>
+                            </div>
+                            <p><strong>Website:</strong> <a href="http://www.galvaodrones.com.br" target="_blank">www.galvaodrones.com.br</a></p>
+                        </div>
+                    </section>
+
+                    <section id="profile-section" class="content-section">
+                        <h2>Meu Perfil</h2>
+                        <div class="card">
+                            <div class="profile-header">
+                                <img id="profile-pic-display" src="https://i.imgur.com/8Yd00YF.png" alt="Foto de Perfil" class="profile-pic-large"> 
+                                <div class="profile-info">
+                                    <h3 id="profile-display-name"></h3>
+                                    <p id="profile-email"></p>
+                                    <p id="profile-phone"></p>
+                                </div>
+                            </div>
+                            <form id="profile-edit-form" class="profile-edit-form">
+                                <h3>Alterar Dados</h3>
+                                <div class="input-group">
+                                    <label for="edit-display-name">Nome de Exibição</label>
+                                    <input type="text" id="edit-display-name" required>
+                                </div>
+                                <div class="input-group">
+                                    <label for="edit-email">Email</label>
+                                    <input type="email" id="edit-email">
+                                </div>
+                                <div class="input-group">
+                                    <label for="edit-phone">Celular para Atendimento (WhatsApp)</label>
+                                    <input type="tel" id="edit-phone" placeholder="Ex: 62988887777">
+                                </div>
+                                <div class="input-group profile-pic-upload-container">
+                                    <label for="edit-profile-pic">Alterar Foto de Perfil</label>
+                                    <input type="file" id="edit-profile-pic" accept="image/*">
+                                    <button type="button" id="upload-profile-pic-button">Carregar Foto</button>
+                                </div>
+                                <button type="submit" class="action-button">Salvar Alterações do Perfil</button>
+                                <button type="button" id="open-change-password-modal" class="action-button secondary">Alterar Senha</button>
+                                <p id="profile-feedback" class="profile-feedback"></p>
+                            </form>
+                        </div>
+                    </section>
+
+                    <section id="marketing-section" class="content-section">
+                        <h2>Conteúdo para Marketing</h2>
+                        <p>Aqui você encontra materiais visuais e informativos para suas campanhas de marketing da Galvão Drones.</p>
+                        <div class="marketing-content">
+                            <div class="marketing-item">
+                                <h3>Logo Oficial Galvão Drones (Cor Padrão - PNG)</h3>
+                                <img src="https://i.imgur.com/pgwtkKq.png" alt="Logo Galvão Drones Cor Padrão">
+                                <a href="https://i.imgur.com/pgwtkKq.png" download="galvao_drones_logo_padrao.png" class="download-button">Baixar Logo PNG</a>
+                            </div>
+                            <div class="marketing-item">
+                                <h3>Logo Oficial Galvão Drones (Fundo Transparente - PNG)</h3>
+                                <img src="https://i.imgur.com/ZsH8VeQ.png" alt="Logo Galvão Drones Fundo Transparente">
+                                <a href="https://i.imgur.com/ZsH8VeQ.png" download="galvao_drones_logo_transparente.png" class="download-button">Baixar Logo PNG</a>
+                            </div>
+                            <div class="marketing-item">
+                                <h3>Logo Galvão Drones (Versão Clara - PNG)</h3>
+                                <img src="https://i.imgur.com/0CpzT9r.png" alt="Logo Galvão Drones Versão Clara">
+                                <a href="https://i.imgur.com/0CpzT9r.png" download="galvao_drones_logo_clara.png" class="download-button">Baixar Logo PNG</a>
+                            </div>
+                            <div class="marketing-item">
+                                <h3>Logo Galvão Drones (Versão Esverdeada - PNG)</h3>
+                                <img src="https://i.imgur.com/UX00mxn.png" alt="Logo Galvão Drones Versão Esverdeada">
+                                <a href="https://i.imgur.com/UX00mxn.png" download="galvao_drones_logo_esverdeada.png" class="download-button">Baixar Logo PNG</a>
+                            </div>
+                            <div class="marketing-item">
+                                <h3>Logo Galvão Drones (Fundo Laranja - JPG)</h3>
+                                <img src="https://i.imgur.com/b9gygL7.png" alt="Logo Galvão Drones Fundo Laranja">
+                                <a href="https://i.imgur.com/b9gygL7.png" download="galvao_drones_logo_fundo_laranja.png" class="download-button">Baixar Logo PNG</a>
+                            </div>
+                            <div class="marketing-item">
+                                <h3>Logo Galvão Drones (Fundo Preto - JPG)</h3>
+                                <img src="https://i.imgur.com/5dpZZuY.png" alt="Logo Galvão Drones Fundo Preto">
+                                <a href="https://i.imgur.com/5dpZZuY.png" download="galvao_drones_logo_fundo_preto.png" class="download-button">Baixar Logo PNG</a>
+                            </div>
+                            <div class="marketing-item">
+                                <h3>Guia de Estilo da Marca Galvão Drones</h3>
+                                <p>Um PDF completo com diretrizes de uso da marca, paleta de cores e tipografia.</p>
+                                <a href="https://drive.google.com/uc?export=download&id=1bcg8UuCBSfaPB5ktacHz5KfWgGY5ir-a" download="guia_de_estilo_galvao_drones.pdf" class="download-button">Baixar Guia de Estilo (PDF)</a>
+                            </div>
+                        </div>
+                    </section>
+                </main>
             </div>
-            <div className="text-gray-400">Seção de Drones em construção.</div>
-          </div>
-        );
-      case 'fornecedores':
-        return (
-          <div>
-            <div className="flex flex-wrap gap-4 justify-between items-center mb-8">
-              <h2 className="text-3xl font-bold text-white">Fornecedores</h2>
-              <div className="flex items-center gap-2">
-                 <button className="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors">
-                    <Filter size={20} />
-                    Filtrar
-                 </button>
-              </div>
+        </div>
+    </div>
+    
+    <button id="scroll-to-top" title="Voltar ao topo">⬆</button>
+
+    <button id="ai-chat-button" title="Falar com a IA">🤖</button>
+
+    <div id="main-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">×</span>
+            <h3 id="modal-title">Aviso</h3>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- MODAL DE ORÇAMENTO (MULTI-ETAPAS) -->
+    <div id="request-quote-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">×</span>
+            <h3>Solicitar Orçamento - Etapa 1/3</h3>
+            <p>Selecione o tipo de item que você precisa:</p>
+            <div id="quote-step-1">
+                <div class="input-group">
+                    <label><input type="radio" name="quote-type" value="PEÇAS"> Peças</label>
+                </div>
+                <div class="input-group">
+                    <label><input type="radio" name="quote-type" value="EQUIPAMENTOS"> Equipamentos</label>
+                </div>
             </div>
             
-            <div className="flex flex-wrap gap-4 mb-8">
-                <button className="flex-1 min-w-[200px] bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-orange-500/50">
-                    Criar Fornecedor
-                </button>
-                <button className="flex-1 min-w-[200px] bg-gray-600 hover:bg-gray-500 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300">
-                    Alterar Dados de Fornecedor
-                </button>
-                <button className="flex-1 min-w-[200px] bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-blue-500/50">
-                    Solicitar Orçamento
-                </button>
+            <div id="quote-step-2" class="hidden">
+                <hr>
+                <p>Selecione a linha do equipamento:</p>
+                <label><input type="radio" name="equipment-line" value="Consumer"> Consumer</label>
+                <label><input type="radio" name="equipment-line" value="Enterprise"> Enterprise</label>
+                <label><input type="radio" name="equipment-line" value="Agriculture"> Agriculture</label>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-8">
-              {suppliers.map(s => <SupplierCard key={s.id} supplier={s} />)}
+            <div id="quote-step-3" class="hidden">
+                <hr>
+                <div class="input-group">
+                    <label for="quote-details-text">Descreva os itens e quantidades:</label>
+                    <textarea id="quote-details-text" rows="5" placeholder="Ex: 1x DJI Mavic 3 (versão Combo), 2x Baterias extras para DJI Air 2S..."></textarea>
+                </div>
             </div>
-          </div>
-        );
-      default:
-        return <div className="text-white">Selecione uma seção</div>;
-    }
-  };
-
-  return (
-    <div className="bg-gray-900 text-white min-h-screen font-sans">
-      <div className="flex">
-        {/* Sidebar */}
-        <aside className={`bg-gray-800 border-r border-gray-700 transition-all duration-300 ease-in-out ${isSidebarOpen ? 'w-64 p-4' : 'w-0 p-0 overflow-hidden'}`}>
-          <div className="flex flex-col h-full">
-            <h1 className="text-2xl font-bold text-orange-500 mb-8">Galvão Drones</h1>
-            <nav className="flex flex-col gap-4">
-              <a href="#" onClick={() => setActiveSection('drones')} className={`p-3 rounded-lg hover:bg-orange-500/20 ${activeSection === 'drones' ? 'bg-orange-500/20 text-orange-400' : ''}`}>Drones</a>
-              <a href="#" onClick={() => setActiveSection('fornecedores')} className={`p-3 rounded-lg hover:bg-orange-500/20 ${activeSection === 'fornecedores' ? 'bg-orange-500/20 text-orange-400' : ''}`}>Fornecedores</a>
-              <a href="#" className="p-3 rounded-lg hover:bg-orange-500/20">Cursos</a>
-              <a href="#" className="p-3 rounded-lg hover:bg-orange-500/20">Clientes</a>
-            </nav>
-            <div className="mt-auto text-center text-gray-500 text-sm">
-                <p>&copy; 2024 Galvão Drones</p>
-                <p>v1.0.0</p>
-            </div>
-          </div>
-        </aside>
-
-        {/* Main Content */}
-        <div className="flex-1 flex flex-col">
-          {/* Header */}
-          <header className="bg-gray-800/50 backdrop-blur-sm border-b border-gray-700 p-4 flex items-center gap-4 sticky top-0 z-10">
-            <button onClick={() => setSidebarOpen(!isSidebarOpen)} className="text-white p-2 rounded-md hover:bg-gray-700 transition-colors">
-              {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-            <h2 className="text-xl font-semibold">Dashboard</h2>
-          </header>
-
-          {/* Page Content */}
-          <main className="p-4 sm:p-6 lg:p-8 flex-1">
-            {renderSection()}
-          </main>
+            <button id="quote-next-step-btn" class="action-button" style="width: auto; margin-top: 20px;">Avançar</button>
         </div>
-      </div>
     </div>
-  );
-}
+
+    <!-- MODAL DE CONFIRMAÇÃO DE ORÇAMENTO -->
+    <div id="quote-confirmation-modal" class="modal">
+        <div class="modal-content" style="max-width: 700px;">
+            <span class="close-button">×</span>
+            <h3>Revisar e Enviar Orçamento</h3>
+            <p>A mensagem abaixo será enviada para os fornecedores adequados. Revise e selecione as informações adicionais que deseja incluir.</p>
+            
+            <div id="quote-final-suppliers">
+                <!-- Lista de fornecedores será preenchida aqui -->
+            </div>
+
+            <h4>Mensagem a ser enviada:</h4>
+            <textarea id="quote-final-message" rows="8" style="width: 100%; font-size: 0.95em;"></textarea>
+
+            <div class="profile-info-options" style="margin-top: 15px;">
+                <h4>Incluir Informações Adicionais:</h4>
+                <label><input type="checkbox" class="quote-info-checkbox" data-key="senderName"> Nome do Atendente</label>
+                <label><input type="checkbox" class="quote-info-checkbox" data-key="senderWhatsapp"> WhatsApp do Atendente</label>
+                <label><input type="checkbox" class="quote-info-checkbox" data-key="companyCnpj"> CNPJ (Galvão Drones)</label>
+                <label><input type="checkbox" class="quote-info-checkbox" data-key="companyAddress"> Endereço de Entrega (Galvão Drones)</label>
+                <label><input type="checkbox" class="quote-info-checkbox" data-key="companyEmail"> E-mail (Galvão Drones)</label>
+            </div>
+            
+            <button id="send-quote-whatsapp-btn" class="action-button whatsapp-button" style="width: auto; margin-top: 20px;">Confirmar e Abrir WhatsApp</button>
+        </div>
+    </div>
+
+
+    <!-- OUTROS MODAIS EXISTENTES -->
+    <div id="ai-chat-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">×</span>
+            <h3>Fale com a IA da Galvão Drones</h3>
+            <div id="ai-chat-modal-body">
+                <div class="input-group">
+                    <label for="ai-question-input">Qual a sua pergunta?</label>
+                    <textarea id="ai-question-input" rows="4" placeholder="Ex: Quais as principais diferenças entre o DJI Mini 4 Pro e o Air 3S?"></textarea>
+                </div>
+                <button id="submit-ai-question" class="action-button">Enviar Pergunta</button>
+                <div class="loader" style="display: none;"></div>
+                <div id="ai-response-area" style="margin-top: 20px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="supplier-password-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="supplier-password-close-button">×</span>
+            <h3>Acesso Restrito</h3>
+            <p>Por favor, digite a senha para acessar as informações de fornecedores:</p>
+            <div class="input-group">
+                <input type="password" id="supplier-access-password" placeholder="Digite a senha">
+            </div>
+            <button id="submit-supplier-password" class="action-button">Acessar</button>
+            <p id="supplier-password-error" class="error-message">Senha incorreta.</p>
+        </div>
+    </div>
+
+    <div id="change-password-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="change-password-close-button">×</span>
+            <h3 id="change-password-modal-title">Alterar Senha</h3>
+            <p id="change-password-message">Por favor, defina uma nova senha para sua conta.</p>
+            <div class="input-group">
+                <label for="new-password">Nova Senha (mín. 6 dígitos)</label>
+                <input type="password" id="new-password">
+            </div>
+            <div class="input-group">
+                <label for="confirm-new-password">Confirmar Nova Senha</label>
+                <input type="password" id="confirm-new-password">
+            </div>
+            <button id="submit-change-password" class="action-button">Salvar Nova Senha</button>
+            <p id="change-password-error" class="error-message">Senhas não conferem ou são muito curtas.</p>
+            <p id="change-password-success" class="success-message">Senha alterada com sucesso!</p>
+        </div>
+    </div>
+
+    <div id="whatsapp-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="whatsapp-close-button">×</span>
+            <h3>Personalizar Mensagem do WhatsApp</h3>
+            <textarea id="whatsapp-message-input"></textarea>
+            <div class="profile-info-options">
+                <h4>Incluir Informações do Perfil:</h4>
+                <label>
+                    <input type="checkbox" id="include-display-name"> Nome de Exibição (<span id="whatsapp-display-name-preview"></span>)
+                </label>
+                <label>
+                    <input type="checkbox" id="include-email"> Email (<span id="whatsapp-email-preview"></span>)
+                </label>
+                <label>
+                    <input type="checkbox" id="include-phone"> Celular para Atendimento (<span id="whatsapp-phone-preview"></span>)
+                </label>
+            </div>
+            <div class="action-button-group">
+                <button id="send-whatsapp-button" class="action-button whatsapp-button">Enviar via WhatsApp</button>
+                <button id="cancel-whatsapp-button" class="action-button cancel-button">Cancelar</button>
+            </div>
+        </div>
+    </div>
+<script>
+    // --- VARIÁVEIS GLOBAIS ---
+    const currentYear = new Date().getFullYear(); 
+
+    const USERS = {
+        'mikhaell': { password: 'mk0639', role: 'admin', type: 'permanent', firstLogin: false, displayName: 'Mikhaell Galvão', email: 'contato@galvaodrones.com.br', phone: '6236360668', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' }, 
+        'Maikhon':  { password: `mai${currentYear}`, role: 'admin', type: 'permanent', firstLogin: false, displayName: 'Maikhon', email: 'maikhon@galvaodrones.com.br', phone: '62987654321', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' },
+        'Ryan':     { password: `rya${currentYear}`, role: 'admin', type: 'permanent', firstLogin: false, displayName: 'Ryan', email: 'ryan@galvaodrones.com.br', phone: '62912345678', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' },
+        'Fineias':  { password: `fin${currentYear}`, role: 'seller', type: 'permanent', firstLogin: false, displayName: 'Fineias', email: 'fineias@galvaodrones.com.br', phone: '62998765432', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' }, 
+        'Rafael':   { password: `raf${currentYear}`, role: 'seller', type: 'permanent', firstLogin: false, displayName: 'Rafael', email: 'rafael@galvaodrones.com.br', phone: '62991234567', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' }, 
+        'Eduardo':  { password: `edu${currentYear}`, role: 'seller', type: 'permanent', firstLogin: true, displayName: 'Eduardo', email: 'eduardo@galvaodrones.com.br', phone: '62988881111', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' }, 
+        'Afranio':  { password: `afr${currentYear}`, role: 'marketing', type: 'permanent', firstLogin: false, displayName: 'Afranio Marketing', email: 'afranio@galvaodrones.com.br', phone: '62988885555', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' }, 
+        
+        'mikhaellven': { password: `mik${currentYear}`, role: 'seller', type: 'permanent', firstLogin: true, displayName: 'Mikhaell Vendedor', email: 'mikhaell.ven@galvaodrones.com.br', phone: '62988882222', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' }, 
+        'maikhonven':  { password: `mai${currentYear}`, role: 'seller', type: 'permanent', firstLogin: true, displayName: 'Maikhon Vendedor', email: 'maikhon.ven@galvaodrones.com.br', phone: '62988883333', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' },
+        'ryanven':     { password: `rya${currentYear}`, role: 'seller', type: 'permanent', firstLogin: true, displayName: 'Ryan Vendedor', email: 'ryan.ven@galvaodrones.com.br', phone: '62988884444', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' },
+    };
+    const CONFIDENTIAL_CODE = '@0639'; 
+
+    let PRODUCTS = [ 
+        { id: 1, name: 'DJI Neo Standard', spec: '🛸 DJI Neo Standard ou Combo fly more\n🎥 Grava em 4K/30fps\n⏱️ Até 18 minutos de voo\n📡 Alcance de até 6 km\n⚖️ Peso de apenas 135 g\n🎮 Controle via app, com controle ou controle motion ( três versões)', salePrice: 1900, line: 'Consumer',
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 1340 }] },
+        { id: 2, name: 'DJI Neo Combo', spec: '🛸 DJI Neo Standard ou Combo fly more\n🎥 Grava em 4K/30fps\n⏱️ Até 18 minutos de voo\n📡 Alcance de até 6 km\n⚖️ Peso de apenas 135 g\n🎮 Controle via app, com controle ou controle motion ( três versões)', salePrice: 3500, line: 'Consumer',
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 2460 }] },
+        { id: 3, name: 'DJI Mini 3 (sem tela)', spec: '🛸 DJI Mini 3\n🎥 Grava em 4K HDR a 30fps\n⏱️ Até 38 minutos de voo\n📡 Distância de até 18 km\n⚖️ Peso leve: 249 g\n🎮 Controle com ou sem tela (duas versões)', salePrice: 3990, line: 'Consumer',
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 2990 }] },
+        { id: 4, name: 'DJI Mini 3 (com tela)', spec: '🛸 DJI Mini 3\n🎥 Grava em 4K HDR a 30fps\n⏱️ Até 38 minutos de voo\n📡 Distância de até 18 km\n⚖️ Peso leve: 249 g\n🎮 Controle com ou sem tela (duas versões)', salePrice: 4785, line: 'Consumer',
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 3785 }] },
+        { id: 5, name: 'DJI Flip Fly More Combo (com tela)', spec: '🛸 DJI Flip\n🎥 4K a 60fps (com slow motion de até 100fps!)\n⏱️ Até 31 minutos no ar\n📡 Alcance médio de 13 km\n⚖️ Menos de 249 g\n🎮 Disponível com ou sem controle com tela', salePrice: 7990, line: 'Consumer',
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 5320 }] },
+        { id: 64, name: 'DJI Mini 4 Pro Fly More Combo Plus (com tela)', spec: '🛸 DJI Mini 4 Pro\n🎥 Incrível 4K HDR a 100fps + fotos de 48 MP\n⏱️ Até 45 minutos no air\n📡 Alcance de até 25 km\n⚖️ Abaixo de 249 g\n🎮 Controle com tela (DJI RC 2)', salePrice: 9000.00, line: 'Consumer',
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 6990.00 }] },
+        { id: 67, name: 'DJI Avata 2 Fly More Combo (1 bateria)', spec: '🛸 DJI Avata 2\n🎥 Gravação 4K 60fps com lente ultrawide\n⏱️ Até 23 minutos de voo imersivo\n📡 Alcance de até 13 km\n⚖️ Peso de 377 g\n🎮 Controle por movimento + óculos FPV (sem tela)', salePrice: 10590.00, line: 'Consumer',
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 7069.91 }] },
+        { id: 68, name: 'DJI Avata 2 Fly More Combo (3 baterias)', spec: '🛸 DJI Avata 2\n🎥 Gravação 4K 60fps com lente ultrawide\n⏱️ Até 23 minutos de voo imersivo\n📡 Alcance de até 13 km\n⚖️ Peso de 377 g\n🎮 Controle por movimento + óculos FPV (sem tela)', salePrice: 12990.00, line: 'Consumer',
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 8674.53 }] },
+        { id: 65, name: 'DJI Air 3S Standard (sem tela)', spec: '🛸 DJI Air 3S (Versão Standard)\n🎥 4K 60fps com sensores duplos (wide + tele)\n⏱️ Até 45 minutos no ar\n📡 Alcance de 32 km\n⚖️ Peso de 724 g\n🎮 Controle sem tela (standard)', salePrice: 12790.00, line: 'Consumer',
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 8532.92 }] },
+        { id: 72, name: 'DJI Mavic 4 Pro Combo (com tela)', spec: '🚀 DJI Mavic 4 Pro\n🎥 5.1K a 120fps com sensor 4/3 CMOS\n⏱️ Até 46 minutos de voo\n📡 Alcance de até 32 km\n⚖️ 958 g\n🎮 Controle com tela (DJI RC Pro)', salePrice: 26670.00, line: 'Consumer',
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 19920.00 }] },
+        { id: 71, name: 'DJI Mavic 4 Pro Creator Combo (HDMI, 512GB)', spec: '🚀 DJI Mavic 4 Pro Creator Combo\nMesmo conjunto do Mavic 4 Pro com:\n🎒 Acessórios profissionais\n🔋 Baterias extras e hub inteligente\n🧳 Maleta reforçada para transporte\n🎮 Controle com tela (DJI RC Pro 2)', salePrice: 35650.00, line: 'Consumer',
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 26650.00 }] },
+        { id: 39, name: 'DJI Mavic 3 Multispectral', spec: '🌱 DJI Mavic 3 Multispectral (Versão Standard)\n🎥 Câmera RGB 20 MP + 4 sensores multispectrais\n⏱️ Até 43 minutos por voo\n📡 Alcance de 15 km\n⚖️ 951 g\n🎮 Controle com tela (DJI RC Pro Enterprise)\n🧪 Ideal para agricultura de precisão e NDVI', salePrice: 44302.70, line: 'Agriculture',
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 31011.89 }] }, 
+        { id: 40, name: 'DJI Mavic 3 Thermal', spec: '🔥 DJI Mavic 3 Thermal (Versão Standard)\n🎥 4K + câmera térmica 640x512 px\n⏱️ Até 45 minutos por voo\n📡 Alcance de 15 km\n⚖️ 920 g\n🎮 Controle com tela (DJI RC Pro Enterprise)\n🔥 Ideal para inspeção, resgate e segurança', salePrice: 42533.55, line: 'Enterprise',
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 29773.48 }] }, 
+        { id: 41, name: 'DJI Mavic 3 Enterprise', spec: '🗺️ DJI Mavic 3 Enterprise (Versão Standard)\n🎥 Câmera RGB 20 MP com obturador mecânico\n🗺️ Compatível com RTK, alto-falante e holofote\n⏱️ Até 45 minutos de voo\n📡 Alcance de 15 km\n⚖️ 915 g\n🎮 Controle com tela (DJI RC Pro Enterprise)\n📐 Indicado para mapeamentos e medições técnicas', salePrice: 31474.83, line: 'Enterprise',
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 22032.38 }] }, 
+        { id: 42, name: 'DJI Matrice 4T', spec: '🛠️ DJI Matrice 4T (Versão Standard)\n🎥 RGB 48 MP + Zoom híbrido 56x + Câmera térmica de alta resolução\n🧭 Visão tripla: Wide, Zoom e Térmica\n⏱️ Até 55 minutos por voo\n📡 Alcance de até 20 km\n⚖️ Peso: 3,7 kg\n🎮 Controle DJI RC Plus com tela de 7” ultra brilhante\n💼 IP55 – Ideal para resgate, combate a incêndio e inspeções', salePrice: 61589.97, line: 'Enterprise',
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 43112.98 }] }, 
+        { id: 43, name: 'DJI Matrice 4E', spec: '🛠️ DJI Matrice 4E (Versão Standard)\n🎥 Câmera ampla de 20 MP com obturador mecânico\n🧭 Suporte a RTK, payloads e expansões avançadas\n⏱️ Até 55 minutos de voo\n📡 Alcance de até 20 km\n⚖️ Peso: 3,4 kg\n🎮 Controle DJI RC Plus\n🔧 Ideal para mapeamento, segurança e vigilância industrial', salePrice: 46075.84, line: 'Enterprise',
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 32253.09 }] }, 
+        { id: 113, name: 'DJI Matrice 30T', spec: '🛠️ DJI Matrice 30T (Versão Standard)\n🎥 Câmera Wide 48 MP + Zoom Híbrido + Câmera Térmica\n⏱️ Até 41 minutos por voo\n📡 Alcance de até 15 km\n⚖️ Peso: 3,77 kg\n🎮 Controle DJI RC Plus com tela de 7”\n💼 Proteção IP55 – Ideal para operações em campo aberto', salePrice: 67494.47, line: 'Enterprise',
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 48663.51 }] }, 
+        { id: 114, name: 'DJI Matrice 350 RTK', spec: '🛠️ DJI Matrice 350 RTK (Versão Standard)\n🎥 Compatível com payloads L2, P1, H30T e sensores externos\n🧭 RTK integrado para mapeamento de alta precisão\n⏱️ Até 55 minutos de voo\n📡 Alcance de até 20 km\n⚖️ Peso médio de 3,8 kg sem carga\n🎮 Controle DJI RC Plus com tela de 7”\n💼 Estrutura reforçada com proteção IP55', salePrice: 51991.62, line: 'Enterprise',
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 37485.95 }] }, 
+        { id: 44, name: 'GOHOBBY SENTINEL', spec: '🛡️ GOHOBBY Sentinel\nUm sistema passivo de detecção, sem interferências, ideal para monitoramento discreto:\n📡 Frequências: 2.4 GHz, 5.1 GHz, 5.8 GHz\n🛩️ Protocolos suportados: DJI (O1–O4), Autel, eWiFi, PAL, NTSC, LightBridge, Datalink\n📍 Alcance de detecção: até 5 km\n🔁 Detecção simultânea: até 10 drones\n⏱️ Tempo de localização: ≤ 3 s\n🕒 Autonomia da bateria: até 12 h\n🎯 Precisão de localização: ≤ 3 m\n💻 Tela: 6.3” touchscreen\n🌐 Conectividade: Wi‑Fi e LTE\n⚖️ Peso: 0,65 kg + bateria externa (~0,6 kg)\n⚙️ IP: IP54', salePrice: 155128.57, line: 'Enterprise',
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 108590.00 }] },
+        { id: 45, name: 'SKYFEND HUNTER', spec: '🌩️ Skyfend Hunter (AFA100)\nUm jammer portátil com detecção e contra-ação integrada, típico “gun”:\n📡 Detecção omnidirecional: até 2 km\n🚫 Jamming direcional: até 3 km\n📶 Cobertura de frequência: 400 MHz–6 GHz (RF + GNSS: GPS, Glonass, Beidou, Galileo)\n⏱️ Autonomia: até 8 h em espera e 1 h com jamming ativo\n🕌 Tela: touchscreen 3,5”\n🔄 Adaptabilidade: adaptação automática de frequência\n⚙️ IP: IP65\n⚖️ Peso: aprox. 6,5 kg', salePrice: 379745.85, line: 'Enterprise',
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 265822.10 }] },
+        { id: 46, name: 'SKYFEND BLADER', spec: '⚡ Skyfend Blader\nUm jammer portátil de alta potência, enxuto e focado na neutralização:\n🌐 Alcance de jamming: até 1,5 km\n📶 Cobertura de frequência: 868 MHz, 915 MHz, 1.2 GHz, 1.4 GHz, 1.6 GHz, 2.4 GHz, 4.95 GHz, 5.2–5.8 GHz\n⏱️ Jamming ativado: até 30 min\n🧭 Direção e campo de visão: azimute ±15°, pitch ±10°\n⚖️ Peso: ≈ 4 kg\n⚙️ IP: IP65', salePrice: 151898.28, line: 'Enterprise',
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 106328.80 }] },
+        // ... (restante dos produtos)
+    ];
+
+    let SUPPLIERS = [
+        { id: 1, name: 'Arroba Celulares', details: 'Aroba celulares é um dos principais distribuidores e centros de manutenção de eletrônicos no Brasil.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mini, Osmo Mobile, Acessórios', categories: ['Consumer', 'Peças'], contacts: [] },
+        { id: 2, name: 'DJI Grupo Multi', details: 'Atuam desde 2012 no mercado de drones e fotografia. Grupo Multi é importador de drones e estabilizadores.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mini, DJI Air, Osmo Action, Acessórios', categories: ['Consumer', 'Peças'], contacts: [] },
+        { id: 3, name: 'GoHobby Distribuidora de VANT LTDA', details: 'A GoHobby é importadora exclusiva de drones profissionais e tecnologias anti-drone no Brasil.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mavic, DJI Matrice, Linha Enterprise, Soluções Anti-drone', categories: ['Enterprise', 'Agriculture', 'Peças'], contacts: [] },
+        { 
+            id: 4, 
+            name: 'Agrobox Drones', 
+            details: 'Peças e Equipamentos para Agricultura. Local: Goiânia, Goiás.', 
+            payment: 'A combinar.', 
+            products: 'Peças e Equipamentos para Drones Agrícolas', 
+            categories: ['Agriculture', 'Equipamentos', 'Peças'],
+            contacts: [
+                { name: 'Frederico', role: 'Dono', whatsapp: '62999999999' },
+                { name: 'Marcos', role: 'Gerente', whatsapp: '62999999998' },
+                { name: 'Heverton', role: 'Vendedor', whatsapp: '62999999997' }
+            ]
+        }
+    ];
+
+    const INSTALLMENT_RATES = {
+        1: 0.0309, 2: 0.0579, 3: 0.0609, 4: 0.0799, 5: 0.0809, 6: 0.0818,
+        7: 0.0949, 8: 0.0966, 9: 0.1037, 10: 0.1105, 11: 0.1227, 12: 0.1238
+    };
+
+    // --- ELEMENTOS DO HTML (DOM) ---
+    // (Variáveis de elementos do DOM já declaradas na parte 1)
+    let createSupplierBtn, editSupplierBtn, requestQuoteBtn, supplierFilterBtn, droneFilterBtn;
+    let requestQuoteModal, quoteNextStepBtn, quoteConfirmationModal, sendQuoteWhatsappBtn;
+
+    // --- FUNÇÕES GLOBAIS ---
+    // (Funções existentes da parte 1)
+
+    // --- FUNÇÕES DE RENDERIZAÇÃO DE CONTEÚDO (ATUALIZADAS) ---
+    function renderProducts(searchTerm = '') {
+        const productListEl = document.getElementById('product-list');
+        productListEl.innerHTML = '';
+        const lowerCaseSearchTerm = searchTerm.toLowerCase();
+        
+        if (window.currentUser.isVisitor) {
+            productListEl.innerHTML = '<p>Funcionalidade de produtos não disponível no modo visitante. Use a seção "Drones".</p>';
+            return;
+        }
+
+        const productsToShow = PRODUCTS.filter(p => 
+            p.name.toLowerCase().includes(lowerCaseSearchTerm) || 
+            p.spec.toLowerCase().includes(lowerCaseSearchTerm) ||
+            (p.sources && p.sources.some(source => source.supplierName.toLowerCase().includes(lowerCaseSearchTerm)))
+        );
+
+        if (productsToShow.length === 0) {
+            productListEl.innerHTML = '<p>Nenhum produto encontrado.</p>';
+        }
+
+        productsToShow.forEach(product => {
+            const productCard = document.createElement('div');
+            productCard.className = 'card product-card';
+            productCard.dataset.productId = product.id;
+            const isAdmin = window.currentUser.role === 'admin';
+            const isSeller = window.currentUser.role === 'seller';
+            
+            const salePriceLabel = isSeller ? 'Valor' : 'Valor de Venda';
+            
+            let adminCostInfoHTML = '';
+            if (isAdmin) { 
+                adminCostInfoHTML = `<p><strong>Custos por Fornecedor:</strong></p><ul class="product-suppliers-list">`;
+                if (product.sources && product.sources.length > 0) {
+                    product.sources.forEach(source => {
+                        adminCostInfoHTML += `
+                            <li>
+                                <a href="#" class="supplier-name-link" data-supplier-name="${source.supplierName}">
+                                    ${source.supplierName}
+                                </a>
+                                <span class="cost-value">${source.costPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
+                            </li>
+                        `;
+                    });
+                } else {
+                    adminCostInfoHTML += `<li><span class="cost-value">N/A (Sem Fornecedor Registrado)</span></li>`;
+                }
+                adminCostInfoHTML += `</ul>`;
+            }
+
+            productCard.innerHTML = `
+                <h3>${product.name}</h3>
+                <p class="product-spec"><strong>Especificações:</strong><br>${product.spec}</p>
+                <p class="price">${salePriceLabel}: ${product.salePrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
+                ${isAdmin ? adminCostInfoHTML : ''}
+                <div class="action-buttons-container">
+                    <button class="gemini-button desc-button">✨ Gerar Descrição</button>
+                    <button class="gemini-button args-button">✨ Criar Argumentos</button>
+                    <button class="whatsapp-button" data-product-id="${product.id}">💬 WhatsApp</button>
+                    <button class="help-button">💡 Ajudar Cliente</button>
+                </div>
+                <div class="calculator-container">
+                    <div class="payment-method-selector">
+                        <input type="radio" id="payment-vista-${product.id}" name="payment-method-${product.id}" value="vista" checked>
+                        <label for="payment-vista-${product.id}">À vista</label>
+                        <input type="radio" id="payment-parcelado-${product.id}" name="payment-method-${product.id}" value="parcelado">
+                        <label for="payment-parcelado-${product.id}">Parcelado</label>
+                    </div>
+                    ${isAdmin ? `
+                    <div class="discount-option" id="discount-option-${product.id}">
+                        <label for="discount-percentage-${product.id}">Desconto (%):</label>
+                        <input type="number" id="discount-percentage-${product.id}" min="0" max="15" value="0">
+                    </div>
+                    ` : ''}
+                    <div class="installments-container hidden">
+                        <label for="parcelas-${product.id}">Parcelas:</label>
+                        <select id="parcelas-${product.id}" class="parcelas-select">
+                           <option value="1">1x</option><option value="2">2x</option><option value="3">3x</option><option value="4">4x</option><option value="5">5x</option><option value="6">6x</option><option value="7">7x</option><option value="8">8x</option><option value="9">9x</option><option value="10">10x</option><option value="11">11x</option><option value="12">12x</option>
+                        </select>
+                    </div>
+                    <button class="calculate-product-btn">Calcular</button>
+                    <div class="product-calculator-result"></div>
+                </div>
+            `;
+            productListEl.appendChild(productCard);
+        });
+    }
+
+    function renderDroneVisitorList(filters = {}) {
+        const droneVisitorListEl = document.getElementById('drone-visitor-list');
+        droneVisitorListEl.innerHTML = '';
+        const { searchTerm = '', sortOrder = 'alpha', lines = [] } = filters;
+        const lowerCaseSearchTerm = searchTerm.toLowerCase();
+
+        let dronesToShow = PRODUCTS.filter(p => 
+            (p.name.toLowerCase().includes("dji") || p.name.toLowerCase().includes("drone") || p.name.toLowerCase().includes("mavic") || p.name.toLowerCase().includes("avata") || p.name.toLowerCase().includes("matrice") || p.name.toLowerCase().includes("skyfend") || p.name.toLowerCase().includes("sentinel") || p.name.toLowerCase().includes("neo")) &&
+            (p.name.toLowerCase().includes(lowerCaseSearchTerm) || p.spec.toLowerCase().includes(lowerCaseSearchTerm))
+        );
+
+        // Aplicar filtro de linha
+        if (lines.length > 0) {
+            dronesToShow = dronesToShow.filter(p => lines.includes(p.line));
+        }
+
+        // Aplicar ordenação
+        if (sortOrder === 'alpha') {
+            dronesToShow.sort((a, b) => a.name.localeCompare(b.name));
+        } else if (sortOrder === 'price-asc') {
+            dronesToShow.sort((a, b) => a.salePrice - b.salePrice);
+        } else if (sortOrder === 'price-desc') {
+            dronesToShow.sort((a, b) => b.salePrice - a.salePrice);
+        }
+
+
+        if (dronesToShow.length === 0) {
+            droneVisitorListEl.innerHTML = '<p>Nenhum drone encontrado com os filtros aplicados.</p>';
+        }
+
+        dronesToShow.forEach(product => {
+            const droneCard = document.createElement('div');
+            droneCard.className = 'card product-card'; 
+            droneCard.dataset.productId = product.id; 
+            
+            droneCard.innerHTML = `
+                <h3>${product.name}</h3>
+                <p class="product-spec"><strong>Especificações:</strong><br>${product.spec}</p>
+                <p class="price" style="color: var(--secondary-color);">${product.salePrice > 0 ? product.salePrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : 'Consultar valor'}</p>
+                <div class="action-buttons-container">
+                    <a href="https://wa.me/556236360668?text=${encodeURIComponent('Olá, gostaria de saber mais sobre o ' + product.name + ' e sua disponibilidade.')}" target="_blank" class="action-button whatsapp-button" style="width: auto;">Consultar via WhatsApp</a>
+                    <button class="action-button help-product-visitor-btn" data-product-name="${product.name}" data-product-spec="${product.spec}">Precisa de ajuda com esse produto?</button>
+                </div>
+            `;
+            droneVisitorListEl.appendChild(droneCard);
+        });
+    }
+
+    function renderSuppliers(filters = {}) {
+        const supplierListEl = document.getElementById('supplier-list');
+        const { sortOrder = 'alpha', categories = [] } = filters;
+        supplierListEl.innerHTML = '';
+
+        let suppliersToShow = [...SUPPLIERS];
+
+        // Aplicar filtro de categoria
+        if (categories.length > 0) {
+            suppliersToShow = suppliersToShow.filter(s => 
+                s.categories.some(cat => categories.includes(cat))
+            );
+        }
+
+        // Aplicar ordenação
+        if (sortOrder === 'alpha') {
+            suppliersToShow.sort((a, b) => a.name.localeCompare(b.name));
+        }
+
+        if (suppliersToShow.length === 0) {
+            supplierListEl.innerHTML = '<p>Nenhum fornecedor encontrado com os filtros aplicados.</p>';
+            return;
+        }
+
+        suppliersToShow.forEach(supplier => {
+            const supplierCard = document.createElement('div');
+            supplierCard.className = 'card supplier-card';
+            supplierCard.dataset.supplierId = supplier.id;
+
+            let contactsHTML = '<ul class="contact-list">';
+            if (supplier.contacts && supplier.contacts.length > 0) {
+                supplier.contacts.forEach(contact => {
+                    contactsHTML += `
+                        <li>
+                            <div class="contact-info">
+                                <strong>${contact.name}</strong> - <span>${contact.role}</span>
+                            </div>
+                            <a href="https://wa.me/55${contact.whatsapp}" target="_blank" class="whatsapp-contact-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
+                            </a>
+                        </li>
+                    `;
+                });
+            } else {
+                contactsHTML += '<li>Nenhum contato cadastrado.</li>';
+            }
+            contactsHTML += '</ul>';
+
+            let categoriesHTML = '<div class="categories">';
+            if (supplier.categories && supplier.categories.length > 0) {
+                supplier.categories.forEach(cat => {
+                    categoriesHTML += `<span class="category-tag">${cat}</span>`;
+                });
+            }
+            categoriesHTML += '</div>';
+
+            supplierCard.innerHTML = `
+                <h3><strong data-supplier-name="${supplier.name}">${supplier.name}</strong></h3>
+                <p><strong>Detalhes:</strong> ${supplier.details}</p>
+                <div><strong>Pagamento:</strong><br>${supplier.payment.replace(/\n/g, '<br>')}</div>
+                <p><strong>Produtos Principais:</strong> ${supplier.products}</p>
+                ${categoriesHTML}
+                ${contactsHTML}
+            `;
+            supplierListEl.appendChild(supplierCard);
+        });
+    }
+
+    // --- FUNÇÕES DE ORÇAMENTO ---
+    function openRequestQuoteModal() {
+        requestQuoteModal.style.display = 'block';
+        // Resetar o modal para a etapa 1
+        document.getElementById('quote-step-1').classList.remove('hidden');
+        document.getElementById('quote-step-2').classList.add('hidden');
+        document.getElementById('quote-step-3').classList.add('hidden');
+        document.getElementById('quote-details-text').value = '';
+        document.querySelectorAll('input[name="quote-type"]').forEach(r => r.checked = false);
+        document.querySelectorAll('input[name="equipment-line"]').forEach(r => r.checked = false);
+        window.currentQuoteState = { step: 1 };
+    }
+
+    function handleQuoteNextStep() {
+        const step1 = document.getElementById('quote-step-1');
+        const step2 = document.getElementById('quote-step-2');
+        const step3 = document.getElementById('quote-step-3');
+
+        if (window.currentQuoteState.step === 1) {
+            const quoteType = document.querySelector('input[name="quote-type"]:checked');
+            if (!quoteType) {
+                alert('Por favor, selecione um tipo de item.');
+                return;
+            }
+            window.currentQuoteState.type = quoteType.value;
+            step1.classList.add('hidden');
+            if (quoteType.value === 'EQUIPAMENTOS') {
+                step2.classList.remove('hidden');
+                window.currentQuoteState.step = 2;
+            } else { // PEÇAS
+                step3.classList.remove('hidden');
+                window.currentQuoteState.step = 3;
+            }
+        } else if (window.currentQuoteState.step === 2) {
+            const equipmentLine = document.querySelector('input[name="equipment-line"]:checked');
+            if (!equipmentLine) {
+                alert('Por favor, selecione a linha do equipamento.');
+                return;
+            }
+            window.currentQuoteState.line = equipmentLine.value;
+            step2.classList.add('hidden');
+            step3.classList.remove('hidden');
+            window.currentQuoteState.step = 3;
+        } else if (window.currentQuoteState.step === 3) {
+            const details = document.getElementById('quote-details-text').value.trim();
+            if (!details) {
+                alert('Por favor, descreva os itens necessários.');
+                return;
+            }
+            window.currentQuoteState.details = details;
+            requestQuoteModal.style.display = 'none';
+            generateAndShowQuoteConfirmation();
+        }
+    }
+
+    function generateAndShowQuoteConfirmation() {
+        const { type, line, details } = window.currentQuoteState;
+        
+        // Filtrar fornecedores
+        let targetCategories = [type];
+        if (line) targetCategories.push(line);
+        if (type === 'PEÇAS') targetCategories.push('Peças');
+
+
+        const relevantSuppliers = SUPPLIERS.filter(s => 
+            s.categories.some(cat => targetCategories.includes(cat))
+        );
+
+        if (relevantSuppliers.length === 0) {
+            alert('Nenhum fornecedor encontrado para a categoria selecionada.');
+            return;
+        }
+
+        // Gerar mensagem
+        const hour = new Date().getHours();
+        let greeting = 'Olá';
+        if (hour >= 5 && hour < 12) greeting = 'Bom dia';
+        else if (hour >= 12 && hour < 18) greeting = 'Boa tarde';
+        else greeting = 'Boa noite';
+
+        const senderName = window.currentUser.displayName || window.currentUser.username;
+        let message = `${greeting}! Tudo bem?\n\n`;
+        message += `Meu nome é ${senderName}, falo em nome da Galvão Drones. `;
+        message += `Gostaria de solicitar um orçamento para os seguintes itens, bem como o prazo estimado para entrega:\n\n`;
+        message += `--- LISTA DE ITENS ---\n`;
+        message += `${details}\n\n`;
+        message += `Agradeço a atenção e aguardo o retorno.`;
+
+        // Abrir modal de confirmação
+        quoteConfirmationModal.style.display = 'block';
+        document.getElementById('quote-final-message').value = message;
+
+        const suppliersDiv = document.getElementById('quote-final-suppliers');
+        suppliersDiv.innerHTML = '<h4>Fornecedores que receberão:</h4>';
+        relevantSuppliers.forEach(s => {
+            suppliersDiv.innerHTML += `<span class="category-tag" style="background-color: var(--secondary-color); color: white;">${s.name}</span> `;
+        });
+
+        window.finalQuoteInfo = {
+            message,
+            suppliers: relevantSuppliers
+        };
+    }
+
+    function sendQuoteViaWhatsApp() {
+        let finalMessage = document.getElementById('quote-final-message').value;
+        const infoToAdd = [];
+
+        document.querySelectorAll('.quote-info-checkbox:checked').forEach(cb => {
+            const key = cb.dataset.key;
+            if (key === 'senderName') infoToAdd.push(`Atendente: ${window.currentUser.displayName}`);
+            if (key === 'senderWhatsapp') infoToAdd.push(`WhatsApp: ${window.currentUser.phone}`);
+            if (key === 'companyCnpj') infoToAdd.push(`CNPJ: 60.102.179/0001-10`);
+            if (key === 'companyAddress') infoToAdd.push(`Endereço: Rua 16, nº 304 – Setor Aeroviário, Goiânia – GO, CEP: 74435-240`);
+            if (key === 'companyEmail') infoToAdd.push(`E-mail: contato@galvaodrones.com.br`);
+        });
+
+        if (infoToAdd.length > 0) {
+            finalMessage += `\n\n--- DADOS PARA CADASTRO/ENVIO ---\n${infoToAdd.join('\n')}`;
+        }
+        
+        const encodedMessage = encodeURIComponent(finalMessage);
+
+        // Abre uma janela do WhatsApp para cada contato principal de cada fornecedor relevante
+        window.finalQuoteInfo.suppliers.forEach(supplier => {
+            if (supplier.contacts && supplier.contacts.length > 0) {
+                // Envia para o primeiro contato da lista como padrão
+                const primaryContact = supplier.contacts[0];
+                const whatsappUrl = `https://wa.me/55${primaryContact.whatsapp}?text=${encodedMessage}`;
+                window.open(whatsappUrl, '_blank');
+            }
+        });
+
+        quoteConfirmationModal.style.display = 'none';
+    }
+
+
+    // --- FUNÇÕES DE LÓGICA DE AUTENTICAÇÃO E INICIALIZAÇÃO DO APP ---
+    // (Funções existentes da parte 1)
+
+    // --- INICIALIZAÇÃO ---
+    document.addEventListener('DOMContentLoaded', () => {
+        // Atribuição de elementos DOM a variáveis globais (da parte 1 e novas)
+        loginScreen = document.getElementById('login-screen');
+        appScreen = document.getElementById('app-screen');
+        loginButton = document.getElementById('login-button');
+        logoutButton = document.getElementById('logout-button');
+        usernameInput = document.getElementById('username');
+        passwordInput = document.getElementById('password');
+        loginError = document.getElementById('login-error');
+        visitorModeButton = document.getElementById('visitor-mode-button'); 
+
+        navButtons = document.querySelectorAll('.nav-button');
+        contentSections = document.querySelectorAll('.content-section');
+        productsNavButton = document.getElementById('products-nav-button'); 
+        calculatorNavButton = document.getElementById('calculator-nav-button'); 
+        suppliersNavButton = document.getElementById('suppliers-nav-button');
+        settingsNavButton = document.getElementById('settings-nav-button'); 
+        dronesNavButton = document.getElementById('drones-nav-button'); 
+        infoEmpresaNavButton = document.getElementById('info-empresa-nav-button'); 
+        marketingNavButton = document.getElementById('marketing-nav-button');
+        profileNavButton = document.getElementById('profile-nav-button');
+
+        settingsSubNav = document.getElementById('settings-sub-nav'); 
+        manageUsersNavButton = document.getElementById('manage-users-nav-button');
+        createProductNavButton = document.getElementById('create-product-nav-button');
+        editProductNavButton = document.getElementById('edit-product-nav-button');
+
+        productList = document.getElementById('product-list');
+        supplierList = document.getElementById('supplier-list');
+        productSearchInput = document.getElementById('product-search');
+        droneVisitorList = document.getElementById('drone-visitor-list'); 
+        droneVisitorSearchInput = document.getElementById('drone-visitor-search'); 
+
+        mainModal = document.getElementById('main-modal');
+        modalTitle = document.getElementById('modal-title');
+        modalBody = document.getElementById('modal-body');
+        closeModalButton = document.querySelector('#main-modal .close-button');
+
+        // ... (outras atribuições da parte 1)
+        navToggleButton = document.getElementById('nav-toggle-btn');
+        navToggleButtonClose = document.getElementById('nav-toggle-btn-close'); 
+        navElement = document.querySelector('nav'); 
+
+        // NOVOS ELEMENTOS
+        createSupplierBtn = document.getElementById('create-supplier-btn');
+        editSupplierBtn = document.getElementById('edit-supplier-btn');
+        requestQuoteBtn = document.getElementById('request-quote-btn');
+        supplierFilterBtn = document.getElementById('supplier-filter-btn');
+        droneFilterBtn = document.getElementById('drone-filter-btn');
+        requestQuoteModal = document.getElementById('request-quote-modal');
+        quoteNextStepBtn = document.getElementById('quote-next-step-btn');
+        quoteConfirmationModal = document.getElementById('quote-confirmation-modal');
+        sendQuoteWhatsappBtn = document.getElementById('send-quote-whatsapp-btn');
+
+
+        // --- EVENT LISTENERS ---
+        if(loginButton) loginButton.addEventListener('click', handleLogin); 
+        // ... (outros listeners da parte 1)
+        if(navToggleButton) navToggleButton.addEventListener('click', () => navElement.classList.toggle('nav-open'));
+        if(navToggleButtonClose) navToggleButtonClose.addEventListener('click', () => navElement.classList.remove('nav-open'));
+
+        // NOVOS LISTENERS
+        if(supplierFilterBtn) supplierFilterBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            document.getElementById('supplier-filter-options').classList.toggle('show');
+        });
+        if(droneFilterBtn) droneFilterBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            document.getElementById('drone-filter-options').classList.toggle('show');
+        });
+        
+        // Listener para fechar os filtros ao clicar fora
+        window.addEventListener('click', (e) => {
+            if (!e.target.closest('.filter-container')) {
+                document.getElementById('supplier-filter-options').classList.remove('show');
+                document.getElementById('drone-filter-options').classList.remove('show');
+            }
+        });
+        
+        // Listeners para aplicar filtros
+        document.getElementById('supplier-filter-options').addEventListener('change', () => {
+            const sortOrder = document.querySelector('input[name="sort-supplier"]:checked').value;
+            const categories = [...document.querySelectorAll('input[name="cat-supplier"]:checked')].map(cb => cb.value);
+            renderSuppliers({ sortOrder, categories });
+        });
+
+        document.getElementById('drone-filter-options').addEventListener('change', () => {
+            const sortOrder = document.getElementById('sort-drone-order').value;
+            const lines = [...document.querySelectorAll('input[name="line-drone"]:checked')].map(cb => cb.value);
+            const searchTerm = document.getElementById('drone-visitor-search').value;
+            renderDroneVisitorList({ searchTerm, sortOrder, lines });
+        });
+        
+        if(requestQuoteBtn) requestQuoteBtn.addEventListener('click', openRequestQuoteModal);
+        if(quoteNextStepBtn) quoteNextStepBtn.addEventListener('click', handleQuoteNextStep);
+        if(sendQuoteWhatsappBtn) sendQuoteWhatsappBtn.addEventListener('click', sendQuoteViaWhatsApp);
+
+        // Listeners para os modais de orçamento
+        document.querySelectorAll('#request-quote-modal .close-button, #quote-confirmation-modal .close-button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                requestQuoteModal.style.display = 'none';
+                quoteConfirmationModal.style.display = 'none';
+            });
+        });
+
+        // Adicionar outros listeners da parte 1 aqui...
+        // Exemplo:
+        if(logoutButton) logoutButton.addEventListener('click', handleLogout);
+        if(productSearchInput) productSearchInput.addEventListener('input', (e) => renderProducts(e.target.value));
+        if(droneVisitorSearchInput) droneVisitorSearchInput.addEventListener('input', (e) => {
+             const sortOrder = document.getElementById('sort-drone-order').value;
+             const lines = [...document.querySelectorAll('input[name="line-drone"]:checked')].map(cb => cb.value);
+             renderDroneVisitorList({ searchTerm: e.target.value, sortOrder, lines });
+        });
+        document.querySelectorAll('nav button').forEach(button => {
+            button.addEventListener('click', () => {
+                const sectionId = button.dataset.section;
+                if (sectionId) {
+                    switchTab(sectionId);
+                    navElement.classList.remove('nav-open'); // Fecha o menu no mobile
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
 
