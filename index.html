@@ -182,14 +182,77 @@
             margin-bottom: 20px; display: inline-block; width: auto;
         }
         .back-to-settings-button:hover { background-color: #95a5a6; }
-        .search-bar { margin-bottom: 20px; position: relative; }
+        /* Ajuste para search-bar e novo filtro */
+        .search-and-filter-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            position: relative; /* Para posicionar o balão de filtro */
+        }
+        .search-bar {
+            flex-grow: 1;
+            position: relative;
+            margin-bottom: 0; /* Remover margin-bottom duplicado */
+        }
         .search-bar input {
-            width: 100%; padding: 12px 12px 12px 40px; font-size: 16px; border-radius: 5鸣;
+            width: 100%; padding: 12px 12px 12px 40px; font-size: 16px; border-radius: 5px;
             border: 1px solid #ccc; box-sizing: border-box;
         }
         .search-bar::before {
             content: '🔎'; position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 18px; opacity: 0.6;
         }
+        .filter-icon-button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em; /* Tamanho do ícone */
+            flex-shrink: 0;
+            transition: background-color 0.3s;
+        }
+        .filter-icon-button:hover {
+            background-color: #0A4538;
+        }
+        .filter-panel {
+            position: absolute;
+            top: 100%; /* Abaixo da barra de busca/filtro */
+            right: 0;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 15px;
+            z-index: 100;
+            min-width: 250px;
+            display: none; /* Inicia oculto */
+            flex-direction: column;
+            gap: 10px;
+        }
+        .filter-panel.active {
+            display: flex;
+        }
+        .filter-panel .sort-buttons-container {
+            margin-bottom: 0; /* Remover margens extras dentro do painel */
+            padding: 0;
+            background-color: transparent;
+            box-shadow: none;
+            border: none;
+            flex-direction: column; /* Botões de sort um abaixo do outro no painel */
+            align-items: stretch;
+        }
+        .filter-panel .sort-buttons-container button,
+        .filter-panel .sort-buttons-container select {
+            width: 100%; /* Ocupam largura total no painel */
+            margin-bottom: 5px;
+        }
+        .filter-panel .sort-buttons-container .sort-label {
+            align-self: flex-start; /* Alinha o label à esquerda */
+            margin-bottom: 5px;
+        }
+
         .card {
             position: relative; border: 1px solid #ddd; padding: 20px; margin-bottom: 15px;
             border-radius: 5px; transition: box-shadow 0.3s; z-index: 1;
@@ -505,7 +568,8 @@
 <body>
     <div class="container">
         <div id="login-screen">
-            <img src="https://i.imgur.com/b3lg2eE.png" alt="Logotipo Galvão Drones" id="company-logo"> <h2 id="portal-subtitle">Portal Interno</h2>
+            <img src="https://i.imgur.com/b3lg2eE.png" alt="Logotipo Galvão Drones" id="company-logo">
+            <h2 id="portal-subtitle">Portal Interno</h2>
             <div class="input-group"><label for="username">Usuário</label><input type="text" id="username" placeholder="Digite seu nome"></div>
             <div class="input-group"><label for="password">Senha</label><input type="password" id="password" placeholder="Sua senha"></div>
             <button id="login-button" class="action-button">Entrar</button>
@@ -556,24 +620,28 @@
                 <main id="main-content">
                     <section id="products-section" class="content-section active">
                         <h2>Consulta de Produtos</h2>
-                        <div class="search-bar"><input type="text" id="product-search" placeholder="Pesquisar por nome ou especificação..."></div>
-                        <div class="sort-buttons-container">
-                            <span class="sort-label">Ordenar por:</span>
-                            <button data-sort-by="price-asc">Preço ↑</button>
-                            <button data-sort-by="price-desc">Preço ↓</button>
-                            <button data-sort-by="alpha-asc">A-Z ↑</button>
-                            <button data-sort-by="alpha-desc">Z-A ↓</button>
-                            <button data-sort-by="recent">Mais Recentes</button>
-                            <select id="product-category-sort">
-                                <option value="">Por Categoria...</option>
-                                <option value="Consumer">Consumer</option>
-                                <option value="Enterprise">Enterprise</option>
-                                <option value="Agriculture">Agriculture</option>
-                                <option value="Acessorios">Acessórios</option>
-                                <option value="Baterias">Baterias</option>
-                                <option value="Drones">Drones</option>
-                                <option value="Pecas">Peças</option>
-                            </select>
+                        <div class="search-and-filter-container">
+                            <div class="search-bar"><input type="text" id="product-search" placeholder="Pesquisar por nome ou especificação..."></div>
+                            <button class="filter-icon-button" id="toggle-product-filter-panel">⚙️</button>
+                            <div class="filter-panel" id="product-filter-panel">
+                                <span class="sort-label">Ordenar por:</span>
+                                <button data-sort-by="price-asc">Preço ↑</button>
+                                <button data-sort-by="price-desc">Preço ↓</button>
+                                <button data-sort-by="alpha-asc">A-Z ↑</button>
+                                <button data-sort-by="alpha-desc">Z-A ↓</button>
+                                <button data-sort-by="recent">Mais Recentes</button>
+                                <label for="product-category-sort" class="sort-label">Filtrar por Categoria:</label>
+                                <select id="product-category-sort">
+                                    <option value="">Todas</option>
+                                    <option value="Consumer">Consumer</option>
+                                    <option value="Enterprise">Enterprise</option>
+                                    <option value="Agriculture">Agriculture</option>
+                                    <option value="Acessorios">Acessórios</option>
+                                    <option value="Baterias">Baterias</option>
+                                    <option value="Drones">Drones</option>
+                                    <option value="Pecas">Peças</option>
+                                </select>
+                            </div>
                         </div>
                         <div id="product-list"></div>
                     </section>
@@ -614,18 +682,23 @@
                             <button id="open-create-supplier-modal-button" class="action-button" style="width: auto; background-color: var(--secondary-color);">Criar Fornecedor</button>
                             <button id="open-edit-supplier-search-modal-button" class="action-button" style="width: auto; background-color: var(--dark-grey);">Alterar Fornecedor</button>
                         </div>
-                        <div class="sort-buttons-container">
-                            <span class="sort-label">Ordenar por:</span>
-                            <button data-sort-by="name-asc">A-Z ↑</button>
-                            <button data-sort-by="name-desc">Z-A ↓</button>
-                            <select id="supplier-category-sort">
-                                <option value="">Por Categoria...</option>
-                                <option value="Consumer">Consumer</option>
-                                <option value="Enterprise">Enterprise</option>
-                                <option value="Agriculture">Agriculture</option>
-                                <option value="Pecas">Peças</option>
-                                <option value="Equipamentos">Equipamentos</option>
-                            </select>
+                        <div class="search-and-filter-container">
+                            <div class="search-bar"><input type="text" id="supplier-search" placeholder="Pesquisar por nome ou detalhes..."></div>
+                            <button class="filter-icon-button" id="toggle-supplier-filter-panel">⚙️</button>
+                            <div class="filter-panel" id="supplier-filter-panel">
+                                <span class="sort-label">Ordenar por:</span>
+                                <button data-sort-by="name-asc">A-Z ↑</button>
+                                <button data-sort-by="name-desc">Z-A ↓</button>
+                                <label for="supplier-category-sort" class="sort-label">Filtrar por Categoria:</label>
+                                <select id="supplier-category-sort">
+                                    <option value="">Todas</option>
+                                    <option value="Consumer">Consumer</option>
+                                    <option value="Enterprise">Enterprise</option>
+                                    <option value="Agriculture">Agriculture</option>
+                                    <option value="Pecas">Peças</option>
+                                    <option value="Equipamentos">Equipamentos</option>
+                                </select>
+                            </div>
                         </div>
                         <div id="supplier-list"></div>
                     </section>
@@ -1004,20 +1077,20 @@
     const currentYear = new Date().getFullYear();
 
     const USERS = {
-        'mikhaell': { password: 'mk0639', role: 'admin', type: 'permanent', firstLogin: false, displayName: 'Mikhaell Galvão', email: 'contato@galvaodrones.com.br', phone: '6236360668', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' },
-        'Maikhon':  { password: `mai${currentYear}`, role: 'admin', type: 'permanent', firstLogin: false, displayName: 'Maikhon', email: 'maikhon@galvaodrones.com.br', phone: '62987654321', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' },
-        'Ryan':     { password: `rya${currentYear}`, role: 'admin', type: 'permanent', firstLogin: false, displayName: 'Ryan', email: 'ryan@galvaodrones.com.br', phone: '62912345678', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' },
-        'Fineias':  { password: `fin${currentYear}`, role: 'seller', type: 'permanent', firstLogin: false, displayName: 'Fineias', email: 'fineias@galvaodrones.com.br', phone: '62998765432', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' },
-        'Rafael':   { password: `raf${currentYear}`, role: 'seller', type: 'permanent', firstLogin: false, displayName: 'Rafael', email: 'rafael@galvaodrones.com.br', phone: '62991234567', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' },
-        'Eduardo':  { password: `edu${currentYear}`, role: 'seller', type: 'permanent', firstLogin: true, displayName: 'Eduardo', email: 'eduardo@galvaodrones.com.br', phone: '62988881111', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' },
-        'Afranio':  { password: `afr${currentYear}`, role: 'marketing', type: 'permanent', firstLogin: false, displayName: 'Afranio Marketing', email: 'afranio@galvaodrones.com.br', phone: '62988885555', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' },
-
-        'mikhaellven': { password: `mik${currentYear}`, role: 'seller', type: 'permanent', firstLogin: true, displayName: 'Mikhaell Vendedor', email: 'mikhaell.ven@galvaodrones.com.br', phone: '62988882222', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' },
-        'maikhonven':  { password: `mai${currentYear}`, role: 'seller', type: 'permanent', firstLogin: true, displayName: 'Maikhon Vendedor', email: 'maikhon.ven@galvaodrones.com.br', phone: '62988883333', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' },
-        'ryanven':     { password: `rya${currentYear}`, role: 'seller', type: 'permanent', firstLogin: true, displayName: 'Ryan Vendedor', email: 'ryan.ven@galvaodrones.com.br', phone: '62988884444', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' },
+        'mikhaell': { password: 'mk0639', role: 'admin', type: 'permanent', displayName: 'Mikhaell Galvão', email: 'contato@galvaodrones.com.br', phone: '6236360668', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png', firstLogin: false },
+        'Maikhon':  { password: `mai${currentYear}`, role: 'admin', type: 'permanent', displayName: 'Maikhon', email: 'maikhon@galvaodrones.com.br', phone: '62987654321', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png', firstLogin: false },
+        'Ryan':     { password: `rya${currentYear}`, role: 'admin', type: 'permanent', displayName: 'Ryan', email: 'ryan@galvaodrones.com.br', phone: '62912345678', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png', firstLogin: false },
+        'Fineias':  { password: `fin${currentYear}`, role: 'seller', type: 'permanent', displayName: 'Fineias', email: 'fineias@galvaodrones.com.br', phone: '62998765432', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png', firstLogin: false },
+        'Rafael':   { password: `raf${currentYear}`, role: 'seller', type: 'permanent', displayName: 'Rafael', email: 'rafael@galvaodrones.com.br', phone: '62991234567', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png', firstLogin: false },
+        'Eduardo':  { password: `edu${currentYear}`, role: 'seller', type: 'permanent', displayName: 'Eduardo', email: 'eduardo@galvaodrones.com.br', phone: '62988881111', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png', firstLogin: true },
+        'Afranio':  { password: `afr${currentYear}`, role: 'marketing', type: 'permanent', displayName: 'Afranio Marketing', email: 'afranio@galvaodrones.com.br', phone: '62988885555', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png', firstLogin: false },
+        'mikhaellven': { password: `mik${currentYear}`, role: 'seller', type: 'permanent', displayName: 'Mikhaell Vendedor', email: 'mikhaell.ven@galvaodrones.com.br', phone: '62988882222', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png', firstLogin: true },
+        'maikhonven':  { password: `mai${currentYear}`, role: 'seller', type: 'permanent', displayName: 'Maikhon Vendedor', email: 'maikhon.ven@galvaodrones.com.br', phone: '62988883333', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png', firstLogin: true },
+        'ryanven':     { password: `rya${currentYear}`, role: 'seller', type: 'permanent', displayName: 'Ryan Vendedor', email: 'ryan.ven@galvaodrones.com.br', phone: '62988884444', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png', firstLogin: true },
     };
     const CONFIDENTIAL_CODE = '@0639';
 
+    // Adicionado categories aos produtos para filtro
     let PRODUCTS = [
         { id: 1, name: 'DJI Neo Standard', spec: '🛸 DJI Neo Standard ou Combo fly more\n🎥 Grava em 4K/30fps\n⏱️ Até 18 minutos de voo\n📡 Alcance de até 6 km\n⚖️ Peso de apenas 135 g\n🎮 Controle via app, com controle ou controle motion ( três versões)', salePrice: 1900,
             sources: [{ supplierName: 'Arroba Celulares', costPrice: 1340 }], categories: ['Consumer', 'Drones'] },
@@ -1118,19 +1191,19 @@
         { id: 81, name: 'Bateria de alta capacidade DJI RS BG70', spec: '🔋 Bateria DJI RS BG70 (para RS 4 Pro)\n⏱️ Até 12 horas de autonomia contínua\n⚙️ Fixação direta no estabilizador RS 4 Pro\n📦 Indicador de status em tempo real\n🔋 Recarga via conector magnético de alta voltagem', salePrice: 1490.00,
             sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 996.07 }], categories: ['Baterias'] },
         { id: 79, name: 'Protetores de Hélices DJI Neo', spec: '🛡️ Protetores de Hélice DJI Neo\n⚙️ Leves, seguros e ideais para indoor', salePrice: 119.00,
-            sources: [{ supplierName: 'Arroba Celulares', costPrice: 100.00 }], categories: ['Acessorios'] },
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 100.00 }], categories: ['Acessorios', 'Pecas'] },
         { id: 78, name: 'Protetores de Hélices DJI Mini 3', spec: '🛡️ Protetores de Hélice DJI Mini 3\n⚙️ Encaixe rápido, protege hélices em espaços apertados', salePrice: 379.00,
-            sources: [{ supplierName: 'Arroba Celulares', costPrice: 285.00 }], categories: ['Acessorios'] },
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 285.00 }], categories: ['Acessorios', 'Pecas'] },
         { id: 77, name: 'Hélices DJI Neo – 2 Pares', spec: '🌀 Hélices DJI Neo – 2 Pares', salePrice: 79.00,
-            sources: [{ supplierName: 'Arroba Celulares', costPrice: 53.06 }], categories: ['Acessorios'] },
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 53.06 }], categories: ['Acessorios', 'Pecas'] },
         { id: 75, name: 'Hélices DJI Flip – 2 Pares', spec: '🌀 Hélices DJI Flip – 2 Pares', salePrice: 104.90,
-            sources: [{ supplierName: 'Arroba Celulares', costPrice: 70.31 }], categories: ['Acessorios'] },
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 70.31 }], categories: ['Acessorios', 'Pecas'] },
         { id: 73, name: 'Hélices DJI Mini 2/SE/2 SE/4K – 2 Pares', spec: '🌀 Hélices DJI Mini 2/SE/2 SE/4K – 2 Pares', salePrice: 119.00,
-            sources: [{ supplierName: 'Arroba Celulares', costPrice: 433.38 }], categories: ['Acessorios'] },
+            sources: [{ supplierName: 'Arroba Celulares', costPrice: 433.38 }], categories: ['Acessorios', 'Pecas'] },
         { id: 76, name: 'Hélices DJI Inspire 3 – Par', spec: '🌀 Hélices DJI Inspire 3 – Par', salePrice: 499.00,
-            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 391.91 }], categories: ['Acessorios'] },
+            sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 391.91 }], categories: ['Acessorios', 'Pecas'] },
         { id: 74, name: 'Hélices DJI Avata 2 – 2 Pares', spec: '🌀 Hélices DJI Avata 2 – 2 Pares', salePrice: 109.00,
-            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 70.31 }], categories: ['Acessorios'] },
+            sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 70.31 }], categories: ['Acessorios', 'Pecas'] },
         { id: 38, name: 'DJI Goggles 3', spec: '👓 DJI Goggles 3\n📺 Duas telas OLED 1080p de alta nitidez\n🧠 Sistema de head tracking imersivo com baixa latência\n🔋 Bateria interna com até 3 horas de autonomia\n📡 Transmissão O4 compatível com Avata 2, Mini 4 Pro,  Air 3 e Neo\n🧳 Ajuste ergonômico para conforto prolongado', salePrice: 6490,
             sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 4327.89 }], categories: ['Acessorios'] },
         { id: 88, name: 'DJI Goggles N3', spec: '👓 DJI Goggles N3\n📺 Compatíveis com o DJI Neo e Motion Controller 3\n🔋 Bateria interna com até 2 horas de uso contínuo\n🌀 Imersão FPV com mínima latência\n📦 Design leve e dobrável, ideal para transporte', salePrice: 2990.00,
@@ -1376,8 +1449,8 @@
     let editSupplierSearchModal, editSupplierSearchInputModal, searchSupplierToEditModalButton, editSupplierSearchResultsModal;
 
     // Elementos de ordenação
-    let productSortButtons, productCategorySortSelect;
-    let supplierSortButtons, supplierCategorySortSelect;
+    let productSortButtons, productCategorySortSelect, toggleProductFilterPanel, productFilterPanel;
+    let supplierSortButtons, supplierCategorySortSelect, supplierSearchInput, toggleSupplierFilterPanel, supplierFilterPanel;
 
 
     // --- FUNÇÕES GLOBAIS ---
@@ -1458,14 +1531,13 @@
     function closeModal(modalElement) {
         if (modalElement) {
             modalElement.style.display = 'none';
-            // Limpa o conteúdo apenas do modal principal se for ele
             if (modalElement.id === 'main-modal') {
                 modalBody.innerHTML = '';
                 clearInterval(window.tempUserInterval);
             } else if (modalElement.id === 'manage-supplier-modal') {
-                manageSupplierForm.reset(); // Reseta o formulário do modal de fornecedor
-                supplierContactsContainer.innerHTML = ''; // Limpa os contatos
-                manageSupplierFeedback.textContent = ''; // Limpa feedback
+                manageSupplierForm.reset();
+                supplierContactsContainer.innerHTML = '';
+                manageSupplierFeedback.textContent = '';
                 document.querySelectorAll('#manage-supplier-modal input[type="checkbox"]').forEach(cb => cb.checked = false);
             } else if (modalElement.id === 'edit-supplier-search-modal') {
                 editSupplierSearchInputModal.value = '';
@@ -1616,6 +1688,7 @@
                 const bHasCategory = b.categories && b.categories.includes(category);
                 if (aHasCategory && !bHasCategory) return -1;
                 if (!aHasCategory && bHasCategory) return 1;
+                // Mantém a ordem original para itens da mesma categoria ou sem a categoria específica
                 return 0;
             }
             return 0;
@@ -1692,14 +1765,22 @@
             `;
             productList.appendChild(productCard);
         });
-        updateSortButtonStates(productSortButtons, currentProductSort.type);
+        updateSortButtonStates(productSortButtons, productCategorySortSelect, currentProductSort.type);
     }
 
     let currentSupplierSort = { type: 'name-asc', direction: 'asc' }; // Padrão para fornecedores
 
-    function showSuppliers() {
+    function showSuppliers(searchTerm = '') { // Adiciona searchTerm para permitir busca de fornecedores
         supplierList.innerHTML = '';
-        let suppliersToRender = [...SUPPLIERS]; // Cria uma cópia para ordenar
+        const lowerCaseSearchTerm = searchTerm.toLowerCase();
+
+        let suppliersToRender = [...SUPPLIERS].filter(s =>
+            s.name.toLowerCase().includes(lowerCaseSearchTerm) ||
+            s.details.toLowerCase().includes(lowerCaseSearchTerm) ||
+            s.products.toLowerCase().includes(lowerCaseSearchTerm) ||
+            (s.categories && s.categories.some(cat => cat.toLowerCase().includes(lowerCaseSearchTerm))) ||
+            (s.contacts && s.contacts.some(contact => contact.name.toLowerCase().includes(lowerCaseSearchTerm) || contact.role.toLowerCase().includes(lowerCaseSearchTerm)))
+        );
 
         // Aplica ordenação
         suppliersToRender.sort((a, b) => {
@@ -1717,6 +1798,10 @@
             }
             return 0;
         });
+
+        if (suppliersToRender.length === 0) {
+            supplierList.innerHTML = '<p>Nenhum fornecedor encontrado.</p>';
+        }
 
         suppliersToRender.forEach(supplier => {
             const supplierCard = document.createElement('div');
@@ -1757,20 +1842,21 @@
             supplierList.appendChild(supplierCard);
         });
         closeModal(supplierPasswordModal);
-        updateSortButtonStates(supplierSortButtons, currentSupplierSort.type);
+        updateSortButtonStates(supplierSortButtons, supplierCategorySortSelect, currentSupplierSort.type);
     }
 
-    function updateSortButtonStates(buttons, activeType) {
+    function updateSortButtonStates(buttons, selectElement, activeType) {
         buttons.forEach(button => {
             if (button.tagName === 'BUTTON') {
                 button.classList.remove('active');
                 if (button.dataset.sortBy === activeType) {
                     button.classList.add('active');
                 }
-            } else if (button.tagName === 'SELECT') {
-                button.value = activeType.startsWith('category-') ? activeType.replace('category-', '') : '';
             }
         });
+        if (selectElement) {
+            selectElement.value = activeType.startsWith('category-') ? activeType.replace('category-', '') : '';
+        }
     }
 
     function showChangePasswordModal(isMandatory = false) {
@@ -2061,7 +2147,6 @@
 
     // --- FUNÇÕES DO NOVO MODAL DE ORÇAMENTO ---
     function openBudgetModal() {
-        // Resetar os campos e a visibilidade
         document.querySelectorAll('#drone-category-checkboxes input[type="checkbox"]').forEach(cb => cb.checked = false);
         itemTypeGroup.classList.add('hidden');
         document.querySelectorAll('#item-type-checkboxes input[type="checkbox"]').forEach(cb => cb.checked = false);
@@ -2070,7 +2155,7 @@
         sparePartsDetailsGroup.classList.add('hidden');
         sparePartsDetailsTextarea.value = '';
         budgetSupplierSelectGroup.classList.add('hidden');
-        budgetSupplierCheckboxesContainer.innerHTML = ''; // Limpa os checkboxes de fornecedores
+        budgetSupplierCheckboxesContainer.innerHTML = '';
         selectedSupplierContactDiv.classList.add('hidden');
         selectedSupplierNameDisplay.textContent = '';
         sendBudgetWhatsappButton.href = '#';
@@ -2100,13 +2185,11 @@
             }
         }
 
-        budgetSupplierCheckboxesContainer.innerHTML = ''; // Limpa os checkboxes existentes
+        budgetSupplierCheckboxesContainer.innerHTML = '';
         if (relevantSuppliers.length > 0) {
             relevantSuppliers.forEach(supplier => {
-                // Para cada contato do fornecedor, crie um checkbox
                 supplier.contacts.forEach(contact => {
-                    // Evita criar checkbox se o WhatsApp for 'EM_BREVE' e a flag for true
-                    if (contact.whatsapp !== 'EM_BREVE') {
+                    if (contact.whatsapp && contact.whatsapp !== 'EM_BREVE') {
                         const label = document.createElement('label');
                         const uniqueId = `supplier-contact-${supplier.id}-${contact.name.replace(/\s+/g, '-')}`;
                         label.innerHTML = `
@@ -2147,7 +2230,6 @@
     function handleBudgetSupplierSelection() {
         const selectedContacts = Array.from(document.querySelectorAll('#budget-supplier-checkboxes input[type="checkbox"]:checked'));
         if (selectedContacts.length > 0) {
-            // Apenas para display, mostra o nome do(s) fornecedor(es) selecionado(s)
             selectedSupplierNameDisplay.textContent = selectedContacts.map(cb => {
                 const supplierName = cb.value;
                 const contactName = cb.dataset.contactName;
@@ -2282,7 +2364,7 @@
         openModal(editSupplierSearchModal);
     }
 
-    function handleSearchSupplierToEdit() {
+    function handleSearchSupplierToEditInModal() { // Renomeada para evitar conflito com a busca de produtos
         const searchTerm = editSupplierSearchInputModal.value.trim().toLowerCase();
         editSupplierSearchResultsModal.innerHTML = '';
 
@@ -2400,13 +2482,13 @@
             SUPPLIERS[existingIndex] = newSupplierData;
             manageSupplierFeedback.textContent = `Fornecedor "${name}" atualizado com sucesso!`;
         } else {
-            newSupplierData.id = getNextSupplierId(); // Garante um ID único para novos fornecedores
+            newSupplierData.id = getNextSupplierId();
             SUPPLIERS.push(newSupplierData);
             manageSupplierFeedback.textContent = `Fornecedor "${name}" criado com sucesso!`;
         }
         manageSupplierFeedback.style.color = 'green';
         
-        showSuppliers(); // Atualiza a lista de fornecedores na tela principal
+        showSuppliers();
         setTimeout(() => closeModal(manageSupplierModal), 1500);
     }
 
@@ -2543,7 +2625,7 @@
         sendWhatsappButton = document.getElementById('send-whatsapp-button');
         cancelWhatsappButton = document.getElementById('cancel-whatsapp-button');
 
-        // Novas atribuições de elementos para o modal de orçamento
+        // Novos elementos para o modal de orçamento
         openBudgetModalButton = document.getElementById('open-budget-modal-button');
         budgetModal = document.getElementById('budget-modal');
         budgetCloseButton = document.getElementById('budget-close-button');
@@ -2583,10 +2665,16 @@
         editSupplierSearchResultsModal = document.getElementById('edit-supplier-search-results-modal');
 
         // Elementos de ordenação
-        productSortButtons = document.querySelectorAll('#products-section .sort-buttons-container button');
+        productSortButtons = document.querySelectorAll('#products-section .filter-panel button[data-sort-by]');
         productCategorySortSelect = document.getElementById('product-category-sort');
-        supplierSortButtons = document.querySelectorAll('#suppliers-section .sort-buttons-container button');
+        toggleProductFilterPanel = document.getElementById('toggle-product-filter-panel');
+        productFilterPanel = document.getElementById('product-filter-panel');
+
+        supplierSortButtons = document.querySelectorAll('#suppliers-section .filter-panel button[data-sort-by]');
         supplierCategorySortSelect = document.getElementById('supplier-category-sort');
+        supplierSearchInput = document.getElementById('supplier-search'); // Adicionado o input de busca para fornecedores
+        toggleSupplierFilterPanel = document.getElementById('toggle-supplier-filter-panel');
+        supplierFilterPanel = document.getElementById('supplier-filter-panel');
 
 
         // --- EVENT LISTENERS ---
@@ -2737,6 +2825,7 @@
 
         if(closeModalButton) closeModalButton.addEventListener('click', () => closeModal(mainModal));
 
+        // Listener para fechar modals ao clicar fora deles
         window.addEventListener('click', (event) => {
             if (event.target.classList.contains('modal')) {
                 if (event.target.id === 'main-modal') closeModal(mainModal);
@@ -2753,179 +2842,16 @@
                 else if (event.target.id === 'manage-supplier-modal') closeModal(manageSupplierModal);
                 else if (event.target.id === 'edit-supplier-search-modal') closeModal(editSupplierSearchModal);
             }
-        });
 
-
-        if(productSearchInput) productSearchInput.addEventListener('input', (e) => renderProducts(e.target.value));
-        if(droneVisitorSearchInput) droneVisitorSearchInput.addEventListener('input', (e) => renderDroneVisitorList(e.target.value));
-
-        if(createTempUserForm) createTempUserForm.addEventListener('submit', createTemporaryUser);
-        if(createProductForm) createProductForm.addEventListener('submit', handleCreateProduct);
-        if(editProductForm) editProductForm.addEventListener('submit', handleEditProduct);
-
-        if(profileEditForm) profileEditForm.addEventListener('submit', handleProfileEdit);
-        if(uploadProfilePicButton) uploadProfilePicButton.addEventListener('click', handleProfilePicUpload);
-        if(openChangePasswordModalButton) openChangePasswordModalButton.addEventListener('click', () => showChangePasswordModal(false));
-
-
-        if(mainContent) mainContent.addEventListener('scroll', handleScroll);
-        if(scrollToTopButton) scrollToTopButton.addEventListener('click', scrollTop);
-
-        if(generalCalculateButton) generalCalculateButton.addEventListener('click', () => {
-            const baseValue = generalCalcValorBase.value;
-            const paymentMethod = document.querySelector('input[name="general-payment-method"]:checked').value;
-            const numInstallments = generalCalcParcelasSelect.value;
-
-            let discountPercentage = 0;
-            if (window.currentUser && window.currentUser.role === 'admin' && paymentMethod === 'vista' && generalDiscountPercentageInput) {
-                discountPercentage = parseFloat(generalDiscountPercentageInput.value);
+            // Fechar painéis de filtro se o clique for fora deles ou do botão de filtro
+            if (productFilterPanel && toggleProductFilterPanel && !productFilterPanel.contains(event.target) && !toggleProductFilterPanel.contains(event.target)) {
+                productFilterPanel.classList.remove('active');
             }
-
-            generalCalculatorResult.innerHTML = calculate(baseValue, numInstallments, paymentMethod, discountPercentage);
-        });
-
-        if(generalCalcPaymentRadios) generalCalcPaymentRadios.forEach(radio => {
-            radio.addEventListener('change', (e) => {
-                generalCalcInstallmentsContainer.classList.toggle('hidden', e.target.value !== 'parcelado');
-                if (generalDiscountOption) {
-                    if (window.currentUser.role === 'admin' && e.target.value === 'vista') {
-                        generalDiscountOption.classList.remove('hidden');
-                    } else {
-                        generalDiscountOption.classList.add('hidden');
-                    }
-                }
-            });
-        });
-
-        if(aiChatButton) aiChatButton.addEventListener('click', () => {
-            openModal(aiChatModal);
-            aiQuestionInput.value = '';
-            aiResponseArea.innerHTML = '';
-            aiResponseArea.style.display = 'none';
-            if (aiLoader) aiLoader.style.display = 'none';
-        });
-
-        if(aiChatCloseButton) aiChatCloseButton.addEventListener('click', () => closeModal(aiChatModal));
-
-        if(submitAiQuestionButton) submitAiQuestionButton.addEventListener('click', () => {
-            const question = aiQuestionInput.value.trim();
-            if (question) {
-                callGeminiAPI(question, "Resposta da IA", false, true);
+            if (supplierFilterPanel && toggleSupplierFilterPanel && !supplierFilterPanel.contains(event.target) && !toggleSupplierFilterPanel.contains(event.target)) {
+                supplierFilterPanel.classList.remove('active');
             }
         });
 
-        if(submitSupplierPasswordButton) submitSupplierPasswordButton.addEventListener('click', () => {
-            const enteredPassword = supplierAccessPasswordInput.value.trim();
-            if (enteredPassword === CONFIDENTIAL_CODE) {
-                closeModal(supplierPasswordModal);
-                window.pendingSupplierSectionAccess = true;
-                switchTab('suppliers-section');
-            } else {
-                supplierPasswordError.textContent = 'Senha incorreta.';
-                supplierPasswordError.style.display = 'block';
-                supplierAccessPasswordInput.value = '';
-            }
-        });
 
-        if(supplierAccessPasswordInput) supplierAccessPasswordInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                submitSupplierPasswordButton.click();
-            }
-        });
-
-        if(supplierPasswordCloseButton) supplierPasswordCloseButton.addEventListener('click', () => {
-            closeModal(supplierPasswordModal);
-            window.pendingSupplierSectionAccess = false;
-            if (window.activeSectionId === 'suppliers-section') {
-                switchTab('products-section');
-            }
-        });
-
-        if(submitChangePasswordButton) submitChangePasswordButton.addEventListener('click', handleChangePassword);
-        if(newPasswordInput) newPasswordInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleChangePassword(); });
-        if(confirmNewPasswordInput) confirmNewPasswordInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleChangePassword(); });
-
-        if(changePasswordCloseButton) changePasswordCloseButton.addEventListener('click', () => {
-            if (window.currentUser && window.currentUser.firstLogin && changePasswordModal.style.display === 'block') {
-                alert('A alteração de senha é obrigatória para o primeiro acesso. Por favor, defina sua nova senha.');
-            } else {
-                closeModal(changePasswordModal);
-            }
-        });
-
-        if(sendWhatsappButton) sendWhatsappButton.addEventListener('click', sendWhatsAppMessage);
-        if(cancelWhatsappButton) cancelWhatsappButton.addEventListener('click', closeWhatsAppModal);
-        if(whatsappCloseButton) whatsappCloseButton.addEventListener('click', closeWhatsAppModal);
-
-
-        // --- EVENT LISTENERS para o Novo Modal de Orçamento ---
-        if (openBudgetModalButton) openBudgetModalButton.addEventListener('click', openBudgetModal);
-        if (budgetCloseButton) budgetCloseButton.addEventListener('click', closeBudgetModal);
-        
-        droneCategoryCheckboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', handleBudgetCategoryChange);
-        });
-        itemTypeCheckboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', handleBudgetItemTypeChange);
-        });
-
-        if (budgetSupplierCheckboxesContainer) {
-            budgetSupplierCheckboxesContainer.addEventListener('change', handleBudgetSupplierSelection);
-        }
-
-        if (sendBudgetWhatsappButton) sendBudgetWhatsappButton.addEventListener('click', generateBudgetWhatsappMessage);
-
-        // --- EVENT LISTENERS para Gestão de Fornecedores ---
-        if (openCreateSupplierModalButton) openCreateSupplierModalButton.addEventListener('click', openCreateSupplierModal);
-        if (manageSupplierCloseButton) manageSupplierCloseButton.addEventListener('click', () => closeModal(manageSupplierModal));
-        if (addSupplierContactButton) addSupplierContactButton.addEventListener('click', () => addContactField());
-        if (manageSupplierForm) manageSupplierForm.addEventListener('submit', handleSaveSupplier);
-        if (openEditSupplierSearchModalButton) openEditSupplierSearchModalButton.addEventListener('click', openEditSupplierSearchModal);
-        if (editSupplierSearchCloseButton) editSupplierSearchCloseButton.addEventListener('click', () => closeModal(editSupplierSearchModal));
-        if (searchSupplierToEditModalButton) searchSupplierToEditModalButton.addEventListener('click', handleSearchSupplierToEdit);
-
-        // Adiciona listener para cliques nos botões "Alterar" dos cards de fornecedor
-        if (supplierList) {
-            supplierList.addEventListener('click', (e) => {
-                if (e.target.classList.contains('edit-supplier-button')) {
-                    const supplierId = parseInt(e.target.dataset.supplierId);
-                    loadSupplierForEdit(supplierId);
-                }
-            });
-        }
-
-        // Adiciona listener para a busca dentro do modal de edição de fornecedor
-        if (editSupplierSearchInputModal) {
-            editSupplierSearchInputModal.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    handleSearchSupplierToEdit();
-                }
-            });
-        }
-
-        // --- Event Listeners para Ordenação ---
-        productSortButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                currentProductSort.type = button.dataset.sortBy;
-                renderProducts(productSearchInput.value);
-            });
-        });
-
-        productCategorySortSelect.addEventListener('change', (e) => {
-            currentProductSort.type = e.target.value ? `category-${e.target.value}` : 'recent'; // Se não selecionar, volta para recente
-            renderProducts(productSearchInput.value);
-        });
-
-        supplierSortButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                currentSupplierSort.type = button.dataset.sortBy;
-                showSuppliers();
-            });
-        });
-
-        supplierCategorySortSelect.addEventListener('change', (e) => {
-            currentSupplierSort.type = e.target.value ? `category-${e.target.value}` : 'name-asc'; // Se não selecionar, volta para ordem alfabética
-            showSuppliers();
-        });
-    });
-</script>
+        // Buscar produto na seção de edição de produto
+        if(searchProductToEditButton) searchProductToEditButton.addEventListener
