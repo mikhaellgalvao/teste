@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal de Consultas Internas - Galvão Drones</title>
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230E5847'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-12h2v4h4v2h-4v4h-2v-4H7v-2h4V8z'%3E%3C/path%3E%3Cpath d='M13.25 7.15c-.24-.24-.58-.36-.92-.36s-.68.12-.92.36L8.4 9.16c-.24.24-.36.58-.36.92s.12.68.36.92l.71.71c.24.24.58.36.92.36s-.68-.12.92-.36l2.93-2.93c-.24-.24-.36-.58-.36-.92s-.12-.68-.36-.92l-.71-.71zM10.75 16.85c.24.24.58.36.92.36s-.68-.12.92-.36l2.93-2.93c-.24-.24-.36-.58-.36-.92s-.12-.68-.36-.92l-.71-.71c-.24-.24-.58-.36-.92-.36s-.68.12-.92.36l-2.93 2.93c-.24.24-.36.58-.36.92s-.12.68.36.92l.71.71zM18.8 8.4l-.71-.71c-.24-.24-.58-.36-.92-.36s-.68.12-.92.36L13.3 9.77c-.24.24-.36.58-.36.92s-.12.68.36.92l.71.71c.24.24.58.36.92.36s-.68-.12.92-.36l3.85-3.85c-.24-.24-.36-.58-.36.92s-.12-.68-.36-.92zM5.2 15.6l.71.71c-.24.24-.58.36-.92.36s-.68-.12-.92.36l3.85-3.85c-.24-.24-.36.58-.36.92s-.12.68-.36.92l-.71-.71c-.24-.24-.58-.36-.92-.36s-.68.12-.92.36L5.2 14.68c-.24.24-.36.58-.36.92s-.12.68.36.92z'%3E%3C/path%3E%3C/svg%3E" type="image/svg+xml">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230E5847'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-12h2v4h4v2h-4v4h-2v-4H7v-2h4V8z'%3E%3C/path%3E%3Cpath d='M13.25 7.15c-.24-.24-.58-.36-.92-.36s-.68.12-.92.36L8.4 9.16c-.24.24-.36.58-.36.92s.12.68.36.92l.71.71c.24.24.58.36.92.36s-.68-.12.92-.36l2.93-2.93c-.24-.24-.36-.58-.36-.92s-.12-.68-.36-.92l-.71-.71zM10.75 16.85c.24.24.58.36.92.36s-.68-.12.92-.36l2.93-2.93c-.24-.24-.36-.58-.36-.92s-.12-.68-.36-.92l-.71-.71c-.24-.24-.58-.36-.92-.36s-.68.12-.92.36l-2.93 2.93c-.24.24-.36.58-.36.92s-.12.68.36.92l.71.71zM18.8 8.4l-.71-.71c-.24-.24-.58-.36-.92-.36s-.68.12-.92.36L13.3 9.77c-.24.24-.36.58-.36.92s-.12.68.36.92l.71.71c.24.24.58.36.92.36s-.68-.12.92-.36l3.85-3.85c-.24-.24-.36-.58-.36.92s-.12-.68-.36-.92zM5.2 15.6l.71.71c-.24.24-.58.36-.92.36s-.68-.12-.92.36l3.85-3.85c-.24.24-.36.58-.36.92s-.12.68-.36.92l-.71-.71c-.24-.24-.58-.36-.92-.36s-.68.12-.92.36L5.2 14.68c-.24.24-.36.58-.36.92s-.12.68.36.92z'%3E%3C/path%3E%3C/svg%3E" type="image/svg+xml">
     <style>
         /* --- ESTILOS GERAIS (CSS) COM A PALETA GALVÃO DRONES --- */
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
@@ -161,15 +161,15 @@
             height: 60px; /* Altura fixa para o header */
         }
         
-        /* Botão de menu hambúrguer no cabeçalho */
+        /* NOVO: Botão de menu hambúrguer no cabeçalho */
         .nav-toggle-btn {
             background: none;
             border: none;
             color: white;
-            font-size: 28px;
+            font-size: 24px;
             cursor: pointer;
             padding: 0 10px;
-            display: none; /* Oculto em desktop */
+            margin-right: 10px;
         }
 
         /* Container do ícone de perfil */
@@ -198,19 +198,22 @@
             display: block;
         }
 
-        /* Container do nome de boas-vindas e título */
-        .header-content { 
+        /* Container do nome de boas-vindas */
+        .header-left { 
             display: flex; 
             align-items: center; 
             gap: 15px;
-            flex-grow: 1;
+        }
+
+        /* Container do título do portal */
+        .header-title-container {
+            flex-grow: 1; 
+            text-align: center; 
         }
 
         header h1 {
             margin: 0;
             font-size: 24px;
-            text-align: center;
-            flex-grow: 1;
         }
         
         header #logout-button {
@@ -223,7 +226,6 @@
             cursor: pointer;
             transition: background-color 0.3s;
             display: block; 
-            flex-shrink: 0;
         }
         header #logout-button:hover {
             background-color: #c0392b;
@@ -279,91 +281,9 @@
             color: white;
         }
 
-        /* --- FILTROS --- */
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        .section-header h2 {
-            margin: 0;
-        }
-        .filter-container {
-            position: relative;
-        }
-        .filter-button {
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .filter-button:hover {
-            opacity: 0.9;
-        }
-        .filter-options {
-            display: none;
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background-color: white;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            z-index: 100;
-            width: 220px;
-            padding: 10px;
-        }
-        .filter-options.show {
-            display: block;
-        }
-        .filter-group {
-            margin-bottom: 10px;
-        }
-        .filter-group label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
-            font-size: 0.9em;
-        }
-        .filter-group select, .filter-group div {
-            width: 100%;
-        }
-        .filter-group input[type="radio"], .filter-group input[type="checkbox"] {
-            margin-right: 5px;
-        }
-
 
         /* Oculta nav por padrão no mobile, prepara para slide-in */
         @media (max-width: 768px) {
-            header {
-                padding: 10px 15px;
-                justify-content: space-between;
-            }
-            .nav-toggle-btn {
-                display: block; /* Mostra o botão no mobile */
-                order: -1; /* Coloca no início */
-            }
-            header h1 {
-                font-size: 20px;
-                text-align: left; /* Alinha o título à esquerda no mobile */
-                margin-left: 10px;
-            }
-            #welcome-message {
-                display: none; /* Oculta a mensagem de boas-vindas para dar espaço */
-            }
-            .header-content {
-                justify-content: flex-start;
-            }
-
             nav {
                 position: fixed;
                 top: 0;
@@ -372,9 +292,9 @@
                 width: 250px;
                 min-width: 250px;
                 transform: translateX(-100%);
-                z-index: 999;
+                z-index: 1000;
                 box-shadow: 2px 0 5px rgba(0,0,0,0.2);
-                padding-top: 0; /* Remove o padding-top antigo */
+                padding-top: 60px;
                 border-right: 1px solid var(--dark-grey);
             }
             nav.nav-open {
@@ -382,7 +302,8 @@
             }
             .nav-header {
                 display: flex;
-                position: relative; /* Mudado de absolute */
+                position: absolute;
+                top: 0;
                 width: 100%;
                 height: 60px;
                 background-color: var(--secondary-color);
@@ -415,16 +336,34 @@
                 box-sizing: border-box;
             }
 
-            /* CORREÇÃO DO FILTRO PARA MOBILE */
-            .filter-options {
-                position: fixed; /* Mudar para fixo para sobrepor tudo */
-                right: 5%;
-                left: 5%;
-                width: 90%;
-                top: auto;
-                bottom: 10%; /* Posicionar na parte inferior da tela */
-                max-height: 70vh;
-                overflow-y: auto;
+            header {
+                padding: 10px 15px;
+                position: sticky;
+                top: 0;
+                z-index: 1001; 
+            }
+            header h1 {
+                font-size: 20px;
+            }
+            
+            .header-left {
+                gap: 10px;
+                flex-grow: 1;
+            }
+
+            #welcome-message {
+                margin-left: 0;
+                flex-grow: 1;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                flex-shrink: 1;
+                min-width: 0;
+            }
+            #profile-icon-container {
+                margin-left: 5px;
+                width: 35px;
+                height: 35px;
             }
         }
 
@@ -473,6 +412,41 @@
             }
         }
 
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+        .section-header h2 {
+            margin: 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .filter-button {
+            background: none;
+            border: 1px solid var(--secondary-color);
+            color: var(--secondary-color);
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .filter-button:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        .filter-button svg {
+            width: 18px;
+            height: 18px;
+        }
+
 
         .content-section {
             display: none;
@@ -481,14 +455,13 @@
             display: block;
         }
         .content-section h2, .content-section h3 {
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 10px;
             color: var(--secondary-color);
         }
         .content-section h3 {
              border-bottom: 1px solid var(--dark-grey);
              font-size: 1.2em;
              margin-top: 30px;
+             padding-bottom: 10px;
         }
 
         #settings-options-grid {
@@ -559,11 +532,11 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-image: url("https://i.imgur.com/b3lg2eE.png");
+            background-image: url("logo.png");
             background-size: 50%;
             background-position: center;
             background-repeat: no-repeat;
-            opacity: 0.08;
+            opacity: 0.15;
             z-index: -1;
             border-radius: 5px;
         }
@@ -578,74 +551,6 @@
         .cost-price { font-size: 1.1em; font-weight: 700; color: var(--danger-color); background-color: #fdd; padding: 5px; border-radius: 4px; display: inline-block; margin-top: 10px; }
         .supplier-info { font-size: 0.9em; font-weight: 500; color: var(--secondary-color); background-color: #e8f8f5; padding: 5px 8px; border-radius: 4px; display: inline-block; margin-top: 10px; margin-left: 10px;}
         
-        /* --- ESTILOS PARA FORNECEDORES --- */
-        #supplier-actions {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        #supplier-actions .action-button {
-            width: auto;
-            padding: 10px 15px;
-            font-size: 0.95em;
-        }
-        .supplier-card .contact-list {
-            list-style: none;
-            padding: 0;
-            margin-top: 15px;
-        }
-        .supplier-card .contact-list li {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-        }
-        .supplier-card .contact-list li:last-child {
-            border-bottom: none;
-        }
-        .supplier-card .contact-info {
-            font-size: 0.95em;
-        }
-        .supplier-card .contact-info strong {
-            color: #333;
-        }
-        .supplier-card .contact-info span {
-            color: #777;
-            font-style: italic;
-        }
-        .whatsapp-contact-btn {
-            background-color: var(--whatsapp-color);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 35px;
-            height: 35px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            font-size: 18px;
-            transition: transform 0.2s;
-        }
-        .whatsapp-contact-btn:hover {
-            transform: scale(1.1);
-        }
-        .supplier-card .categories {
-            margin-top: 10px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        .supplier-card .category-tag {
-            background-color: var(--medium-grey);
-            color: #555;
-            padding: 4px 10px;
-            border-radius: 15px;
-            font-size: 0.8em;
-            font-weight: 500;
-        }
         .product-suppliers-list {
             list-style: none;
             padding: 0;
@@ -671,6 +576,7 @@
             color: var(--danger-color);
             font-weight: 500;
         }
+
         .action-buttons-container { margin-top: 15px; display: flex; flex-wrap: wrap; gap: 10px; }
         .action-buttons-container button, .action-buttons-container a.action-button {
             color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; font-weight: 500; transition: background-color 0.3s;
@@ -730,12 +636,495 @@
             transform: translateY(2px);
             z-index: 0;
         }
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.6); padding-top: 60px; }
+        .modal { display: none; position: fixed; z-index: 1050; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.6); padding-top: 60px; }
         .modal-content { background-color: #fefefe; margin: 5% auto; padding: 20px; border: 1px solid #888; width: 80%; max-width: 600px; border-radius: 8px; position: relative; }
         .close-button { color: #aaa; position: absolute; top: 10px; right: 20px; font-size: 28px; font-weight: bold; cursor: pointer; }
         .loader { border: 8px solid #f3f3f3; border-radius: 50%; border-top: 8px solid var(--primary-color); width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 20px auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        #scroll-to-top { position: fixed; bottom: 20px; right: 30px; z-index: 99; border: none; outline: none; background-color: var(--primary-color); color: white; cursor: pointer; padding: 12px 15px; border-radius: 50%; font-size: 18px; display: none; }
+
+        #temp-user-list-container { margin-top: 30px; }
+        .temp-user-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid var(--medium-grey); }
+        .temp-user-item:last-child { border-bottom: none; }
+        .user-info p { margin: 0; }
+        .user-info p small { color: #555; }
+        .user-actions button { margin-left: 10px; padding: 5px 10px; border-radius: 4px; border: none; color: white; cursor: pointer; }
+        .edit-btn { background-color: var(--primary-color); }
+        .delete-btn { background-color: var(--danger-color); }
+
         .hidden { display: none !important; }
+
+        #ai-chat-button {
+            position: fixed;
+            bottom: 90px;
+            right: 30px;
+            z-index: 99;
+            border: none;
+            outline: none;
+            background-color: var(--secondary-color);
+            color: white;
+            cursor: pointer;
+            padding: 15px 18px;
+            border-radius: 50%;
+            font-size: 24px;
+            display: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        #ai-chat-button:hover {
+            background-color: #0A4538;
+            transform: translateY(-3px);
+        }
+
+        #ai-chat-button:active {
+            transform: translateY(0);
+        }
+
+        #ai-chat-modal .modal-content {
+            max-width: 700px;
+            text-align: left;
+        }
+
+        #ai-chat-modal-body {
+            text-align: left;
+        }
+
+        #ai-question-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 1em;
+            margin-bottom: 15px;
+        }
+
+        #submit-ai-question {
+            width: auto;
+            padding: 10px 20px;
+            font-size: 1em;
+        }
+
+        #ai-response-area {
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        #supplier-password-modal .modal-content {
+            max-width: 400px;
+            text-align: center;
+        }
+        #supplier-password-modal .input-group input {
+            text-align: center;
+        }
+        #supplier-password-modal .error-message {
+            color: var(--danger-color);
+            margin-top: 10px;
+            display: none;
+        }
+
+        #change-password-modal .modal-content {
+            max-width: 450px;
+            text-align: center;
+        }
+        #change-password-modal .input-group {
+            margin-bottom: 15px;
+        }
+        #change-password-modal .input-group label {
+            font-size: 0.9em;
+        }
+        #change-password-modal .error-message {
+            color: var(--danger-color);
+            margin-top: 10px;
+            font-weight: 500;
+            display: none;
+        }
+        #change-password-modal .success-message {
+            color: var(--secondary-color);
+            margin-top: 10px;
+            font-weight: 500;
+            display: none;
+        }
+
+        #profile-section .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        #profile-section .profile-pic-large {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-color);
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        #profile-section .profile-info h3 {
+            margin: 0;
+            font-size: 1.8em;
+            color: var(--secondary-color);
+            border-bottom: none;
+        }
+        #profile-section .profile-info p {
+            margin: 5px 0;
+            font-size: 1.1em;
+            color: #555;
+        }
+        #profile-section .profile-edit-form .input-group {
+            margin-bottom: 15px;
+        }
+        #profile-section .profile-edit-form .action-button {
+            width: auto;
+            padding: 10px 20px;
+            margin-right: 10px;
+        }
+        #profile-section .profile-edit-form .action-button.secondary {
+            background-color: var(--dark-grey);
+        }
+        #profile-section .profile-edit-form .action-button.secondary:hover {
+            background-color: #95a5a6;
+        }
+        #profile-section .profile-feedback {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        #profile-section .profile-pic-upload-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        #profile-section .profile-pic-upload-container input[type="file"] {
+            flex-grow: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #profile-section .profile-pic-upload-container button {
+            padding: 8px 15px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #whatsapp-modal .modal-content {
+            max-width: 500px;
+            text-align: left;
+        }
+        #whatsapp-modal textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 1em;
+            min-height: 120px;
+            margin-bottom: 15px;
+        }
+        #whatsapp-modal .profile-info-options {
+            margin-bottom: 15px;
+        }
+        #whatsapp-modal .profile-info-options label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: normal;
+            font-size: 0.95em;
+        }
+        #whatsapp-modal .profile-info-options input[type="checkbox"] {
+            margin-right: 8px;
+        }
+        #whatsapp-modal .action-button-group {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        #whatsapp-modal .action-button-group .action-button {
+            width: auto;
+        }
+        #whatsapp-modal .action-button-group .cancel-button {
+            background-color: var(--dark-grey);
+        }
+        #whatsapp-modal .action-button-group .cancel-button:hover {
+            background-color: #95a5a6;
+        }
+
+        #marketing-section .marketing-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        #marketing-section .marketing-item {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+        #marketing-section .marketing-item h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            border-bottom: none;
+        }
+        #marketing-section .marketing-item img {
+            max-width: 80%;
+            height: auto;
+            margin: 15px auto;
+            display: block;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        #marketing-section .marketing-item .download-button {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 15px;
+        }
+        #marketing-section .marketing-item .download-button:hover {
+            background-color: #0A4538;
+        }
+        
+        /* NOVOS ESTILOS PARA FORNECEDORES */
+        .supplier-actions-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .supplier-actions-container .action-button {
+            width: auto;
+            padding: 10px 15px;
+            font-size: 1em;
+        }
+        .supplier-card .contact-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+        .supplier-card .contact-list li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            padding: 5px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .supplier-card .contact-list .contact-info {
+            font-size: 0.95em;
+        }
+        .supplier-card .contact-list .contact-info strong {
+            color: var(--secondary-color);
+        }
+        .supplier-card .contact-list .whatsapp-icon-button {
+            background-color: var(--whatsapp-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .supplier-card .contact-list .whatsapp-icon-button:hover {
+            transform: scale(1.1);
+        }
+        .supplier-card .supplier-categories {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .supplier-card .supplier-categories .category-tag {
+            background-color: var(--medium-grey);
+            color: #555;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+        
+        /* ESTILOS PARA MODAL DE FILTRO */
+        #filter-modal .modal-content {
+            max-width: 400px;
+        }
+        .filter-group {
+            margin-bottom: 20px;
+        }
+        .filter-group h4 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        .filter-group label {
+            display: block;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+        .filter-group input[type="radio"], .filter-group input[type="checkbox"] {
+            margin-right: 8px;
+        }
+        
+        /* ESTILOS PARA MODAL DE ORÇAMENTO */
+        #quote-request-modal .quote-step {
+            display: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #ccc;
+        }
+        #quote-request-modal .quote-step.active {
+            display: block;
+        }
+        #quote-request-modal .checkbox-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        @media (max-width: 768px) {
+            main .content-section > * {
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 100%;
+                padding: 0 10px;
+                box-sizing: border-box;
+            }
+
+            .card {
+                padding: 15px;
+                margin-bottom: 10px;
+            }
+
+            .card h3 {
+                font-size: 1.1em;
+            }
+
+            .product-spec, .price, .cost-price, .supplier-info {
+                font-size: 0.9em;
+            }
+
+            .action-buttons-container {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .action-buttons-container button, .action-buttons-container a.action-button {
+                width: 100%;
+                padding: 10px;
+                font-size: 0.9em;
+            }
+
+            .calculator-container .input-group {
+                margin-bottom: 10px;
+            }
+            .payment-method-selector label {
+                margin-right: 10px;
+                font-size: 0.9em;
+            }
+            .discount-option {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+            .discount-option input[type="number"] {
+                width: 100px;
+                padding: 5px;
+            }
+            .discount-option::after {
+                content: "max. 15%";
+                position: absolute;
+                left: 0;
+                top: auto;
+                bottom: -15px;
+                transform: none;
+                font-size: 0.7em;
+                pointer-events: none;
+                white-space: nowrap;
+                transform: translateY(2px);
+                z-index: 0;
+            }
+            .calculate-product-btn {
+                width: 100%;
+                padding: 10px;
+            }
+            .product-calculator-result, #general-calculator-result {
+                font-size: 1em;
+                padding: 10px;
+            }
+            .result-parcelado small {
+                font-size: 0.8em;
+            }
+
+            .search-bar input {
+                padding: 10px 10px 10px 35px;
+                font-size: 0.95em;
+            }
+            .search-bar::before {
+                left: 10px;
+                font-size: 16px;
+            }
+
+            .temp-user-item {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 10px;
+            }
+            .user-info p {
+                font-size: 0.95em;
+            }
+            .user-actions {
+                width: 100%;
+                display: flex;
+                justify-content: flex-start;
+                margin-top: 10px;
+            }
+            .user-actions button {
+                margin-left: 0;
+                margin-right: 10px;
+                padding: 8px 10px;
+                font-size: 0.9em;
+            }
+
+            .info-card p {
+                font-size: 0.95em;
+            }
+            .contact-buttons-container {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .contact-buttons-container a.action-button {
+                width: 100%;
+            }
+
+            #ai-chat-modal .modal-content {
+                width: 90%;
+                margin: 20px auto;
+            }
+            #ai-question-input {
+                font-size: 0.95em;
+            }
+            #ai-response-area {
+                font-size: 0.9em;
+                padding: 8px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -753,15 +1142,19 @@
 
         <div id="app-screen">
             <header>
-                <button id="nav-toggle-btn" class="nav-toggle-btn">☰</button>
-                <div class="header-content">
+                <div class="header-left">
+                    <button id="nav-toggle-btn" class="nav-toggle-btn">☰</button>
                     <div id="profile-icon-container">
                         <img id="profile-icon" src="https://i.imgur.com/8Yd00YF.png" alt="Foto de Perfil"> 
                     </div>
                     <span id="welcome-message"></span>
+                </div>
+                <div class="header-title-container">
                     <h1>Portal Interno</h1>
                 </div>
-                <button id="logout-button">Sair</button>
+                <div>
+                    <button id="logout-button">Sair</button>
+                </div>
             </header>
             <div class="app-body">
                 <nav>
@@ -828,49 +1221,17 @@
                     <section id="suppliers-section" class="content-section">
                         <div class="section-header">
                             <h2>Fornecedores (Acesso Confidencial)</h2>
-                            <div class="filter-container">
-                                <button class="filter-button" id="supplier-filter-btn">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/></svg>
-                                    Filtrar
-                                </button>
-                                <div class="filter-options" id="supplier-filter-options">
-                                    <div class="filter-group">
-                                        <label>Ordenar por:</label>
-                                        <div>
-                                            <input type="radio" id="sort-supplier-alpha" name="sort-supplier" value="alpha" checked>
-                                            <label for="sort-supplier-alpha">Ordem Alfabética</label>
-                                        </div>
-                                    </div>
-                                    <div class="filter-group">
-                                        <label>Filtrar por Categoria:</label>
-                                        <div>
-                                            <input type="checkbox" id="cat-supplier-consumer" name="cat-supplier" value="Consumer">
-                                            <label for="cat-supplier-consumer">Consumer</label>
-                                        </div>
-                                        <div>
-                                            <input type="checkbox" id="cat-supplier-enterprise" name="cat-supplier" value="Enterprise">
-                                            <label for="cat-supplier-enterprise">Enterprise</label>
-                                        </div>
-                                        <div>
-                                            <input type="checkbox" id="cat-supplier-agriculture" name="cat-supplier" value="Agriculture">
-                                            <label for="cat-supplier-agriculture">Agriculture</label>
-                                        </div>
-                                        <div>
-                                            <input type="checkbox" id="cat-supplier-pecas" name="cat-supplier" value="Peças">
-                                            <label for="cat-supplier-pecas">Peças</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <button class="filter-button" id="suppliers-filter-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/></svg>
+                                Filtrar
+                            </button>
                         </div>
-                        <div id="supplier-actions">
-                            <button id="create-supplier-btn" class="action-button">Criar Fornecedor</button>
-                            <button id="edit-supplier-btn" class="action-button">Alterar Fornecedor</button>
-                            <button id="request-quote-btn" class="action-button">Solicitar Orçamento</button>
+                        <div class="supplier-actions-container" id="supplier-actions">
+                            <!-- Botões serão inseridos aqui via JS para admin -->
                         </div>
                         <div id="supplier-list"></div>
                     </section>
-
+                    
                     <section id="settings-section" class="content-section">
                         <h2>Configurações do Sistema</h2>
                         <p>Selecione uma opção de configuração no menu lateral, ou clique nos atalhos abaixo:</p>
@@ -942,37 +1303,10 @@
                     <section id="drones-visitor-section" class="content-section">
                         <div class="section-header">
                             <h2>Modelos de Drones</h2>
-                            <div class="filter-container">
-                                <button class="filter-button" id="drone-filter-btn">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/></svg>
-                                    Filtrar
-                                </button>
-                                <div class="filter-options" id="drone-filter-options">
-                                    <div class="filter-group">
-                                        <label>Ordenar por:</label>
-                                        <select id="sort-drone-order">
-                                            <option value="alpha">Ordem Alfabética</option>
-                                            <option value="price-asc">Menor Valor</option>
-                                            <option value="price-desc">Maior Valor</option>
-                                        </select>
-                                    </div>
-                                    <div class="filter-group">
-                                        <label>Filtrar por Linha:</label>
-                                        <div>
-                                            <input type="checkbox" id="line-drone-consumer" name="line-drone" value="Consumer">
-                                            <label for="line-drone-consumer">Consumer</label>
-                                        </div>
-                                        <div>
-                                            <input type="checkbox" id="line-drone-enterprise" name="line-drone" value="Enterprise">
-                                            <label for="line-drone-enterprise">Enterprise</label>
-                                        </div>
-                                        <div>
-                                            <input type="checkbox" id="line-drone-agriculture" name="line-drone" value="Agriculture">
-                                            <label for="line-drone-agriculture">Agriculture</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <button class="filter-button" id="drones-filter-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/></svg>
+                                Filtrar
+                            </button>
                         </div>
                         <div class="search-bar"><input type="text" id="drone-visitor-search" placeholder="Pesquisar por modelo ou especificação..."></div>
                         <div id="drone-visitor-list"></div>
@@ -1050,16 +1384,39 @@
                                 <img src="https://i.imgur.com/0CpzT9r.png" alt="Logo Galvão Drones Versão Clara">
                                 <a href="https://i.imgur.com/0CpzT9r.png" download="galvao_drones_logo_clara.png" class="download-button">Baixar Logo PNG</a>
                             </div>
+                            <div class="marketing-item">
+                                <h3>Logo Galvão Drones (Versão Esverdeada - PNG)</h3>
+                                <img src="https://i.imgur.com/UX00mxn.png" alt="Logo Galvão Drones Versão Esverdeada">
+                                <a href="https://i.imgur.com/UX00mxn.png" download="galvao_drones_logo_esverdeada.png" class="download-button">Baixar Logo PNG</a>
+                            </div>
+                            <div class="marketing-item">
+                                <h3>Logo Galvão Drones (Fundo Laranja - JPG)</h3>
+                                <img src="https://i.imgur.com/b9gygL7.png" alt="Logo Galvão Drones Fundo Laranja">
+                                <a href="https://i.imgur.com/b9gygL7.png" download="galvao_drones_logo_fundo_laranja.png" class="download-button">Baixar Logo PNG</a>
+                            </div>
+                            <div class="marketing-item">
+                                <h3>Logo Galvão Drones (Fundo Preto - JPG)</h3>
+                                <img src="https://i.imgur.com/5dpZZuY.png" alt="Logo Galvão Drones Fundo Preto">
+                                <a href="https://i.imgur.com/5dpZZuY.png" download="galvao_drones_logo_fundo_preto.png" class="download-button">Baixar Logo PNG</a>
+                            </div>
+                            <div class="marketing-item">
+                                <h3>Guia de Estilo da Marca Galvão Drones</h3>
+                                <p>Um PDF completo com diretrizes de uso da marca, paleta de cores e tipografia.</p>
+                                <a href="https://drive.google.com/uc?export=download&id=1bcg8UuCBSfaPB5ktacHz5KfWgGY5ir-a" download="guia_de_estilo_galvao_drones.pdf" class="download-button">Baixar Guia de Estilo (PDF)</a>
+                            </div>
                         </div>
                     </section>
                 </main>
             </div>
         </div>
     </div>
+
     
     <button id="scroll-to-top" title="Voltar ao topo">⬆</button>
+
     <button id="ai-chat-button" title="Falar com a IA">🤖</button>
 
+    <!-- MODAL PRINCIPAL GENÉRICO -->
     <div id="main-modal" class="modal">
         <div class="modal-content">
             <span class="close-button">×</span>
@@ -1068,66 +1425,128 @@
         </div>
     </div>
 
-    <!-- MODAL DE ORÇAMENTO (MULTI-ETAPAS) -->
-    <div id="request-quote-modal" class="modal">
+    <!-- MODAL DE FILTRO (para Drones e Fornecedores) -->
+    <div id="filter-modal" class="modal">
         <div class="modal-content">
             <span class="close-button">×</span>
-            <h3>Solicitar Orçamento - Etapa 1/3</h3>
-            <p>Selecione o tipo de item que você precisa:</p>
-            <div id="quote-step-1">
-                <div class="input-group">
-                    <label><input type="radio" name="quote-type" value="PEÇAS"> Peças</label>
+            <h3 id="filter-modal-title">Filtrar e Ordenar</h3>
+            <div id="filter-modal-body">
+                <div class="filter-group" id="sort-options">
+                    <h4>Ordenar por</h4>
+                    <label><input type="radio" name="sort" value="name_asc"> Ordem Alfabética (A-Z)</label>
+                    <label><input type="radio" name="sort" value="name_desc"> Ordem Alfabética (Z-A)</label>
+                    <label><input type="radio" name="sort" value="price_asc"> Menor Valor</label>
+                    <label><input type="radio" name="sort" value="price_desc"> Maior Valor</label>
                 </div>
-                <div class="input-group">
-                    <label><input type="radio" name="quote-type" value="EQUIPAMENTOS"> Equipamentos</label>
+                <div class="filter-group" id="category-filters">
+                    <h4>Filtrar por Categoria</h4>
+                    <label><input type="checkbox" name="category" value="Consumer"> Consumer</label>
+                    <label><input type="checkbox" name="category" value="Enterprise"> Enterprise</label>
+                    <label><input type="checkbox" name="category" value="Agriculture"> Agriculture</label>
+                    <label><input type="checkbox" name="category" value="Pecas"> Peças</label>
+                    <label><input type="checkbox" name="category" value="Equipamentos"> Equipamentos</label>
                 </div>
+                <button id="apply-filters-btn" class="action-button">Aplicar</button>
             </div>
-            
-            <div id="quote-step-2" class="hidden">
-                <hr>
-                <p>Selecione a linha do equipamento:</p>
-                <label><input type="radio" name="equipment-line" value="Consumer"> Consumer</label>
-                <label><input type="radio" name="equipment-line" value="Enterprise"> Enterprise</label>
-                <label><input type="radio" name="equipment-line" value="Agriculture"> Agriculture</label>
-            </div>
-
-            <div id="quote-step-3" class="hidden">
-                <hr>
-                <div class="input-group">
-                    <label for="quote-details-text">Descreva os itens e quantidades:</label>
-                    <textarea id="quote-details-text" rows="5" placeholder="Ex: 1x DJI Mavic 3 (versão Combo), 2x Baterias extras para DJI Air 2S..."></textarea>
-                </div>
-            </div>
-            <button id="quote-next-step-btn" class="action-button" style="width: auto; margin-top: 20px;">Avançar</button>
         </div>
     </div>
 
-    <!-- MODAL DE CONFIRMAÇÃO DE ORÇAMENTO -->
-    <div id="quote-confirmation-modal" class="modal">
+    <!-- MODAL PARA CRIAR/EDITAR FORNECEDOR -->
+    <div id="supplier-form-modal" class="modal">
         <div class="modal-content" style="max-width: 700px;">
             <span class="close-button">×</span>
-            <h3>Revisar e Enviar Orçamento</h3>
-            <p>A mensagem abaixo será enviada para os fornecedores selecionados. Revise e confirme.</p>
-            
-            <div id="quote-final-suppliers" class="filter-group">
-                <!-- Lista de fornecedores com checkboxes será preenchida aqui -->
-            </div>
-
-            <h4>Mensagem a ser enviada:</h4>
-            <textarea id="quote-final-message" rows="8" style="width: 100%; font-size: 0.95em;"></textarea>
-
-            <div class="profile-info-options" style="margin-top: 15px;">
-                <h4>Incluir Informações Adicionais:</h4>
-                <label><input type="checkbox" class="quote-info-checkbox" data-key="senderName"> Nome do Atendente</label>
-                <label><input type="checkbox" class="quote-info-checkbox" data-key="senderWhatsapp"> WhatsApp do Atendente</label>
-                <label><input type="checkbox" class="quote-info-checkbox" data-key="companyCnpj"> CNPJ (Galvão Drones)</label>
-                <label><input type="checkbox" class="quote-info-checkbox" data-key="companyAddress"> Endereço de Entrega (Galvão Drones)</label>
-                <label><input type="checkbox" class="quote-info-checkbox" data-key="companyEmail"> E-mail (Galvão Drones)</label>
-            </div>
-            
-            <button id="send-quote-whatsapp-btn" class="action-button whatsapp-button" style="width: auto; margin-top: 20px;">Confirmar e Abrir WhatsApp</button>
+            <h3 id="supplier-form-title"></h3>
+            <form id="supplier-form">
+                <input type="hidden" id="supplier-id">
+                <div class="input-group">
+                    <label for="supplier-name">Nome do Fornecedor</label>
+                    <input type="text" id="supplier-name" required>
+                </div>
+                <div class="input-group">
+                    <label for="supplier-details">Detalhes (Local, etc.)</label>
+                    <textarea id="supplier-details" rows="2"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="supplier-payment">Informações de Pagamento</label>
+                    <textarea id="supplier-payment" rows="2"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="supplier-products">Produtos Principais</label>
+                    <input type="text" id="supplier-products">
+                </div>
+                <div class="input-group">
+                    <label>Categorias (separe por vírgula)</label>
+                    <input type="text" id="supplier-categories-input" placeholder="Ex: Agriculture, Equipamentos, Pecas">
+                </div>
+                <hr>
+                <h4>Contatos</h4>
+                <div id="supplier-contacts-container">
+                    <!-- Contatos dinâmicos aqui -->
+                </div>
+                <button type="button" id="add-contact-btn" class="action-button secondary" style="width: auto; margin-top: 10px;">Adicionar Contato</button>
+                <hr>
+                <button type="submit" class="action-button">Salvar Fornecedor</button>
+            </form>
         </div>
     </div>
+    
+    <!-- MODAL DE SOLICITAÇÃO DE ORÇAMENTO -->
+    <div id="quote-request-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">×</span>
+            <h3>Solicitar Orçamento</h3>
+            <div id="quote-request-body">
+                <!-- Passo 1: Tipo de Produto -->
+                <div id="quote-step-1" class="quote-step active">
+                    <h4>Passo 1: Qual o tipo de produto?</h4>
+                    <div class="checkbox-group">
+                        <label><input type="radio" name="product_type" value="Pecas"> Peças</label>
+                        <label><input type="radio" name="product_type" value="Equipamentos"> Equipamentos</label>
+                    </div>
+                </div>
+                <!-- Passo 2: Categoria do Equipamento -->
+                <div id="quote-step-2" class="quote-step">
+                    <h4>Passo 2: Qual a linha do equipamento?</h4>
+                    <div class="checkbox-group">
+                        <label><input type="radio" name="equipment_line" value="Consumer"> Consumer</label>
+                        <label><input type="radio" name="equipment_line" value="Enterprise"> Enterprise</label>
+                        <label><input type="radio" name="equipment_line" value="Agriculture"> Agriculture</label>
+                    </div>
+                </div>
+                <!-- Passo 3: Detalhes do Pedido -->
+                <div id="quote-step-3" class="quote-step">
+                    <h4>Passo 3: Descreva o que você precisa</h4>
+                    <textarea id="quote-details" rows="5" placeholder="Ex: Bateria para DJI Air 3 (2 unidades)\nHélices para Mavic 3 (1 kit)"></textarea>
+                    <button id="finalize-quote-request-btn" class="action-button" style="margin-top: 15px;">Avançar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE CONFIRMAÇÃO DE ORÇAMENTO (antes do WhatsApp) -->
+    <div id="quote-confirmation-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">×</span>
+            <h3>Revisar e Enviar Orçamento</h3>
+            <div id="quote-confirmation-body">
+                <p>A mensagem a seguir será enviada para o fornecedor. Selecione as informações adicionais que deseja incluir:</p>
+                <textarea id="quote-final-message" rows="8" readonly style="width: 100%; background-color: #f0f0f0;"></textarea>
+                <div class="profile-info-options" style="margin-top: 15px;">
+                    <h4>Incluir Informações Adicionais:</h4>
+                    <label><input type="checkbox" class="quote-extra-info" id="quote-include-address"> Endereço da Galvão Drones</label>
+                    <label><input type="checkbox" class="quote-extra-info" id="quote-include-cnpj"> CNPJ da Galvão Drones</label>
+                    <label><input type="checkbox" class="quote-extra-info" id="quote-include-user-name"> Meu nome (<span id="quote-user-name-preview"></span>)</label>
+                    <label><input type="checkbox" class="quote-extra-info" id="quote-include-user-whatsapp"> Meu WhatsApp (<span id="quote-user-whatsapp-preview"></span>)</label>
+                    <label><input type="checkbox" class="quote-extra-info" id="quote-include-company-phone"> WhatsApp da Galvão Drones</label>
+                    <label><input type="checkbox" class="quote-extra-info" id="quote-include-company-email"> E-mail da Galvão Drones</label>
+                </div>
+                <div id="quote-supplier-buttons" style="margin-top: 20px;">
+                    <!-- Botões de WhatsApp dos fornecedores serão inseridos aqui -->
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <div id="ai-chat-modal" class="modal">
         <div class="modal-content">
@@ -1212,6 +1631,7 @@
         'Rafael':   { password: `raf${currentYear}`, role: 'seller', type: 'permanent', firstLogin: false, displayName: 'Rafael', email: 'rafael@galvaodrones.com.br', phone: '62991234567', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' }, 
         'Eduardo':  { password: `edu${currentYear}`, role: 'seller', type: 'permanent', firstLogin: true, displayName: 'Eduardo', email: 'eduardo@galvaodrones.com.br', phone: '62988881111', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' }, 
         'Afranio':  { password: `afr${currentYear}`, role: 'marketing', type: 'permanent', firstLogin: false, displayName: 'Afranio Marketing', email: 'afranio@galvaodrones.com.br', phone: '62988885555', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' }, 
+        
         'mikhaellven': { password: `mik${currentYear}`, role: 'seller', type: 'permanent', firstLogin: true, displayName: 'Mikhaell Vendedor', email: 'mikhaell.ven@galvaodrones.com.br', phone: '62988882222', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' }, 
         'maikhonven':  { password: `mai${currentYear}`, role: 'seller', type: 'permanent', firstLogin: true, displayName: 'Maikhon Vendedor', email: 'maikhon.ven@galvaodrones.com.br', phone: '62988883333', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' },
         'ryanven':     { password: `rya${currentYear}`, role: 'seller', type: 'permanent', firstLogin: true, displayName: 'Ryan Vendedor', email: 'ryan.ven@galvaodrones.com.br', phone: '62988884444', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' },
@@ -1219,61 +1639,56 @@
     const CONFIDENTIAL_CODE = '@0639'; 
 
     let PRODUCTS = [ 
-        { id: 1, name: 'DJI Neo Standard', spec: '🛸 DJI Neo Standard ou Combo fly more\n🎥 Grava em 4K/30fps\n⏱️ Até 18 minutos de voo\n📡 Alcance de até 6 km\n⚖️ Peso de apenas 135 g\n🎮 Controle via app, com controle ou controle motion ( três versões)', salePrice: 1900, line: 'Consumer',
+        { id: 1, name: 'DJI Neo Standard', spec: '🛸 DJI Neo Standard ou Combo fly more\n🎥 Grava em 4K/30fps\n⏱️ Até 18 minutos de voo\n📡 Alcance de até 6 km\n⚖️ Peso de apenas 135 g\n🎮 Controle via app, com controle ou controle motion ( três versões)', salePrice: 1900, categories: ['Consumer'],
             sources: [{ supplierName: 'Arroba Celulares', costPrice: 1340 }] },
-        { id: 2, name: 'DJI Neo Combo', spec: '🛸 DJI Neo Standard ou Combo fly more\n🎥 Grava em 4K/30fps\n⏱️ Até 18 minutos de voo\n📡 Alcance de até 6 km\n⚖️ Peso de apenas 135 g\n🎮 Controle via app, com controle ou controle motion ( três versões)', salePrice: 3500, line: 'Consumer',
+        { id: 2, name: 'DJI Neo Combo', spec: '🛸 DJI Neo Standard ou Combo fly more\n🎥 Grava em 4K/30fps\n⏱️ Até 18 minutos de voo\n📡 Alcance de até 6 km\n⚖️ Peso de apenas 135 g\n🎮 Controle via app, com controle ou controle motion ( três versões)', salePrice: 3500, categories: ['Consumer'],
             sources: [{ supplierName: 'Arroba Celulares', costPrice: 2460 }] },
-        { id: 3, name: 'DJI Mini 3 (sem tela)', spec: '🛸 DJI Mini 3\n🎥 Grava em 4K HDR a 30fps\n⏱️ Até 38 minutos de voo\n📡 Distância de até 18 km\n⚖️ Peso leve: 249 g\n🎮 Controle com ou sem tela (duas versões)', salePrice: 3990, line: 'Consumer',
+        { id: 3, name: 'DJI Mini 3 (sem tela)', spec: '🛸 DJI Mini 3\n🎥 Grava em 4K HDR a 30fps\n⏱️ Até 38 minutos de voo\n📡 Distância de até 18 km\n⚖️ Peso leve: 249 g\n🎮 Controle com ou sem tela (duas versões)', salePrice: 3990, categories: ['Consumer'],
             sources: [{ supplierName: 'Arroba Celulares', costPrice: 2990 }] },
-        { id: 4, name: 'DJI Mini 3 (com tela)', spec: '🛸 DJI Mini 3\n🎥 Grava em 4K HDR a 30fps\n⏱️ Até 38 minutos de voo\n📡 Distância de até 18 km\n⚖️ Peso leve: 249 g\n🎮 Controle com ou sem tela (duas versões)', salePrice: 4785, line: 'Consumer',
+        { id: 4, name: 'DJI Mini 3 (com tela)', spec: '🛸 DJI Mini 3\n🎥 Grava em 4K HDR a 30fps\n⏱️ Até 38 minutos de voo\n📡 Distância de até 18 km\n⚖️ Peso leve: 249 g\n🎮 Controle com ou sem tela (duas versões)', salePrice: 4785, categories: ['Consumer'],
             sources: [{ supplierName: 'Arroba Celulares', costPrice: 3785 }] },
-        { id: 5, name: 'DJI Flip Fly More Combo (com tela)', spec: '🛸 DJI Flip\n🎥 4K a 60fps (com slow motion de até 100fps!)\n⏱️ Até 31 minutos no ar\n📡 Alcance médio de 13 km\n⚖️ Menos de 249 g\n🎮 Disponível com ou sem controle com tela', salePrice: 7990, line: 'Consumer',
+        { id: 5, name: 'DJI Flip Fly More Combo (com tela)', spec: '🛸 DJI Flip\n🎥 4K a 60fps (com slow motion de até 100fps!)\n⏱️ Até 31 minutos no ar\n📡 Alcance médio de 13 km\n⚖️ Menos de 249 g\n🎮 Disponível com ou sem controle com tela', salePrice: 7990, categories: ['Consumer'],
             sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 5320 }] },
-        { id: 64, name: 'DJI Mini 4 Pro Fly More Combo Plus (com tela)', spec: '🛸 DJI Mini 4 Pro\n🎥 Incrível 4K HDR a 100fps + fotos de 48 MP\n⏱️ Até 45 minutos no air\n📡 Alcance de até 25 km\n⚖️ Abaixo de 249 g\n🎮 Controle com tela (DJI RC 2)', salePrice: 9000.00, line: 'Consumer',
+        { id: 64, name: 'DJI Mini 4 Pro Fly More Combo Plus (com tela)', spec: '🛸 DJI Mini 4 Pro\n🎥 Incrível 4K HDR a 100fps + fotos de 48 MP\n⏱️ Até 45 minutos no air\n📡 Alcance de até 25 km\n⚖️ Abaixo de 249 g\n🎮 Controle com tela (DJI RC 2)', salePrice: 9000.00, categories: ['Consumer'],
             sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 6990.00 }] },
-        { id: 67, name: 'DJI Avata 2 Fly More Combo (1 bateria)', spec: '🛸 DJI Avata 2\n🎥 Gravação 4K 60fps com lente ultrawide\n⏱️ Até 23 minutos de voo imersivo\n📡 Alcance de até 13 km\n⚖️ Peso de 377 g\n🎮 Controle por movimento + óculos FPV (sem tela)', salePrice: 10590.00, line: 'Consumer',
+        { id: 67, name: 'DJI Avata 2 Fly More Combo (1 bateria)', spec: '🛸 DJI Avata 2\n🎥 Gravação 4K 60fps com lente ultrawide\n⏱️ Até 23 minutos de voo imersivo\n📡 Alcance de até 13 km\n⚖️ Peso de 377 g\n🎮 Controle por movimento + óculos FPV (sem tela)', salePrice: 10590.00, categories: ['Consumer'],
             sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 7069.91 }] },
-        { id: 68, name: 'DJI Avata 2 Fly More Combo (3 baterias)', spec: '🛸 DJI Avata 2\n🎥 Gravação 4K 60fps com lente ultrawide\n⏱️ Até 23 minutos de voo imersivo\n📡 Alcance de até 13 km\n⚖️ Peso de 377 g\n🎮 Controle por movimento + óculos FPV (sem tela)', salePrice: 12990.00, line: 'Consumer',
+        { id: 68, name: 'DJI Avata 2 Fly More Combo (3 baterias)', spec: '🛸 DJI Avata 2\n🎥 Gravação 4K 60fps com lente ultrawide\n⏱️ Até 23 minutos de voo imersivo\n📡 Alcance de até 13 km\n⚖️ Peso de 377 g\n🎮 Controle por movimento + óculos FPV (sem tela)', salePrice: 12990.00, categories: ['Consumer'],
             sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 8674.53 }] },
-        { id: 65, name: 'DJI Air 3S Standard (sem tela)', spec: '🛸 DJI Air 3S (Versão Standard)\n🎥 4K 60fps com sensores duplos (wide + tele)\n⏱️ Até 45 minutos no ar\n📡 Alcance de 32 km\n⚖️ Peso de 724 g\n🎮 Controle sem tela (standard)', salePrice: 12790.00, line: 'Consumer',
+        { id: 65, name: 'DJI Air 3S Standard (sem tela)', spec: '🛸 DJI Air 3S (Versão Standard)\n🎥 4K 60fps com sensores duplos (wide + tele)\n⏱️ Até 45 minutos no ar\n📡 Alcance de 32 km\n⚖️ Peso de 724 g\n🎮 Controle sem tela (standard)', salePrice: 12790.00, categories: ['Consumer'],
             sources: [{ supplierName: 'DJI Grupo Multi', costPrice: 8532.92 }] },
-        { id: 72, name: 'DJI Mavic 4 Pro Combo (com tela)', spec: '🚀 DJI Mavic 4 Pro\n🎥 5.1K a 120fps com sensor 4/3 CMOS\n⏱️ Até 46 minutos de voo\n📡 Alcance de até 32 km\n⚖️ 958 g\n🎮 Controle com tela (DJI RC Pro)', salePrice: 26670.00, line: 'Consumer',
+        { id: 72, name: 'DJI Mavic 4 Pro Combo (com tela)', spec: '🚀 DJI Mavic 4 Pro\n🎥 5.1K a 120fps com sensor 4/3 CMOS\n⏱️ Até 46 minutos de voo\n📡 Alcance de até 32 km\n⚖️ 958 g\n🎮 Controle com tela (DJI RC Pro)', salePrice: 26670.00, categories: ['Consumer', 'Enterprise'],
             sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 19920.00 }] },
-        { id: 71, name: 'DJI Mavic 4 Pro Creator Combo (HDMI, 512GB)', spec: '🚀 DJI Mavic 4 Pro Creator Combo\nMesmo conjunto do Mavic 4 Pro com:\n🎒 Acessórios profissionais\n🔋 Baterias extras e hub inteligente\n🧳 Maleta reforçada para transporte\n🎮 Controle com tela (DJI RC Pro 2)', salePrice: 35650.00, line: 'Consumer',
+        { id: 71, name: 'DJI Mavic 4 Pro Creator Combo (HDMI, 512GB)', spec: '🚀 DJI Mavic 4 Pro Creator Combo\nMesmo conjunto do Mavic 4 Pro com:\n🎒 Acessórios profissionais\n🔋 Baterias extras e hub inteligente\n🧳 Maleta reforçada para transporte\n🎮 Controle com tela (DJI RC Pro 2)', salePrice: 35650.00, categories: ['Consumer', 'Enterprise'],
             sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 26650.00 }] },
-        { id: 39, name: 'DJI Mavic 3 Multispectral', spec: '🌱 DJI Mavic 3 Multispectral (Versão Standard)\n🎥 Câmera RGB 20 MP + 4 sensores multispectrais\n⏱️ Até 43 minutos por voo\n📡 Alcance de 15 km\n⚖️ 951 g\n🎮 Controle com tela (DJI RC Pro Enterprise)\n🧪 Ideal para agricultura de precisão e NDVI', salePrice: 44302.70, line: 'Agriculture',
+        { id: 39, name: 'DJI Mavic 3 Multispectral', spec: '🌱 DJI Mavic 3 Multispectral (Versão Standard)\n🎥 Câmera RGB 20 MP + 4 sensores multispectrais\n⏱️ Até 43 minutos por voo\n📡 Alcance de 15 km\n⚖️ 951 g\n🎮 Controle com tela (DJI RC Pro Enterprise)\n🧪 Ideal para agricultura de precisão e NDVI', salePrice: 44302.70, categories: ['Enterprise', 'Agriculture'], 
             sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 31011.89 }] }, 
-        { id: 40, name: 'DJI Mavic 3 Thermal', spec: '🔥 DJI Mavic 3 Thermal (Versão Standard)\n🎥 4K + câmera térmica 640x512 px\n⏱️ Até 45 minutos por voo\n📡 Alcance de 15 km\n⚖️ 920 g\n🎮 Controle com tela (DJI RC Pro Enterprise)\n🔥 Ideal para inspeção, resgate e segurança', salePrice: 42533.55, line: 'Enterprise',
+        { id: 40, name: 'DJI Mavic 3 Thermal', spec: '🔥 DJI Mavic 3 Thermal (Versão Standard)\n🎥 4K + câmera térmica 640x512 px\n⏱️ Até 45 minutos por voo\n📡 Alcance de 15 km\n⚖️ 920 g\n🎮 Controle com tela (DJI RC Pro Enterprise)\n🔥 Ideal para inspeção, resgate e segurança', salePrice: 42533.55, categories: ['Enterprise'], 
             sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 29773.48 }] }, 
-        { id: 41, name: 'DJI Mavic 3 Enterprise', spec: '🗺️ DJI Mavic 3 Enterprise (Versão Standard)\n🎥 Câmera RGB 20 MP com obturador mecânico\n🗺️ Compatível com RTK, alto-falante e holofote\n⏱️ Até 45 minutos de voo\n📡 Alcance de 15 km\n⚖️ 915 g\n🎮 Controle com tela (DJI RC Pro Enterprise)\n📐 Indicado para mapeamentos e medições técnicas', salePrice: 31474.83, line: 'Enterprise',
+        { id: 41, name: 'DJI Mavic 3 Enterprise', spec: '🗺️ DJI Mavic 3 Enterprise (Versão Standard)\n🎥 Câmera RGB 20 MP com obturador mecânico\n🗺️ Compatível com RTK, alto-falante e holofote\n⏱️ Até 45 minutos de voo\n📡 Alcance de 15 km\n⚖️ 915 g\n🎮 Controle com tela (DJI RC Pro Enterprise)\n📐 Indicado para mapeamentos e medições técnicas', salePrice: 31474.83, categories: ['Enterprise'], 
             sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 22032.38 }] }, 
-        { id: 42, name: 'DJI Matrice 4T', spec: '🛠️ DJI Matrice 4T (Versão Standard)\n🎥 RGB 48 MP + Zoom híbrido 56x + Câmera térmica de alta resolução\n🧭 Visão tripla: Wide, Zoom e Térmica\n⏱️ Até 55 minutos por voo\n📡 Alcance de até 20 km\n⚖️ Peso: 3,7 kg\n🎮 Controle DJI RC Plus com tela de 7” ultra brilhante\n💼 IP55 – Ideal para resgate, combate a incêndio e inspeções', salePrice: 61589.97, line: 'Enterprise',
+        { id: 42, name: 'DJI Matrice 4T', spec: '🛠️ DJI Matrice 4T (Versão Standard)\n🎥 RGB 48 MP + Zoom híbrido 56x + Câmera térmica de alta resolução\n🧭 Visão tripla: Wide, Zoom e Térmica\n⏱️ Até 55 minutos por voo\n📡 Alcance de até 20 km\n⚖️ Peso: 3,7 kg\n🎮 Controle DJI RC Plus com tela de 7” ultra brilhante\n💼 IP55 – Ideal para resgate, combate a incêndio e inspeções', salePrice: 61589.97, categories: ['Enterprise'], 
             sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 43112.98 }] }, 
-        { id: 43, name: 'DJI Matrice 4E', spec: '🛠️ DJI Matrice 4E (Versão Standard)\n🎥 Câmera ampla de 20 MP com obturador mecânico\n🧭 Suporte a RTK, payloads e expansões avançadas\n⏱️ Até 55 minutos de voo\n📡 Alcance de até 20 km\n⚖️ Peso: 3,4 kg\n🎮 Controle DJI RC Plus\n🔧 Ideal para mapeamento, segurança e vigilância industrial', salePrice: 46075.84, line: 'Enterprise',
+        { id: 43, name: 'DJI Matrice 4E', spec: '🛠️ DJI Matrice 4E (Versão Standard)\n🎥 Câmera ampla de 20 MP com obturador mecânico\n🧭 Suporte a RTK, payloads e expansões avançadas\n⏱️ Até 55 minutos de voo\n📡 Alcance de até 20 km\n⚖️ Peso: 3,4 kg\n🎮 Controle DJI RC Plus\n🔧 Ideal para mapeamento, segurança e vigilância industrial', salePrice: 46075.84, categories: ['Enterprise'], 
             sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 32253.09 }] }, 
-        { id: 113, name: 'DJI Matrice 30T', spec: '🛠️ DJI Matrice 30T (Versão Standard)\n🎥 Câmera Wide 48 MP + Zoom Híbrido + Câmera Térmica\n⏱️ Até 41 minutos por voo\n📡 Alcance de até 15 km\n⚖️ Peso: 3,77 kg\n🎮 Controle DJI RC Plus com tela de 7”\n💼 Proteção IP55 – Ideal para operações em campo aberto', salePrice: 67494.47, line: 'Enterprise',
+        { id: 113, name: 'DJI Matrice 30T', spec: '🛠️ DJI Matrice 30T (Versão Standard)\n🎥 Câmera Wide 48 MP + Zoom Híbrido + Câmera Térmica\n⏱️ Até 41 minutos por voo\n📡 Alcance de até 15 km\n⚖️ Peso: 3,77 kg\n🎮 Controle DJI RC Plus com tela de 7”\n💼 Proteção IP55 – Ideal para operações em campo aberto', salePrice: 67494.47, categories: ['Enterprise'], 
             sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 48663.51 }] }, 
-        { id: 114, name: 'DJI Matrice 350 RTK', spec: '🛠️ DJI Matrice 350 RTK (Versão Standard)\n🎥 Compatível com payloads L2, P1, H30T e sensores externos\n🧭 RTK integrado para mapeamento de alta precisão\n⏱️ Até 55 minutos de voo\n📡 Alcance de até 20 km\n⚖️ Peso médio de 3,8 kg sem carga\n🎮 Controle DJI RC Plus com tela de 7”\n💼 Estrutura reforçada com proteção IP55', salePrice: 51991.62, line: 'Enterprise',
+        { id: 114, name: 'DJI Matrice 350 RTK', spec: '🛠️ DJI Matrice 350 RTK (Versão Standard)\n🎥 Compatível com payloads L2, P1, H30T e sensores externos\n🧭 RTK integrado para mapeamento de alta precisão\n⏱️ Até 55 minutos de voo\n📡 Alcance de até 20 km\n⚖️ Peso médio de 3,8 kg sem carga\n🎮 Controle DJI RC Plus com tela de 7”\n💼 Estrutura reforçada com proteção IP55', salePrice: 51991.62, categories: ['Enterprise'], 
             sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 37485.95 }] }, 
-        { id: 44, name: 'GOHOBBY SENTINEL', spec: '🛡️ GOHOBBY Sentinel\nUm sistema passivo de detecção, sem interferências, ideal para monitoramento discreto:\n📡 Frequências: 2.4 GHz, 5.1 GHz, 5.8 GHz\n🛩️ Protocolos suportados: DJI (O1–O4), Autel, eWiFi, PAL, NTSC, LightBridge, Datalink\n📍 Alcance de detecção: até 5 km\n🔁 Detecção simultânea: até 10 drones\n⏱️ Tempo de localização: ≤ 3 s\n🕒 Autonomia da bateria: até 12 h\n🎯 Precisão de localização: ≤ 3 m\n💻 Tela: 6.3” touchscreen\n🌐 Conectividade: Wi‑Fi e LTE\n⚖️ Peso: 0,65 kg + bateria externa (~0,6 kg)\n⚙️ IP: IP54', salePrice: 155128.57, line: 'Enterprise',
+        { id: 44, name: 'GOHOBBY SENTINEL', spec: '🛡️ GOHOBBY Sentinel\nUm sistema passivo de detecção, sem interferências, ideal para monitoramento discreto:\n📡 Frequências: 2.4 GHz, 5.1 GHz, 5.8 GHz\n🛩️ Protocolos suportados: DJI (O1–O4), Autel, eWiFi, PAL, NTSC, LightBridge, Datalink\n📍 Alcance de detecção: até 5 km\n🔁 Detecção simultânea: até 10 drones\n⏱️ Tempo de localização: ≤ 3 s\n🕒 Autonomia da bateria: até 12 h\n🎯 Precisão de localização: ≤ 3 m\n💻 Tela: 6.3” touchscreen\n🌐 Conectividade: Wi‑Fi e LTE\n⚖️ Peso: 0,65 kg + bateria externa (~0,6 kg)\n⚙️ IP: IP54', salePrice: 155128.57, categories: ['Enterprise'],
             sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 108590.00 }] },
-        { id: 45, name: 'SKYFEND HUNTER', spec: '🌩️ Skyfend Hunter (AFA100)\nUm jammer portátil com detecção e contra-ação integrada, típico “gun”:\n📡 Detecção omnidirecional: até 2 km\n🚫 Jamming direcional: até 3 km\n📶 Cobertura de frequência: 400 MHz–6 GHz (RF + GNSS: GPS, Glonass, Beidou, Galileo)\n⏱️ Autonomia: até 8 h em espera e 1 h com jamming ativo\n🕌 Tela: touchscreen 3,5”\n🔄 Adaptabilidade: adaptação automática de frequência\n⚙️ IP: IP65\n⚖️ Peso: aprox. 6,5 kg', salePrice: 379745.85, line: 'Enterprise',
+        { id: 45, name: 'SKYFEND HUNTER', spec: '🌩️ Skyfend Hunter (AFA100)\nUm jammer portátil com detecção e contra-ação integrada, típico “gun”:\n📡 Detecção omnidirecional: até 2 km\n🚫 Jamming direcional: até 3 km\n📶 Cobertura de frequência: 400 MHz–6 GHz (RF + GNSS: GPS, Glonass, Beidou, Galileo)\n⏱️ Autonomia: até 8 h em espera e 1 h com jamming ativo\n🕌 Tela: touchscreen 3,5”\n🔄 Adaptabilidade: adaptação automática de frequência\n⚙️ IP: IP65\n⚖️ Peso: aprox. 6,5 kg', salePrice: 379745.85, categories: ['Enterprise'],
             sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 265822.10 }] },
-        { id: 46, name: 'SKYFEND BLADER', spec: '⚡ Skyfend Blader\nUm jammer portátil de alta potência, enxuto e focado na neutralização:\n🌐 Alcance de jamming: até 1,5 km\n📶 Cobertura de frequência: 868 MHz, 915 MHz, 1.2 GHz, 1.4 GHz, 1.6 GHz, 2.4 GHz, 4.95 GHz, 5.2–5.8 GHz\n⏱️ Jamming ativado: até 30 min\n🧭 Direção e campo de visão: azimute ±15°, pitch ±10°\n⚖️ Peso: ≈ 4 kg\n⚙️ IP: IP65', salePrice: 151898.28, line: 'Enterprise',
+        { id: 46, name: 'SKYFEND BLADER', spec: '⚡ Skyfend Blader\nUm jammer portátil de alta potência, enxuto e focado na neutralização:\n🌐 Alcance de jamming: até 1,5 km\n📶 Cobertura de frequência: 868 MHz, 915 MHz, 1.2 GHz, 1.4 GHz, 1.6 GHz, 2.4 GHz, 4.95 GHz, 5.2–5.8 GHz\n⏱️ Jamming ativado: até 30 min\n🧭 Direção e campo de visão: azimute ±15°, pitch ±10°\n⚖️ Peso: ≈ 4 kg\n⚙️ IP: IP65', salePrice: 151898.28, categories: ['Enterprise'],
             sources: [{ supplierName: 'GoHobby Distribuidora de VANT LTDA', costPrice: 106328.80 }] },
+        // Outros produtos...
     ];
 
     let SUPPLIERS = [
-        { id: 1, name: 'Arroba Celulares', details: 'Aroba celulares é um dos principais distribuidores e centros de manutenção de eletrônicos no Brasil.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mini, Osmo Mobile, Acessórios', categories: ['Consumer', 'Peças'], contacts: [{ name: 'Contato Principal', role: 'Vendas', whatsapp: '62911111111' }] },
-        { id: 2, name: 'DJI Grupo Multi', details: 'Atuam desde 2012 no mercado de drones e fotografia. Grupo Multi é importador de drones e estabilizadores.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mini, DJI Air, Osmo Action, Acessórios', categories: ['Consumer', 'Peças'], contacts: [{ name: 'Contato Principal', role: 'Vendas', whatsapp: '62922222222' }] },
-        { id: 3, name: 'GoHobby Distribuidora de VANT LTDA', details: 'A GoHobby é importadora exclusiva de drones profissionais e tecnologias anti-drone no Brasil.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mavic, DJI Matrice, Linha Enterprise, Soluções Anti-drone', categories: ['Enterprise', 'Agriculture', 'Peças'], contacts: [{ name: 'Contato Principal', role: 'Vendas', whatsapp: '62933333333' }] },
-        { 
-            id: 4, 
-            name: 'Agrobox Drones', 
-            details: 'Peças e Equipamentos para Agricultura. Local: Goiânia, Goiás.', 
-            payment: 'A combinar.', 
-            products: 'Peças e Equipamentos para Drones Agrícolas', 
-            categories: ['Agriculture', 'Equipamentos', 'Peças'],
+        { id: 1, name: 'Arroba Celulares', details: 'Aroba celulares é um dos principais distribuidores e centros de manutenção de eletrônicos no Brasil.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mini, Osmo Mobile, Acessórios', categories: ['Consumer', 'Equipamentos', 'Pecas'], contacts: [] },
+        { id: 2, name: 'DJI Grupo Multi', details: 'Atuam desde 2012 no mercado de drones e fotografia. Grupo Multi é importador de drones e estabilizadores.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mini, DJI Air, Osmo Action, Acessórios', categories: ['Consumer', 'Equipamentos'], contacts: [] },
+        { id: 3, name: 'GoHobby Distribuidora de VANT LTDA', details: 'A GoHobby é importadora exclusiva de drones profissionais e tecnologias anti-drone no Brasil.', payment: 'Aceitam pagamento a vista e parcelado em até 12x no cartão com taxas.', products: 'DJI Mavic, DJI Matrice, Linha Enterprise, Soluções Anti-drone', categories: ['Enterprise', 'Agriculture', 'Equipamentos'], contacts: [] },
+        { id: 4, name: 'Agrobox Drones', details: 'Peças e Equipamentos para Agricultura. Local: Goiânia, Goiás.', payment: 'A combinar.', products: 'Peças e Equipamentos para Drones Agrícolas', categories: ['Agriculture', 'Equipamentos', 'Pecas'], 
             contacts: [
                 { name: 'Frederico', role: 'Dono', whatsapp: '62999999999' },
                 { name: 'Marcos', role: 'Gerente', whatsapp: '62999999998' },
@@ -1282,282 +1697,1448 @@
         }
     ];
 
-    const INSTALLMENT_RATES = { 1: 0.0309, 2: 0.0579, 3: 0.0609, 4: 0.0799, 5: 0.0809, 6: 0.0818, 7: 0.0949, 8: 0.0966, 9: 0.1037, 10: 0.1105, 11: 0.1227, 12: 0.1238 };
+    const INSTALLMENT_RATES = {
+        1: 0.0309, 2: 0.0579, 3: 0.0609, 4: 0.0799, 5: 0.0809, 6: 0.0818,
+        7: 0.0949, 8: 0.0966, 9: 0.1037, 10: 0.1105, 11: 0.1227, 12: 0.1238
+    };
 
-    // --- ELEMENTOS DO DOM ---
+    // --- ELEMENTOS DO HTML (DOM) ---
     let loginScreen, appScreen, loginButton, logoutButton, usernameInput, passwordInput, loginError, visitorModeButton;
     let navButtons, contentSections, productsNavButton, calculatorNavButton, suppliersNavButton, settingsNavButton, dronesNavButton, infoEmpresaNavButton, marketingNavButton, profileNavButton;
+    let manageUsersNavButton, createProductNavButton, editProductNavButton, settingsSubNav;
     let productList, supplierList, productSearchInput, droneVisitorList, droneVisitorSearchInput;
     let mainModal, modalTitle, modalBody, closeModalButton;
-    let mainContent, scrollToTopButton, aiChatButton;
-    let navToggleButton, navToggleButtonClose, navElement;
-    let createSupplierBtn, editSupplierBtn, requestQuoteBtn, supplierFilterBtn, droneFilterBtn;
-    let requestQuoteModal, quoteNextStepBtn, quoteConfirmationModal, sendQuoteWhatsappBtn;
+    let createTempUserForm, tempUserFeedback, tempUserListContainer;
+    let createProductForm, createProductFeedback;
+    let editProductSearchInput, searchProductToEditButton, editProductSearchResults, editProductDisplay, editProductForm, editProductIdInput, editProductNameInput, editProductSpecTextarea, editProductSalePriceInput, editProductCostPriceInput, editProductSupplierInput, editProductFeedback;
+    let mainContent, scrollToTopButton;
+    let generalCalcValorBase, generalCalcPaymentRadios, generalCalcInstallmentsContainer, generalCalcParcelasSelect, generalCalculateButton, generalCalculatorResult;
+    let navToggleButton, navToggleButtonClose, navElement, appBody, headerElement;
+    let bodyElement;
+    let aiChatButton, aiChatModal, aiChatCloseButton, aiQuestionInput, submitAiQuestionButton, aiResponseArea, aiLoader;
+    let supplierPasswordModal, supplierAccessPasswordInput, submitSupplierPasswordButton, supplierPasswordError, supplierPasswordCloseButton;
+    let changePasswordModal, changePasswordModalTitle, changePasswordMessage, newPasswordInput, confirmNewPasswordInput, submitChangePasswordButton, changePasswordError, changePasswordSuccess, changePasswordCloseButton;
+    let profileIconContainer, profileIcon;
+    let profileSection, profileDisplayName, profileEmail, profilePhone, profilePicDisplay, editDisplayNameInput, editEmailInput, editPhoneInput, editProfilePicInput, uploadProfilePicButton, profileEditForm, profileFeedback, openChangePasswordModalButton;
+    let companyPhoneSpan, companyWhatsappLink;
+    let whatsappModal, whatsappCloseButton, whatsappMessageInput, includeDisplayNameCheckbox, whatsappDisplayNamePreview, includeEmailCheckbox, whatsappEmailPreview, includePhoneCheckbox, whatsappPhonePreview, sendWhatsappButton, cancelWhatsappButton;
+    let generalDiscountOption, generalDiscountPercentageInput;
+    let dronesFilterBtn, suppliersFilterBtn, filterModal, filterModalTitle, sortOptions, categoryFilters, applyFiltersBtn;
+    let supplierActionsContainer, supplierFormModal, supplierFormTitle, supplierForm, addContactBtn, supplierContactsContainer;
+    let quoteRequestModal, quoteRequestBody, finalizeQuoteRequestBtn;
+    let quoteConfirmationModal, quoteConfirmationBody, quoteFinalMessage, quoteSupplierButtons;
 
-    // --- FUNÇÕES DE RENDERIZAÇÃO ---
-    function renderProducts(searchTerm = '') {
-        const productListEl = document.getElementById('product-list');
-        if (!productListEl) return;
-        productListEl.innerHTML = '';
+    // --- FUNÇÕES GLOBAIS ---
+    // Funções para o modal de WhatsApp
+    function openWhatsAppModal(product) {
+        const whatsappModal = document.getElementById('whatsapp-modal');
+        const whatsappMessageInput = document.getElementById('whatsapp-message-input');
+        const includeDisplayNameCheckbox = document.getElementById('include-display-name');
+        const whatsappDisplayNamePreview = document.getElementById('whatsapp-display-name-preview');
+        const includeEmailCheckbox = document.getElementById('include-email');
+        const whatsappEmailPreview = document.getElementById('whatsapp-email-preview');
+        const includePhoneCheckbox = document.getElementById('include-phone');
+        const whatsappPhonePreview = document.getElementById('whatsapp-phone-preview');
+
+        if (!window.currentUser) {
+            console.error("Erro: Usuário atual não definido para abrir o modal do WhatsApp.");
+            return;
+        }
+
+        window.currentProductForWhatsapp = product; 
+        const salePrice = product.salePrice.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+        
+        const defaultMessage = `Olá! 👋\n\nEstou a enviar os detalhes sobre o *${product.name}* que conversámos. É um equipamento fantástico! 🚀\n\n*Especificações Principais:*\n${product.spec}\n\n*Valor de Venda:* ${salePrice}\n\nQualquer dúvida, estou à disposição!\n- Equipa Galvão Drones`;
+        
+        whatsappMessageInput.value = defaultMessage;
+
+        whatsappDisplayNamePreview.textContent = window.currentUser.displayName || 'Não informado';
+        includeDisplayNameCheckbox.checked = !!window.currentUser.displayName;
+        includeDisplayNameCheckbox.disabled = !window.currentUser.displayName;
+
+        whatsappEmailPreview.textContent = window.currentUser.email || 'Não informado';
+        includeEmailCheckbox.checked = !!window.currentUser.email;
+        includeEmailCheckbox.disabled = !window.currentUser.email;
+
+        whatsappPhonePreview.textContent = window.currentUser.phone ? `(${window.currentUser.phone.substring(0,2)}) ${window.currentUser.phone.substring(2,7)}-${window.currentUser.phone.substring(7)}` : 'Não informado';
+        includePhoneCheckbox.checked = !!window.currentUser.phone;
+        includePhoneCheckbox.disabled = !window.currentUser.phone;
+
+        whatsappModal.style.display = 'block';
+    }
+
+    function closeWhatsAppModal() {
+        const whatsappModal = document.getElementById('whatsapp-modal');
+        whatsappModal.style.display = 'none';
+        window.currentProductForWhatsapp = null; 
+    }
+
+    function sendWhatsAppMessage() {
+        const whatsappMessageInput = document.getElementById('whatsapp-message-input');
+        const includeDisplayNameCheckbox = document.getElementById('include-display-name');
+        const includeEmailCheckbox = document.getElementById('include-email');
+        const includePhoneCheckbox = document.getElementById('include-phone');
+
+        let message = whatsappMessageInput.value;
+        const contactInfo = [];
+
+        if (includeDisplayNameCheckbox.checked && window.currentUser.displayName) {
+            contactInfo.push(`Nome: ${window.currentUser.displayName}`);
+        }
+        if (includeEmailCheckbox.checked && window.currentUser.email) {
+            contactInfo.push(`Email: ${window.currentUser.email}`);
+        }
+        if (includePhoneCheckbox.checked && window.currentUser.phone) {
+            contactInfo.push(`Celular: (${window.currentUser.phone.substring(0,2)}) ${window.currentUser.phone.substring(2,7)}-${window.currentUser.phone.substring(7)}`);
+        }
+
+        if (contactInfo.length > 0) {
+            message += `\n\n--- Contato do Vendedor ---\n${contactInfo.join('\n')}`;
+        }
+
+        const encodedMessage = encodeURIComponent(message); 
+        const whatsappUrl = `https://wa.me/?text=${encodedMessage}`; 
+        
+        window.open(whatsappUrl, '_blank');
+        closeWhatsAppModal();
+    }
+
+    // Funções de modal genéricas
+    function openModal(modalId) { document.getElementById(modalId).style.display = 'block'; }
+    function closeModal(modalId) { document.getElementById(modalId).style.display = 'none'; }
+
+    // Funções de navegação e renderização de conteúdo
+    function switchTab(newSectionId) {
+        const currentUser = window.currentUser;
+        const isVisitor = currentUser.isVisitor;
+        const isAdmin = currentUser.role === 'admin';
+        const isMikhaell = currentUser.username === 'mikhaell';
+
+        let canAccess = false;
+
+        if (newSectionId === 'products-section' || newSectionId === 'calculator-section') {
+            canAccess = !isVisitor;
+        } else if (newSectionId === 'drones-visitor-section' || newSectionId === 'info-section' || newSectionId === 'marketing-section') {
+            canAccess = true;
+        } else if (newSectionId === 'suppliers-section') {
+            if (isAdmin) {
+                if (window.pendingSupplierSectionAccess) {
+                    canAccess = true; 
+                } else {
+                    openModal('supplier-password-modal');
+                    document.getElementById('supplier-access-password').value = '';
+                    document.getElementById('supplier-password-error').style.display = 'none';
+                    return; 
+                }
+            }
+        } else if (newSectionId === 'settings-section' || newSectionId === 'create-product-section' || newSectionId === 'edit-product-section') {
+            canAccess = isAdmin;
+        } else if (newSectionId === 'manage-users-section') {
+            canAccess = isMikhaell;
+        } else if (newSectionId === 'profile-section') {
+            canAccess = !isVisitor;
+        }
+
+        if (!canAccess) {
+            let fallbackSection = 'products-section';
+            if (isVisitor) fallbackSection = 'drones-visitor-section';
+
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active')); 
+            document.querySelectorAll('.nav-button').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(fallbackSection).classList.add('active');
+            let fallbackButton = document.querySelector(`[data-section="${fallbackSection}"]`);
+            if (fallbackButton) fallbackButton.classList.add('active');
+
+            document.getElementById('settings-sub-nav').style.display = 'none';
+
+            alert('Você não tem permissão para acessar esta seção.');
+            window.activeSectionId = fallbackSection;
+            return;
+        }
+
+        document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active')); 
+        document.querySelectorAll('.nav-button').forEach(b => b.classList.remove('active'));
+        
+        document.getElementById(newSectionId).classList.add('active');
+
+        let targetButton = document.querySelector(`[data-section="${newSectionId}"]`);
+        if (targetButton) {
+            targetButton.classList.add('active');
+            if (targetButton.classList.contains('sub-nav-button')) {
+                document.getElementById('settings-nav-button').classList.add('active');
+            }
+        }
+
+        if (newSectionId.includes('settings') && isAdmin) { 
+            document.getElementById('settings-sub-nav').style.display = 'block';
+        } else {
+            document.getElementById('settings-sub-nav').style.display = 'none'; 
+        }
+
+        window.activeSectionId = newSectionId; 
+
+        if (newSectionId === 'manage-users-section') renderTempUserList();
+        if (newSectionId === 'products-section') renderProducts();
+        if (newSectionId === 'drones-visitor-section') renderDroneVisitorList();
+        if (newSectionId === 'settings-section' && isAdmin) renderSettingsOptionsGrid(); 
+        if (newSectionId === 'suppliers-section') renderSuppliers(); 
+        if (newSectionId === 'profile-section') renderProfilePage();
+        
+        closeMobileNav();
+    }
+
+    window.navigateToSupplierSection = function(supplierName) {
+        window.switchTab('suppliers-section');
+
+        setTimeout(() => {
+            const targetSupplierCard = document.querySelector(`#supplier-list .supplier-card h3 strong[data-supplier-name="${supplierName}"]`);
+            if (targetSupplierCard) {
+                targetSupplierCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                targetSupplierCard.closest('.supplier-card').style.backgroundColor = '#fffacd'; 
+                setTimeout(() => {
+                    targetSupplierCard.closest('.supplier-card').style.backgroundColor = ''; 
+                }, 3000);
+            } else {
+                console.log(`Fornecedor "${supplierName}" não encontrado na lista detalhada.`);
+            }
+        }, 300); 
+    }
+
+    window.handleScroll = function() { document.getElementById('main-content').scrollTop > 200 ? document.getElementById('scroll-to-top').style.display = "block" : document.getElementById('scroll-to-top').style.display = "none"; }
+    window.scrollTop = function() { document.getElementById('main-content').scrollTo({ top: 0, behavior: 'smooth' }); }
+
+    // --- FUNÇÕES DE RENDERIZAÇÃO DE CONTEÚDO ---
+    function renderProducts(searchTerm = '', filters = {}) {
+        const productList = document.getElementById('product-list');
+        productList.innerHTML = '';
         const lowerCaseSearchTerm = searchTerm.toLowerCase();
+        
+        if (window.currentUser.isVisitor) {
+            productList.innerHTML = '<p>Funcionalidade de produtos não disponível no modo visitante. Use a seção "Drones".</p>';
+            return;
+        }
 
-        const productsToShow = PRODUCTS.filter(p => 
+        let productsToShow = PRODUCTS.filter(p => 
             p.name.toLowerCase().includes(lowerCaseSearchTerm) || 
-            p.spec.toLowerCase().includes(lowerCaseSearchTerm)
+            p.spec.toLowerCase().includes(lowerCaseSearchTerm) ||
+            (p.sources && p.sources.some(source => source.supplierName.toLowerCase().includes(lowerCaseSearchTerm)))
         );
+        
+        // Aplicar filtros de categoria (se houver)
+        if (filters.categories && filters.categories.length > 0) {
+            productsToShow = productsToShow.filter(p => 
+                p.categories && p.categories.some(cat => filters.categories.includes(cat))
+            );
+        }
+
+        // Aplicar ordenação
+        if (filters.sort) {
+            productsToShow.sort((a, b) => {
+                switch (filters.sort) {
+                    case 'name_asc': return a.name.localeCompare(b.name);
+                    case 'name_desc': return b.name.localeCompare(a.name);
+                    case 'price_asc': return a.salePrice - b.salePrice;
+                    case 'price_desc': return b.salePrice - a.salePrice;
+                    default: return 0;
+                }
+            });
+        }
 
         if (productsToShow.length === 0) {
-            productListEl.innerHTML = '<p>Nenhum produto encontrado.</p>';
-            return;
+            productList.innerHTML = '<p>Nenhum produto encontrado.</p>';
         }
 
         productsToShow.forEach(product => {
             const productCard = document.createElement('div');
             productCard.className = 'card product-card';
-            let suppliersHTML = '<ul class="product-suppliers-list">';
-            product.sources.forEach(source => {
-                suppliersHTML += `<li><a href="#" class="supplier-name-link" data-supplier-name="${source.supplierName}">${source.supplierName}</a> <span class="cost-value">${source.costPrice.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</span></li>`;
-            });
-            suppliersHTML += '</ul>';
+            productCard.dataset.productId = product.id;
+            const isAdmin = window.currentUser.role === 'admin';
+            const isSeller = window.currentUser.role === 'seller';
+            
+            const salePriceLabel = isSeller ? 'Valor' : 'Valor de Venda';
+            
+            let adminCostInfoHTML = '';
+            if (isAdmin) { 
+                adminCostInfoHTML = `<p><strong>Custos por Fornecedor:</strong></p><ul class="product-suppliers-list">`;
+                if (product.sources && product.sources.length > 0) {
+                    product.sources.forEach(source => {
+                        adminCostInfoHTML += `
+                            <li>
+                                <a href="#" class="supplier-name-link" data-supplier-name="${source.supplierName}">
+                                    ${source.supplierName}
+                                </a>
+                                <span class="cost-value">${source.costPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
+                            </li>
+                        `;
+                    });
+                } else {
+                    adminCostInfoHTML += `<li><span class="cost-value">N/A (Sem Fornecedor Registrado)</span></li>`;
+                }
+                adminCostInfoHTML += `</ul>`;
+            }
 
-            productCard.innerHTML = `<h3>${product.name}</h3><p class="product-spec">${product.spec.replace(/\n/g, '<br>')}</p><p class="price">${product.salePrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>${suppliersHTML}`;
-            productListEl.appendChild(productCard);
+            productCard.innerHTML = `
+                <h3>${product.name}</h3>
+                <p class="product-spec"><strong>Especificações:</strong><br>${product.spec}</p>
+                <p class="price">${salePriceLabel}: ${product.salePrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
+                ${isAdmin ? adminCostInfoHTML : ''}
+                <div class="action-buttons-container">
+                    <button class="gemini-button desc-button">✨ Gerar Descrição</button>
+                    <button class="gemini-button args-button">✨ Criar Argumentos</button>
+                    <button class="whatsapp-button" data-product-id="${product.id}">💬 WhatsApp</button>
+                    <button class="help-button">💡 Ajudar Cliente</button>
+                </div>
+                <div class="calculator-container">
+                    <div class="payment-method-selector">
+                        <input type="radio" id="payment-vista-${product.id}" name="payment-method-${product.id}" value="vista" checked>
+                        <label for="payment-vista-${product.id}">À vista</label>
+                        <input type="radio" id="payment-parcelado-${product.id}" name="payment-method-${product.id}" value="parcelado">
+                        <label for="payment-parcelado-${product.id}">Parcelado</label>
+                    </div>
+                    ${isAdmin ? `
+                    <div class="discount-option" id="discount-option-${product.id}">
+                        <label for="discount-percentage-${product.id}">Desconto (%):</label>
+                        <input type="number" id="discount-percentage-${product.id}" min="0" max="15" value="0">
+                    </div>
+                    ` : ''}
+                    <div class="installments-container hidden">
+                        <label for="parcelas-${product.id}">Parcelas:</label>
+                        <select id="parcelas-${product.id}" class="parcelas-select">
+                           <option value="1">1x</option><option value="2">2x</option><option value="3">3x</option><option value="4">4x</option><option value="5">5x</option><option value="6">6x</option><option value="7">7x</option><option value="8">8x</option><option value="9">9x</option><option value="10">10x</option><option value="11">11x</option><option value="12">12x</option>
+                        </select>
+                    </div>
+                    <button class="calculate-product-btn">Calcular</button>
+                    <div class="product-calculator-result"></div>
+                </div>
+            `;
+            productList.appendChild(productCard);
         });
     }
 
-    function renderDroneVisitorList(filters = {}) {
-        const droneVisitorListEl = document.getElementById('drone-visitor-list');
-        droneVisitorListEl.innerHTML = '';
-        const { searchTerm = '', sortOrder = 'alpha', lines = [] } = filters;
-        let dronesToShow = [...PRODUCTS];
+    function renderDroneVisitorList(searchTerm = '', filters = {}) {
+        const droneVisitorList = document.getElementById('drone-visitor-list');
+        droneVisitorList.innerHTML = '';
+        const lowerCaseSearchTerm = searchTerm.toLowerCase();
+        
+        let dronesToShow = PRODUCTS.filter(p => 
+            (p.name.toLowerCase().includes("dji") || p.name.toLowerCase().includes("drone") || p.name.toLowerCase().includes("mavic") || p.name.toLowerCase().includes("avata") || p.name.toLowerCase().includes("matrice") || p.name.toLowerCase().includes("skyfend") || p.name.toLowerCase().includes("sentinel") || p.name.toLowerCase().includes("neo")) &&
+            (p.name.toLowerCase().includes(lowerCaseSearchTerm) || p.spec.toLowerCase().includes(lowerCaseSearchTerm))
+        );
 
-        if (lines.length > 0) {
-            dronesToShow = dronesToShow.filter(p => lines.includes(p.line));
+        // Aplicar filtros de categoria (se houver)
+        if (filters.categories && filters.categories.length > 0) {
+            dronesToShow = dronesToShow.filter(p => 
+                p.categories && p.categories.some(cat => filters.categories.includes(cat))
+            );
         }
-        if (searchTerm) {
-            const lowerCaseSearchTerm = searchTerm.toLowerCase();
-            dronesToShow = dronesToShow.filter(p => p.name.toLowerCase().includes(lowerCaseSearchTerm) || p.spec.toLowerCase().includes(lowerCaseSearchTerm));
+        
+        // Aplicar ordenação
+        if (filters.sort) {
+            dronesToShow.sort((a, b) => {
+                switch (filters.sort) {
+                    case 'name_asc': return a.name.localeCompare(b.name);
+                    case 'name_desc': return b.name.localeCompare(a.name);
+                    case 'price_asc': return a.salePrice - b.salePrice;
+                    case 'price_desc': return b.salePrice - a.salePrice;
+                    default: return 0;
+                }
+            });
         }
-        if (sortOrder === 'alpha') dronesToShow.sort((a, b) => a.name.localeCompare(b.name));
-        else if (sortOrder === 'price-asc') dronesToShow.sort((a, b) => a.salePrice - b.salePrice);
-        else if (sortOrder === 'price-desc') dronesToShow.sort((a, b) => b.salePrice - a.salePrice);
+
+        if (dronesToShow.length === 0) {
+            droneVisitorList.innerHTML = '<p>Nenhum drone encontrado com esse termo.</p>';
+        }
 
         dronesToShow.forEach(product => {
             const droneCard = document.createElement('div');
-            droneCard.className = 'card product-card';
-            droneCard.innerHTML = `<h3>${product.name}</h3><p class="product-spec">${product.spec.replace(/\n/g, '<br>')}</p><p class="price">${product.salePrice > 0 ? product.salePrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : 'Consultar valor'}</p>`;
-            droneVisitorListEl.appendChild(droneCard);
+            droneCard.className = 'card product-card'; 
+            droneCard.dataset.productId = product.id; 
+            
+            droneCard.innerHTML = `
+                <h3>${product.name}</h3>
+                <p class="product-spec"><strong>Especificações:</strong><br>${product.spec}</p>
+                <p class="price" style="color: var(--secondary-color);">Consultar valor e disponibilidade</p>
+                <div class="action-buttons-container">
+                    <a href="https://wa.me/556236360668?text=${encodeURIComponent('Olá, gostaria de saber mais sobre o ' + product.name + ' e sua disponibilidade.')}" target="_blank" class="action-button whatsapp-button" style="width: auto;">Consultar via WhatsApp</a>
+                    <button class="action-button help-product-visitor-btn" data-product-name="${product.name}" data-product-spec="${product.spec}">Precisa de ajuda com esse produto?</button>
+                </div>
+            `;
+            droneVisitorList.appendChild(droneCard);
         });
     }
 
+    function calculate(baseValue, numInstallments, paymentMethod, discountPercentage = 0) {
+        const valor = parseFloat(baseValue);
+        if (isNaN(valor) || valor <= 0) {
+            return '<p style="color:red;">Valor base inválido.</p>';
+        }
+        
+        let valorFinalVista = valor * (1 + (INSTALLMENT_RATES[1] || 0)); // Preço à vista com a menor taxa
+        if (window.currentUser.role === 'admin' && paymentMethod === 'vista' && discountPercentage > 0 && discountPercentage <= 15) {
+            valorFinalVista = valorFinalVista * (1 - (discountPercentage / 100));
+        }
+        valorFinalVista = parseFloat(valorFinalVista.toFixed(2));
+
+        let resultHTML = `<div class="result-vista">Valor à Vista: ${valorFinalVista.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</div>`;
+        
+        if (paymentMethod === 'parcelado') {
+            const parcelas = parseInt(numInstallments);
+            const taxaParcelado = INSTALLMENT_RATES[parcelas] || 0;
+            const valorFinalParcelado = valor * (1 + taxaParcelado);
+            const valorParcela = valorFinalParcelado / parcelas;
+            const valorTaxa = valorFinalParcelado - valor;
+
+            resultHTML += `
+                <div class="result-parcelado">
+                    <strong>Opção Parcelado:</strong><br>
+                    <span>Valor Final: <strong>${valorFinalParcelado.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</strong></span><br>
+                    <small>${parcelas}x de ${valorParcela.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</small><br>
+                    <small>Valor da taxa: ${valorTaxa.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</small>
+                </div>
+            `;
+        }
+        return resultHTML;
+    }
+
+    function renderSettingsOptionsGrid() {
+        const settingsOptionsGrid = document.getElementById('settings-options-grid');
+        settingsOptionsGrid.innerHTML = '';
+
+        const isMikhaell = window.currentUser.username === 'mikhaell';
+        const isAdmin = window.currentUser.role === 'admin';
+
+        if (isMikhaell) {
+            const manageUsersCard = document.createElement('div');
+            manageUsersCard.className = 'card';
+            manageUsersCard.innerHTML = `<h3>Gerir Usuários</h3><p>Crie e gerencie acessos temporários.</p>`;
+            manageUsersCard.addEventListener('click', () => window.switchTab('manage-users-section')); 
+            settingsOptionsGrid.appendChild(manageUsersCard);
+        }
+        
+        if (isAdmin) {
+            const createProductCard = document.createElement('div');
+            createProductCard.className = 'card';
+            createProductCard.innerHTML = `<h3>Criar Produto</h3><p>Adicione novos produtos ao sistema.</p>`;
+            createProductCard.addEventListener('click', () => window.switchTab('create-product-section')); 
+            settingsOptionsGrid.appendChild(createProductCard);
+
+            const editProductCard = document.createElement('div');
+            editProductCard.className = 'card';
+            editProductCard.innerHTML = `<h3>Alterar Produto</h3><p>Edite dados de produtos existentes.</p>`;
+            editProductCard.addEventListener('click', () => window.switchTab('edit-product-section')); 
+            settingsOptionsGrid.appendChild(editProductCard);
+        }
+    }
+
+    function createTemporaryUser(event) {
+        event.preventDefault();
+        const username = document.getElementById('temp-username').value;
+        const password = document.getElementById('temp-password').value;
+        const durationHours = parseInt(document.getElementById('temp-duration').value);
+        
+        if (USERS[username]) {
+            document.getElementById('temp-user-feedback').textContent = 'Erro: Nome de usuário já existe.'; document.getElementById('temp-user-feedback').style.color = 'red'; return;
+        }
+
+        USERS[username] = { password, role: 'seller', type: 'temporary', expiresAt: Date.now() + durationHours * 60 * 60 * 1000, firstLogin: false, displayName: username, email: '', phone: '', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' };
+
+        document.getElementById('temp-user-feedback').textContent = `Usuário "${username}" criado com sucesso!`; document.getElementById('temp-user-feedback').style.color = 'green';
+        document.getElementById('create-temp-user-form').reset(); renderTempUserList();
+        setTimeout(() => document.getElementById('temp-user-feedback').textContent = '', 5000);
+    }
+    
+    function renderTempUserList() {
+        const tempUserListContainer = document.getElementById('temp-user-list');
+        tempUserListContainer.innerHTML = '';
+        const tempUsers = Object.entries(USERS).filter(([_, user]) => user.type === 'temporary'); 
+
+        if(tempUsers.length === 0) {
+            tempUserListContainer.innerHTML = '<p>Nenhum usuário temporário criado.</p>';
+            return;
+        }
+
+        tempUsers.forEach(([username, user]) => {
+            const item = document.createElement('div');
+            item.className = 'temp-user-item';
+            const expires = new Date(user.expiresAt).toLocaleString('pt-BR');
+            item.innerHTML = `
+                <div class="user-info">
+                    <p><strong>${username}</strong></p>
+                    <p><small>Expira em: ${expires}</small></p>
+                </div>
+                <div class="user-actions">
+                    <button class="edit-btn" data-username="${username}">Editar</button>
+                    <button class="delete-btn" data-username="${username}">Excluir</button>
+                </div>
+            `;
+            item.querySelector('.edit-btn').addEventListener('click', () => openEditTempUserModal(username));
+            item.querySelector('.delete-btn').addEventListener('click', () => deleteTempUser(username));
+            tempUserListContainer.appendChild(item);
+        });
+    }
+
+    function openEditTempUserModal(username) {
+        const user = USERS[username];
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+
+        modalTitle.textContent = `Editar Usuário: ${username}`;
+        modalBody.innerHTML = `
+            <form id="edit-temp-user-form">
+                <div class="input-group"><label for="edit-temp-password">Nova Senha</label><input type="text" id="edit-temp-password" value="${user.password}" required></div>
+                <div class="input-group"><label for="edit-temp-duration">Estender Duração (a partir de agora)</label><select id="edit-temp-duration">
+                    <option value="1">1 Hora</option><option value="8">8 Horas</option><option value="24">24 Horas</option><option value="72">72 Horas</option>
+                </select></div>
+                <button type="submit" class="action-button">Salvar Alterações</button>
+            </form>
+        `;
+        openModal('main-modal');
+        document.getElementById('edit-temp-user-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newPassword = document.getElementById('edit-temp-password').value;
+            const newDuration = parseInt(document.getElementById('edit-temp-duration').value);
+            USERS[username].password = newPassword;
+            USERS[username].expiresAt = Date.now() + newDuration * 60 * 60 * 1000;
+            closeModal('main-modal');
+            renderTempUserList();
+        });
+    }
+    
+    function deleteTempUser(username) {
+        if (confirm(`Tem certeza que deseja excluir o usuário temporário "${username}"?`)) {
+            delete USERS[username];
+            renderTempUserList();
+            if (window.currentUser && window.currentUser.username === username) {
+                handleLogout(); 
+                alert('Sua sessão foi encerrada, pois o usuário temporário foi excluído.');
+            }
+        }
+    }
+
+    function getRemainingTime(expiry) {
+        const total = expiry - Date.now();
+        const seconds = Math.floor((total / 1000) % 60);
+        const minutes = Math.floor((total / 1000 / 60) % 60);
+        const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
+        return { hours, minutes, seconds };
+    }
+    
+    function showTemporaryUserWarning() {
+        clearInterval(window.tempUserInterval);
+        const modalBody = document.getElementById('modal-body');
+        const modalTitle = document.getElementById('modal-title');
+
+        function updateWarning() {
+            const { hours, minutes, seconds } = getRemainingTime(window.currentUser.expiresAt);
+            if (hours < 0 || minutes < 0 || seconds < 0) {
+                modalBody.innerHTML = '<h2>Acesso Expirado</h2><p>O seu tempo de acesso terminou. A sessão será encerrada.</p>';
+                setTimeout(handleLogout, 3000);
+                clearInterval(window.tempUserInterval);
+            } else {
+                modalBody.innerHTML = `<h2>Acesso Temporário</h2><p>Esta é a conta de convidado. O seu acesso irá expirar em:</p>
+                <h3 style="text-align:center;">${hours}h ${minutes}m ${seconds}s</h3>`; 
+            }
+        }
+        updateWarning();
+        modalTitle.textContent = "Aviso";
+        openModal('main-modal');
+        window.tempUserInterval = setInterval(updateWarning, 1000);
+    }
+
+    function generateNewId(array) {
+        if (array.length === 0) return 1;
+        const maxId = Math.max(...array.map(item => item.id));
+        return maxId + 1;
+    }
+
+    function handleCreateProduct(event) {
+        event.preventDefault();
+        const name = document.getElementById('new-product-name').value.trim();
+        const spec = document.getElementById('new-product-spec').value.trim();
+        const salePrice = parseFloat(document.getElementById('new-product-sale-price').value);
+        const costPrice = parseFloat(document.getElementById('new-product-cost-price').value);
+        const supplier = document.getElementById('new-product-supplier').value.trim();
+        const createProductFeedback = document.getElementById('create-product-feedback');
+
+        if (!name || !spec || isNaN(salePrice) || salePrice <= 0) {
+            createProductFeedback.textContent = 'Preencha todos os campos obrigatórios (Nome, Especificações, Preço de Venda).';
+            createProductFeedback.style.color = 'red';
+            return;
+        }
+
+        const newProduct = {
+            id: generateNewId(PRODUCTS),
+            name,
+            spec,
+            salePrice,
+            sources: [{ 
+                supplierName: supplier || 'Não especificado', 
+                costPrice: isNaN(costPrice) ? 0 : costPrice 
+            }] 
+        };
+
+        PRODUCTS.push(newProduct);
+        createProductFeedback.textContent = `Produto "${newProduct.name}" (ID: ${newProduct.id}) criado com sucesso!`;
+        createProductFeedback.style.color = 'green';
+        document.getElementById('create-product-form').reset();
+        renderProducts(); 
+    }
+
+    function handleSearchProductToEdit() {
+        const searchTerm = document.getElementById('edit-product-search-input').value.trim().toLowerCase();
+        const editProductSearchResults = document.getElementById('edit-product-search-results');
+        const editProductForm = document.getElementById('edit-product-form');
+        const editProductDisplay = document.getElementById('edit-product-display');
+        const editProductFeedback = document.getElementById('edit-product-feedback');
+
+        editProductSearchResults.innerHTML = '';
+        editProductForm.classList.add('hidden');
+        editProductDisplay.innerHTML = '<p>Use a busca acima para carregar os dados do produto.</p>';
+        editProductFeedback.textContent = '';
+
+        if (!searchTerm) {
+            editProductSearchResults.innerHTML = '<p style="color:orange;">Por favor, digite um ID ou nome para pesquisar.</p>';
+            return;
+        }
+
+        let foundProducts = [];
+        const parsedId = parseInt(searchTerm);
+        if (!isNaN(parsedId)) {
+            const productById = PRODUCTS.find(p => p.id === parsedId);
+            if (productById) foundProducts.push(productById);
+        } 
+        
+        if (foundProducts.length === 0) {
+            foundProducts = PRODUCTS.filter(p => p.name.toLowerCase().includes(searchTerm));
+        }
+
+        if (foundProducts.length > 0) {
+            const fragment = document.createDocumentFragment();
+            const ul = document.createElement('ul');
+            ul.style.listStyle = 'none';
+            ul.style.padding = '0';
+
+            foundProducts.forEach(product => {
+                const listItem = document.createElement('li');
+                listItem.style.padding = '8px';
+                listItem.style.borderBottom = '1px solid #eee';
+                listItem.style.cursor = 'pointer';
+                listItem.style.backgroundColor = 'white'; 
+                
+                listItem.innerHTML = `<strong>ID: ${product.id}</strong> - ${product.name}`; 
+
+                listItem.addEventListener('mouseover', () => listItem.style.backgroundColor = '#ecf0f1');
+                listItem.addEventListener('mouseout', () => listItem.style.backgroundColor = 'white');
+                
+                listItem.addEventListener('click', () => loadProductForEdit(product.id));
+                ul.appendChild(listItem);
+            });
+            fragment.appendChild(ul);
+            editProductSearchResults.appendChild(fragment);
+            const selectPrompt = document.createElement('p');
+            selectPrompt.textContent = 'Selecione um produto para alterar:';
+            editProductSearchResults.prepend(selectPrompt);
+        } else {
+            editProductSearchResults.innerHTML = '<p style="color:orange;">Nenhum produto encontrado com o termo fornecido.</p>';
+        }
+    }
+
+    function loadProductForEdit(productId) {
+        const product = PRODUCTS.find(p => p.id === productId);
+        const editProductDisplay = document.getElementById('edit-product-display');
+        const editProductForm = document.getElementById('edit-product-form');
+        const editProductFeedback = document.getElementById('edit-product-feedback');
+        const editProductSearchResults = document.getElementById('edit-product-search-results');
+        
+        if (product) {
+            editProductDisplay.innerHTML = `<p>Editando: <strong>${product.name}</strong> (ID: ${product.id})</p>`;
+            editProductForm.classList.remove('hidden');
+            editProductFeedback.textContent = ''; 
+            editProductSearchResults.innerHTML = '';
+
+            document.getElementById('edit-product-id').value = product.id;
+            document.getElementById('edit-product-name').value = product.name;
+            document.getElementById('edit-product-spec').value = product.spec;
+            document.getElementById('edit-product-sale-price').value = product.salePrice;
+            document.getElementById('edit-product-cost-price').value = product.sources[0] ? product.sources[0].costPrice : '';
+            document.getElementById('edit-product-supplier').value = product.sources[0] ? product.sources[0].supplierName : '';
+        }
+    }
+
+    function handleEditProduct(event) {
+        event.preventDefault();
+        const productId = parseInt(document.getElementById('edit-product-id').value);
+        const productIndex = PRODUCTS.findIndex(p => p.id === productId);
+        const editProductFeedback = document.getElementById('edit-product-feedback');
+        
+        if (productIndex === -1) {
+            editProductFeedback.textContent = 'Erro: Produto não encontrado para alteração.';
+            editProductFeedback.style.color = 'red';
+            return;
+        }
+
+        const name = document.getElementById('edit-product-name').value.trim();
+        const spec = document.getElementById('edit-product-spec').value.trim();
+        const salePrice = parseFloat(document.getElementById('edit-product-sale-price').value);
+        const costPrice = parseFloat(document.getElementById('edit-product-cost-price').value); 
+        const supplier = document.getElementById('edit-product-supplier').value.trim();
+
+        if (!name || !spec || isNaN(salePrice) || salePrice <= 0) {
+            editProductFeedback.textContent = 'Preenchimento obrigatório (Nome, Especificações, Preço de Venda).';
+            editProductFeedback.style.color = 'red';
+            return;
+        }
+
+        PRODUCTS[productIndex].name = name;
+        PRODUCTS[productIndex].spec = spec;
+        PRODUCTS[productIndex].salePrice = salePrice;
+
+        if (PRODUCTS[productIndex].sources && PRODUCTS[productIndex].sources.length > 0) {
+            PRODUCTS[productIndex].sources[0].supplierName = supplier || 'Não especificado';
+            PRODUCTS[productIndex].sources[0].costPrice = isNaN(costPrice) ? 0 : costPrice;
+        } else {
+            PRODUCTS[productIndex].sources = [{ 
+                supplierName: supplier || 'Não especificado', 
+                costPrice: isNaN(costPrice) ? 0 : costPrice 
+            }];
+        }
+
+        editProductFeedback.textContent = `Produto "${name}" (ID: ${productId}) atualizado com sucesso!`;
+        editProductFeedback.style.color = 'green';
+        renderProducts();
+        document.getElementById('edit-product-form').classList.add('hidden');
+        document.getElementById('edit-product-display').innerHTML = '<p>Use a busca acima para carregar os dados do produto.</p>';
+        document.getElementById('edit-product-search-input').value = '';
+    }
+
+    function handleCustomerHelp(product) {
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+
+        modalTitle.textContent = `Assistente para: ${product.name}`;
+        modalBody.innerHTML = `
+            <div class="input-group">
+                <label for="customer-question">Copie e cole a pergunta do cliente abaixo:</label>
+                <textarea id="customer-question" rows="4"></textarea>
+            </div>
+            <button id="ask-gemini-button" class="action-button">Perguntar à IA</button>
+        `;
+        openModal('main-modal');
+
+        document.getElementById('ask-gemini-button').addEventListener('click', () => {
+            const customerQuestion = document.getElementById('customer-question').value;
+             if (customerQuestion && customerQuestion.trim() !== '') {
+                 const title = "Sugestão de Resposta para Cliente";
+                 const prompt = `R2D2: Responda de forma direta e clara (máximo 3 frases) à seguinte dúvida do cliente, considerando estas especificações do produto: "${product.spec}". Dúvida do cliente: "${customerQuestion}"`;
+                 callGeminiAPI(prompt, title);
+             }
+        });
+    }
+
+    function handleVisitorProductHelp(productName, productSpec) {
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+
+        modalTitle.textContent = `Ajuda sobre: ${productName}`;
+        modalBody.innerHTML = `
+            <div class="input-group">
+                <label for="visitor-product-question">Qual sua dúvida sobre o ${productName}?</label>
+                <textarea id="visitor-product-question" rows="4"></textarea>
+            </div>
+            <button id="ask-gemini-visitor-product-button" class="action-button">Obter Ajuda da IA</button>
+        `;
+        openModal('main-modal');
+
+        document.getElementById('ask-gemini-visitor-product-button').addEventListener('click', () => {
+            const visitorQuestion = document.getElementById('visitor-product-question').value;
+            if (visitorQuestion && visitorQuestion.trim() !== '') {
+                const title = "Resposta da Galvão Drones";
+                callGeminiAPI(visitorQuestion, title, true, productSpec); 
+            }
+        });
+    }
+    
+    // --- NOVAS FUNÇÕES PARA FORNECEDORES ---
+
     function renderSuppliers(filters = {}) {
-        const supplierListEl = document.getElementById('supplier-list');
-        supplierListEl.innerHTML = '';
-        const { sortOrder = 'alpha', categories = [] } = filters;
+        const supplierList = document.getElementById('supplier-list');
+        supplierList.innerHTML = '';
+        
         let suppliersToShow = [...SUPPLIERS];
 
-        if (categories.length > 0) {
-            suppliersToShow = suppliersToShow.filter(s => s.categories.some(cat => categories.includes(cat)));
+        // Aplicar filtros de categoria (se houver)
+        if (filters.categories && filters.categories.length > 0) {
+            suppliersToShow = suppliersToShow.filter(s => 
+                s.categories && s.categories.some(cat => filters.categories.includes(cat))
+            );
         }
-        if (sortOrder === 'alpha') suppliersToShow.sort((a, b) => a.name.localeCompare(b.name));
+
+        // Aplicar ordenação
+        if (filters.sort) {
+            suppliersToShow.sort((a, b) => {
+                switch (filters.sort) {
+                    case 'name_asc': return a.name.localeCompare(b.name);
+                    case 'name_desc': return b.name.localeCompare(a.name);
+                    default: return 0;
+                }
+            });
+        }
 
         suppliersToShow.forEach(supplier => {
             const supplierCard = document.createElement('div');
             supplierCard.className = 'card supplier-card';
+            supplierCard.dataset.supplierId = supplier.id;
+
             let contactsHTML = '<ul class="contact-list">';
-            supplier.contacts.forEach(contact => {
-                contactsHTML += `<li><div class="contact-info"><strong>${contact.name}</strong> - <span>${contact.role}</span></div><a href="https://wa.me/55${contact.whatsapp}" target="_blank" class="whatsapp-contact-btn"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg></a></li>`;
-            });
-            contactsHTML += '</ul>';
-            let categoriesHTML = '<div class="categories">';
-            supplier.categories.forEach(cat => { categoriesHTML += `<span class="category-tag">${cat}</span>`; });
-            categoriesHTML += '</div>';
-            supplierCard.innerHTML = `<h3>${supplier.name}</h3><p>${supplier.details}</p>${categoriesHTML}${contactsHTML}`;
-            supplierListEl.appendChild(supplierCard);
-        });
-    }
-
-    function renderSettingsOptionsGrid() {
-        const grid = document.getElementById('settings-options-grid');
-        grid.innerHTML = ''; // Limpa antes de renderizar
-        const isAdmin = window.currentUser && window.currentUser.role === 'admin';
-        const isMikhaell = window.currentUser && window.currentUser.username === 'mikhaell';
-
-        if (isMikhaell) {
-            grid.innerHTML += `<div class="card" data-section="manage-users-section"><h3>Gerir Usuários</h3><p>Crie e gerencie acessos temporários.</p></div>`;
-        }
-        if (isAdmin) {
-            grid.innerHTML += `<div class="card" data-section="create-product-section"><h3>Criar Produto</h3><p>Adicione novos produtos ao sistema.</p></div>`;
-            grid.innerHTML += `<div class="card" data-section="edit-product-section"><h3>Alterar Produto</h3><p>Edite dados de produtos existentes.</p></div>`;
-        }
-        grid.querySelectorAll('.card').forEach(card => {
-            card.addEventListener('click', () => switchTab(card.dataset.section));
-        });
-    }
-
-    // --- FUNÇÕES DE ORÇAMENTO ---
-    function openRequestQuoteModal() {
-        requestQuoteModal.style.display = 'block';
-        document.getElementById('quote-step-1').classList.remove('hidden');
-        document.getElementById('quote-step-2').classList.add('hidden');
-        document.getElementById('quote-step-3').classList.add('hidden');
-        document.getElementById('quote-details-text').value = '';
-        document.querySelectorAll('input[name="quote-type"]').forEach(r => r.checked = false);
-        document.querySelectorAll('input[name="equipment-line"]').forEach(r => r.checked = false);
-        window.currentQuoteState = { step: 1 };
-    }
-
-    function handleQuoteNextStep() {
-        const step1 = document.getElementById('quote-step-1');
-        const step2 = document.getElementById('quote-step-2');
-        const step3 = document.getElementById('quote-step-3');
-        if (window.currentQuoteState.step === 1) {
-            const quoteType = document.querySelector('input[name="quote-type"]:checked');
-            if (!quoteType) { alert('Por favor, selecione um tipo de item.'); return; }
-            window.currentQuoteState.type = quoteType.value;
-            step1.classList.add('hidden');
-            if (quoteType.value === 'EQUIPAMENTOS') {
-                step2.classList.remove('hidden');
-                window.currentQuoteState.step = 2;
+            if (supplier.contacts && supplier.contacts.length > 0) {
+                supplier.contacts.forEach(contact => {
+                    contactsHTML += `
+                        <li>
+                            <div class="contact-info">
+                                <strong>${contact.role || 'Contato'}:</strong> ${contact.name}
+                            </div>
+                            <a href="https://wa.me/55${contact.whatsapp}" target="_blank" class="whatsapp-icon-button" title="Chamar no WhatsApp">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="20px" height="20px"><path d="M16.6 14c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.7-.3-1.4-.7-2-1.2-.5-.5-1-1.1-1.4-1.7-.1-.2 0-.4.1-.5.1-.1.2-.3.4-.4.1-.1.2-.2.2-.3.1-.1.1-.2 0-.4-.1-.1-.6-1.3-.8-1.8-.1-.7-.3-.6-.5-.6h-.5c-.2 0-.5.2-.6.3-.6.6-.9 1.3-.9 2.1.1.9.4 1.8 1 2.6.6.8 1.4 1.5 2.3 2 1.4.6 2.8.5 3.8.3.9-.2 1.5-.6 2-1.2.2-.3.4-.6.3-.9-.1-.5-.2-1-.4-1.2s-.4-.2-.6-.2zM12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8z"/></svg>
+                            </a>
+                        </li>
+                    `;
+                });
             } else {
-                step3.classList.remove('hidden');
-                window.currentQuoteState.step = 3;
+                contactsHTML += '<li>Nenhum contato cadastrado.</li>';
             }
-        } else if (window.currentQuoteState.step === 2) {
-            const equipmentLine = document.querySelector('input[name="equipment-line"]:checked');
-            if (!equipmentLine) { alert('Por favor, selecione a linha do equipamento.'); return; }
-            window.currentQuoteState.line = equipmentLine.value;
-            step2.classList.add('hidden');
-            step3.classList.remove('hidden');
-            window.currentQuoteState.step = 3;
-        } else if (window.currentQuoteState.step === 3) {
-            const details = document.getElementById('quote-details-text').value.trim();
-            if (!details) { alert('Por favor, descreva os itens necessários.'); return; }
-            window.currentQuoteState.details = details;
-            requestQuoteModal.style.display = 'none';
-            generateAndShowQuoteConfirmation();
-        }
-    }
+            contactsHTML += '</ul>';
 
-    function generateAndShowQuoteConfirmation() {
-        const { type, line, details } = window.currentQuoteState;
-        let targetCategories = [type];
-        if (line) targetCategories.push(line);
-        if (type === 'PEÇAS') targetCategories.push('Peças');
-        const relevantSuppliers = SUPPLIERS.filter(s => s.categories.some(cat => targetCategories.includes(cat)));
-        if (relevantSuppliers.length === 0) { alert('Nenhum fornecedor encontrado para a categoria selecionada.'); return; }
+            let categoriesHTML = '<div class="supplier-categories">';
+            if (supplier.categories && supplier.categories.length > 0) {
+                supplier.categories.forEach(cat => {
+                    categoriesHTML += `<span class="category-tag">${cat}</span>`;
+                });
+            }
+            categoriesHTML += '</div>';
 
-        const hour = new Date().getHours();
-        let greeting = (hour >= 5 && hour < 12) ? 'Bom dia' : (hour >= 12 && hour < 18) ? 'Boa tarde' : 'Boa noite';
-        const senderName = window.currentUser.displayName || window.currentUser.username;
-        let message = `${greeting}! Tudo bem?\n\nMeu nome é ${senderName}, falo em nome da Galvão Drones. Gostaria de solicitar um orçamento para os seguintes itens, bem como o prazo estimado para entrega:\n\n--- LISTA DE ITENS ---\n${details}\n\nAgradeço a atenção e aguardo o retorno.`;
-        
-        quoteConfirmationModal.style.display = 'block';
-        document.getElementById('quote-final-message').value = message;
-        const suppliersDiv = document.getElementById('quote-final-suppliers');
-        suppliersDiv.innerHTML = '<h4>Selecione os fornecedores para enviar:</h4>';
-        relevantSuppliers.forEach(s => { 
-            suppliersDiv.innerHTML += `<div><label><input type="checkbox" class="quote-supplier-checkbox" value="${s.id}" checked> ${s.name}</label></div>`;
+            supplierCard.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <h3 style="margin-bottom: 5px;"><strong data-supplier-name="${supplier.name}">${supplier.name}</strong></h3>
+                    <button class="action-button secondary edit-supplier-btn" data-supplier-id="${supplier.id}" style="width:auto; padding: 5px 10px; font-size: 0.8em;">Editar</button>
+                </div>
+                ${categoriesHTML}
+                <p><strong>Detalhes:</strong> ${supplier.details}</p>
+                <div><strong>Pagamento:</strong><br>${supplier.payment.replace(/\n/g, '<br>')}</div>
+                <p><strong>Produtos Principais:</strong> ${supplier.products}</p>
+                <h4>Contatos</h4>
+                ${contactsHTML}
+            `;
+            supplierList.appendChild(supplierCard);
+        });
+
+        // Adiciona event listener para os novos botões de editar
+        document.querySelectorAll('.edit-supplier-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const supplierId = e.target.dataset.supplierId;
+                openSupplierFormModal(supplierId);
+            });
         });
     }
-
-    function sendQuoteViaWhatsApp() {
-        let finalMessage = document.getElementById('quote-final-message').value;
-        const infoToAdd = [];
-        document.querySelectorAll('.quote-info-checkbox:checked').forEach(cb => {
-            const key = cb.dataset.key;
-            if (key === 'senderName') infoToAdd.push(`Atendente: ${window.currentUser.displayName}`);
-            if (key === 'senderWhatsapp' && window.currentUser.phone) infoToAdd.push(`WhatsApp: ${window.currentUser.phone}`);
-            if (key === 'companyCnpj') infoToAdd.push(`CNPJ: 60.102.179/0001-10`);
-            if (key === 'companyAddress') infoToAdd.push(`Endereço: Rua 16, nº 304 – Setor Aeroviário, Goiânia – GO, CEP: 74435-240`);
-            if (key === 'companyEmail') infoToAdd.push(`E-mail: contato@galvaodrones.com.br`);
-        });
-        if (infoToAdd.length > 0) {
-            finalMessage += `\n\n--- DADOS PARA CADASTRO/ENVIO ---\n${infoToAdd.join('\n')}`;
-        }
-        const encodedMessage = encodeURIComponent(finalMessage);
-
-        const selectedSupplierIds = [...document.querySelectorAll('.quote-supplier-checkbox:checked')].map(cb => parseInt(cb.value));
+    
+    function renderSupplierActionButtons() {
+        if (!window.currentUser || window.currentUser.role !== 'admin') return;
         
-        if(selectedSupplierIds.length === 0) {
-            alert("Por favor, selecione pelo menos um fornecedor.");
+        supplierActionsContainer.innerHTML = `
+            <button id="create-supplier-btn" class="action-button">Criar Fornecedor</button>
+            <button id="request-quote-btn" class="action-button" style="background-color: var(--help-color);">Solicitar Orçamento</button>
+        `;
+
+        document.getElementById('create-supplier-btn').addEventListener('click', () => openSupplierFormModal());
+        document.getElementById('request-quote-btn').addEventListener('click', openQuoteRequestModal);
+    }
+
+    function openSupplierFormModal(supplierId = null) {
+        supplierForm.reset();
+        supplierContactsContainer.innerHTML = '';
+        
+        if (supplierId) {
+            const supplier = SUPPLIERS.find(s => s.id == supplierId);
+            if (supplier) {
+                supplierFormTitle.textContent = 'Alterar Dados do Fornecedor';
+                document.getElementById('supplier-id').value = supplier.id;
+                document.getElementById('supplier-name').value = supplier.name;
+                document.getElementById('supplier-details').value = supplier.details;
+                document.getElementById('supplier-payment').value = supplier.payment;
+                document.getElementById('supplier-products').value = supplier.products;
+                document.getElementById('supplier-categories-input').value = supplier.categories.join(', ');
+                
+                if (supplier.contacts) {
+                    supplier.contacts.forEach(contact => addContactToForm(contact));
+                }
+            }
+        } else {
+            supplierFormTitle.textContent = 'Criar Novo Fornecedor';
+            document.getElementById('supplier-id').value = '';
+            addContactToForm(); // Adiciona um campo de contato em branco
+        }
+        
+        openModal('supplier-form-modal');
+    }
+
+    function addContactToForm(contact = { name: '', role: '', whatsapp: '' }) {
+        const contactDiv = document.createElement('div');
+        contactDiv.className = 'input-group';
+        contactDiv.style.display = 'flex';
+        contactDiv.style.gap = '10px';
+        contactDiv.innerHTML = `
+            <input type="text" class="contact-name" placeholder="Nome do Contato" value="${contact.name}" style="flex: 2;">
+            <input type="text" class="contact-role" placeholder="Cargo" value="${contact.role}" style="flex: 1;">
+            <input type="tel" class="contact-whatsapp" placeholder="WhatsApp (só números)" value="${contact.whatsapp}" style="flex: 1;">
+            <button type="button" class="delete-btn" style="width: auto; padding: 0 10px;">X</button>
+        `;
+        contactDiv.querySelector('.delete-btn').addEventListener('click', () => contactDiv.remove());
+        supplierContactsContainer.appendChild(contactDiv);
+    }
+
+    function handleSupplierFormSubmit(event) {
+        event.preventDefault();
+        const id = document.getElementById('supplier-id').value;
+        const name = document.getElementById('supplier-name').value;
+        const details = document.getElementById('supplier-details').value;
+        const payment = document.getElementById('supplier-payment').value;
+        const products = document.getElementById('supplier-products').value;
+        const categories = document.getElementById('supplier-categories-input').value.split(',').map(c => c.trim()).filter(Boolean);
+        
+        const contacts = [];
+        document.querySelectorAll('#supplier-contacts-container .input-group').forEach(div => {
+            const contactName = div.querySelector('.contact-name').value.trim();
+            const contactRole = div.querySelector('.contact-role').value.trim();
+            const contactWhatsapp = div.querySelector('.contact-whatsapp').value.replace(/\D/g, '');
+            if (contactName && contactWhatsapp) {
+                contacts.push({ name: contactName, role: contactRole, whatsapp: contactWhatsapp });
+            }
+        });
+
+        if (!name) {
+            alert('O nome do fornecedor é obrigatório.');
             return;
         }
 
-        const selectedSuppliers = SUPPLIERS.filter(s => selectedSupplierIds.includes(s.id));
+        const supplierData = { name, details, payment, products, categories, contacts };
 
-        selectedSuppliers.forEach(supplier => {
-            if (supplier.contacts && supplier.contacts.length > 0) {
-                supplier.contacts.forEach(contact => {
-                     window.open(`https://wa.me/55${contact.whatsapp}?text=${encodedMessage}`, '_blank');
-                });
+        if (id) { // Editando
+            const index = SUPPLIERS.findIndex(s => s.id == id);
+            if (index > -1) {
+                SUPPLIERS[index] = { ...SUPPLIERS[index], ...supplierData };
             }
-        });
-        quoteConfirmationModal.style.display = 'none';
+        } else { // Criando
+            supplierData.id = generateNewId(SUPPLIERS);
+            SUPPLIERS.push(supplierData);
+        }
+
+        closeModal('supplier-form-modal');
+        renderSuppliers();
+    }
+    
+    // --- FUNÇÕES PARA FILTROS ---
+    
+    function openFilterModal(target) {
+        window.currentFilterTarget = target; // 'drones' or 'suppliers'
+        
+        // Resetar modal
+        filterModal.querySelector('form')?.reset();
+        document.querySelectorAll('#category-filters input').forEach(cb => cb.checked = false);
+        document.querySelectorAll('#sort-options input').forEach(rb => rb.checked = false);
+
+        // Configurar visibilidade das opções
+        const sortPriceOptions = filterModal.querySelectorAll('label:has([value^="price_"])');
+        const categoryOptions = document.getElementById('category-filters');
+
+        if (target === 'drones') {
+            filterModalTitle.textContent = 'Filtrar Drones';
+            sortPriceOptions.forEach(opt => opt.style.display = 'block');
+            categoryOptions.style.display = 'block';
+        } else if (target === 'suppliers') {
+            filterModalTitle.textContent = 'Filtrar Fornecedores';
+            sortPriceOptions.forEach(opt => opt.style.display = 'none'); // Não tem preço
+            categoryOptions.style.display = 'block';
+        }
+        
+        openModal('filter-modal');
     }
 
-    // --- LÓGICA DE AUTENTICAÇÃO E SETUP ---
+    function applyFilters() {
+        const sort = document.querySelector('input[name="sort"]:checked')?.value || null;
+        const categories = Array.from(document.querySelectorAll('input[name="category"]:checked')).map(cb => cb.value);
+        
+        const filters = { sort, categories };
+
+        if (window.currentFilterTarget === 'drones') {
+            renderDroneVisitorList(droneVisitorSearchInput.value, filters);
+        } else if (window.currentFilterTarget === 'suppliers') {
+            renderSuppliers(filters);
+        }
+        
+        closeModal('filter-modal');
+    }
+
+    // --- FUNÇÕES PARA ORÇAMENTO ---
+
+    function openQuoteRequestModal() {
+        // Resetar modal
+        quoteRequestBody.querySelectorAll('input[type="radio"]').forEach(rb => rb.checked = false);
+        document.getElementById('quote-details').value = '';
+        
+        // Mostrar primeiro passo
+        quoteRequestBody.querySelectorAll('.quote-step').forEach(step => step.classList.remove('active'));
+        document.getElementById('quote-step-1').classList.add('active');
+        
+        openModal('quote-request-modal');
+    }
+
+    function handleQuoteStepChange(e) {
+        const step1 = document.getElementById('quote-step-1');
+        const step2 = document.getElementById('quote-step-2');
+        const step3 = document.getElementById('quote-step-3');
+
+        const productType = document.querySelector('input[name="product_type"]:checked')?.value;
+        if (e.target.name === 'product_type') {
+            if (productType === 'Equipamentos') {
+                step1.classList.remove('active');
+                step2.classList.add('active');
+            } else if (productType === 'Pecas') {
+                step1.classList.remove('active');
+                step3.classList.add('active');
+            }
+        }
+        
+        const equipmentLine = document.querySelector('input[name="equipment_line"]:checked')?.value;
+        if (e.target.name === 'equipment_line') {
+            if (equipmentLine) {
+                step2.classList.remove('active');
+                step3.classList.add('active');
+            }
+        }
+    }
+
+    function finalizeQuoteRequest() {
+        const productType = document.querySelector('input[name="product_type"]:checked').value;
+        const equipmentLine = document.querySelector('input[name="equipment_line"]:checked')?.value;
+        const details = document.getElementById('quote-details').value.trim();
+
+        if (!details) {
+            alert('Por favor, descreva os itens que precisa no orçamento.');
+            return;
+        }
+
+        const quoteData = {
+            type: productType,
+            line: equipmentLine, // será null para 'Peças'
+            details: details
+        };
+
+        const message = generateQuoteMessage(quoteData);
+        openQuoteConfirmationModal(message, quoteData);
+        closeModal('quote-request-modal');
+    }
+
+    function getGreeting() {
+        const hour = new Date().getHours();
+        if (hour >= 5 && hour < 12) return "Bom dia";
+        if (hour >= 12 && hour < 18) return "Boa tarde";
+        return "Boa noite";
+    }
+
+    function generateQuoteMessage(quoteData) {
+        const greeting = getGreeting();
+        const userName = window.currentUser.displayName || window.currentUser.username;
+        
+        let message = `${greeting}! Meu nome é ${userName}, da Galvão Drones.\n\n`;
+        message += `Gostaria de solicitar um orçamento para os seguintes itens, com informação de disponibilidade e prazo de entrega, por favor:\n\n`;
+        message += `*Itens Solicitados:*\n${quoteData.details}\n\n`;
+        message += `Agradeço a atenção e aguardo o seu retorno.`;
+        
+        return message;
+    }
+
+    function openQuoteConfirmationModal(message, quoteData) {
+        quoteFinalMessage.value = message;
+        
+        // Preencher previews
+        document.getElementById('quote-user-name-preview').textContent = window.currentUser.displayName;
+        document.getElementById('quote-user-whatsapp-preview').textContent = window.currentUser.phone;
+        
+        // Filtrar fornecedores relevantes
+        const relevantCategories = [quoteData.type];
+        if(quoteData.line) relevantCategories.push(quoteData.line);
+
+        const relevantSuppliers = SUPPLIERS.filter(s => 
+            s.categories.some(cat => relevantCategories.includes(cat))
+        );
+
+        quoteSupplierButtons.innerHTML = '<h4>Selecione o Fornecedor:</h4>';
+        if (relevantSuppliers.length > 0) {
+            relevantSuppliers.forEach(supplier => {
+                const btn = document.createElement('button');
+                btn.className = 'action-button';
+                btn.textContent = `Enviar para ${supplier.name}`;
+                btn.addEventListener('click', () => sendQuoteToSupplier(supplier));
+                quoteSupplierButtons.appendChild(btn);
+            });
+        } else {
+            quoteSupplierButtons.innerHTML += '<p>Nenhum fornecedor encontrado para esta categoria.</p>';
+        }
+
+        openModal('quote-confirmation-modal');
+    }
+
+    function sendQuoteToSupplier(supplier) {
+        let finalMessage = quoteFinalMessage.value;
+        let extraInfo = "\n\n---";
+        
+        if (document.getElementById('quote-include-address').checked) {
+            extraInfo += `\nEndereço para Entrega: Rua 16, nº 304 – Setor Aeroviário, Goiânia – GO, CEP: 74435-240`;
+        }
+        if (document.getElementById('quote-include-cnpj').checked) {
+            extraInfo += `\nCNPJ: 60.102.179/0001-10`;
+        }
+        if (document.getElementById('quote-include-user-name').checked) {
+            extraInfo += `\nAtendente: ${window.currentUser.displayName}`;
+        }
+        if (document.getElementById('quote-include-user-whatsapp').checked) {
+            extraInfo += `\nWhatsApp do Atendente: ${window.currentUser.phone}`;
+        }
+        if (document.getElementById('quote-include-company-phone').checked) {
+            extraInfo += `\nWhatsApp Galvão Drones: (62) 3636-0668`;
+        }
+        if (document.getElementById('quote-include-company-email').checked) {
+            extraInfo += `\nE-mail Galvão Drones: contato@galvaodrones.com.br`;
+        }
+        
+        if (extraInfo.length > 5) {
+            finalMessage += extraInfo;
+        }
+
+        // Enviar para o primeiro contato do fornecedor como padrão, ou criar uma lógica para escolher
+        const targetWhatsapp = supplier.contacts[0]?.whatsapp;
+        if (targetWhatsapp) {
+            const encodedMessage = encodeURIComponent(finalMessage);
+            const whatsappUrl = `https://wa.me/55${targetWhatsapp}?text=${encodedMessage}`;
+            window.open(whatsappUrl, '_blank');
+            closeModal('quote-confirmation-modal');
+        } else {
+            alert(`O fornecedor ${supplier.name} não possui um contato de WhatsApp cadastrado.`);
+        }
+    }
+
+
+    async function callGeminiAPI(prompt, title, isProductHelp = false, productSpecs = '', isGeneralAI = false) { 
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+        const aiChatModal = document.getElementById('ai-chat-modal');
+        const aiLoader = document.querySelector('#ai-chat-modal .loader'); 
+        const aiResponseArea = document.getElementById('ai-response-area');
+        const mainModal = document.getElementById('main-modal');
+
+        if (!isGeneralAI) {
+            modalTitle.textContent = title;
+            modalBody.innerHTML = '<div class="loader"></div>';
+            openModal('main-modal'); 
+        } else {
+            aiChatModal.style.display = 'block';
+            if (aiLoader) aiLoader.style.display = 'block'; 
+            aiResponseArea.innerHTML = ''; 
+            aiResponseArea.style.display = 'none'; 
+            mainModal.style.display = 'none'; 
+        }
+
+        const apiKey = "SUA_CHAVE_DE_API_AQUI"; 
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`; 
+
+        if (apiKey === "SUA_CHAVE_DE_API_AQUI" || apiKey === "") {
+             console.error("ERRO: Chave da API do Gemini não configurada.");
+             const errorMessage = "<p style='color:red;'>Erro: A funcionalidade de IA não está configurada. Contate o administrador.</p>";
+             if (isGeneralAI) {
+                 aiResponseArea.innerHTML = errorMessage;
+                 aiResponseArea.style.display = 'block';
+                 if (aiLoader) aiLoader.style.display = 'none';
+             } else {
+                 modalBody.innerHTML = errorMessage;
+             }
+             return; 
+         }
+        
+        let chatHistory = [];
+        chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+        const payload = { contents: chatHistory };
+        
+        try {
+            const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            if (!response.ok) {
+                 const errorData = await response.json();
+                 throw new Error(errorData.error.message || `Erro na API: ${response.statusText}`);
+            }
+            const result = await response.json();
+            if (result.candidates && result.candidates.length > 0 && result.candidates[0].content && result.candidates[0].content.parts) {
+                const text = result.candidates[0].content.parts[0].text;
+                if (isGeneralAI) {
+                    aiResponseArea.innerHTML = text.replace(/\n/g, '<br>');
+                    aiResponseArea.style.display = 'block';
+                    if (aiLoader) aiLoader.style.display = 'none';
+                } else {
+                    modalBody.innerHTML = text.replace(/\n/g, '<br>');
+                }
+            } else { throw new Error("A resposta da API não contém o conteúdo esperado."); }
+        } catch (error) {
+            console.error("Erro ao chamar a API Gemini:", error);
+            if (isGeneralAI) {
+                aiResponseArea.innerHTML = `<p style="color:red;">Ocorreu um erro ao comunicar com a IA. Tente novamente.<br><small>Detalhe: ${error.message}</small></p>`;
+                aiResponseArea.style.display = 'block';
+                if (aiLoader) aiLoader.style.display = 'none';
+            } else {
+                modalBody.innerHTML = `<p style="color:red;">Ocorreu um erro ao comunicar com a IA. Tente novamente.<br><small>Detalhe: ${error.message}</small></p>`;
+            }
+        }
+    }
+
+
+    // --- FUNÇÕES DE LÓGICA DE AUTENTICAÇÃO E INICIALIZAÇÃO DO APP ---
     function handleLogin() {
-        const usernameVal = usernameInput.value;
-        const passwordVal = passwordInput.value;
-        const user = USERS[usernameVal];
-        if (user && user.password === passwordVal) {
-            window.currentUser = { ...user, username: usernameVal, isVisitor: false };
+        const username = usernameInput.value;
+        const password = passwordInput.value;
+        const user = USERS[username];
+
+        if (user && user.password === password) {
+            window.currentUser = { ...user, username: username }; 
+            const storedProfile = localStorage.getItem(username + '_profile');
+            if (storedProfile) {
+                Object.assign(window.currentUser, JSON.parse(storedProfile));
+            }
+
+            loginError.style.display = 'none';
             loginScreen.style.display = 'none';
             appScreen.style.display = 'block';
-            document.body.classList.remove('visitor-mode-bg');
+            document.body.classList.remove('visitor-mode-bg'); 
             setupAppForUser();
+
+            if (user.firstLogin) {
+                showChangePasswordModal(true); 
+            }
         } else {
+            loginError.textContent = 'Usuário ou senha inválidos.';
             loginError.style.display = 'block';
         }
     }
 
     function handleVisitorMode() {
-        window.currentUser = { username: 'Visitante', role: 'visitor', isVisitor: true, displayName: 'Visitante' };
+        window.currentUser = { username: 'Visitante', role: 'visitor', isVisitor: true, displayName: 'Visitante', email: '', phone: '', profilePicUrl: 'https://i.imgur.com/8Yd00YF.png' }; 
         loginScreen.style.display = 'none';
         appScreen.style.display = 'block';
-        document.body.classList.add('visitor-mode-bg');
+        document.body.classList.add('visitor-mode-bg'); 
         setupAppForUser();
+    }
+
+    function handleLogout() {
+        window.currentUser = null; 
+        appScreen.style.display = 'none';
+        loginScreen.style.display = 'block';
+        usernameInput.value = '';
+        passwordInput.value = '';
+        loginError.style.display = 'none';
+        document.body.classList.remove('visitor-mode-bg'); 
+        document.getElementById('ai-chat-button').style.display = 'none';
+        if (window.tempUserInterval) {
+            clearInterval(window.tempUserInterval);
+        }
     }
 
     function setupAppForUser() {
         const isVisitor = window.currentUser.isVisitor;
-        const isAdmin = !isVisitor && window.currentUser.role === 'admin';
-        document.getElementById('welcome-message').textContent = isVisitor ? '' : `Olá, ${window.currentUser.displayName || window.currentUser.username}!`;
-        
+        const isAdmin = window.currentUser.role === 'admin';
+        const isMarketing = window.currentUser.role === 'marketing';
+
+        document.getElementById('welcome-message').textContent = `Olá, ${window.currentUser.displayName || window.currentUser.username}!`;
+        profileIcon.src = window.currentUser.profilePicUrl || 'https://i.imgur.com/8Yd00YF.png';
+
         productsNavButton.style.display = isVisitor ? 'none' : 'block';
         calculatorNavButton.style.display = isVisitor ? 'none' : 'block';
         suppliersNavButton.style.display = isAdmin ? 'block' : 'none';
         settingsNavButton.style.display = isAdmin ? 'block' : 'none';
-        dronesNavButton.style.display = 'block';
-        infoEmpresaNavButton.style.display = 'block';
-        marketingNavButton.style.display = isAdmin ? 'block' : 'none';
+        
+        if (manageUsersNavButton) manageUsersNavButton.style.display = (isAdmin && window.currentUser.username === 'mikhaell') ? 'block' : 'none';
+        if (createProductNavButton) createProductNavButton.style.display = isAdmin ? 'block' : 'none';
+        if (editProductNavButton) editProductNavButton.style.display = isAdmin ? 'block' : 'none';
+
+        dronesNavButton.style.display = 'block'; 
+        infoEmpresaNavButton.style.display = 'block'; 
+        marketingNavButton.style.display = isMarketing || isAdmin ? 'block' : 'none'; 
+
         profileNavButton.classList.toggle('hidden', isVisitor);
+
+        aiChatButton.style.display = 'block';
+        
+        renderSupplierActionButtons();
 
         if (isVisitor) {
             switchTab('drones-visitor-section');
         } else {
             switchTab('products-section');
         }
+
+        if (window.currentUser.type === 'temporary' && window.currentUser.expiresAt) {
+            showTemporaryUserWarning();
+        }
     }
 
-    function switchTab(sectionId) {
-        document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-        const newSection = document.getElementById(sectionId);
-        if (newSection) newSection.classList.add('active');
+    function closeMobileNav() {
+        if (window.innerWidth <= 768) { 
+            navElement.classList.remove('nav-open');
+        }
+    }
+
+    function showChangePasswordModal(isMandatory = false) {
+        const changePasswordModal = document.getElementById('change-password-modal');
+        const changePasswordModalTitle = document.getElementById('change-password-modal-title');
+        const changePasswordMessage = document.getElementById('change-password-message');
+        const changePasswordCloseButton = document.getElementById('change-password-close-button');
+
+        changePasswordModal.style.display = 'block';
+        document.getElementById('new-password').value = '';
+        document.getElementById('confirm-new-password').value = '';
+        document.getElementById('change-password-error').style.display = 'none';
+        document.getElementById('change-password-success').style.display = 'none';
+
+        if (isMandatory) {
+            changePasswordModalTitle.textContent = 'Defina Sua Senha';
+            changePasswordMessage.textContent = 'Por favor, defina uma nova senha para sua conta. É obrigatório no primeiro acesso.';
+            changePasswordCloseButton.style.display = 'none'; 
+        } else {
+            changePasswordModalTitle.textContent = 'Alterar Senha';
+            changePasswordMessage.textContent = 'Digite sua nova senha abaixo.';
+            changePasswordCloseButton.style.display = 'block'; 
+        }
+    }
+
+    function handleChangePassword() {
+        const newPasswordInput = document.getElementById('new-password');
+        const confirmNewPasswordInput = document.getElementById('confirm-new-password');
+        const changePasswordError = document.getElementById('change-password-error');
+        const changePasswordSuccess = document.getElementById('change-password-success');
         
-        document.querySelectorAll('.nav-button').forEach(b => b.classList.remove('active'));
-        const newButton = document.querySelector(`.nav-button[data-section="${sectionId}"]`);
-        if (newButton) newButton.classList.add('active');
+        const newPass = newPasswordInput.value;
+        const confirmPass = confirmNewPasswordInput.value;
+        changePasswordError.style.display = 'none';
+        changePasswordSuccess.style.display = 'none';
 
-        if (sectionId === 'suppliers-section') renderSuppliers();
-        if (sectionId === 'drones-visitor-section') renderDroneVisitorList();
-        if (sectionId === 'products-section') renderProducts();
-        if (sectionId === 'settings-section') renderSettingsOptionsGrid();
+        if (newPass.length < 6) {
+            changePasswordError.textContent = 'A nova senha deve ter no mínimo 6 dígitos.';
+            changePasswordError.style.display = 'block';
+            return;
+        }
+        if (newPass !== confirmPass) {
+            changePasswordError.textContent = 'As senhas não conferem.';
+            changePasswordError.style.display = 'block';
+            return;
+        }
+
+        USERS[window.currentUser.username].password = newPass;
+        USERS[window.currentUser.username].firstLogin = false; 
+        window.currentUser.password = newPass;
+        window.currentUser.firstLogin = false;
+
+        changePasswordSuccess.textContent = 'Senha alterada com sucesso!';
+        changePasswordSuccess.style.display = 'block';
+
+        setTimeout(() => {
+            closeModal('change-password-modal');
+            setupAppForUser(); 
+        }, 1500);
     }
 
-    // --- INICIALIZAÇÃO ---
+    function renderProfilePage() {
+        if (!window.currentUser) return;
+
+        profileDisplayName.textContent = window.currentUser.displayName || window.currentUser.username;
+        profileEmail.textContent = window.currentUser.email || 'Não informado';
+        profilePhone.textContent = window.currentUser.phone ? `(${window.currentUser.phone.substring(0,2)}) ${window.currentUser.phone.substring(2,7)}-${window.currentUser.phone.substring(7)}` : 'Não informado';
+        profilePicDisplay.src = window.currentUser.profilePicUrl || 'https://i.imgur.com/8Yd00YF.png';
+
+        editDisplayNameInput.value = window.currentUser.displayName || '';
+        editEmailInput.value = window.currentUser.email || '';
+        editPhoneInput.value = window.currentUser.phone || '';
+        profileFeedback.textContent = '';
+        profileFeedback.style.color = 'black';
+    }
+
+    function handleProfileEdit(event) {
+        event.preventDefault();
+        
+        const newDisplayName = document.getElementById('edit-display-name').value.trim();
+        const newEmail = document.getElementById('edit-email').value.trim();
+        const newPhone = document.getElementById('edit-phone').value.trim();
+        
+        if (!newDisplayName) {
+            profileFeedback.textContent = 'O nome de exibição não pode ser vazio.';
+            profileFeedback.style.color = 'red';
+            return;
+        }
+        if (newEmail && !/\S+@\S+\.\S+/.test(newEmail)) {
+            profileFeedback.textContent = 'Por favor, insira um email válido.';
+            profileFeedback.style.color = 'red';
+            return;
+        }
+        if (newPhone && !/^\d{10,11}$/.test(newPhone)) {
+            profileFeedback.textContent = 'Por favor, insira um número de telefone válido (apenas dígitos, com DDD).';
+            profileFeedback.style.color = 'red';
+            return;
+        }
+
+        window.currentUser.displayName = newDisplayName;
+        window.currentUser.email = newEmail;
+        window.currentUser.phone = newPhone;
+
+        localStorage.setItem(window.currentUser.username + '_profile', JSON.stringify({
+            displayName: window.currentUser.displayName,
+            email: window.currentUser.email,
+            phone: window.currentUser.phone,
+            profilePicUrl: window.currentUser.profilePicUrl
+        }));
+
+        profileFeedback.textContent = 'Perfil atualizado com sucesso!';
+        profileFeedback.style.color = 'green';
+        setupAppForUser();
+        renderProfilePage();
+        setTimeout(() => profileFeedback.textContent = '', 3000);
+    }
+
+    function handleProfilePicUpload() {
+        const file = document.getElementById('edit-profile-pic').files[0];
+        
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const dataUrl = e.target.result;
+                profilePicDisplay.src = dataUrl;
+                profileIcon.src = dataUrl;
+                window.currentUser.profilePicUrl = dataUrl;
+
+                localStorage.setItem(window.currentUser.username + '_profile', JSON.stringify({
+                    displayName: window.currentUser.displayName,
+                    email: window.currentUser.email,
+                    phone: window.currentUser.phone,
+                    profilePicUrl: window.currentUser.profilePicUrl
+                }));
+
+                profileFeedback.textContent = 'Foto de perfil atualizada!';
+                profileFeedback.style.color = 'green';
+                setTimeout(() => profileFeedback.textContent = '', 3000);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            profileFeedback.textContent = 'Nenhuma foto selecionada.';
+            profileFeedback.style.color = 'orange';
+        }
+    }
+
+
     document.addEventListener('DOMContentLoaded', () => {
+        // Atribuição de elementos DOM a variáveis globais
         loginScreen = document.getElementById('login-screen');
         appScreen = document.getElementById('app-screen');
         loginButton = document.getElementById('login-button');
@@ -1565,72 +3146,378 @@
         usernameInput = document.getElementById('username');
         passwordInput = document.getElementById('password');
         loginError = document.getElementById('login-error');
-        visitorModeButton = document.getElementById('visitor-mode-button');
-        productsNavButton = document.getElementById('products-nav-button');
-        calculatorNavButton = document.getElementById('calculator-nav-button');
+        visitorModeButton = document.getElementById('visitor-mode-button'); 
+
+        navButtons = document.querySelectorAll('.nav-button');
+        contentSections = document.querySelectorAll('.content-section');
+        productsNavButton = document.getElementById('products-nav-button'); 
+        calculatorNavButton = document.getElementById('calculator-nav-button'); 
         suppliersNavButton = document.getElementById('suppliers-nav-button');
-        settingsNavButton = document.getElementById('settings-nav-button');
-        dronesNavButton = document.getElementById('drones-nav-button');
-        infoEmpresaNavButton = document.getElementById('info-empresa-nav-button');
+        settingsNavButton = document.getElementById('settings-nav-button'); 
+        dronesNavButton = document.getElementById('drones-nav-button'); 
+        infoEmpresaNavButton = document.getElementById('info-empresa-nav-button'); 
         marketingNavButton = document.getElementById('marketing-nav-button');
         profileNavButton = document.getElementById('profile-nav-button');
-        navToggleButton = document.getElementById('nav-toggle-btn');
-        navToggleButtonClose = document.getElementById('nav-toggle-btn-close');
-        navElement = document.querySelector('nav');
-        supplierFilterBtn = document.getElementById('supplier-filter-btn');
-        droneFilterBtn = document.getElementById('drone-filter-btn');
-        requestQuoteBtn = document.getElementById('request-quote-btn');
-        requestQuoteModal = document.getElementById('request-quote-modal');
-        quoteNextStepBtn = document.getElementById('quote-next-step-btn');
-        quoteConfirmationModal = document.getElementById('quote-confirmation-modal');
-        sendQuoteWhatsappBtn = document.getElementById('send-quote-whatsapp-btn');
-        droneVisitorSearchInput = document.getElementById('drone-visitor-search');
-        productSearchInput = document.getElementById('product-search');
 
-        loginButton.addEventListener('click', handleLogin);
-        visitorModeButton.addEventListener('click', handleVisitorMode);
-        logoutButton.addEventListener('click', () => { location.reload(); });
-        navToggleButton.addEventListener('click', () => navElement.classList.toggle('nav-open'));
-        navToggleButtonClose.addEventListener('click', () => navElement.classList.remove('nav-open'));
+        settingsSubNav = document.getElementById('settings-sub-nav'); 
+        manageUsersNavButton = document.getElementById('manage-users-nav-button');
+        createProductNavButton = document.getElementById('create-product-nav-button');
+        editProductNavButton = document.getElementById('edit-product-nav-button');
+
+        productList = document.getElementById('product-list');
+        supplierList = document.getElementById('supplier-list');
+        productSearchInput = document.getElementById('product-search');
+        droneVisitorList = document.getElementById('drone-visitor-list'); 
+        droneVisitorSearchInput = document.getElementById('drone-visitor-search'); 
+
+        mainModal = document.getElementById('main-modal');
+        modalTitle = document.getElementById('modal-title');
+        modalBody = document.getElementById('modal-body');
+        closeModalButton = document.querySelector('#main-modal .close-button');
+
+        createTempUserForm = document.getElementById('create-temp-user-form');
+        tempUserFeedback = document.getElementById('temp-user-feedback');
+        tempUserListContainer = document.getElementById('temp-user-list');
+        createProductForm = document.getElementById('create-product-form');
+        createProductFeedback = document.getElementById('create-product-feedback');
+        editProductSearchInput = document.getElementById('edit-product-search-input'); 
+        searchProductToEditButton = document.getElementById('search-product-to-edit');
+        editProductSearchResults = document.getElementById('edit-product-search-results'); 
+        editProductDisplay = document.getElementById('edit-product-display');
+        editProductForm = document.getElementById('edit-product-form');
         
-        document.querySelectorAll('.nav-button').forEach(button => {
+        mainContent = document.getElementById('main-content');
+        scrollToTopButton = document.getElementById('scroll-to-top');
+
+        generalCalcValorBase = document.getElementById('general-valor-base');
+        generalCalcPaymentRadios = document.querySelectorAll('input[name="general-payment-method"]');
+        generalCalcInstallmentsContainer = document.getElementById('general-installments-container');
+        generalCalcParcelasSelect = document.getElementById('general-parcelas');
+        generalCalculateButton = document.getElementById('general-calculate-button');
+        generalCalculatorResult = document.getElementById('general-calculator-result');
+        generalDiscountOption = document.getElementById('general-discount-option');
+        generalDiscountPercentageInput = document.getElementById('general-discount-percentage');
+
+        navToggleButton = document.getElementById('nav-toggle-btn');
+        navToggleButtonClose = document.getElementById('nav-toggle-btn-close'); 
+        navElement = document.querySelector('nav'); 
+        appBody = document.querySelector('.app-body');
+        headerElement = document.querySelector('header'); 
+        bodyElement = document.body;
+
+        aiChatButton = document.getElementById('ai-chat-button');
+        aiChatModal = document.getElementById('ai-chat-modal');
+        aiChatCloseButton = document.querySelector('#ai-chat-modal .close-button');
+        aiQuestionInput = document.getElementById('ai-question-input');
+        submitAiQuestionButton = document.getElementById('submit-ai-question');
+        aiResponseArea = document.getElementById('ai-response-area');
+        aiLoader = document.querySelector('#ai-chat-modal .loader');
+
+        supplierPasswordModal = document.getElementById('supplier-password-modal');
+        supplierAccessPasswordInput = document.getElementById('supplier-access-password');
+        submitSupplierPasswordButton = document.getElementById('submit-supplier-password');
+        supplierPasswordError = document.getElementById('supplier-password-error');
+        supplierPasswordCloseButton = document.getElementById('supplier-password-close-button');
+
+        changePasswordModal = document.getElementById('change-password-modal');
+        openChangePasswordModalButton = document.getElementById('open-change-password-modal');
+        submitChangePasswordButton = document.getElementById('submit-change-password');
+        
+        profileIconContainer = document.getElementById('profile-icon-container');
+        profileIcon = document.getElementById('profile-icon');
+        profileSection = document.getElementById('profile-section');
+        profileDisplayName = document.getElementById('profile-display-name');
+        profileEmail = document.getElementById('profile-email');
+        profilePhone = document.getElementById('profile-phone');
+        profilePicDisplay = document.getElementById('profile-pic-display');
+        editDisplayNameInput = document.getElementById('edit-display-name');
+        editEmailInput = document.getElementById('edit-email');
+        editPhoneInput = document.getElementById('edit-phone');
+        editProfilePicInput = document.getElementById('edit-profile-pic');
+        uploadProfilePicButton = document.getElementById('upload-profile-pic-button');
+        profileEditForm = document.getElementById('profile-edit-form');
+        profileFeedback = document.getElementById('profile-feedback');
+        
+        companyPhoneSpan = document.getElementById('company-phone');
+        companyWhatsappLink = document.getElementById('company-whatsapp-link');
+
+        whatsappModal = document.getElementById('whatsapp-modal');
+        whatsappCloseButton = document.getElementById('whatsapp-close-button');
+        whatsappMessageInput = document.getElementById('whatsapp-message-input');
+        sendWhatsappButton = document.getElementById('send-whatsapp-button');
+        cancelWhatsappButton = document.getElementById('cancel-whatsapp-button');
+        
+        // Novos elementos
+        dronesFilterBtn = document.getElementById('drones-filter-btn');
+        suppliersFilterBtn = document.getElementById('suppliers-filter-btn');
+        filterModal = document.getElementById('filter-modal');
+        filterModalTitle = document.getElementById('filter-modal-title');
+        sortOptions = document.getElementById('sort-options');
+        categoryFilters = document.getElementById('category-filters');
+        applyFiltersBtn = document.getElementById('apply-filters-btn');
+        supplierActionsContainer = document.getElementById('supplier-actions');
+        supplierFormModal = document.getElementById('supplier-form-modal');
+        supplierFormTitle = document.getElementById('supplier-form-title');
+        supplierForm = document.getElementById('supplier-form');
+        addContactBtn = document.getElementById('add-contact-btn');
+        supplierContactsContainer = document.getElementById('supplier-contacts-container');
+        quoteRequestModal = document.getElementById('quote-request-modal');
+        quoteRequestBody = document.getElementById('quote-request-body');
+        finalizeQuoteRequestBtn = document.getElementById('finalize-quote-request-btn');
+        quoteConfirmationModal = document.getElementById('quote-confirmation-modal');
+        quoteConfirmationBody = document.getElementById('quote-confirmation-body');
+        quoteFinalMessage = document.getElementById('quote-final-message');
+        quoteSupplierButtons = document.getElementById('quote-supplier-buttons');
+
+        // --- EVENT LISTENERS ---
+        loginButton.addEventListener('click', handleLogin); 
+        visitorModeButton.addEventListener('click', handleVisitorMode); 
+        passwordInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleLogin(); }); 
+        logoutButton.addEventListener('click', handleLogout); 
+        
+        profileIconContainer.addEventListener('click', () => {
+            if (window.currentUser && !window.currentUser.isVisitor) {
+                switchTab('profile-section');
+                closeMobileNav(); 
+            } else {
+                alert('Acesso ao perfil restrito. Faça login para gerenciar suas informações.');
+            }
+        });
+
+        mainContent.addEventListener('click', (e) => {
+            const target = e.target;
+            const productCard = target.closest('.product-card');
+
+            if (target.classList.contains('supplier-name-link')) {
+                e.preventDefault(); 
+                const supplierName = target.dataset.supplierName;
+                if (window.currentUser && window.currentUser.role === 'admin') { 
+                    navigateToSupplierSection(supplierName); 
+                }
+                return; 
+            }
+
+            if (window.currentUser && window.currentUser.isVisitor && target.classList.contains('help-product-visitor-btn')) {
+                const productName = target.dataset.productName;
+                const productSpec = target.dataset.productSpec;
+                handleVisitorProductHelp(productName, productSpec);
+                return; 
+            }
+
+            if (window.currentUser && window.currentUser.isVisitor && productCard) {
+                if (target.closest('.action-buttons-container') || target.closest('.calculator-container')) {
+                    return; 
+                }
+            }
+
+            if (productCard) {
+                const productId = parseInt(productCard.dataset.productId);
+                const product = PRODUCTS.find(p => p.id === productId);
+                if (!product) return;
+                
+                if (target.classList.contains('desc-button')) {
+                    const title = `Descrição para: ${product.name}`;
+                    const prompt = `R2D2: Gere uma descrição de venda curta e apelativa para o produto "${product.name}", focando nos benefícios e usando as especificações: ${product.spec}. Não inclua o preço.`;
+                    callGeminiAPI(prompt, title);
+                } else if (target.classList.contains('args-button')) {
+                    const title = `Argumentos para: ${product.name}`;
+                    const prompt = `R2D2: Liste 3 a 4 argumentos de venda concisos para o produto "${product.name}", explicando brevemente por que cada um é importante para o cliente, com base nas especificações: ${product.spec}.`;
+                    callGeminiAPI(prompt, title);
+                } else if (target.classList.contains('whatsapp-button')) {
+                    openWhatsAppModal(product);
+                } else if (target.classList.contains('help-button')) {
+                    handleCustomerHelp(product);
+                } else if (target.classList.contains('calculate-product-btn')) {
+                    const resultContainer = productCard.querySelector('.product-calculator-result');
+                    const paymentMethod = productCard.querySelector(`input[name="payment-method-${productId}"]:checked`).value;
+                    const numInstallmentsSelect = productCard.querySelector(`#parcelas-${product.id}`); 
+                    const numInstallments = numInstallmentsSelect ? numInstallmentsSelect.value : 1; 
+
+                    let discountPercentage = 0;
+                    const discountInput = productCard.querySelector(`#discount-percentage-${product.id}`);
+
+                    if (window.currentUser.role === 'admin' && paymentMethod === 'vista' && discountInput) {
+                        discountPercentage = parseFloat(discountInput.value);
+                    }
+                    
+                    resultContainer.innerHTML = calculate(product.salePrice, numInstallments, paymentMethod, discountPercentage);
+                }
+            }
+        });
+
+        mainContent.addEventListener('change', (e) => {
+            if (e.target.matches('input[name^="payment-method-"]')) {
+                const card = e.target.closest('.product-card');
+                const installmentsDiv = card.querySelector('.installments-container');
+                const discountOptionDiv = card.querySelector('.discount-option');
+
+                installmentsDiv.classList.toggle('hidden', e.target.value !== 'parcelado');
+                
+                if (discountOptionDiv) { 
+                    if (window.currentUser.role === 'admin' && e.target.value === 'vista') {
+                        discountOptionDiv.classList.remove('hidden');
+                    } else {
+                        discountOptionDiv.classList.add('hidden');
+                    }
+                }
+            } else if (e.target.matches('input[name="general-payment-method"]')) { 
+                generalCalcInstallmentsContainer.classList.toggle('hidden', e.target.value !== 'parcelado');
+                if (generalDiscountOption) {
+                    if (window.currentUser.role === 'admin' && e.target.value === 'vista') {
+                        generalDiscountOption.classList.remove('hidden');
+                    } else {
+                        generalDiscountOption.classList.add('hidden');
+                    }
+                }
+            }
+        });
+
+        document.querySelectorAll('nav button').forEach(button => {
             button.addEventListener('click', () => {
-                if(button.dataset.section) switchTab(button.dataset.section);
-                navElement.classList.remove('nav-open');
+                const sectionId = button.dataset.section;
+
+                if (button.id === 'settings-nav-button') {
+                    if (window.currentUser && window.currentUser.role === 'admin') { 
+                        const isSubNavVisible = settingsSubNav.style.display === 'block';
+                        settingsSubNav.style.display = isSubNavVisible ? 'none' : 'block';
+                        settingsNavButton.classList.toggle('active', !isSubNavVisible);
+                        if (!isSubNavVisible) { 
+                            window.switchTab('settings-section');
+                        }
+                    } else {
+                        alert('Esta seção está restrita ao perfil de administrador.');
+                    }
+                    return; 
+                }
+                
+                window.switchTab(sectionId); 
             });
         });
         
-        supplierFilterBtn.addEventListener('click', (e) => { e.stopPropagation(); document.getElementById('supplier-filter-options').classList.toggle('show'); });
-        droneFilterBtn.addEventListener('click', (e) => { e.stopPropagation(); document.getElementById('drone-filter-options').classList.toggle('show'); });
-        window.addEventListener('click', (e) => {
-            if (!e.target.closest('.filter-container')) {
-                document.getElementById('supplier-filter-options').classList.remove('show');
-                document.getElementById('drone-filter-options').classList.remove('show');
+        closeModalButton.addEventListener('click', () => closeModal('main-modal'));
+        
+        window.addEventListener('click', (event) => { 
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+                if(event.target.id === 'supplier-password-modal' && window.activeSectionId === 'suppliers-section') {
+                    window.switchTab('products-section');
+                }
             }
         });
-        document.getElementById('supplier-filter-options').addEventListener('change', () => {
-            const sortOrder = document.querySelector('input[name="sort-supplier"]:checked').value;
-            const categories = [...document.querySelectorAll('input[name="cat-supplier"]:checked')].map(cb => cb.value);
-            renderSuppliers({ sortOrder, categories });
-        });
-        document.getElementById('drone-filter-options').addEventListener('change', () => {
-            const sortOrder = document.getElementById('sort-drone-order').value;
-            const lines = [...document.querySelectorAll('input[name="line-drone"]:checked')].map(cb => cb.value);
-            renderDroneVisitorList({ searchTerm: droneVisitorSearchInput.value, sortOrder, lines });
-        });
-        droneVisitorSearchInput.addEventListener('input', (e) => {
-             const sortOrder = document.getElementById('sort-drone-order').value;
-             const lines = [...document.querySelectorAll('input[name="line-drone"]:checked')].map(cb => cb.value);
-             renderDroneVisitorList({ searchTerm: e.target.value, sortOrder, lines });
-        });
-        productSearchInput.addEventListener('input', (e) => renderProducts(e.target.value));
 
-        requestQuoteBtn.addEventListener('click', openRequestQuoteModal);
-        quoteNextStepBtn.addEventListener('click', handleQuoteNextStep);
-        sendQuoteWhatsappBtn.addEventListener('click', sendQuoteViaWhatsApp);
-        document.querySelectorAll('.modal .close-button').forEach(btn => {
-            btn.addEventListener('click', (e) => { e.target.closest('.modal').style.display = 'none'; });
+        searchProductToEditButton.addEventListener('click', handleSearchProductToEdit);
+
+        productSearchInput.addEventListener('input', (e) => renderProducts(e.target.value));
+        droneVisitorSearchInput.addEventListener('input', (e) => renderDroneVisitorList(e.target.value)); 
+        
+        createTempUserForm.addEventListener('submit', createTemporaryUser);
+        createProductForm.addEventListener('submit', handleCreateProduct);
+        editProductForm.addEventListener('submit', handleEditProduct);
+
+        profileEditForm.addEventListener('submit', handleProfileEdit);
+        uploadProfilePicButton.addEventListener('click', handleProfilePicUpload);
+        openChangePasswordModalButton.addEventListener('click', () => showChangePasswordModal(false));
+
+        mainContent.addEventListener('scroll', handleScroll);
+        scrollToTopButton.addEventListener('click', scrollTop);
+        
+        generalCalculateButton.addEventListener('click', () => {
+            const baseValue = generalCalcValorBase.value;
+            const paymentMethod = document.querySelector('input[name="general-payment-method"]:checked').value;
+            const numInstallments = generalCalcParcelasSelect.value;
+            
+            let discountPercentage = 0;
+            if (window.currentUser && window.currentUser.role === 'admin' && paymentMethod === 'vista' && generalDiscountPercentageInput) {
+                discountPercentage = parseFloat(generalDiscountPercentageInput.value);
+            }
+
+            generalCalculatorResult.innerHTML = calculate(baseValue, numInstallments, paymentMethod, discountPercentage);
         });
+
+        generalCalcPaymentRadios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                generalCalcInstallmentsContainer.classList.toggle('hidden', e.target.value !== 'parcelado');
+                if (generalDiscountOption) {
+                    if (window.currentUser.role === 'admin' && e.target.value === 'vista') {
+                        generalDiscountOption.classList.remove('hidden');
+                    } else {
+                        generalDiscountOption.classList.add('hidden');
+                    }
+                }
+            });
+        });
+
+        navToggleButton.addEventListener('click', () => navElement.classList.toggle('nav-open'));
+        navToggleButtonClose.addEventListener('click', closeMobileNav);
+
+        aiChatButton.addEventListener('click', () => {
+            openModal('ai-chat-modal');
+            aiQuestionInput.value = ''; 
+            aiResponseArea.innerHTML = ''; 
+            aiResponseArea.style.display = 'none'; 
+            if (aiLoader) aiLoader.style.display = 'none'; 
+        });
+
+        aiChatCloseButton.addEventListener('click', () => closeModal('ai-chat-modal'));
+
+        submitAiQuestionButton.addEventListener('click', () => {
+            const question = aiQuestionInput.value.trim();
+            if (question) {
+                callGeminiAPI(question, "Resposta da IA", false, '', true); 
+            }
+        });
+
+        submitSupplierPasswordButton.addEventListener('click', () => {
+            const enteredPassword = supplierAccessPasswordInput.value.trim();
+            if (enteredPassword === CONFIDENTIAL_CODE) {
+                closeModal('supplier-password-modal');
+                window.pendingSupplierSectionAccess = true; 
+                window.switchTab('suppliers-section'); 
+            } else {
+                supplierPasswordError.textContent = 'Senha incorreta.'; 
+                supplierPasswordError.style.display = 'block';
+                supplierAccessPasswordInput.value = ''; 
+            }
+        });
+
+        supplierAccessPasswordInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') submitSupplierPasswordButton.click(); });
+        supplierPasswordCloseButton.addEventListener('click', () => {
+            closeModal('supplier-password-modal');
+            window.pendingSupplierSectionAccess = false; 
+            if (window.activeSectionId === 'suppliers-section') window.switchTab('products-section'); 
+        });
+
+        submitChangePasswordButton.addEventListener('click', handleChangePassword);
+        document.getElementById('new-password').addEventListener('keypress', (e) => { if (e.key === 'Enter') handleChangePassword(); });
+        document.getElementById('confirm-new-password').addEventListener('keypress', (e) => { if (e.key === 'Enter') handleChangePassword(); });
+        
+        document.getElementById('change-password-close-button').addEventListener('click', () => {
+            if (window.currentUser && window.currentUser.firstLogin && changePasswordModal.style.display === 'block') {
+                alert('A alteração de senha é obrigatória para o primeiro acesso. Por favor, defina sua nova senha.');
+            } else {
+                closeModal('change-password-modal');
+            }
+        });
+
+        sendWhatsappButton.addEventListener('click', sendWhatsAppMessage);
+        cancelWhatsappButton.addEventListener('click', closeWhatsAppModal);
+        whatsappCloseButton.addEventListener('click', closeWhatsAppModal);
+        
+        // Novos Event Listeners
+        dronesFilterBtn.addEventListener('click', () => openFilterModal('drones'));
+        suppliersFilterBtn.addEventListener('click', () => openFilterModal('suppliers'));
+        applyFiltersBtn.addEventListener('click', applyFilters);
+        filterModal.querySelector('.close-button').addEventListener('click', () => closeModal('filter-modal'));
+        
+        supplierForm.addEventListener('submit', handleSupplierFormSubmit);
+        addContactBtn.addEventListener('click', () => addContactToForm());
+        supplierFormModal.querySelector('.close-button').addEventListener('click', () => closeModal('supplier-form-modal'));
+
+        quoteRequestBody.addEventListener('change', handleQuoteStepChange);
+        finalizeQuoteRequestBtn.addEventListener('click', finalizeQuoteRequest);
+        quoteRequestModal.querySelector('.close-button').addEventListener('click', () => closeModal('quote-request-modal'));
+        quoteConfirmationModal.querySelector('.close-button').addEventListener('click', () => closeModal('quote-confirmation-modal'));
+
     });
 </script>
 </body>
