@@ -153,8 +153,8 @@
                                     <span class="font-medium text-gray-800 dark:text-white">Administração</span>
                                 </a>
                                 <a href="#" data-page="sobre" class="quick-access-link block bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-brand-green dark:text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                    <span class="font-medium text-gray-800 dark:text-white">Sobre Galvão Drones</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-brand-green dark:text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                    <span class="font-medium">Sobre Galvão Drones</span>
                                 </a>
                             </div>
                         </div>
@@ -266,10 +266,9 @@
                                     <h3 id="profile-page-name" class="text-xl font-bold text-gray-800 dark:text-white"></h3>
                                     <p id="profile-page-role" class="text-sm text-gray-500 dark:text-gray-400"></p>
                                     <button id="profile-share-button" class="mt-4 w-full flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-brand-orange border border-brand-orange rounded-md hover:bg-orange-50 dark:hover:bg-gray-700 focus:outline-none">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12s-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" /></svg>
-                                        <span>Compartilhar Contato</span>
-                                    </button>
-                                </div>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.487 5.235 3.487 8.413C23.948 18.661 18.614 24 .057 24zM7.51 18.385l.331.195c1.866 1.099 4.041 1.742 6.331 1.742 5.207 0 9.46-4.252 9.461-9.46S19.378 1.42 14.171 1.42c-2.533 0-4.903.995-6.696 2.789-1.793 1.793-2.787 4.163-2.787 6.696.001 2.163.574 4.298 1.695 6.151l.215.36.004.004-1.677 6.124z"></path></svg>
+                                    <span>Compartilhar Contato</span>
+                                </button>
                             </div>
                             <div class="lg:col-span-2 bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
                                 <div class="space-y-4">
@@ -656,7 +655,7 @@
             <div class="p-6 overflow-y-auto">
                 <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-md mb-4">
                     <p class="text-sm font-semibold mb-2">Pré-visualização da mensagem:</p>
-                    <div id="quote-message-preview" class="text-sm whitespace-pre-wrap text-gray-700 dark:text-gray-300"></div>
+                    <div id="quote-message-preview" class="text-sm whitespace-pre-wrap"></div>
                 </div>
                 <div class="space-y-4">
                     <div>
@@ -1031,7 +1030,10 @@
             }
 
             function shareOnWhatsApp(phoneNumber, message) {
-                const formattedPhoneNumber = phoneNumber.startsWith("55") ? phoneNumber.replace(/\D/g, "") : "55" + phoneNumber.replace(/\D/g, "");
+                let formattedPhoneNumber = "";
+                if (phoneNumber) { // Only format if a phone number is provided
+                    formattedPhoneNumber = phoneNumber.startsWith("55") ? phoneNumber.replace(/\D/g, "") : "55" + phoneNumber.replace(/\D/g, "");
+                }
                 const whatsappUrl = `https://wa.me/${formattedPhoneNumber}${message ? "?text=" + encodeURIComponent(message) : ""}`;
                 window.open(whatsappUrl, "_blank");
             }
@@ -2344,7 +2346,7 @@
                 message += `> Consulte disponibilidade`; // New line for availability
 
                 whatsappMessagePreview.innerText = message; // Set message in preview
-                whatsappPhoneInput.value = "55"; // Pre-fill DDI 55
+                whatsappPhoneInput.value = ""; // Clear the phone number input
                 sendWhatsappModal.classList.remove("hidden"); // Show the modal
             }
 
@@ -2439,10 +2441,23 @@
 
             // Event listeners for quick access links on Dashboard
             document.querySelectorAll('.quick-access-link').forEach(link => {
-                link.addEventListener('click', e => {
+                link.addEventListener('click', async e => { // Added async keyword
                     e.preventDefault();
                     const pageId = link.dataset.page;
-                    switchPage(pageId);
+
+                    if (pageId === "admin" && loggedInUser.role === "Administrador") {
+                        // Check if admin access is still valid (within 5 minutes)
+                        if (Date.now() - adminAccessTimestamp < 300000) { // 300,000 ms = 5 minutes
+                            switchPage(pageId);
+                            return;
+                        }
+                        const authorized = await promptForAdminPassword();
+                        if (authorized) {
+                            switchPage(pageId);
+                        }
+                    } else if (pageId !== "admin") { // For non-admin links or if not admin role
+                        switchPage(pageId);
+                    }
                 });
             });
         });
