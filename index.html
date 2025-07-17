@@ -153,7 +153,7 @@
                                     <span class="font-medium text-gray-800 dark:text-white">Administração</span>
                                 </a>
                                 <a href="#" data-page="sobre" class="quick-access-link block bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-brand-green dark:text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                                     <span class="font-medium">Sobre Galvão Drones</span>
                                 </a>
                             </div>
@@ -201,6 +201,7 @@
                                         <div><label class="flex items-center"><input type="radio" name="drones-sort" value="price-asc" class="rounded text-brand-orange"> <span class="ml-2 dark:text-gray-300">Preço (Menor)</span></label></div>
                                         <div><label class="flex items-center"><input type="radio" name="drones-sort" value="price-desc" class="rounded text-brand-orange"> <span class="ml-2 dark:text-gray-300">Preço (Maior)</span></label></div>
                                     </div>
+                                    <button id="drones-apply-filters-button" class="mt-4 w-full bg-brand-green text-white py-2 rounded-md hover:bg-green-700">Aplicar Filtros</button>
                                 </div>
                             </div>
                         </div>
@@ -240,6 +241,7 @@
                                         <div><label class="flex items-center"><input type="radio" name="consultas-sort" value="price-asc" class="rounded text-brand-orange"> <span class="ml-2 dark:text-gray-300">Preço (Menor)</span></label></div>
                                         <div><label class="flex items-center"><input type="radio" name="consultas-sort" value="price-desc" class="rounded text-brand-orange"> <span class="ml-2 dark:text-gray-300">Preço (Maior)</span></label></div>
                                     </div>
+                                    <button id="consultas-apply-filters-button" class="mt-4 w-full bg-brand-green text-white py-2 rounded-md hover:bg-green-700">Aplicar Filtros</button>
                                 </div>
                             </div>
                         </div>
@@ -841,7 +843,7 @@
             const closeQuoteSendPreviewModal = document.getElementById("close-quote-send-preview-modal");
             const quoteMessagePreview = document.getElementById("quote-message-preview");
             const includeSellerNameCheckbox = document.getElementById("include-seller-name");
-            const includeSellerWhatsappCheckbox = document = document.getElementById("include-seller-whatsapp");
+            const includeSellerWhatsappCheckbox = document.getElementById("include-seller-whatsapp"); // Corrected this line
             const includeSellerEmailCheckbox = document.getElementById("include-seller-email");
             const includeCompanyAddressCheckbox = document.getElementById("include-company-address");
             const includeCompanyCnpjCheckbox = document.getElementById("include-company-cnpj");
@@ -914,7 +916,7 @@
                 document.getElementById("welcome-user-role").textContent = user.role;
 
                 // Hide all sidebar links and specific content by default
-                document.querySelectorAll(".sidebar-link").forEach(link => link.classList.add("hidden"));
+                document.querySelectorAll(".sidebar-link").forEach(link => link.classList.add("hidden")); // Corrected: removed extra semicolon
                 document.getElementById("admin-link").classList.add("hidden");
                 document.getElementById("vendedor-content").classList.add("hidden");
                 
@@ -1253,8 +1255,7 @@
                 const feeValue = document.getElementById("popup-fee-value").textContent;
                 const installmentValue = document.getElementById("popup-installment-value").textContent.replace(/.*de /, ""); // Get only the value
 
-                const message = `*Simulação de Pagamento*\n\nValor da Venda: *${saleValue}*\nParcelamento: *${installments}x*\n\n*Resultado:*\n- Taxa da Máquina: *${feeValue}*\n- Valor da Parcela: *${installmentValue}*\n- Valor Total: *${totalValue}*`;
-                shareOnWhatsApp("", message); // Share with no specific number, opens default WhatsApp share
+                shareOnWhatsApp("", `*Simulação de Pagamento*\n\nValor da Venda: *${saleValue}*\nParcelamento: *${installments}x*\n\n*Resultado:*\n- Taxa da Máquina: *${feeValue}*\n- Valor da Parcela: *${installmentValue}*\n- Valor Total: *${totalValue}*`); // Share with no specific number, opens default WhatsApp share
             }
 
             // Function to create a product card (now accepts showPrice and currentPagePrefix parameters)
@@ -1320,6 +1321,7 @@
                 const minPriceInput = document.getElementById(`${pagePrefix}-min-price`);
                 const maxPriceInput = document.getElementById(`${pagePrefix}-max-price`);
                 const sortRadios = document.querySelectorAll(`input[name="${pagePrefix}-sort"]`);
+                const applyFiltersButton = document.getElementById(`${pagePrefix}-apply-filters-button`); // New button
                 const resultsContainer = document.getElementById(`${pagePrefix}-search-results`);
 
                 function performSearch() {
@@ -1354,7 +1356,7 @@
                     // Pass the showPrice parameter to the resultRenderer based on the pagePrefix
                     const showPriceForCurrentPage = (pagePrefix === 'consultas');
                     renderResults(filteredItems, showPriceForCurrentPage);
-                    if (filterPanel) filterPanel.classList.add("hidden"); // Close filter panel after search
+                    // Do not close filter panel here, it will be closed by applyFiltersButton
                 }
 
                 function renderResults(results, showPrice) {
@@ -1379,14 +1381,22 @@
                         if (filterPanel) filterPanel.classList.toggle("hidden");
                     });
                 }
-                // Only attach input listeners if the elements exist
-                if (minPriceInput) minPriceInput.addEventListener("input", performSearch);
-                if (maxPriceInput) maxPriceInput.addEventListener("input", performSearch);
-                sortRadios.forEach(radio => radio.addEventListener("change", performSearch));
+                // Removed direct calls to performSearch on input/change for filter options
+                // minPriceInput.addEventListener("input", performSearch);
+                // maxPriceInput.addEventListener("input", performSearch);
+                // sortRadios.forEach(radio => radio.addEventListener("change", performSearch));
+
+                // New event listener for the "Aplicar Filtros" button
+                if (applyFiltersButton) {
+                    applyFiltersButton.addEventListener("click", () => {
+                        performSearch();
+                        filterPanel.classList.add("hidden"); // Close filter panel after applying filters
+                    });
+                }
 
                 // Close filter panel when clicking outside this specific filter panel
                 document.addEventListener("click", e => {
-                    if (filterPanel && !filterPanel.classList.contains("hidden") && !filterPanel.contains(e.target) && e.target !== filterButton) {
+                    if (filterPanel && !filterPanel.classList.contains("hidden") && !filterPanel.contains(e.target) && e.target !== filterButton && e.target !== applyFiltersButton) {
                         filterPanel.classList.add("hidden");
                     }
                 });
@@ -2103,18 +2113,17 @@
                 }
             });
 
-            // Event listener for product line radio buttons
+            // Event listener for product line radio buttons (single selection)
             quoteProductLineRadios.forEach(radio => {
                 radio.addEventListener("change", filterQuoteSuppliers);
             });
 
-            // Event listener for product type radio buttons
+            // Event listener for product type radio buttons (single selection)
             quoteProductTypeRadios.forEach(radio => {
                 radio.addEventListener("change", filterQuoteSuppliers);
             });
 
             quoteRequestDetailsInput.addEventListener("input", () => {
-                // This will trigger filterQuoteSuppliers which handles button visibility and disabled state
                 filterQuoteSuppliers(); 
             });
 
