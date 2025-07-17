@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal Galvão Drones</title>
+    <link rel="icon" href="https://imgur.com/ny5U9KV.png" type="image/png"> <!-- Favicon adicionado -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,17 +50,24 @@
     <div id="login-view" class="flex items-center justify-center min-h-screen">
         <div id="login-card" class="w-full max-w-md p-8 space-y-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg">
             <div id="login-header" class="text-center">
-                <div class="mx-auto mb-4 h-16 w-16 text-brand-green dark:text-brand-orange"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-full h-full"><path d="M12.0006 10.25C11.0341 10.25 10.2506 11.0335 10.2506 12C10.2506 12.9665 11.0341 13.75 12.0006 13.75C12.9671 13.75 13.7506 12.9665 13.7506 12C13.7506 11.0335 12.9671 10.25 12.0006 10.25Z"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM12.0006 8.5C10.0676 8.5 8.50061 10.067 8.50061 12C8.50061 13.933 10.0676 15.5 12.0006 15.5C13.9336 15.5 15.5006 13.933 15.5006 12C15.5006 10.067 13.9336 8.5 12.0006 8.5ZM5.75 12C5.75 11.5858 5.41421 11.25 5 11.25H3C2.58579 11.25 2.25 11.5858 2.25 12C2.25 12.4142 2.58579 12.75 3 12.75H5C5.41421 12.75 5.75 12.4142 5.75 12ZM21 11.25H19C18.5858 11.25 18.25 11.5858 18.25 12C18.25 12.4142 18.5858 12.75 19 12.75H21C21.4142 12.75 21.75 12.4142 21.75 12C21.75 11.5858 21.4142 11.25 21 11.25ZM12 5.75C12.4142 5.75 12.75 5.41421 12.75 5V3C12.75 2.58579 12.4142 2.25 12 2.25C11.5858 2.25 11.25 2.58579 11.25 3V5C11.25 5.41421 11.5858 5.75 12 5.75ZM12 21.75C12.4142 21.75 12.75 21.4142 12.75 21V19C12.75 18.5858 12.4142 18.25 12 18.25C11.5858 18.25 11.25 18.5858 11.25 19V21C11.25 21.4142 11.5858 21.75 12 21.75Z"></path></svg></div>
+                <!-- Imagem do portal na entrada do portal -->
+                <img src="https://imgur.com/2PNy5CS.png" alt="Logo Galvão Drones" class="mx-auto mb-4 h-16 w-16">
                 <h1 class="text-2xl font-bold text-brand-green dark:text-gray-100">Portal Galvão Drones</h1>
-                <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Selecione um perfil para acessar</p>
+                <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Entre com seu usuário e senha</p>
             </div>
-            <div id="button-login-container" class="space-y-4 pt-4">
-                <button data-username="mikhaell" class="login-button group relative flex w-full justify-center rounded-lg border border-transparent bg-brand-green py-3 px-4 text-sm font-semibold text-white hover:bg-green-700">Acessar como Administrador</button>
-                <button data-username="vendas" class="login-button group relative flex w-full justify-center rounded-lg border border-transparent bg-brand-orange py-3 px-4 text-sm font-semibold text-white hover:bg-orange-600">Acessar como Vendedor</button>
-                <button data-username="market" class="login-button group relative flex w-full justify-center rounded-lg border border-transparent bg-blue-600 py-3 px-4 text-sm font-semibold text-white hover:bg-blue-700">Acessar como Marketing</button>
-                <button data-username="consultas" class="login-button group relative flex w-full justify-center rounded-lg border border-transparent bg-gray-500 py-3 px-4 text-sm font-semibold text-white hover:bg-gray-600">Acessar como Consulta</button>
-            </div>
-            <div id="error-message" class="hidden p-4 mt-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert"><span class="font-medium">Erro de Acesso:</span> Usuário inválido.</div>
+            <form id="login-form" class="space-y-4 pt-4">
+                <div>
+                    <label for="username-input" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Usuário</label>
+                    <input type="text" id="username-input" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                </div>
+                <div>
+                    <label for="password-input" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Senha</label>
+                    <input type="password" id="password-input" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                </div>
+                <button type="submit" class="group relative flex w-full justify-center rounded-lg border border-transparent bg-brand-green py-3 px-4 text-sm font-semibold text-white hover:bg-green-700">Entrar</button>
+                <button type="button" id="visitor-login-button" class="group relative flex w-full justify-center rounded-lg border border-transparent bg-gray-400 py-3 px-4 text-sm font-semibold text-white hover:bg-gray-500 mt-2">Visitante</button>
+            </form>
+            <div id="error-message" class="hidden p-4 mt-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert"><span class="font-medium">Erro de Acesso:</span> Usuário ou senha inválidos.</div>
             <div id="success-message" class="hidden text-center">
                 <div class="spinner mx-auto"></div>
                 <p class="mt-4 font-semibold text-lg text-brand-green dark:text-gray-200">Login bem-sucedido!</p>
@@ -104,7 +112,10 @@
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                     </button>
                     <h1 id="page-title" class="text-2xl font-semibold text-gray-800 dark:text-white">Dashboard</h1>
-                    <button id="logout-button" class="px-4 py-2 text-sm font-medium text-white bg-brand-orange rounded-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-orange">Sair</button>
+                    <div class="flex items-center space-x-4">
+                        <button id="request-quote-button-dashboard" class="hidden px-4 py-2 text-sm font-medium text-white bg-purple-600 rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-600">Solicitar Orçamento</button>
+                        <button id="logout-button" class="px-4 py-2 text-sm font-medium text-white bg-brand-orange rounded-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-orange">Sair</button>
+                    </div>
                 </div>
                 <div id="main-content" class="p-6">
                     <div id="dashboard-page" class="page-content">
@@ -132,7 +143,7 @@
                             <div class="relative flex-grow">
                                 <input type="text" id="drones-search-input" placeholder="Buscar drones ou acessórios..." class="w-full rounded-md border-gray-300 shadow-sm pl-10 pr-4 py-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                                    <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                                 </div>
                             </div>
                             <button id="drones-search-button" class="bg-brand-green text-white px-4 py-2 rounded-md hover:bg-green-700">Buscar</button>
@@ -171,7 +182,7 @@
                             <div class="relative flex-grow">
                                 <input type="text" id="consultas-search-input" placeholder="Buscar consultas ou produtos..." class="w-full rounded-md border-gray-300 shadow-sm pl-10 pr-4 py-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                                    <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                                 </div>
                             </div>
                             <button id="consultas-search-button" class="bg-brand-green text-white px-4 py-2 rounded-md hover:bg-green-700">Buscar</button>
@@ -213,7 +224,7 @@
                             <div class="lg:col-span-1">
                                 <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow text-center">
                                     <div id="profile-picture-container" class="relative w-32 h-32 mx-auto rounded-full bg-gray-200 dark:bg-gray-700 mb-4 cursor-pointer bg-cover bg-center flex items-center justify-center">
-                                        <span id="profile-picture-placeholder" class="text-gray-500">Adicionar Foto</span>
+                                        <span id="profile-picture-placeholder" class="text-gray-500">Foto</span>
                                     </div>
                                     <input type="file" id="profile-picture-input" class="hidden" accept="image/*">
                                     <h3 id="profile-page-name" class="text-xl font-bold text-gray-800 dark:text-white"></h3>
@@ -242,46 +253,47 @@
                             </div>
                         </div>
                     </div>
+                    <!-- About Galvão Drones Page Content -->
                     <div id="sobre-page" class="page-content hidden">
                         <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
-                            <h2 class="text-2xl font-bold text-brand-green dark:text-brand-orange border-b-2 border-brand-orange pb-2 mb-4">Sobre a Galvão Drones</h2>
+                            <h2 class="text-xl font-bold text-brand-green dark:text-brand-orange mb-4">Sobre a Galvão Drones</h2>
                             <div class="space-y-4 text-gray-700 dark:text-gray-300">
                                 <div>
-                                    <h3 class="font-semibold text-lg">Nossa Missão</h3>
-                                    <p>Oferecer as mais avançadas soluções em tecnologia de drones, capacitando profissionais e empresas a atingirem novos patamares de eficiência, segurança e inovação.</p>
+                                    <h3 class="font-semibold text-lg text-gray-800 dark:text-white">Nossa Missão</h3>
+                                    <p class="mt-1">Oferecer as mais avançadas soluções em tecnologia de drones, capacitando profissionais e empresas a atingirem novos patamares de eficiência, segurança e inovação.</p>
                                 </div>
                                 <div>
-                                    <h3 class="font-semibold text-lg">Nossa Visão</h3>
-                                    <p>Ser a referência nacional em vendas, manutenção e treinamento de drones, reconhecida pela excelência técnica, atendimento personalizado e por impulsionar o mercado de VANTs no Brasil.</p>
+                                    <h3 class="font-semibold text-lg text-gray-800 dark:text-white">Nossa Visão</h3>
+                                    <p class="mt-1">Ser a referência nacional em vendas, manutenção e treinamento de drones, reconhecida pela excelência técnica, atendimento personalizado e por impulsionar o mercado de VANTs no Brasil.</p>
                                 </div>
                                 <div>
-                                    <h3 class="font-semibold text-lg">Nossos Valores</h3>
-                                    <ul class="list-disc list-inside ml-4">
-                                        <li><b>Inovação:</b> Busca contínua por tecnologias de ponta.</li>
-                                        <li><b>Qualidade:</b> Compromisso com a excelência em produtos e serviços.</li>
-                                        <li><b>Segurança:</b> Prioridade máxima em todas as operações e treinamentos.</li>
-                                        <li><b>Conhecimento:</b> Capacitação e disseminação de informações técnicas precisas.</li>
-                                        <li><b>Parceria:</b> Construção de relacionamentos sólidos e de confiança com clientes e fornecedores.</li>
+                                    <h3 class="font-semibold text-lg text-gray-800 dark:text-white">Nossos Valores</h3>
+                                    <ul class="list-disc list-inside mt-1">
+                                        <li><span class="font-bold">Inovação:</span> Busca contínua por tecnologias de ponta.</li>
+                                        <li><span class="font-bold">Qualidade:</span> Compromisso com a excelência em produtos e serviços.</li>
+                                        <li><span class="font-bold">Segurança:</span> Prioridade máxima em todas as operações e treinamentos.</li>
+                                        <li><span class="font-bold">Conhecimento:</span> Capacitação e disseminação de informações técnicas precisas.</li>
+                                        <li><span class="font-bold">Parceria:</span> Construção de relacionamentos sólidos e de confiança com clientes e fornecedores.</li>
                                     </ul>
                                 </div>
-                                <div class="mt-6 pt-4 border-t dark:border-gray-700 flex flex-wrap gap-4 justify-center">
-                                    <a href="https://wa.me/556236360668" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.487 5.235 3.487 8.413C23.948 18.661 18.614 24 .057 24zM7.51 18.385l.331.195c1.866 1.099 4.041 1.742 6.331 1.742 5.207 0 9.46-4.252 9.461-9.46S19.378 1.42 14.171 1.42c-2.533 0-4.903.995-6.696 2.789-1.793 1.793-2.787 4.163-2.787 6.696.001 2.163.574 4.298 1.695 6.151l.215.36.004.004-1.677 6.124z"></path></svg>
-                                        <span>WhatsApp</span>
-                                    </a>
-                                    <a href="https://www.instagram.com/galvao_drones" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-pink-500 text-white rounded-md hover:bg-pink-600">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                                        <span>Instagram</span>
-                                    </a>
-                                    <a href="https://www.youtube.com/@Galv%C3%A3oDronesofc" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-                                        <span>YouTube</span>
-                                    </a>
-                                    <a href="https://www.google.com/maps/search/?api=1&query=Galvão+Drones" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                                        <span>Rotas</span>
-                                    </a>
-                                </div>
+                            </div>
+                            <div class="mt-6 flex flex-wrap justify-center gap-4">
+                                <button id="whatsapp-btn-sobre" class="flex items-center justify-center gap-2 px-4 py-2 rounded-md bg-green-500 text-white hover:bg-green-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.487 5.235 3.487 8.413C23.948 18.661 18.614 24 .057 24zM7.51 18.385l.331.195c1.866 1.099 4.041 1.742 6.331 1.742 5.207 0 9.46-4.252 9.461-9.46S19.378 1.42 14.171 1.42c-2.533 0-4.903.995-6.696 2.789-1.793 1.793-2.787 4.163-2.787 6.696.001 2.163.574 4.298 1.695 6.151l.215.36.004.004-1.677 6.124z"></path></svg>
+                                    <span>WhatsApp</span>
+                                </button>
+                                <button id="instagram-btn-sobre" class="flex items-center justify-center gap-2 px-4 py-2 rounded-md bg-pink-600 text-white hover:bg-pink-700">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.012-3.584.069-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072C3.109.234 1.727 1.621.345 3.009.287 4.289.273 4.697.273 7.956c0 3.258.014 3.668.072 4.947.149 3.27 1.62 4.657 3.008 6.045 1.388 1.388 2.775 2.759 6.045 2.908 1.279.058 1.687.072 4.947.072 3.259 0 3.668-.014 4.947-.072 3.27-.149 4.657-1.62 6.045-3.008 1.388-1.388 2.759-2.775 2.908-6.045.058-1.279.072-1.687.072-4.947 0-3.259-.014-3.667-.072-4.947C23.766 1.727 22.379.345 20.991.057 19.711-.001 19.303-.015 16.044-.015zm0 5.838A6.162 6.162 0 1018.162 12 6.162 6.162 0 0012 5.838zm0 10.162A4 4 0 1116 12a4 4 0 01-4 4zm6.472-10.906a1.44 1.44 0 100 2.88 1.44 1.44 0 000-2.88z"></path></svg>
+                                    <span>Instagram</span>
+                                </button>
+                                <button id="youtube-btn-sobre" class="flex items-center justify-center gap-2 px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6.5 16.5c-.3 1.2-1.5 2.4-2.7 2.7-1.2.3-2.4.3-3.6.3s-2.4 0-3.6-.3c-1.2-.3-2.4-1.5-2.7-2.7-.3-1.2-.3-2.4-.3-3.6s0-2.4.3-3.6c.3-1.2 1.5-2.4 2.7-2.7 1.2-.3 2.4-.3 3.6-.3s2.4 0 3.6.3c1.2.3 2.4 1.5 2.7 2.7.3 1.2.3 2.4.3 3.6s0 2.4-.3 3.6zM10 8.5v7l5-3.5-5-3.5z"></path></svg>
+                                    <span>YouTube</span>
+                                </button>
+                                <button id="rotas-btn-sobre" class="flex items-center justify-center gap-2 px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                                    <span>Rotas</span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -399,6 +411,8 @@
                             <div><label for="supplier-name" class="block text-sm font-medium">Nome do Fornecedor</label><input type="text" id="supplier-name" required class="mt-1 w-full rounded-md border-gray-300 shadow-sm"></div>
                             <div><label for="supplier-address" class="block text-sm font-medium">Endereço</label><input type="text" id="supplier-address" class="mt-1 w-full rounded-md border-gray-300 shadow-sm"></div>
                             <div><label for="supplier-details" class="block text-sm font-medium">Detalhes</label><textarea id="supplier-details" rows="2" class="mt-1 w-full rounded-md border-gray-300 shadow-sm"></textarea></div>
+                            <!-- Add phone input for supplier -->
+                            <div><label for="supplier-phone" class="block text-sm font-medium">Telefone (WhatsApp)</label><input type="tel" id="supplier-phone" placeholder="Ex: 62912345678" class="mt-1 w-full rounded-md border-gray-300 shadow-sm"></div>
                             <div>
                                 <label class="block text-sm font-medium">Formas de Pagamento</label>
                                 <div id="payment-methods-container" class="mt-2 grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -553,6 +567,131 @@
         </div>
     </div>
 
+    <!-- MODAL SOLICITAR ORÇAMENTO -->
+    <div id="request-quote-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl relative max-h-[90vh] flex flex-col">
+            <div class="flex justify-between items-center p-4 border-b dark:border-gray-700">
+                <h3 class="text-lg font-bold text-brand-green dark:text-brand-orange">Solicitar Orçamento</h3>
+                <button id="close-request-quote-modal" class="text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white text-2xl">&times;</button>
+            </div>
+            <div class="p-6 overflow-y-auto">
+                <form id="request-quote-form" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Linha de Produto:</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                            <div><label class="flex items-center"><input type="checkbox" name="quote_product_line" value="Consumer" class="rounded text-brand-orange"> <span class="ml-2 text-sm">Consumer</span></label></div>
+                            <div><label class="flex items-center"><input type="checkbox" name="quote_product_line" value="Enterprise" class="rounded text-brand-orange"> <span class="ml-2 text-sm">Enterprise</span></label></div>
+                            <div><label class="flex items-center"><input type="checkbox" name="quote_product_line" value="Agriculture" class="rounded text-brand-orange"> <span class="ml-2 text-sm">Agriculture</span></label></div>
+                        </div>
+                    </div>
+                    <div id="quote-product-type-container" class="hidden">
+                        <label class="block text-sm font-medium mb-2">Tipo de Produto:</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                            <div><label class="flex items-center"><input type="checkbox" name="quote_product_type" value="Equipamentos" class="rounded text-brand-orange"> <span class="ml-2 text-sm">Equipamentos</span></label></div>
+                            <div><label class="flex items-center"><input type="checkbox" name="quote_product_type" value="Peças" class="rounded text-brand-orange"> <span class="ml-2 text-sm">Peças</span></label></div>
+                            <div><label class="flex items-center"><input type="checkbox" name="quote_product_type" value="Acessórios" class="rounded text-brand-orange"> <span class="ml-2 text-sm">Acessórios</span></label></div>
+                        </div>
+                    </div>
+                    <div id="quote-request-details-container" class="hidden">
+                        <div>
+                            <label for="quote-request-details" class="block text-sm font-medium">Detalhes do Pedido:</label>
+                            <textarea id="quote-request-details" rows="4" class="mt-1 w-full rounded-md border-gray-300 shadow-sm"></textarea>
+                        </div>
+                    </div>
+                    <div id="quote-suppliers-list-container" class="hidden">
+                        <label class="block text-sm font-medium mb-2">Fornecedores Disponíveis:</label>
+                        <div id="quote-suppliers-checkboxes" class="space-y-2">
+                            <!-- Checkboxes de fornecedores serão inseridos aqui -->
+                        </div>
+                    </div>
+                    <button type="submit" id="send-quote-request-button" class="hidden w-full bg-brand-orange text-white py-2 rounded-md hover:bg-orange-600 disabled:bg-gray-400 disabled:cursor-not-allowed">Enviar Solicitação</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOVO MODAL DE PRÉ-VISUALIZAÇÃO E ENVIO DE ORÇAMENTO -->
+    <div id="quote-send-preview-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-md relative max-h-[90vh] flex flex-col">
+            <div class="flex justify-between items-center p-4 border-b dark:border-gray-700">
+                <h3 class="text-lg font-bold text-brand-green dark:text-brand-orange">Confirmar Envio de Orçamento</h3>
+                <button id="close-quote-send-preview-modal" class="text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white text-2xl">&times;</button>
+            </div>
+            <div class="p-6 overflow-y-auto">
+                <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-md mb-4">
+                    <p class="text-sm font-semibold mb-2">Pré-visualização da mensagem:</p>
+                    <div id="quote-message-preview" class="text-sm whitespace-pre-wrap text-gray-700 dark:text-gray-300"></div>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Incluir informações do Vendedor:</label>
+                        <div class="space-y-1">
+                            <div><label class="flex items-center"><input type="checkbox" id="include-seller-name" class="quote-info-option rounded text-brand-orange" checked> <span class="ml-2 text-sm">Nome do Vendedor</span></label></div>
+                            <div><label class="flex items-center"><input type="checkbox" id="include-seller-whatsapp" class="quote-info-option rounded text-brand-orange" checked> <span class="ml-2 text-sm">WhatsApp do Vendedor</span></label></div>
+                            <div><label class="flex items-center"><input type="checkbox" id="include-seller-email" class="quote-info-option rounded text-brand-orange"> <span class="ml-2 text-sm">Email do Vendedor</span></label></div>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Incluir informações da Empresa:</label>
+                        <div class="space-y-1">
+                            <div><label class="flex items-center"><input type="checkbox" id="include-company-address" class="quote-info-option rounded text-brand-orange"> <span class="ml-2 text-sm">Endereço da Empresa</span></label></div>
+                            <div><label class="flex items-center"><input type="checkbox" id="include-company-cnpj" class="quote-info-option rounded text-brand-orange"> <span class="ml-2 text-sm">CNPJ da Empresa</span></label></div>
+                            <div><label class="flex items-center"><input type="checkbox" id="include-company-whatsapp" class="quote-info-option rounded text-brand-orange" checked> <span class="ml-2 text-sm">WhatsApp da Empresa</span></label></div>
+                            <div><label class="flex items-center"><input type="checkbox" id="include-company-email" class="quote-info-option rounded text-brand-orange"> <span class="ml-2 text-sm">Email da Empresa</span></label></div>
+                        </div>
+                    </div>
+                </div>
+                <button id="confirm-send-quote-button" class="mt-6 w-full flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white bg-green-500 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.487 5.235 3.487 8.413C23.948 18.661 18.614 24 .057 24zM7.51 18.385l.331.195c1.866 1.099 4.041 1.742 6.331 1.742 5.207 0 9.46-4.252 9.461-9.46S19.378 1.42 14.171 1.42c-2.533 0-4.903.995-6.696 2.789-1.793 1.793-2.787 4.163-2.787 6.696.001 2.163.574 4.298 1.695 6.151l.215.36.004.004-1.677 6.124z"></path></svg>
+                    <span>Confirmar e Enviar</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOVO MODAL ENVIAR WHATSAPP -->
+    <div id="send-whatsapp-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-md relative max-h-[90vh] flex flex-col">
+            <div class="flex justify-between items-center p-4 border-b dark:border-gray-700">
+                <h3 class="text-lg font-bold text-brand-green dark:text-brand-orange">Enviar pelo WhatsApp</h3>
+                <button id="close-send-whatsapp-modal" class="text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white text-2xl">&times;</button>
+            </div>
+            <div class="p-6 overflow-y-auto">
+                <div class="space-y-4">
+                    <div>
+                        <label for="whatsapp-phone-input" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Número de Telefone (opcional)</label>
+                        <input type="tel" id="whatsapp-phone-input" placeholder="Ex: 5562912345678" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                    </div>
+                    <div>
+                        <p class="text-sm font-semibold mb-2">Mensagem a ser enviada:</p>
+                        <div id="whatsapp-message-preview" class="text-sm whitespace-pre-wrap bg-gray-100 dark:bg-gray-700 p-3 rounded-md text-gray-700 dark:text-gray-300"></div>
+                    </div>
+                    <button id="confirm-send-whatsapp-button-product" class="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white bg-green-500 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.487 5.235 3.487 8.413C23.948 18.661 18.614 24 .057 24zM7.51 18.385l.331.195c1.866 1.099 4.041 1.742 6.331 1.742 5.207 0 9.46-4.252 9.461-9.46S19.378 1.42 14.171 1.42c-2.533 0-4.903.995-6.696 2.789-1.793 1.793-2.787 4.163-2.787 6.696.001 2.163.574 4.298 1.695 6.151l.215.36.004.004-1.677 6.124z"></path></svg>
+                        <span>Enviar</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOVO MODAL PARA ENTRADA DO NOME DO REMETENTE (PARA CONSULTA DE DISPONIBILIDADE) -->
+    <div id="sender-name-input-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-sm relative p-6">
+            <h3 class="text-lg font-bold text-brand-green dark:text-brand-orange mb-4">Seu Nome</h3>
+            <form id="sender-name-form">
+                <div>
+                    <label for="sender-name-input" class="block text-sm font-medium">Nome Completo:</label>
+                    <input type="text" id="sender-name-input" required class="mt-1 w-full rounded-md border-gray-300 shadow-sm">
+                </div>
+                <div class="flex justify-end gap-4 mt-4">
+                    <button type="button" id="cancel-sender-name" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600">Cancelar</button>
+                    <button type="submit" class="bg-brand-orange text-white px-4 py-2 rounded-md hover:bg-orange-600">Confirmar Envio</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -562,8 +701,12 @@
             const errorMessage = document.getElementById("error-message");
             const successMessage = document.getElementById("success-message");
             const loginHeader = document.getElementById("login-header");
+            const loginForm = document.getElementById("login-form"); // New: Login form
+            const usernameInput = document.getElementById("username-input"); // New: Username input
+            const passwordInput = document.getElementById("password-input"); // New: Password input
+            const visitorLoginButton = document.getElementById("visitor-login-button"); // New: Visitor login button
             const logoutButton = document.getElementById("logout-button");
-            const sidebarNav = document.getElementById("sidebar-nav");
+            const sidebarMenuElement = document.getElementById("sidebar-menu"); // Changed from sidebarNav
             const pageTitle = document.getElementById("page-title");
             const mainContent = document.getElementById("main-content");
             const manageUsersButton = document.getElementById("manage-users-button");
@@ -630,19 +773,56 @@
             const aiModalContent = document.getElementById("ai-modal-content");
 
             const customerHelpModal = document.getElementById("customer-help-modal");
-            const closeCustomerHelpModal = document.getElementById("close-customer-help-modal"); 
+            const closeCustomerHelpModal = document.getElementById("close-customer-help-modal");
             const customerHelpForm = document.getElementById("customer-help-form");
             const customerHelpResponse = document.getElementById("customer-help-response");
 
-            const buttonLoginContainer = document.getElementById("button-login-container");
             const adminPasswordModal = document.getElementById("admin-password-modal");
             const adminPasswordForm = document.getElementById("admin-password-form");
             const cancelAdminPassword = document.getElementById("cancel-admin-password");
 
             const menuButton = document.getElementById("menu-button");
             const sidebarMenu = document.getElementById("sidebar-menu");
-            
 
+            // New elements for Request Quote Modal
+            const requestQuoteButtonDashboard = document.getElementById("request-quote-button-dashboard"); // Renamed ID
+            const requestQuoteModal = document.getElementById("request-quote-modal");
+            const closeRequestQuoteModal = document.getElementById("close-request-quote-modal");
+            const quoteProductLineCheckboxes = document.querySelectorAll('input[name="quote_product_line"]');
+            const quoteProductTypeContainer = document.getElementById("quote-product-type-container");
+            const quoteProductTypeCheckboxes = document.querySelectorAll('input[name="quote_product_type"]');
+            const quoteRequestDetailsContainer = document.getElementById("quote-request-details-container");
+            const quoteRequestDetailsInput = document.getElementById("quote-request-details");
+            const quoteSuppliersListContainer = document.getElementById("quote-suppliers-list-container");
+            const quoteSuppliersCheckboxesDiv = document.getElementById("quote-suppliers-checkboxes");
+            const sendQuoteRequestButton = document.getElementById("send-quote-request-button");
+
+            // New elements for Quote Send Preview Modal
+            const quoteSendPreviewModal = document.getElementById("quote-send-preview-modal");
+            const closeQuoteSendPreviewModal = document.getElementById("close-quote-send-preview-modal");
+            const quoteMessagePreview = document.getElementById("quote-message-preview");
+            const includeSellerNameCheckbox = document.getElementById("include-seller-name");
+            const includeSellerWhatsappCheckbox = document.getElementById("include-seller-whatsapp");
+            const includeSellerEmailCheckbox = document.getElementById("include-seller-email");
+            const includeCompanyAddressCheckbox = document.getElementById("include-company-address");
+            const includeCompanyCnpjCheckbox = document.getElementById("include-company-cnpj");
+            const includeCompanyWhatsappCheckbox = document.getElementById("include-company-whatsapp");
+            const includeCompanyEmailCheckbox = document.getElementById("include-company-email");
+            const confirmSendQuoteButton = document.getElementById("confirm-send-quote-button");
+
+            // New elements for Send WhatsApp Modal (for product cards)
+            const sendWhatsappModal = document.getElementById("send-whatsapp-modal");
+            const closeSendWhatsappModal = document.getElementById("close-send-whatsapp-modal");
+            const whatsappPhoneInput = document.getElementById("whatsapp-phone-input");
+            const whatsappMessagePreview = document.getElementById("whatsapp-message-preview");
+            const confirmSendWhatsappButtonProduct = document.getElementById("confirm-send-whatsapp-button-product");
+
+            // New elements for Sender Name Input Modal
+            const senderNameInputModal = document.getElementById("sender-name-input-modal");
+            const senderNameInput = document.getElementById("sender-name-input");
+            const senderNameForm = document.getElementById("sender-name-form");
+            const cancelSenderNameButton = document.getElementById("cancel-sender-name");
+            
             // Data
             const installmentRates = {
                 2: 5.79, 3: 6.09, 4: 7.99, 5: 8.09, 6: 8.18, 7: 9.49, 8: 9.68, 9: 10.37, 10: 11.05, 11: 12.27, 12: 12.38
@@ -660,22 +840,28 @@
             };
 
             let loggedInUser = null;
+            // Added email to user data for all users
             let users = [
-                { name: "Mikhaell Galvão", username: "mikhaell", password: "mk0639", phone: "62984710639", role: "Administrador" },
-                { name: "Equipe Vendas", username: "vendas", password: "", phone: "6291234567", role: "Vendedor" },
-                { name: "Equipe Marketing", username: "market", password: "", phone: "6291234567", role: "Market" },
-                { name: "Acesso Consulta", username: "consultas", password: "", phone: "6291234567", role: "Consultas" }
+                { name: "Mikhaell Galvão", username: "mikhaell", password: "mk0639", phone: "62984710639", email: "mikhaell@galvaodrones.com.br", role: "Administrador" },
+                { name: "Equipe Vendas", username: "vendas", password: "123", phone: "6291234567", email: "vendas@galvaodrones.com.br", role: "Vendedor" },
+                { name: "Equipe Marketing", username: "market", password: "123", phone: "6291234567", email: "marketing@galvaodrones.com.br", role: "Market" },
+                { name: "Acesso Consulta", username: "consultas", password: "123", phone: "6291234567", email: "consultas@galvaodrones.com.br", role: "Consultas" }
             ];
+            // Ensured all suppliers have productTypes and productLines as arrays
             let suppliers = [
-                { name: "GoHobby Distribuidora de VANT LTDA", address: "", details: "A GoHobby é importadora exclusiva de drones profissionais e tecnologias anti-drone no Brasil.", paymentMethods: ["Cartão"], productTypes: ["Equipamentos"], productLines: ["Consumer", "Enterprise", "Agriculture"] }
+                { name: "GoHobby Distribuidora de VANT LTDA", address: "", details: "A GoHobby é importadora exclusiva de drones profissionais e tecnologias anti-drone no Brasil.", phone: "62999999999", paymentMethods: ["Cartão"], productTypes: ["Equipamentos", "Peças", "Acessórios"], productLines: ["Consumer", "Enterprise", "Agriculture"] },
+                { name: "DroneTech Suprimentos", address: "Av. Inovação, 123", details: "Fornecedor de componentes eletrônicos e peças de reposição para drones.", phone: "62888888888", paymentMethods: ["Pix", "15 dias"], productTypes: ["Peças", "Acessórios"], productLines: [] },
+                { name: "AgroDrone Solutions", address: "Fazenda Boa Vista", details: "Especializado em drones agrícolas e soluções para o campo.", phone: "62777777777", paymentMethods: ["30 dias", "Cartão"], productTypes: ["Equipamentos"], productLines: ["Agriculture"] }
             ];
             let products = [
-                { id: "1037", name: "Gohobby Turbo – Micro SD 256GB", spec: "💾 Cartão Micro SD 256GB – Gohobby Turbo.\nMais espaço e velocidade para capturar todos os momentos do seu voo.", price: 254.53, suppliers: [{ name: "GoHobby Distribuidora de VANT LTDA", cost: 178.17 }] },
-                { id: "1038", name: "Drone Phantom 4 Pro V2.0", spec: "🚁 Drone Phantom 4 Pro V2.0 – Câmera 4K, 30 min de voo, detecção de obstáculos em 5 direções.", price: 12500.00, suppliers: [{ name: "GoHobby Distribuidora de VANT LTDA", cost: 9000.00 }] },
-                { id: "1039", name: "Bateria Extra para Mavic Air 2", spec: "🔋 Bateria de voo inteligente para DJI Mavic Air 2. Oferece até 34 minutos de voo.", price: 750.00, suppliers: [{ name: "GoHobby Distribuidora de VANT LTDA", cost: 500.00 }] }
+                { id: "1037", name: "Gohobby Turbo – Micro SD 256GB", spec: "💾 Cartão Micro SD 256GB – Gohobby Turbo.\nMais espaço e velocidade para capturar todos os momentos do seu voo.", price: 254.53, suppliers: [{ name: "GoHobby Distribuidora de VANT LTDA", cost: 178.17 }], productTypes: ["Acessórios"], productLines: ["Consumer", "Enterprise", "Agriculture"] },
+                { id: "1038", name: "Drone Phantom 4 Pro V2.0", spec: "🚁 Drone Phantom 4 Pro V2.0 – Câmera 4K, 30 min de voo, detecção de obstáculos em 5 direções.", price: 12500.00, suppliers: [{ name: "GoHobby Distribuidora de VANT LTDA", cost: 9000.00 }], productTypes: ["Equipamentos"], productLines: ["Consumer", "Enterprise"] },
+                { id: "1039", name: "Bateria Extra para Mavic Air 2", spec: "🔋 Bateria de voo inteligente para DJI Mavic Air 2. Oferece até 34 minutos de voo.", price: 750.00, suppliers: [{ name: "GoHobby Distribuidora de VANT LTDA", cost: 500.00 }], productTypes: ["Peças"], productLines: ["Consumer"] },
+                { id: "1040", name: "Pulverizador Agrícola para Drone", spec: "🌿 Sistema de pulverização de alta precisão para drones agrícolas. Otimiza a aplicação de defensivos.", price: 5000.00, suppliers: [{ name: "AgroDrone Solutions", cost: 3500.00 }], productTypes: ["Acessórios"], productLines: ["Agriculture"] }
             ];
             let productSupplierCount = 1;
             let adminAccessTimestamp = 0; // Timestamp for admin access validation
+            let currentProductForAvailabilityConsult = null; // To store product details for availability consult
 
             // Functions
             function showDashboard(user) {
@@ -705,15 +891,19 @@
                     document.querySelector('[data-page="consultas"]').classList.remove("hidden");
                     document.querySelector('[data-page="marketing"]').classList.remove("hidden");
                     document.querySelector('[data-page="produtos"]').classList.remove("hidden");
+                    requestQuoteButtonDashboard.classList.remove("hidden"); // Show for admin
                 } else if (user.role === "Vendedor") {
                     document.getElementById("vendedor-content").classList.remove("hidden");
                     document.querySelector('[data-page="consultas"]').classList.remove("hidden");
                     document.querySelector('[data-page="produtos"]').classList.remove("hidden");
+                    requestQuoteButtonDashboard.classList.add("hidden"); // Hide for others
                 } else if (user.role === "Market") {
                     document.querySelector('[data-page="marketing"]').classList.remove("hidden");
                     document.querySelector('[data-page="produtos"]').classList.remove("hidden");
+                    requestQuoteButtonDashboard.classList.add("hidden"); // Hide for others
                 } else if (user.role === "Consultas") {
                     // Only dashboard, drones, perfil, sobre are visible by default
+                    requestQuoteButtonDashboard.classList.add("hidden"); // Hide for others
                 }
                 
                 // Set initial active page to dashboard
@@ -726,9 +916,9 @@
                 calculatorFab.classList.add("hidden");
                 loginView.classList.remove("hidden");
                 loginHeader.classList.remove("hidden");
-                buttonLoginContainer.classList.remove("hidden");
-                successMessage.classList.add("hidden");
+                loginForm.reset(); // Reset login form fields
                 errorMessage.classList.add("hidden");
+                successMessage.classList.add("hidden");
                 loggedInUser = null;
             }
 
@@ -739,17 +929,25 @@
                 const targetPage = document.getElementById(pageId + "-page");
                 if (targetPage) {
                     targetPage.classList.remove("hidden");
-                    pageTitle.textContent = document.querySelector(`[data-page="${pageId}"] span`).textContent;
+                    // Ensure the text content is correctly taken from the sidebar link, not just the page ID
+                    const sidebarLinkElement = sidebarMenuElement.querySelector(`[data-page="${pageId}"] span`);
+                    if (sidebarLinkElement) {
+                        pageTitle.textContent = sidebarLinkElement.textContent;
+                    } else {
+                        pageTitle.textContent = pageId.charAt(0).toUpperCase() + pageId.slice(1); // Fallback for page title
+                    }
                 }
 
                 if (pageId === "perfil") {
                     populateProfilePage();
                 } else if (pageId === "drones") {
                     // Initial render for drones page: show only model and specs (no price)
-                    setupSearchAndFilter('drones', products, (product) => createProductCard(product, false));
+                    setupSearchAndFilter('drones', products, (product) => createProductCard(product, false, 'drones')); // Pass currentPagePrefix
                 } else if (pageId === "consultas") {
                     // Initial render for consultas page: show model, specs, and price
-                    setupSearchAndFilter('consultas', products, (product) => createProductCard(product, true));
+                    setupSearchAndFilter('consultas', products, (product) => createProductCard(product, true, 'consultas')); // Pass currentPagePrefix
+                } else if (pageId === "sobre") {
+                    // No special setup needed for 'sobre' page, just show it
                 }
                 sidebarMenu.classList.add("-translate-x-full"); // Close sidebar on mobile
             }
@@ -849,7 +1047,7 @@
                     const row = document.createElement("tr");
                     row.innerHTML = `
                         <td class="py-3 px-4 text-sm">${supplier.name}</td>
-                        <td class="py-3 px-4 text-sm">${supplier.productTypes.join(", ")}</td>
+                        <td class="py-3 px-4 text-sm">${(supplier.productTypes || []).join(", ")}</td>
                         <td class="py-3 px-4 text-sm">${(supplier.productLines || []).join(", ")}</td>
                         <td class="py-3 px-4 text-sm space-x-2">
                             <button class="text-blue-500 hover:underline" data-action="edit" data-index="${index}">Alterar</button>
@@ -875,15 +1073,16 @@
                 document.getElementById("supplier-name").value = supplier.name;
                 document.getElementById("supplier-address").value = supplier.address;
                 document.getElementById("supplier-details").value = supplier.details;
+                document.getElementById("supplier-phone").value = supplier.phone; // Populate phone field
 
                 supplierForm.querySelectorAll('input[name="payment_method"]').forEach(checkbox => {
-                    checkbox.checked = supplier.paymentMethods.includes(checkbox.value);
+                    checkbox.checked = (supplier.paymentMethods || []).includes(checkbox.value);
                 });
                 supplierForm.querySelectorAll('input[name="product_type"]').forEach(checkbox => {
-                    checkbox.checked = supplier.productTypes.includes(checkbox.value);
+                    checkbox.checked = (supplier.productTypes || []).includes(checkbox.value);
                 });
                 // Manually trigger change for product lines visibility
-                catEquipamentosCheckbox.dispatchEvent(new Event("change")); 
+                catEquipamentosCheckbox.dispatchEvent(new Event("change"));
                 supplierForm.querySelectorAll('input[name="product_line"]').forEach(checkbox => {
                     checkbox.checked = (supplier.productLines || []).includes(checkbox.value);
                 });
@@ -902,6 +1101,7 @@
                     return;
                 }
                 console.log("populateProfilePage called for user:", loggedInUser.name); // Log para depuração
+                console.log("Logged in user details:", loggedInUser); // Debug: check full user object
                 const [firstName, ...lastNameParts] = loggedInUser.name.split(" ");
                 const lastName = lastNameParts.join(" ");
 
@@ -1006,12 +1206,13 @@
                 shareOnWhatsApp("", message); // Share with no specific number, opens default WhatsApp share
             }
 
-            // Function to create a product card (now accepts showPrice parameter)
-            function createProductCard(product, showPrice) {
+            // Function to create a product card (now accepts showPrice and currentPagePrefix parameters)
+            function createProductCard(product, showPrice, currentPagePrefix) {
                 const card = document.createElement("div");
                 card.className = "bg-white dark:bg-gray-800 p-4 rounded-lg shadow";
                 card.dataset.name = product.name;
                 card.dataset.spec = product.spec;
+                card.dataset.price = product.price; // Store price for WhatsApp message
 
                 let cardContent = `
                     <h3 class="font-bold text-lg text-brand-green dark:text-brand-orange">${product.name}</h3>
@@ -1038,11 +1239,20 @@
                     `;
                 }
 
+                let whatsappButtonHtml = '';
+                // The change for 'drones' page to show 'Consultar disponibilidade' for all users
+                if (currentPagePrefix === 'drones') {
+                    whatsappButtonHtml = `<button data-action="consult-availability" class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 py-1 px-2 rounded-md hover:bg-gray-300">Consultar disponibilidade</button>`;
+                } else { // For other pages like 'consultas'
+                    whatsappButtonHtml = `<button data-action="send-product-whatsapp" class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 py-1 px-2 rounded-md hover:bg-gray-300">Enviar pelo WhatsApp</button>`;
+                }
+
+
                 cardContent += `
                     <div class="mt-4 pt-4 border-t dark:border-gray-700 grid grid-cols-2 gap-2 text-sm">
                         <button data-action="generate-description" class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 py-1 px-2 rounded-md hover:bg-gray-300">Gerar Descrição</button>
                         <button data-action="create-arguments" class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 py-1 px-2 rounded-md hover:bg-gray-300">Criar Argumentos</button>
-                        <button data-action="whatsapp" class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 py-1 px-2 rounded-md hover:bg-gray-300">WhatsApp</button>
+                        ${whatsappButtonHtml}
                         <button data-action="customer-help" class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 py-1 px-2 rounded-md hover:bg-gray-300">Ajudar Cliente</button>
                     </div>
                 `;
@@ -1104,7 +1314,7 @@
                             return;
                         }
                         results.forEach(item => {
-                            resultsContainer.appendChild(resultRenderer(item, showPrice));
+                            resultsContainer.appendChild(resultRenderer(item, showPrice, pagePrefix)); // Pass pagePrefix to renderer
                         });
                     }
                 }
@@ -1139,14 +1349,18 @@
                             const card = button.closest(".bg-white");
                             const productName = card.dataset.name;
                             const productSpec = card.dataset.spec;
+                            const productPrice = card.dataset.price; // Get product price from data-attribute
 
                             if (action === "generate-description" || action === "create-arguments") {
                                 handleAIAssist(action, productName, productSpec);
-                            } else if (action === "whatsapp") {
-                                const message = `Olá! Tenho interesse no produto: *${productName}*\n\n${productSpec.replace(/\n/g, "%0A")}\n\nPreço: *${currencyFormatter.format(products.find(p => p.name === productName).price)}*`;
-                                shareOnWhatsApp(companyInfo.phone, message);
+                            } else if (action === "send-product-whatsapp") { // Changed action name
+                                handleSendProductWhatsapp(productName, productSpec, productPrice); // Pass price
                             } else if (action === "customer-help") {
                                 handleCustomerHelp(productName, productSpec);
+                            } else if (action === "consult-availability") { // New action for Drones page
+                                currentProductForAvailabilityConsult = { name: productName, spec: productSpec, price: productPrice };
+                                senderNameInput.value = loggedInUser.name; // Pre-fill with logged-in user's name
+                                senderNameInputModal.classList.remove("hidden");
                             }
                         }
                     });
@@ -1163,7 +1377,7 @@
                 aiResponseModal.classList.remove("hidden");
 
                 const apiKey = ""; // Canvas will inject the API key
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`; 
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
                 
                 let chatHistory = [];
                 chatHistory.push({ role: "user", parts: [{ text: prompt }] });
@@ -1257,23 +1471,43 @@
             // Event Listeners
 
             // Login functionality
-            buttonLoginContainer.addEventListener("click", e => {
-                if (e.target.classList.contains("login-button")) {
-                    const username = e.target.dataset.username;
-                    errorMessage.classList.add("hidden");
-                    loggedInUser = users.find(user => user.username === username);
+            loginForm.addEventListener("submit", e => {
+                e.preventDefault();
+                const username = usernameInput.value;
+                const password = passwordInput.value;
+                errorMessage.classList.add("hidden");
+                successMessage.classList.add("hidden");
 
-                    if (loggedInUser) {
-                        buttonLoginContainer.classList.add("hidden");
-                        loginHeader.classList.add("hidden");
-                        successMessage.classList.remove("hidden");
-                        // Reduced login screen time to 1 second
-                        setTimeout(() => {
-                            showDashboard(loggedInUser);
-                        }, 1000); // Changed from 2000 to 1000
-                    } else {
-                        errorMessage.classList.remove("hidden");
-                    }
+                loggedInUser = users.find(user => user.username === username && user.password === password);
+
+                if (loggedInUser) {
+                    console.log("Login bem-sucedido para:", loggedInUser); // Debug: Check loggedInUser after successful login
+                    loginView.classList.add("hidden");
+                    loginHeader.classList.add("hidden");
+                    successMessage.classList.remove("hidden");
+                    setTimeout(() => {
+                        showDashboard(loggedInUser);
+                    }, 1000);
+                } else {
+                    errorMessage.classList.remove("hidden");
+                }
+            });
+
+            // Visitor login functionality
+            visitorLoginButton.addEventListener("click", () => {
+                const visitorUser = users.find(user => user.username === "consultas");
+                if (visitorUser) {
+                    loggedInUser = visitorUser;
+                    loginView.classList.add("hidden");
+                    loginHeader.classList.add("hidden");
+                    successMessage.classList.remove("hidden");
+                    setTimeout(() => {
+                        showDashboard(loggedInUser);
+                    }, 1000);
+                } else {
+                    // Fallback if "consultas" user is not found
+                    errorMessage.textContent = "Erro: Usuário 'consultas' não encontrado.";
+                    errorMessage.classList.remove("hidden");
                 }
             });
 
@@ -1282,32 +1516,31 @@
                 showLogin();
             });
 
-            // Sidebar navigation
-            sidebarNav.addEventListener("click", async e => {
+            // Sidebar navigation (attached to sidebarMenuElement to include top profile link)
+            sidebarMenuElement.addEventListener("click", async e => { // Changed from sidebarNav
                 const targetLink = e.target.closest(".sidebar-link");
                 if (targetLink) {
                     e.preventDefault();
                     const pageId = targetLink.dataset.page;
 
+                    // Remove active class from all links
+                    document.querySelectorAll(".sidebar-link").forEach(link => link.classList.remove("active"));
+                    // Add active class to the clicked link
+                    targetLink.classList.add("active");
+
                     if (pageId === "admin" && loggedInUser.role === "Administrador") {
                         // Check if admin access is still valid (within 5 minutes)
                         if (Date.now() - adminAccessTimestamp < 300000) { // 300,000 ms = 5 minutes
-                            document.querySelectorAll(".sidebar-link").forEach(link => link.classList.remove("active"));
-                            targetLink.classList.add("active");
                             pageTitle.textContent = targetLink.querySelector("span").textContent;
                             switchPage(pageId);
                             return;
                         }
                         const authorized = await promptForAdminPassword();
                         if (authorized) {
-                            document.querySelectorAll(".sidebar-link").forEach(link => link.classList.remove("active"));
-                            targetLink.classList.add("active");
                             pageTitle.textContent = targetLink.querySelector("span").textContent;
                             switchPage(pageId);
                         }
                     } else if (pageId !== "admin") { // For non-admin links or if not admin role
-                        document.querySelectorAll(".sidebar-link").forEach(link => link.classList.remove("active"));
-                        targetLink.classList.add("active");
                         pageTitle.textContent = targetLink.querySelector("span").textContent;
                         switchPage(pageId);
                     }
@@ -1382,6 +1615,7 @@
                     username: newUserUsernameInput.value,
                     password: newUserPasswordInput.value,
                     phone: document.getElementById("new-user-phone").value,
+                    email: "", // Default empty email for new users
                     role: newUserTypeSelect.value
                 };
                 if (newUser.role === "Consultas") {
@@ -1616,6 +1850,7 @@
                     name: document.getElementById("supplier-name").value,
                     address: document.getElementById("supplier-address").value,
                     details: document.getElementById("supplier-details").value,
+                    phone: document.getElementById("supplier-phone") ? document.getElementById("supplier-phone").value : '', // Add phone to supplier data
                     paymentMethods: Array.from(supplierForm.querySelectorAll('input[name="payment_method"]:checked')).map(cb => cb.value),
                     productTypes: Array.from(supplierForm.querySelectorAll('input[name="product_type"]:checked')).map(cb => cb.value),
                     productLines: Array.from(supplierForm.querySelectorAll('input[name="product_line"]:checked')).map(cb => cb.value)
@@ -1681,7 +1916,7 @@
             });
 
             // Customer Help Modal
-            closeCustomerHelpModal.addEventListener("click", () => customerHelpModal.classList.add("hidden")); 
+            closeCustomerHelpModal.addEventListener("click", () => customerHelpModal.classList.add("hidden"));
             customerHelpModal.addEventListener("click", e => {
                 if (e.target === customerHelpModal) {
                     customerHelpModal.classList.add("hidden");
@@ -1700,7 +1935,7 @@
                 customerHelpResponse.classList.remove("hidden");
 
                 const apiKey = ""; // Canvas will inject the API key
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`; 
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
                 
                 let chatHistory = [];
                 chatHistory.push({ role: "user", parts: [{ text: prompt }] });
@@ -1726,6 +1961,415 @@
                     console.error("Erro na API Gemini:", error);
                     customerHelpResponse.innerText = "Erro ao conectar com a IA. Verifique o console para mais detalhes.";
                 }
+            });
+
+            // Request Quote Modal Logic
+            requestQuoteButtonDashboard.addEventListener("click", async () => {
+                if (loggedInUser && loggedInUser.role === "Administrador") {
+                    // Check if admin access is still valid (within 5 minutes)
+                    if (Date.now() - adminAccessTimestamp < 300000) { // 300,000 ms = 5 minutes
+                        requestQuoteModal.classList.remove("hidden");
+                        // Reset form and hide conditional sections
+                        document.getElementById("request-quote-form").reset();
+                        quoteProductLineCheckboxes.forEach(cb => cb.checked = false); // Uncheck all product lines
+                        quoteProductTypeCheckboxes.forEach(cb => cb.checked = false); // Uncheck all product types
+                        quoteProductTypeContainer.classList.add("hidden");
+                        quoteRequestDetailsContainer.classList.add("hidden");
+                        quoteSuppliersListContainer.classList.add("hidden");
+                        sendQuoteRequestButton.classList.add("hidden");
+                        quoteSuppliersCheckboxesDiv.innerHTML = ""; // Clear supplier checkboxes
+                        return; // Exit function if access is valid
+                    }
+                    // If access is not valid, prompt for password
+                    const authorized = await promptForAdminPassword();
+                    if (authorized) {
+                        requestQuoteModal.classList.remove("hidden");
+                        // Reset form and hide conditional sections
+                        document.getElementById("request-quote-form").reset();
+                        quoteProductLineCheckboxes.forEach(cb => cb.checked = false); // Uncheck all product lines
+                        quoteProductTypeCheckboxes.forEach(cb => cb.checked = false); // Uncheck all product types
+                        quoteProductTypeContainer.classList.add("hidden");
+                        quoteRequestDetailsContainer.classList.add("hidden");
+                        quoteSuppliersListContainer.classList.add("hidden");
+                        sendQuoteRequestButton.classList.add("hidden");
+                        quoteSuppliersCheckboxesDiv.innerHTML = ""; // Clear supplier checkboxes
+                    } else {
+                        // Using a custom message box instead of alert()
+                        const messageBox = document.createElement('div');
+                        messageBox.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
+                        messageBox.innerHTML = `
+                            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-sm relative p-6 text-center">
+                                <h3 class="text-lg font-bold text-red-600 mb-4">Acesso Negado</h3>
+                                <p class="text-gray-700 dark:text-gray-300 mb-6">Você precisa ser um administrador e fornecer a senha correta para acessar esta funcionalidade.</p>
+                                <button id="close-message-box" class="bg-brand-orange text-white px-4 py-2 rounded-md hover:bg-orange-600">OK</button>
+                            </div>
+                        `;
+                        document.body.appendChild(messageBox);
+                        document.getElementById('close-message-box').onclick = () => {
+                            messageBox.remove();
+                        };
+                    }
+                } else {
+                    // Using a custom message box instead of alert()
+                    const messageBox = document.createElement('div');
+                    messageBox.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
+                    messageBox.innerHTML = `
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-sm relative p-6 text-center">
+                            <h3 class="text-lg font-bold text-red-600 mb-4">Acesso Restrito</h3>
+                            <p class="text-gray-700 dark:text-gray-300 mb-6">Esta funcionalidade é exclusiva para administradores.</p>
+                            <button id="close-message-box" class="bg-brand-orange text-white px-4 py-2 rounded-md hover:bg-orange-600">OK</button>
+                        </div>
+                    `;
+                    document.body.appendChild(messageBox);
+                    document.getElementById('close-message-box').onclick = () => {
+                        messageBox.remove();
+                    };
+                }
+            });
+
+            closeRequestQuoteModal.addEventListener("click", () => {
+                requestQuoteModal.classList.add("hidden");
+            });
+
+            requestQuoteModal.addEventListener("click", e => {
+                if (e.target === requestQuoteModal) {
+                    requestQuoteModal.classList.add("hidden");
+                }
+            });
+
+            quoteProductLineCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener("change", filterQuoteSuppliers);
+            });
+
+            quoteProductTypeCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener("change", filterQuoteSuppliers);
+            });
+
+            quoteRequestDetailsInput.addEventListener("input", () => {
+                // This will trigger filterQuoteSuppliers which handles button visibility and disabled state
+                filterQuoteSuppliers(); 
+            });
+
+            function filterQuoteSuppliers() {
+                const selectedProductLines = Array.from(quoteProductLineCheckboxes)
+                    .filter(cb => cb.checked)
+                    .map(cb => cb.value);
+                const selectedProductTypes = Array.from(quoteProductTypeCheckboxes)
+                    .filter(cb => cb.checked)
+                    .map(cb => cb.value);
+                const requestDetailsFilled = quoteRequestDetailsInput.value.trim() !== "";
+
+                // Show/hide product type container based on product line selection
+                if (selectedProductLines.length > 0) {
+                    quoteProductTypeContainer.classList.remove("hidden");
+                } else {
+                    quoteProductTypeContainer.classList.add("hidden");
+                    // Uncheck all product types if no product line is selected
+                    quoteProductTypeCheckboxes.forEach(cb => cb.checked = false);
+                }
+
+                // Show/hide request details container if both product lines and types are selected
+                if (selectedProductLines.length > 0 && selectedProductTypes.length > 0) {
+                    quoteRequestDetailsContainer.classList.remove("hidden");
+                } else {
+                    quoteRequestDetailsContainer.classList.add("hidden");
+                }
+
+
+                const matchingSuppliers = suppliers.filter(supplier => {
+                    const hasMatchingLine = selectedProductLines.length === 0 ||
+                        selectedProductLines.some(line => (supplier.productLines || []).includes(line));
+                    const hasMatchingType = selectedProductTypes.length === 0 ||
+                        selectedProductTypes.some(type => (supplier.productTypes || []).includes(type));
+                    return hasMatchingLine && hasMatchingType;
+                });
+
+                quoteSuppliersCheckboxesDiv.innerHTML = "";
+                if (matchingSuppliers.length > 0) {
+                    quoteSuppliersListContainer.classList.remove("hidden");
+                    matchingSuppliers.forEach(supplier => {
+                        const div = document.createElement("div");
+                        div.innerHTML = `
+                            <label class="flex items-center">
+                                <input type="checkbox" name="selected_supplier" value="${supplier.name}" data-phone="${supplier.phone}" class="rounded text-brand-green">
+                                <span class="ml-2 text-sm dark:text-gray-300">${supplier.name}</span>
+                            </label>
+                        `;
+                        quoteSuppliersCheckboxesDiv.appendChild(div);
+                    });
+                    // Add event listener to dynamically created checkboxes
+                    quoteSuppliersCheckboxesDiv.querySelectorAll('input[name="selected_supplier"]').forEach(checkbox => {
+                        checkbox.addEventListener('change', () => {
+                            const selected = Array.from(quoteSuppliersCheckboxesDiv.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);
+                            // Enable/disable send button based on details and selected suppliers
+                            sendQuoteRequestButton.disabled = quoteRequestDetailsInput.value.trim() === "" || selected.length === 0;
+                        });
+                    });
+                } else {
+                    quoteSuppliersListContainer.classList.add("hidden");
+                }
+
+                // Control visibility of the send button
+                if (requestDetailsFilled && matchingSuppliers.length > 0) {
+                    sendQuoteRequestButton.classList.remove("hidden");
+                } else {
+                    sendQuoteRequestButton.classList.add("hidden");
+                }
+
+                // Control disabled state of the send button
+                const selectedSuppliersCount = Array.from(quoteSuppliersCheckboxesDiv.querySelectorAll('input[type="checkbox"]:checked')).length;
+                sendQuoteRequestButton.disabled = !requestDetailsFilled || selectedSuppliersCount === 0;
+            }
+
+            sendQuoteRequestButton.addEventListener("click", (e) => {
+                e.preventDefault();
+                const selectedSuppliers = Array.from(quoteSuppliersCheckboxesDiv.querySelectorAll('input[name="selected_supplier"]:checked'));
+                const requestDetails = quoteRequestDetailsInput.value.trim();
+
+                if (requestDetails === "") {
+                    // Using a custom message box instead of alert()
+                    const messageBox = document.createElement('div');
+                    messageBox.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
+                    messageBox.innerHTML = `
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-sm relative p-6 text-center">
+                            <h3 class="text-lg font-bold text-red-600 mb-4">Atenção!</h3>
+                            <p class="text-gray-700 dark:text-gray-300 mb-6">Por favor, preencha os detalhes do pedido.</p>
+                            <button id="close-message-box" class="bg-brand-orange text-white px-4 py-2 rounded-md hover:bg-orange-600">OK</button>
+                        </div>
+                    `;
+                    document.body.appendChild(messageBox);
+                    document.getElementById('close-message-box').onclick = () => {
+                        messageBox.remove();
+                    };
+                    return;
+                }
+
+                if (selectedSuppliers.length === 0) {
+                    // Using a custom message box instead of alert()
+                    const messageBox = document.createElement('div');
+                    messageBox.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
+                    messageBox.innerHTML = `
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-sm relative p-6 text-center">
+                            <h3 class="text-lg font-bold text-red-600 mb-4">Atenção!</h3>
+                            <p class="text-gray-700 dark:text-gray-300 mb-6">Por favor, selecione pelo menos um fornecedor.</p>
+                            <button id="close-message-box" class="bg-brand-orange text-white px-4 py-2 rounded-md hover:bg-orange-600">OK</button>
+                        </div>
+                    `;
+                    document.body.appendChild(messageBox);
+                    document.getElementById('close-message-box').onclick = () => {
+                        messageBox.remove();
+                    };
+                    return;
+                }
+
+                // Prepare the base message for the preview modal
+                let baseMessageContent = `*Solicitação de Orçamento - Galvão Drones*\n\n`;
+
+                const productLinesText = Array.from(quoteProductLineCheckboxes)
+                    .filter(cb => cb.checked)
+                    .map(cb => cb.value)
+                    .join(", ");
+                const productTypesText = Array.from(quoteProductTypeCheckboxes)
+                    .filter(cb => cb.checked)
+                    .map(cb => cb.value)
+                    .join(", ");
+
+                baseMessageContent += `*Linhas de Produto:* ${productLinesText}\n`;
+                baseMessageContent += `*Tipos de Produto:* ${productTypesText}\n`;
+                baseMessageContent += `*Detalhes do Pedido:*\n${requestDetails}\n`;
+
+                // Store base message for preview and dynamic additions
+                quoteMessagePreview.dataset.baseMessage = baseMessageContent;
+                updateQuoteMessagePreview(); // Call to generate the full preview message
+
+                // Show the preview modal
+                quoteSendPreviewModal.classList.remove("hidden");
+            });
+
+            // Logic for the new Quote Send Preview Modal
+            closeQuoteSendPreviewModal.addEventListener("click", () => {
+                quoteSendPreviewModal.classList.add("hidden");
+            });
+
+            quoteSendPreviewModal.addEventListener("click", e => {
+                if (e.target === quoteSendPreviewModal) {
+                    quoteSendPreviewModal.classList.add("hidden");
+                }
+            });
+
+            document.querySelectorAll('.quote-info-option').forEach(checkbox => {
+                checkbox.addEventListener('change', updateQuoteMessagePreview);
+            });
+
+            function updateQuoteMessagePreview() {
+                let finalMessage = quoteMessagePreview.dataset.baseMessage || ""; // Get the base message
+
+                // Add separator if any contact info is selected
+                const hasContactInfoSelected = includeSellerNameCheckbox.checked || includeSellerWhatsappCheckbox.checked || includeSellerEmailCheckbox.checked ||
+                                               includeCompanyAddressCheckbox.checked || includeCompanyCnpjCheckbox.checked || includeCompanyWhatsappCheckbox.checked || includeCompanyEmailCheckbox.checked;
+
+                if (hasContactInfoSelected) {
+                    finalMessage += `\n-------- Informações para Contato --------\n\n`;
+                }
+
+                if (includeSellerNameCheckbox.checked) {
+                    finalMessage += `*Vendedor:* ${loggedInUser.name}\n`;
+                }
+                if (includeSellerWhatsappCheckbox.checked) {
+                    finalMessage += `*WhatsApp Vendedor:* wa.me/55${loggedInUser.phone.replace(/\D/g, "")}\n`;
+                }
+                if (includeSellerEmailCheckbox.checked) {
+                    finalMessage += `*Email Vendedor:* ${loggedInUser.email}\n`;
+                }
+
+                if (includeCompanyAddressCheckbox.checked) {
+                    finalMessage += `*Endereço Empresa:* ${companyInfo.address}\n`;
+                }
+                if (includeCompanyCnpjCheckbox.checked) {
+                    finalMessage += `*CNPJ Empresa:* ${companyInfo.cnpj}\n`;
+                }
+                if (includeCompanyWhatsappCheckbox.checked) {
+                    finalMessage += `*WhatsApp Empresa:* wa.me/55${companyInfo.phone.replace(/\D/g, "")}\n`;
+                }
+                if (includeCompanyEmailCheckbox.checked) {
+                    finalMessage += `*Email Empresa:* ${companyInfo.email}\n`;
+                }
+
+                finalMessage += `\nAtenciosamente, *Galvão Drones*`; // Re-add closing phrase
+
+                quoteMessagePreview.innerHTML = finalMessage.replace(/\n/g, "<br>").replace(/\*(.*?)\*/g, "<b>$1</b>");
+            }
+
+            confirmSendQuoteButton.addEventListener("click", () => {
+                const messageToSend = quoteMessagePreview.innerText; // Get the final message from preview
+                const selectedSuppliers = Array.from(quoteSuppliersCheckboxesDiv.querySelectorAll('input[name="selected_supplier"]:checked'));
+
+                selectedSuppliers.forEach(supplierCheckbox => {
+                    const supplierPhone = supplierCheckbox.dataset.phone;
+                    shareOnWhatsApp(supplierPhone, messageToSend);
+                });
+
+                // Show success message and close modals
+                const messageBox = document.createElement('div');
+                messageBox.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
+                messageBox.innerHTML = `
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-sm relative p-6 text-center">
+                        <h3 class="text-lg font-bold text-brand-green mb-4">Solicitação Enviada!</h3>
+                        <p class="text-gray-700 dark:text-gray-300 mb-6">Sua solicitação de orçamento foi enviada aos fornecedores selecionados via WhatsApp.</p>
+                        <button id="close-message-box" class="bg-brand-orange text-white px-4 py-2 rounded-md hover:bg-orange-600">OK</button>
+                    </div>
+                `;
+                document.body.appendChild(messageBox);
+                document.getElementById('close-message-box').onclick = () => {
+                    messageBox.remove();
+                    quoteSendPreviewModal.classList.add("hidden");
+                    requestQuoteModal.classList.add("hidden"); // Close main quote modal as well
+                };
+            });
+
+            // Function to handle sending product info via WhatsApp (generic)
+            function handleSendProductWhatsapp(productName, productSpec, productPrice) {
+                // Format product spec to be more readable in the message
+                // Remove the icon prefixes and replace newlines for better readability in WhatsApp
+                const formattedSpec = productSpec
+                    .replace(/💾 /, '')
+                    .replace(/🚁 /, '')
+                    .replace(/🔋 /, '')
+                    .replace(/🌿 /, '')
+                    .replace(/\n/g, '\n'); // Keep newlines for formatting
+
+                // Construct the message for general product sharing (Consultas page)
+                let message = `📦 Produto disponível: *${productName}*\n`;
+                message += `💾 Descrição:\n\n${formattedSpec}\n`;
+                if (productPrice) {
+                    message += `💰 Valor: ${currencyFormatter.format(productPrice)}\n`;
+                }
+                message += `🔗 Caso tenha dúvidas ou queira realizar o pedido, é só me chamar por aqui!\n`;
+                message += `> Consulte disponibilidade`; // New line for availability
+
+                whatsappMessagePreview.innerText = message; // Set message in preview
+                whatsappPhoneInput.value = "55"; // Pre-fill DDI 55
+                sendWhatsappModal.classList.remove("hidden"); // Show the modal
+            }
+
+            // Event listeners for the new send-whatsapp-modal
+            closeSendWhatsappModal.addEventListener("click", () => {
+                sendWhatsappModal.classList.add("hidden");
+            });
+
+            sendWhatsappModal.addEventListener("click", e => {
+                if (e.target === sendWhatsappModal) {
+                    sendWhatsappModal.classList.add("hidden");
+                }
+            });
+
+            confirmSendWhatsappButtonProduct.addEventListener("click", () => {
+                const phoneNumber = whatsappPhoneInput.value.trim();
+                const message = whatsappMessagePreview.innerText;
+
+                if (phoneNumber) {
+                    shareOnWhatsApp(phoneNumber, message);
+                } else {
+                    // If no number, open WhatsApp without a specific recipient
+                    shareOnWhatsApp("", message); 
+                }
+                sendWhatsappModal.classList.add("hidden"); // Close modal after sending
+            });
+
+            // Event listeners for the new sender-name-input-modal
+            senderNameForm.addEventListener("submit", (e) => {
+                e.preventDefault();
+                const senderName = senderNameInput.value.trim();
+
+                if (senderName === "") {
+                    // Using a custom message box instead of alert()
+                    const messageBox = document.createElement('div');
+                    messageBox.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
+                    messageBox.innerHTML = `
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-sm relative p-6 text-center">
+                            <h3 class="text-lg font-bold text-red-600 mb-4">Atenção!</h3>
+                            <p class="text-gray-700 dark:text-gray-300 mb-6">Por favor, insira seu nome para enviar a solicitação.</p>
+                            <button id="close-message-box" class="bg-brand-orange text-white px-4 py-2 rounded-md hover:bg-orange-600">OK</button>
+                        </div>
+                    `;
+                    document.body.appendChild(messageBox);
+                    document.getElementById('close-message-box').onclick = () => {
+                        messageBox.remove();
+                    };
+                    return;
+                }
+
+                // Construct the message for availability consultation
+                let message = `Olá! Gostaria de consultar sobre o produto: *${currentProductForAvailabilityConsult.name}*\n`;
+                message += `Especificações: ${currentProductForAvailabilityConsult.spec.replace(/💾 /, '').replace(/🚁 /, '').replace(/🔋 /, '').replace(/🌿 /, '').replace(/\n/g, '\n')}\n`;
+                message += `Valor: ${currencyFormatter.format(currentProductForAvailabilityConsult.price)}\n\n`;
+                message += `Solicito informações sobre valores e disponibilidade.\n\n`;
+                message += `Atenciosamente,\n${senderName}`;
+
+                shareOnWhatsApp(companyInfo.phone, message); // Always send to company WhatsApp
+                senderNameInputModal.classList.add("hidden"); // Close modal after sending
+            });
+
+            cancelSenderNameButton.addEventListener("click", () => {
+                senderNameInputModal.classList.add("hidden");
+            });
+
+            // Event listeners for the "Sobre Galvão Drones" buttons
+            document.getElementById("whatsapp-btn-sobre").addEventListener("click", () => {
+                shareOnWhatsApp(companyInfo.phone, "Olá! Gostaria de saber mais sobre a Galvão Drones.");
+            });
+
+            document.getElementById("instagram-btn-sobre").addEventListener("click", () => {
+                window.open("https://www.instagram.com/galvao_drones", "_blank");
+            });
+
+            document.getElementById("youtube-btn-sobre").addEventListener("click", () => {
+                window.open("https://www.youtube.com/@Galv%C3%A3oDronesofc", "_blank");
+            });
+
+            document.getElementById("rotas-btn-sobre").addEventListener("click", () => {
+                const address = encodeURIComponent(companyInfo.address);
+                window.open(`https://www.google.com/maps/dir//Galv%C3%A3o+Drones+-+Assist%C3%AAncia+Especializada+em+DJI+-+Compra+-+Venda+-+Goi%C3%A2nia,+Galvao+Drones,+Rua+16,+304+-+Qd.10+Lt.24+-+Setor+Aeroviario,+Goi%C3%A2nia+-+GO,+Brasil/data=!4m9!4m8!1m0!1m5!1m1!19sChIJlx90F6X1XpMRGMiX4jkQBgs!2m2!1d-49.300933199999996!2d-16.6661665!3e0`, "_blank");
             });
 
             // Initial setup
