@@ -614,17 +614,19 @@
                     <div>
                         <label class="block text-sm font-medium mb-2">Linha de Produto:</label>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                            <div><label class="flex items-center"><input type="checkbox" name="quote_product_line" value="Consumer" class="rounded text-brand-orange"> <span class="ml-2 text-sm">Consumer</span></label></div>
-                            <div><label class="flex items-center"><input type="checkbox" name="quote_product_line" value="Enterprise" class="rounded text-brand-orange"> <span class="ml-2 text-sm">Enterprise</span></label></div>
-                            <div><label class="flex items-center"><input type="checkbox" name="quote_product_line" value="Agriculture" class="rounded text-brand-orange"> <span class="ml-2 text-sm">Agriculture</span></label></div>
+                            <!-- Alterado para radio buttons para permitir apenas 1 seleção -->
+                            <div><label class="flex items-center"><input type="radio" name="quote_product_line" value="Consumer" class="rounded text-brand-orange"> <span class="ml-2 text-sm">Consumer</span></label></div>
+                            <div><label class="flex items-center"><input type="radio" name="quote_product_line" value="Enterprise" class="rounded text-brand-orange"> <span class="ml-2 text-sm">Enterprise</span></label></div>
+                            <div><label class="flex items-center"><input type="radio" name="quote_product_line" value="Agriculture" class="rounded text-brand-orange"> <span class="ml-2 text-sm">Agriculture</span></label></div>
                         </div>
                     </div>
                     <div id="quote-product-type-container" class="hidden">
                         <label class="block text-sm font-medium mb-2">Tipo de Produto:</label>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                            <div><label class="flex items-center"><input type="checkbox" name="quote_product_type" value="Equipamentos" class="rounded text-brand-orange"> <span class="ml-2 text-sm">Equipamentos</span></label></div>
-                            <div><label class="flex items-center"><input type="checkbox" name="quote_product_type" value="Peças" class="rounded text-brand-orange"> <span class="ml-2 text-sm">Peças</span></label></div>
-                            <div><label class="flex items-center"><input type="checkbox" name="quote_product_type" value="Acessórios" class="rounded text-brand-orange"> <span class="ml-2 text-sm">Acessórios</span></label></div>
+                            <!-- Alterado para radio buttons para permitir apenas 1 seleção -->
+                            <div><label class="flex items-center"><input type="radio" name="quote_product_type" value="Equipamentos" class="rounded text-brand-orange"> <span class="ml-2 text-sm">Equipamentos</span></label></div>
+                            <div><label class="flex items-center"><input type="radio" name="quote_product_type" value="Peças" class="rounded text-brand-orange"> <span class="ml-2 text-sm">Peças</span></label></div>
+                            <div><label class="flex items-center"><input type="radio" name="quote_product_type" value="Acessórios" class="rounded text-brand-orange"> <span class="ml-2 text-sm">Acessórios</span></label></div>
                         </div>
                     </div>
                     <div id="quote-request-details-container" class="hidden">
@@ -636,7 +638,7 @@
                     <div id="quote-suppliers-list-container" class="hidden">
                         <label class="block text-sm font-medium mb-2">Fornecedores Disponíveis:</label>
                         <div id="quote-suppliers-checkboxes" class="space-y-2">
-                            <!-- Checkboxes de fornecedores serão inseridos aqui -->
+                            <!-- Checkboxes de fornecedores continuarão permitindo múltiplas seleções -->
                         </div>
                     </div>
                     <button type="submit" id="send-quote-request-button" class="hidden w-full bg-brand-orange text-white py-2 rounded-md hover:bg-orange-600 disabled:bg-gray-400 disabled:cursor-not-allowed">Enviar Solicitação</button>
@@ -823,9 +825,11 @@
             const requestQuoteButtonDashboard = document.getElementById("request-quote-button-dashboard"); // Renamed ID
             const requestQuoteModal = document.getElementById("request-quote-modal");
             const closeRequestQuoteModal = document.getElementById("close-request-quote-modal");
-            const quoteProductLineCheckboxes = document.querySelectorAll('input[name="quote_product_line"]');
+            // Changed to radio buttons for single selection
+            const quoteProductLineRadios = document.querySelectorAll('input[name="quote_product_line"]');
             const quoteProductTypeContainer = document.getElementById("quote-product-type-container");
-            const quoteProductTypeCheckboxes = document.querySelectorAll('input[name="quote_product_type"]');
+            // Changed to radio buttons for single selection
+            const quoteProductTypeRadios = document.querySelectorAll('input[name="quote_product_type"]');
             const quoteRequestDetailsContainer = document.getElementById("quote-request-details-container");
             const quoteRequestDetailsInput = document.getElementById("quote-request-details");
             const quoteSuppliersListContainer = document.getElementById("quote-suppliers-list-container");
@@ -2029,8 +2033,10 @@
                         requestQuoteModal.classList.remove("hidden");
                         // Reset form and hide conditional sections
                         document.getElementById("request-quote-form").reset();
-                        quoteProductLineCheckboxes.forEach(cb => cb.checked = false); // Uncheck all product lines
-                        quoteProductTypeCheckboxes.forEach(cb => cb.checked = false); // Uncheck all product types
+                        // Uncheck all radio buttons for product lines
+                        quoteProductLineRadios.forEach(rb => rb.checked = false);
+                        // Uncheck all radio buttons for product types
+                        quoteProductTypeRadios.forEach(rb => rb.checked = false);
                         quoteProductTypeContainer.classList.add("hidden");
                         quoteRequestDetailsContainer.classList.add("hidden");
                         quoteSuppliersListContainer.classList.add("hidden");
@@ -2044,8 +2050,10 @@
                         requestQuoteModal.classList.remove("hidden");
                         // Reset form and hide conditional sections
                         document.getElementById("request-quote-form").reset();
-                        quoteProductLineCheckboxes.forEach(cb => cb.checked = false); // Uncheck all product lines
-                        quoteProductTypeCheckboxes.forEach(cb => cb.checked = false); // Uncheck all product types
+                        // Uncheck all radio buttons for product lines
+                        quoteProductLineRadios.forEach(rb => rb.checked = false);
+                        // Uncheck all radio buttons for product types
+                        quoteProductTypeRadios.forEach(rb => rb.checked = false);
                         quoteProductTypeContainer.classList.add("hidden");
                         quoteRequestDetailsContainer.classList.add("hidden");
                         quoteSuppliersListContainer.classList.add("hidden");
@@ -2095,12 +2103,14 @@
                 }
             });
 
-            quoteProductLineCheckboxes.forEach(checkbox => {
-                checkbox.addEventListener("change", filterQuoteSuppliers);
+            // Event listener for product line radio buttons
+            quoteProductLineRadios.forEach(radio => {
+                radio.addEventListener("change", filterQuoteSuppliers);
             });
 
-            quoteProductTypeCheckboxes.forEach(checkbox => {
-                checkbox.addEventListener("change", filterQuoteSuppliers);
+            // Event listener for product type radio buttons
+            quoteProductTypeRadios.forEach(radio => {
+                radio.addEventListener("change", filterQuoteSuppliers);
             });
 
             quoteRequestDetailsInput.addEventListener("input", () => {
@@ -2109,25 +2119,25 @@
             });
 
             function filterQuoteSuppliers() {
-                const selectedProductLines = Array.from(quoteProductLineCheckboxes)
-                    .filter(cb => cb.checked)
-                    .map(cb => cb.value);
-                const selectedProductTypes = Array.from(quoteProductTypeCheckboxes)
-                    .filter(cb => cb.checked)
-                    .map(cb => cb.value);
+                const selectedProductLine = Array.from(quoteProductLineRadios)
+                    .filter(rb => rb.checked)
+                    .map(rb => rb.value);
+                const selectedProductType = Array.from(quoteProductTypeRadios)
+                    .filter(rb => rb.checked)
+                    .map(rb => rb.value);
                 const requestDetailsFilled = quoteRequestDetailsInput.value.trim() !== "";
 
                 // Show/hide product type container based on product line selection
-                if (selectedProductLines.length > 0) {
+                if (selectedProductLine.length > 0) {
                     quoteProductTypeContainer.classList.remove("hidden");
                 } else {
                     quoteProductTypeContainer.classList.add("hidden");
                     // Uncheck all product types if no product line is selected
-                    quoteProductTypeCheckboxes.forEach(cb => cb.checked = false);
+                    quoteProductTypeRadios.forEach(rb => rb.checked = false);
                 }
 
                 // Show/hide request details container if both product lines and types are selected
-                if (selectedProductLines.length > 0 && selectedProductTypes.length > 0) {
+                if (selectedProductLine.length > 0 && selectedProductType.length > 0) {
                     quoteRequestDetailsContainer.classList.remove("hidden");
                 } else {
                     quoteRequestDetailsContainer.classList.add("hidden");
@@ -2135,10 +2145,10 @@
 
 
                 const matchingSuppliers = suppliers.filter(supplier => {
-                    const hasMatchingLine = selectedProductLines.length === 0 ||
-                        selectedProductLines.some(line => (supplier.productLines || []).includes(line));
-                    const hasMatchingType = selectedProductTypes.length === 0 ||
-                        selectedProductTypes.some(type => (supplier.productTypes || []).includes(type));
+                    const hasMatchingLine = selectedProductLine.length === 0 ||
+                        selectedProductLine.some(line => (supplier.productLines || []).includes(line));
+                    const hasMatchingType = selectedProductType.length === 0 ||
+                        selectedProductType.some(type => (supplier.productTypes || []).includes(type));
                     return hasMatchingLine && hasMatchingType;
                 });
 
@@ -2223,17 +2233,21 @@
                 // Prepare the base message for the preview modal
                 let baseMessageContent = `*Solicitação de Orçamento - Galvão Drones*\n\n`;
 
-                const productLinesText = Array.from(quoteProductLineCheckboxes)
-                    .filter(cb => cb.checked)
-                    .map(cb => cb.value)
-                    .join(", ");
-                const productTypesText = Array.from(quoteProductTypeCheckboxes)
-                    .filter(cb => cb.checked)
-                    .map(cb => cb.value)
-                    .join(", ");
+                const selectedProductLineText = Array.from(quoteProductLineRadios)
+                    .filter(rb => rb.checked)
+                    .map(rb => rb.value)
+                    .join(", "); // Will be only one or none
+                const selectedProductTypeText = Array.from(quoteProductTypeRadios)
+                    .filter(rb => rb.checked)
+                    .map(rb => rb.value)
+                    .join(", "); // Will be only one or none
 
-                baseMessageContent += `*Linhas de Produto:* ${productLinesText}\n`;
-                baseMessageContent += `*Tipos de Produto:* ${productTypesText}\n`;
+                if (selectedProductLineText) {
+                    baseMessageContent += `*Linha de Produto:* ${selectedProductLineText}\n`;
+                }
+                if (selectedProductTypeText) {
+                    baseMessageContent += `*Tipo de Produto:* ${selectedProductTypeText}\n`;
+                }
                 baseMessageContent += `*Detalhes do Pedido:*\n${requestDetails}\n`;
 
                 // Store base message for preview and dynamic additions
