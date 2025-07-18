@@ -113,7 +113,7 @@
                     </button>
                     <h1 id="page-title" class="text-2xl font-semibold text-gray-800 dark:text-white">Dashboard</h1>
                     <div class="flex items-center space-x-4">
-                        <button id="request-quote-button-dashboard" class="hidden px-4 py-2 text-sm font-medium text-white bg-purple-600 rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-600">Solicitar Orçamento</button>
+                        <!-- Botão de solicitar orçamento removido do cabeçalho -->
                         <button id="logout-button" class="px-4 py-2 text-sm font-medium text-white bg-brand-orange rounded-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-orange">Sair</button>
                     </div>
                 </div>
@@ -145,19 +145,19 @@
                                     <span class="font-medium text-gray-800 dark:text-white">Produtos</span>
                                 </a>
                                 <a href="#" data-page="perfil" class="quick-access-link block bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-brand-green dark:text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-brand-green dark:text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
                                     <span class="font-medium text-gray-800 dark:text-white">Meu Perfil</span>
                                 </a>
                                 <a href="#" data-page="admin" class="quick-access-link block bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-brand-green dark:text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-brand-green dark:text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
                                     <span class="font-medium text-gray-800 dark:text-white">Administração</span>
                                 </a>
                                 <a href="#" data-page="sobre" class="quick-access-link block bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                    <span class="font-medium">Sobre Galvão Drones</span>
-                                </a>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg><span class="font-medium">Sobre Galvão Drones</span></a>
                             </div>
                         </div>
+
+                        <!-- Seção de Avaliações REMOVIDA -->
 
                         <div id="vendedor-content" class="hidden mt-6"><div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow"><h3 class="text-lg font-bold text-brand-green dark:text-brand-orange">Painel do Vendedor</h3><p class="mt-2 text-gray-600 dark:text-gray-400">Acesse aqui suas ferramentas de vendas, consulte o status de clientes e registre novas propostas.</p></div></div>
                     </div>
@@ -269,8 +269,9 @@
                                     <p id="profile-page-role" class="text-sm text-gray-500 dark:text-gray-400"></p>
                                     <button id="profile-share-button" class="mt-4 w-full flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-brand-orange border border-brand-orange rounded-md hover:bg-orange-50 dark:hover:bg-gray-700 focus:outline-none">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.487 5.235 3.487 8.413C23.948 18.661 18.614 24 .057 24zM7.51 18.385l.331.195c1.866 1.099 4.041 1.742 6.331 1.742 5.207 0 9.46-4.252 9.461-9.46S19.378 1.42 14.171 1.42c-2.533 0-4.903.995-6.696 2.789-1.793 1.793-2.787 4.163-2.787 6.696.001 2.163.574 4.298 1.695 6.151l.215.36.004.004-1.677 6.124z"></path></svg>
-                                    <span>Compartilhar Contato</span>
-                                </button>
+                                        <span>Compartilhar Contato</span>
+                                    </button>
+                                </div>
                             </div>
                             <div class="lg:col-span-2 bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
                                 <div class="space-y-4">
@@ -324,7 +325,7 @@
                                     <span>Instagram</span>
                                 </button>
                                 <button id="youtube-btn-sobre" class="flex items-center justify-center gap-2 px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6.5 16.5c-.3 1.2-1.5 2.4-2.7 2.7-1.2.3-2.4.3-3.6.3s-2.4 0-3.6-.3c-1.2-.3-2.4-1.5-2.7-2.7-.3-1.2-.3-2.4-.3-3.6s0-2.4.3-3.6c.3-1.2 1.5-2.4 2.7-2.7 1.2-.3 2.4-.3 3.6-.3s2.4 0 3.6.3c1.2.3 2.4 1.5 2.7 2.7.3 1.2.3 2.4.3 3.6s0 2.4-.3 3.6zM10 8.5v7l5-3.5-5-3.5z"></path></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M21.582,6.186c-0.23-0.814-0.908-1.491-1.722-1.722C18.266,4,12,4,12,4S5.734,4,4.14,4.464 c-0.814,0.23-1.491,0.908-1.722,1.722C2,7.78,2,12,2,12s0,4.22,0.418,5.814c0.23,0.814,0.908,1.491,1.722,1.722 C5.734,20,12,20,12,20s6.266,0,7.86-0.464c0.814-0.23,1.491-0.908,1.722-1.722C22,16.22,22,12,22,12S22,7.78,21.582,6.186z M10,15.464V8.536L16,12L10,15.464z"/></svg>
                                     <span>YouTube</span>
                                 </button>
                                 <button id="rotas-btn-sobre" class="flex items-center justify-center gap-2 px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600">
@@ -491,7 +492,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+        </div>
     </div>
     
     <!-- MODAL COMPARTILHAR PERFIL -->
@@ -519,6 +520,13 @@
             </div>
         </div>
     </div>
+
+    <!-- BOTÃO FLUTUANTE SOLICITAR ORÇAMENTO -->
+    <button id="request-quote-fab" class="hidden fixed bottom-24 right-6 bg-purple-600 text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:bg-purple-700 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+    </button>
 
     <!-- BOTÃO FLUTUANTE DA CALCULADORA -->
     <button id="calculator-fab" class="hidden fixed bottom-6 right-6 bg-brand-orange text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:bg-orange-600 transition-colors">
@@ -714,7 +722,7 @@
         </div>
     </div>
 
-    <!-- NOVO MODAL PARA ENTRADA DO NOME DO REMETENTE (PARA CONSULTA DE DISPONIBILIDADE) -->
+    <!-- CORREÇÃO: Erro de digitação em `bg-opacity-50` -->
     <div id="sender-name-input-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-sm relative p-6">
             <h3 class="text-lg font-bold text-brand-green dark:text-brand-orange mb-4">Seu Nome</h3>
@@ -740,12 +748,12 @@
             const errorMessage = document.getElementById("error-message");
             const successMessage = document.getElementById("success-message");
             const loginHeader = document.getElementById("login-header");
-            const loginForm = document.getElementById("login-form"); // New: Login form
-            const usernameInput = document.getElementById("username-input"); // New: Username input
-            const passwordInput = document.getElementById("password-input"); // New: Password input
-            const visitorLoginButton = document.getElementById("visitor-login-button"); // New: Visitor login button
+            const loginForm = document.getElementById("login-form");
+            const usernameInput = document.getElementById("username-input");
+            const passwordInput = document.getElementById("password-input");
+            const visitorLoginButton = document.getElementById("visitor-login-button");
             const logoutButton = document.getElementById("logout-button");
-            const sidebarMenuElement = document.getElementById("sidebar-menu"); // Changed from sidebarNav
+            const sidebarMenuElement = document.getElementById("sidebar-menu");
             const pageTitle = document.getElementById("page-title");
             const mainContent = document.getElementById("main-content");
             const manageUsersButton = document.getElementById("manage-users-button");
@@ -823,14 +831,12 @@
             const menuButton = document.getElementById("menu-button");
             const sidebarMenu = document.getElementById("sidebar-menu");
 
-            // New elements for Request Quote Modal
-            const requestQuoteButtonDashboard = document.getElementById("request-quote-button-dashboard"); // Renamed ID
+            // Elementos para o novo botão flutuante de orçamento
+            const requestQuoteFab = document.getElementById("request-quote-fab");
             const requestQuoteModal = document.getElementById("request-quote-modal");
             const closeRequestQuoteModal = document.getElementById("close-request-quote-modal");
-            // Changed to radio buttons for single selection
             const quoteProductLineRadios = document.querySelectorAll('input[name="quote_product_line"]');
             const quoteProductTypeContainer = document.getElementById("quote-product-type-container");
-            // Changed to radio buttons for single selection
             const quoteProductTypeRadios = document.querySelectorAll('input[name="quote_product_type"]');
             const quoteRequestDetailsContainer = document.getElementById("quote-request-details-container");
             const quoteRequestDetailsInput = document.getElementById("quote-request-details");
@@ -838,12 +844,11 @@
             const quoteSuppliersCheckboxesDiv = document.getElementById("quote-suppliers-checkboxes");
             const sendQuoteRequestButton = document.getElementById("send-quote-request-button");
 
-            // New elements for Quote Send Preview Modal
             const quoteSendPreviewModal = document.getElementById("quote-send-preview-modal");
             const closeQuoteSendPreviewModal = document.getElementById("close-quote-send-preview-modal");
             const quoteMessagePreview = document.getElementById("quote-message-preview");
             const includeSellerNameCheckbox = document.getElementById("include-seller-name");
-            const includeSellerWhatsappCheckbox = document.getElementById("include-seller-whatsapp"); // Corrected this line
+            const includeSellerWhatsappCheckbox = document.getElementById("include-seller-whatsapp"); 
             const includeSellerEmailCheckbox = document.getElementById("include-seller-email");
             const includeCompanyAddressCheckbox = document.getElementById("include-company-address");
             const includeCompanyCnpjCheckbox = document.getElementById("include-company-cnpj");
@@ -851,14 +856,12 @@
             const includeCompanyEmailCheckbox = document.getElementById("include-company-email");
             const confirmSendQuoteButton = document.getElementById("confirm-send-quote-button");
 
-            // New elements for Send WhatsApp Modal (for product cards)
             const sendWhatsappModal = document.getElementById("send-whatsapp-modal");
             const closeSendWhatsappModal = document.getElementById("close-send-whatsapp-modal");
             const whatsappPhoneInput = document.getElementById("whatsapp-phone-input");
             const whatsappMessagePreview = document.getElementById("whatsapp-message-preview");
             const confirmSendWhatsappButtonProduct = document.getElementById("confirm-send-whatsapp-button-product");
 
-            // New elements for Sender Name Input Modal
             const senderNameInputModal = document.getElementById("sender-name-input-modal");
             const senderNameInput = document.getElementById("sender-name-input");
             const senderNameForm = document.getElementById("sender-name-form");
@@ -881,14 +884,12 @@
             };
 
             let loggedInUser = null;
-            // Added email to user data for all users
             let users = [
                 { name: "Mikhaell Galvão", username: "mikhaell", password: "mk0639", phone: "62984710639", email: "mikhaell@galvaodrones.com.br", role: "Administrador" },
                 { name: "Equipe Vendas", username: "vendas", password: "123", phone: "6291234567", email: "vendas@galvaodrones.com.br", role: "Vendedor" },
                 { name: "Equipe Marketing", username: "market", password: "123", phone: "6291234567", email: "marketing@galvaodrones.com.br", role: "Market" },
                 { name: "Acesso Consulta", username: "consultas", password: "123", phone: "6291234567", email: "consultas@galvaodrones.com.br", role: "Consultas" }
             ];
-            // Ensured all suppliers have productTypes and productLines as arrays
             let suppliers = [
                 { name: "GoHobby Distribuidora de VANT LTDA", address: "", details: "A GoHobby é importadora exclusiva de drones profissionais e tecnologias anti-drone no Brasil.", phone: "62999999999", paymentMethods: ["Cartão"], productTypes: ["Equipamentos", "Peças", "Acessórios"], productLines: ["Consumer", "Enterprise", "Agriculture"] },
                 { name: "DroneTech Suprimentos", address: "Av. Inovação, 123", details: "Fornecedor de componentes eletrônicos e peças de reposição para drones.", phone: "62888888888", paymentMethods: ["Pix", "15 dias"], productTypes: ["Peças", "Acessórios"], productLines: [] },
@@ -901,8 +902,8 @@
                 { id: "1040", name: "Pulverizador Agrícola para Drone", spec: "🌿 Sistema de pulverização de alta precisão para drones agrícolas. Otimiza a aplicação de defensivos.", price: 5000.00, suppliers: [{ name: "AgroDrone Solutions", cost: 3500.00 }], productTypes: ["Acessórios"], productLines: ["Agriculture"] }
             ];
             let productSupplierCount = 1;
-            let adminAccessTimestamp = 0; // Timestamp for admin access validation
-            let currentProductForAvailabilityConsult = null; // To store product details for availability consult
+            let adminAccessTimestamp = 0;
+            let currentProductForAvailabilityConsult = null;
 
             // Functions
             function showDashboard(user) {
@@ -915,39 +916,33 @@
                 document.getElementById("welcome-user-name").textContent = user.name.split(" ")[0];
                 document.getElementById("welcome-user-role").textContent = user.role;
 
-                // Hide all sidebar links and specific content by default
-                document.querySelectorAll(".sidebar-link").forEach(link => link.classList.add("hidden")); // Corrected: removed extra semicolon
+                document.querySelectorAll(".sidebar-link").forEach(link => link.classList.add("hidden")); 
                 document.getElementById("admin-link").classList.add("hidden");
                 document.getElementById("vendedor-content").classList.add("hidden");
                 
-                // Show common links
                 document.querySelector('[data-page="dashboard"]').classList.remove("hidden");
                 document.querySelector('[data-page="drones"]').classList.remove("hidden");
                 document.querySelector('[data-page="perfil"]').classList.remove("hidden");
                 document.querySelector('[data-page="sobre"]').classList.remove("hidden");
 
-                // Show role-specific links and content
                 if (user.role === "Administrador") {
                     document.getElementById("admin-link").classList.remove("hidden");
                     document.querySelector('[data-page="consultas"]').classList.remove("hidden");
                     document.querySelector('[data-page="marketing"]').classList.remove("hidden");
                     document.querySelector('[data-page="produtos"]').classList.remove("hidden");
-                    requestQuoteButtonDashboard.classList.remove("hidden"); // Show for admin
-                } else if (user.role === "Vendedor") {
-                    document.getElementById("vendedor-content").classList.remove("hidden");
-                    document.querySelector('[data-page="consultas"]').classList.remove("hidden");
-                    document.querySelector('[data-page="produtos"]').classList.remove("hidden");
-                    requestQuoteButtonDashboard.classList.add("hidden"); // Hide for others
-                } else if (user.role === "Market") {
-                    document.querySelector('[data-page="marketing"]').classList.remove("hidden");
-                    document.querySelector('[data-page="produtos"]').classList.remove("hidden");
-                    requestQuoteButtonDashboard.classList.add("hidden"); // Hide for others
-                } else if (user.role === "Consultas") {
-                    // Only dashboard, drones, perfil, sobre are visible by default
-                    requestQuoteButtonDashboard.classList.add("hidden"); // Hide for others
+                    requestQuoteFab.classList.remove("hidden"); // Mostra o botão flutuante para admin
+                } else {
+                    requestQuoteFab.classList.add("hidden"); // Esconde o botão para outros
+                    if (user.role === "Vendedor") {
+                        document.getElementById("vendedor-content").classList.remove("hidden");
+                        document.querySelector('[data-page="consultas"]').classList.remove("hidden");
+                        document.querySelector('[data-page="produtos"]').classList.remove("hidden");
+                    } else if (user.role === "Market") {
+                        document.querySelector('[data-page="marketing"]').classList.remove("hidden");
+                        document.querySelector('[data-page="produtos"]').classList.remove("hidden");
+                    }
                 }
                 
-                // Set initial active page to dashboard
                 switchPage('dashboard');
                 document.querySelector('[data-page="dashboard"]').classList.add("active");
             }
@@ -955,9 +950,12 @@
             function showLogin() {
                 dashboardView.classList.add("hidden");
                 calculatorFab.classList.add("hidden");
+                requestQuoteFab.classList.add("hidden"); // Esconde o botão flutuante no login
                 loginView.classList.remove("hidden");
+                
                 loginHeader.classList.remove("hidden");
-                loginForm.reset(); // Reset login form fields
+                loginForm.classList.remove("hidden");
+                loginForm.reset(); 
                 errorMessage.classList.add("hidden");
                 successMessage.classList.add("hidden");
                 loggedInUser = null;
@@ -970,36 +968,28 @@
                 const targetPage = document.getElementById(pageId + "-page");
                 if (targetPage) {
                     targetPage.classList.remove("hidden");
-                    // Ensure the text content is correctly taken from the sidebar link, not just the page ID
                     const sidebarLinkElement = sidebarMenuElement.querySelector(`[data-page="${pageId}"] span`);
                     if (sidebarLinkElement) {
                         pageTitle.textContent = sidebarLinkElement.textContent;
                     } else {
-                        pageTitle.textContent = pageId.charAt(0).toUpperCase() + pageId.slice(1); // Fallback for page title
+                        pageTitle.textContent = pageId.charAt(0).toUpperCase() + pageId.slice(1);
                     }
                 }
 
-                // Remove active class from all sidebar links
                 document.querySelectorAll(".sidebar-link").forEach(link => link.classList.remove("active"));
-                // Add active class to the corresponding sidebar link
                 const correspondingSidebarLink = sidebarMenuElement.querySelector(`[data-page="${pageId}"]`);
                 if (correspondingSidebarLink) {
                     correspondingSidebarLink.classList.add("active");
                 }
 
-
                 if (pageId === "perfil") {
                     populateProfilePage();
                 } else if (pageId === "drones") {
-                    // Initial render for drones page: show only model and specs (no price)
-                    setupSearchAndFilter('drones', products, (product) => createProductCard(product, false, 'drones')); // Pass currentPagePrefix
+                    setupSearchAndFilter('drones', products, (product) => createProductCard(product, false, 'drones'));
                 } else if (pageId === "consultas") {
-                    // Initial render for consultas page: show model, specs, and price
-                    setupSearchAndFilter('consultas', products, (product) => createProductCard(product, true, 'consultas')); // Pass currentPagePrefix
-                } else if (pageId === "sobre") {
-                    // No special setup needed for 'sobre' page, just show it
+                    setupSearchAndFilter('consultas', products, (product) => createProductCard(product, true, 'consultas'));
                 }
-                sidebarMenu.classList.add("-translate-x-full"); // Close sidebar on mobile
+                sidebarMenu.classList.add("-translate-x-full");
             }
 
             function calculateInstallments(prefix) {
@@ -1030,14 +1020,14 @@
                 for (const installments in installmentRates) {
                     const option = document.createElement("option");
                     option.value = installments;
-                    option.textContent = `${installments}x (${installmentRates[installments].toString().replace(".", ",")}% taxa)`;
+                    option.textContent = `${installments}x (${installmentRates[installments].toString().replace(".", ",")}%)`;
                     selectElement.appendChild(option);
                 }
             }
 
             function shareOnWhatsApp(phoneNumber, message) {
                 let formattedPhoneNumber = "";
-                if (phoneNumber) { // Only format if a phone number is provided
+                if (phoneNumber) {
                     formattedPhoneNumber = phoneNumber.startsWith("55") ? phoneNumber.replace(/\D/g, "") : "55" + phoneNumber.replace(/\D/g, "");
                 }
                 const whatsappUrl = `https://wa.me/${formattedPhoneNumber}${message ? "?text=" + encodeURIComponent(message) : ""}`;
@@ -1051,7 +1041,7 @@
                 editUserFormContainer.classList.add("hidden");
                 createUserForm.reset();
                 validityContainer.classList.add("hidden");
-                userModal.classList.add("hidden"); // Ensure modal is hidden
+                userModal.classList.add("hidden");
                 createUserTab.classList.add("active");
                 editUserTab.classList.remove("active");
             }
@@ -1121,12 +1111,12 @@
 
             function openEditSupplierForm(index) {
                 const supplier = suppliers[index];
-                supplierForm.reset(); // Clear form first
+                supplierForm.reset();
                 document.getElementById("edit-supplier-index").value = index;
                 document.getElementById("supplier-name").value = supplier.name;
                 document.getElementById("supplier-address").value = supplier.address;
                 document.getElementById("supplier-details").value = supplier.details;
-                document.getElementById("supplier-phone").value = supplier.phone; // Populate phone field
+                document.getElementById("supplier-phone").value = supplier.phone;
 
                 supplierForm.querySelectorAll('input[name="payment_method"]').forEach(checkbox => {
                     checkbox.checked = (supplier.paymentMethods || []).includes(checkbox.value);
@@ -1134,7 +1124,6 @@
                 supplierForm.querySelectorAll('input[name="product_type"]').forEach(checkbox => {
                     checkbox.checked = (supplier.productTypes || []).includes(checkbox.value);
                 });
-                // Manually trigger change for product lines visibility
                 catEquipamentosCheckbox.dispatchEvent(new Event("change"));
                 supplierForm.querySelectorAll('input[name="product_line"]').forEach(checkbox => {
                     checkbox.checked = (supplier.productLines || []).includes(checkbox.value);
@@ -1150,11 +1139,8 @@
             function populateProfilePage() {
                 if (!loggedInUser) {
                     console.error("No user logged in to populate profile page.");
-                    // Optionally, redirect to login or show a message
                     return;
                 }
-                console.log("populateProfilePage called for user:", loggedInUser.name); // Log para depuração
-                console.log("Logged in user details:", loggedInUser); // Debug: check full user object
                 const [firstName, ...lastNameParts] = loggedInUser.name.split(" ");
                 const lastName = lastNameParts.join(" ");
 
@@ -1213,14 +1199,14 @@
 
             function openEditProductForm(index) {
                 const product = products[index];
-                productForm.reset(); // Clear form first
+                productForm.reset();
                 document.getElementById("edit-product-index").value = index;
                 document.getElementById("product-id").value = product.id;
                 document.getElementById("product-name").value = product.name;
                 document.getElementById("product-spec").value = product.spec;
                 document.getElementById("product-price").value = product.price;
 
-                productSupplierFieldsContainer.innerHTML = ""; // Clear existing supplier fields
+                productSupplierFieldsContainer.innerHTML = "";
                 product.suppliers.forEach((supplier, i) => {
                     const supplierDiv = document.createElement("div");
                     supplierDiv.className = "p-3 border rounded-md border-gray-200 dark:border-gray-600";
@@ -1229,17 +1215,17 @@
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label for="product-supplier-name-${i + 1}" class="block text-xs font-medium">Fornecedor</label>
-                                <input type="text" id="product-supplier-name-${i + 1}" class="mt-1 w-full rounded-md border-gray-300 shadow-sm">
+                                <input type="text" id="product-supplier-name-${i + 1}" class="mt-1 w-full rounded-md border-gray-300 shadow-sm" value="${supplier.name}">
                             </div>
                             <div>
                                 <label for="product-supplier-cost-${i + 1}" class="block text-xs font-medium">Preço de custo</label>
-                                <input type="number" step="0.01" id="product-supplier-cost-${i + 1}" class="mt-1 w-full rounded-md border-gray-300 shadow-sm">
+                                <input type="number" step="0.01" id="product-supplier-cost-${i + 1}" class="mt-1 w-full rounded-md border-gray-300 shadow-sm" value="${supplier.cost}">
                             </div>
                         </div>
                     `;
                     productSupplierFieldsContainer.appendChild(supplierDiv);
                 });
-                productSupplierCount = product.suppliers.length; // Update count for new additions
+                productSupplierCount = product.suppliers.length;
 
                 cancelProductEditButton.classList.remove("hidden");
                 listProductTab.classList.remove("active");
@@ -1253,18 +1239,17 @@
                 const installments = document.getElementById("popup-installments").value;
                 const totalValue = document.getElementById("popup-total-value").textContent;
                 const feeValue = document.getElementById("popup-fee-value").textContent;
-                const installmentValue = document.getElementById("popup-installment-value").textContent.replace(/.*de /, ""); // Get only the value
+                const installmentValue = document.getElementById("popup-installment-value").textContent.replace(/.*de /, "");
 
-                shareOnWhatsApp("", `*Simulação de Pagamento*\n\nValor da Venda: *${saleValue}*\nParcelamento: *${installments}x*\n\n*Resultado:*\n- Taxa da Máquina: *${feeValue}*\n- Valor da Parcela: *${installmentValue}*\n- Valor Total: *${totalValue}*`); // Share with no specific number, opens default WhatsApp share
+                shareOnWhatsApp("", `*Simulação de Pagamento*\n\nValor da Venda: *${saleValue}*\nParcelamento: *${installments}x*\n\n*Resultado:*\n- Taxa da Máquina: *${feeValue}*\n- Valor da Parcela: *${installmentValue}*\n- Valor Total: *${totalValue}*`);
             }
 
-            // Function to create a product card (now accepts showPrice and currentPagePrefix parameters)
             function createProductCard(product, showPrice, currentPagePrefix) {
                 const card = document.createElement("div");
                 card.className = "bg-white dark:bg-gray-800 p-4 rounded-lg shadow";
                 card.dataset.name = product.name;
                 card.dataset.spec = product.spec;
-                card.dataset.price = product.price; // Store price for WhatsApp message
+                card.dataset.price = product.price;
 
                 let cardContent = `
                     <h3 class="font-bold text-lg text-brand-green dark:text-brand-orange">${product.name}</h3>
@@ -1279,7 +1264,6 @@
                     `;
                 }
 
-                // Conditionally display supplier costs only if loggedInUser exists and is Administrator
                 if (loggedInUser && loggedInUser.role === "Administrador") {
                     cardContent += `
                         <div class="mt-2">
@@ -1292,10 +1276,9 @@
                 }
 
                 let whatsappButtonHtml = '';
-                // The change for 'drones' page to show 'Consultar disponibilidade' for all users
                 if (currentPagePrefix === 'drones') {
                     whatsappButtonHtml = `<button data-action="consult-availability" class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 py-1 px-2 rounded-md hover:bg-gray-300">Consultar disponibilidade</button>`;
-                } else { // For other pages like 'consultas'
+                } else {
                     whatsappButtonHtml = `<button data-action="send-product-whatsapp" class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 py-1 px-2 rounded-md hover:bg-gray-300">Enviar pelo WhatsApp</button>`;
                 }
 
@@ -1312,7 +1295,6 @@
                 return card;
             }
 
-            // New generic function to setup search and filter for a given page
             function setupSearchAndFilter(pagePrefix, dataArray, resultRenderer) {
                 const searchInput = document.getElementById(`${pagePrefix}-search-input`);
                 const searchButton = document.getElementById(`${pagePrefix}-search-button`);
@@ -1321,7 +1303,7 @@
                 const minPriceInput = document.getElementById(`${pagePrefix}-min-price`);
                 const maxPriceInput = document.getElementById(`${pagePrefix}-max-price`);
                 const sortRadios = document.querySelectorAll(`input[name="${pagePrefix}-sort"]`);
-                const applyFiltersButton = document.getElementById(`${pagePrefix}-apply-filters-button`); // New button
+                const applyFiltersButton = document.getElementById(`${pagePrefix}-apply-filters-button`);
                 const resultsContainer = document.getElementById(`${pagePrefix}-search-results`);
 
                 function performSearch() {
@@ -1353,10 +1335,8 @@
                             filteredItems.sort((a, b) => b.price - a.price);
                         }
                     }
-                    // Pass the showPrice parameter to the resultRenderer based on the pagePrefix
                     const showPriceForCurrentPage = (pagePrefix === 'consultas');
                     renderResults(filteredItems, showPriceForCurrentPage);
-                    // Do not close filter panel here, it will be closed by applyFiltersButton
                 }
 
                 function renderResults(results, showPrice) {
@@ -1367,41 +1347,32 @@
                             return;
                         }
                         results.forEach(item => {
-                            resultsContainer.appendChild(resultRenderer(item, showPrice, pagePrefix)); // Pass pagePrefix to renderer
+                            resultsContainer.appendChild(resultRenderer(item, showPrice, pagePrefix));
                         });
                     }
                 }
 
-                // Event Listeners for this specific search/filter instance
                 if (searchButton) searchButton.addEventListener("click", performSearch);
                 if (filterButton) {
                     filterButton.addEventListener("click", (e) => {
                         e.stopPropagation();
-                        console.log(`Botão de filtro para ${pagePrefix} clicado!`); // Log para depuração
                         if (filterPanel) filterPanel.classList.toggle("hidden");
                     });
                 }
-                // Removed direct calls to performSearch on input/change for filter options
-                // minPriceInput.addEventListener("input", performSearch);
-                // maxPriceInput.addEventListener("input", performSearch);
-                // sortRadios.forEach(radio => radio.addEventListener("change", performSearch));
 
-                // New event listener for the "Aplicar Filtros" button
                 if (applyFiltersButton) {
                     applyFiltersButton.addEventListener("click", () => {
                         performSearch();
-                        filterPanel.classList.add("hidden"); // Close filter panel after applying filters
+                        filterPanel.classList.add("hidden");
                     });
                 }
 
-                // Close filter panel when clicking outside this specific filter panel
                 document.addEventListener("click", e => {
                     if (filterPanel && !filterPanel.classList.contains("hidden") && !filterPanel.contains(e.target) && e.target !== filterButton && e.target !== applyFiltersButton) {
                         filterPanel.classList.add("hidden");
                     }
                 });
 
-                // Event delegation for product card buttons within this results container
                 if (resultsContainer) {
                     resultsContainer.addEventListener("click", e => {
                         const button = e.target.closest("button");
@@ -1410,24 +1381,23 @@
                             const card = button.closest(".bg-white");
                             const productName = card.dataset.name;
                             const productSpec = card.dataset.spec;
-                            const productPrice = card.dataset.price; // Get product price from data-attribute
+                            const productPrice = card.dataset.price;
 
                             if (action === "generate-description" || action === "create-arguments") {
                                 handleAIAssist(action, productName, productSpec);
-                            } else if (action === "send-product-whatsapp") { // Changed action name
-                                handleSendProductWhatsapp(productName, productSpec, productPrice); // Pass price
+                            } else if (action === "send-product-whatsapp") {
+                                handleSendProductWhatsapp(productName, productSpec, productPrice);
                             } else if (action === "customer-help") {
                                 handleCustomerHelp(productName, productSpec);
-                            } else if (action === "consult-availability") { // New action for Drones page
+                            } else if (action === "consult-availability") {
                                 currentProductForAvailabilityConsult = { name: productName, spec: productSpec, price: productPrice };
-                                senderNameInput.value = loggedInUser.name; // Pre-fill with logged-in user's name
+                                senderNameInput.value = loggedInUser.name;
                                 senderNameInputModal.classList.remove("hidden");
                             }
                         }
                     });
                 }
 
-                // Initial render when the page is loaded or switched to
                 const showPriceForCurrentPage = (pagePrefix === 'consultas');
                 renderResults(dataArray, showPriceForCurrentPage);
             }
@@ -1437,7 +1407,7 @@
                 aiModalContent.innerHTML = '<div class="flex justify-center items-center"><div class="spinner"></div></div>';
                 aiResponseModal.classList.remove("hidden");
 
-                const apiKey = ""; // Canvas will inject the API key
+                const apiKey = "";
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
                 
                 let chatHistory = [];
@@ -1447,16 +1417,14 @@
                 try {
                     const response = await fetch(apiUrl, {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
+                        headers: { 'Content-Type': "application/json" },
                         body: JSON.stringify(payload)
                     });
                     const result = await response.json();
 
-                    if (result.candidates && result.candidates.length > 0 &&
-                        result.candidates[0].content && result.candidates[0].content.parts &&
-                        result.candidates[0].content.parts.length > 0) {
+                    if (result.candidates && result.candidates[0].content && result.candidates[0].content.parts) {
                         const text = result.candidates[0].content.parts[0].text;
-                        aiModalContent.innerText = text;
+                        aiModalContent.innerHTML = `<div class="whitespace-pre-wrap">${text}</div>`;
                     } else {
                         aiModalContent.innerText = "Não foi possível gerar uma resposta. Tente novamente.";
                     }
@@ -1489,6 +1457,8 @@
                 customerHelpModal.classList.remove("hidden");
                 document.getElementById("customer-help-product-name").value = productName;
                 document.getElementById("customer-help-product-spec").value = productSpec;
+                customerHelpResponse.classList.add("hidden");
+                customerHelpForm.reset();
             }
 
             function promptForAdminPassword() {
@@ -1499,74 +1469,54 @@
                         const adminPasswordInput = document.getElementById("admin-password-input");
                         if (adminPasswordInput.value === "@0639") {
                             adminPasswordModal.classList.add("hidden");
-                            adminPasswordInput.value = ""; // Clear password
-                            adminAccessTimestamp = Date.now(); // Update timestamp
+                            adminPasswordInput.value = "";
+                            adminAccessTimestamp = Date.now();
                             resolve(true);
                         } else {
-                            // Using a custom message box instead of alert()
                             const messageBox = document.createElement('div');
                             messageBox.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
-                            messageBox.innerHTML = `
-                                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-sm relative p-6 text-center">
-                                    <h3 class="text-lg font-bold text-red-600 mb-4">Erro de Senha</h3>
-                                    <p class="text-gray-700 dark:text-gray-300 mb-6">Senha incorreta. Tente novamente.</p>
-                                    <button id="close-message-box" class="bg-brand-orange text-white px-4 py-2 rounded-md hover:bg-orange-600">OK</button>
-                                </div>
-                            `;
+                            messageBox.innerHTML = `<div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-sm relative p-6 text-center"><h3 class="text-lg font-bold text-red-600 mb-4">Erro de Senha</h3><p class="text-gray-700 dark:text-gray-300 mb-6">Senha incorreta. Tente novamente.</p><button id="close-message-box" class="bg-brand-orange text-white px-4 py-2 rounded-md hover:bg-orange-600">OK</button></div>`;
                             document.body.appendChild(messageBox);
-                            document.getElementById('close-message-box').onclick = () => {
-                                messageBox.remove();
-                            };
-                            adminPasswordInput.value = ""; // Clear password
+                            document.getElementById('close-message-box').onclick = () => messageBox.remove();
+                            adminPasswordInput.value = "";
                             resolve(false);
                         }
                     };
                     cancelAdminPassword.onclick = () => {
                         adminPasswordModal.classList.add("hidden");
-                        document.getElementById("admin-password-input").value = ""; // Clear password
+                        document.getElementById("admin-password-input").value = "";
                         resolve(false);
                     };
                 });
             }
 
             // Event Listeners
-
-            // Login functionality
             loginForm.addEventListener("submit", e => {
                 e.preventDefault();
                 const username = usernameInput.value;
                 const password = passwordInput.value;
                 errorMessage.classList.add("hidden");
                 successMessage.classList.add("hidden");
-
                 loggedInUser = users.find(user => user.username === username && user.password === password);
-
                 if (loggedInUser) {
-                    console.log("Login bem-sucedido para:", loggedInUser); // Debug: Check loggedInUser after successful login
-                    loginView.classList.add("hidden");
                     loginHeader.classList.add("hidden");
+                    loginForm.classList.add("hidden");
                     successMessage.classList.remove("hidden");
-                    setTimeout(() => {
-                        showDashboard(loggedInUser);
-                    }, 1000);
+                    setTimeout(() => showDashboard(loggedInUser), 1000);
                 } else {
                     errorMessage.classList.remove("hidden");
                 }
             });
 
-            // Visitor login functionality
             visitorLoginButton.addEventListener("click", () => {
                 const visitorUser = users.find(user => user.username === "consultas");
                 if (visitorUser) {
                     loggedInUser = visitorUser;
-                    loginView.classList.add("hidden");
                     loginHeader.classList.add("hidden");
+                    loginForm.classList.add("hidden");
                     successMessage.classList.remove("hidden");
-                    setTimeout(() => {
-                        showDashboard(loggedInUser);
-                    }, 1000);
+                    setTimeout(() => showDashboard(loggedInUser), 1000);
                 } else {
-                    // Fallback if "consultas" user is not found
                     errorMessage.textContent = "Erro: Usuário 'consultas' não encontrado.";
                     errorMessage.classList.remove("hidden");
                 }
@@ -1577,109 +1527,62 @@
                 showLogin();
             });
 
-            // Sidebar navigation (attached to sidebarMenuElement to include top profile link)
-            sidebarMenuElement.addEventListener("click", async e => { // Changed from sidebarNav
+            sidebarMenuElement.addEventListener("click", async e => {
                 const targetLink = e.target.closest(".sidebar-link");
                 if (targetLink) {
                     e.preventDefault();
                     const pageId = targetLink.dataset.page;
-
-                    // Remove active class from all links
-                    document.querySelectorAll(".sidebar-link").forEach(link => link.classList.remove("active"));
-                    // Add active class to the clicked link
-                    targetLink.classList.add("active");
-
                     if (pageId === "admin" && loggedInUser.role === "Administrador") {
-                        // Check if admin access is still valid (within 5 minutes)
-                        if (Date.now() - adminAccessTimestamp < 300000) { // 300,000 ms = 5 minutes
-                            pageTitle.textContent = targetLink.querySelector("span").textContent;
+                        if (Date.now() - adminAccessTimestamp < 300000) {
                             switchPage(pageId);
                             return;
                         }
                         const authorized = await promptForAdminPassword();
-                        if (authorized) {
-                            pageTitle.textContent = targetLink.querySelector("span").textContent;
-                            switchPage(pageId);
-                        }
-                    } else if (pageId !== "admin") { // For non-admin links or if not admin role
-                        pageTitle.textContent = targetLink.querySelector("span").textContent;
+                        if (authorized) switchPage(pageId);
+                    } else if (pageId !== "admin") {
                         switchPage(pageId);
                     }
                 }
             });
 
-            // Mobile menu toggle
-            menuButton.addEventListener("click", () => {
-                sidebarMenu.classList.toggle("-translate-x-full");
-            });
-
-            // Close sidebar when clicking outside on mobile
+            menuButton.addEventListener("click", () => sidebarMenu.classList.toggle("-translate-x-full"));
             document.addEventListener("click", e => {
-                // Check if the sidebar is open and the click is outside the sidebar and not on the menu button
-                if (!sidebarMenu.classList.contains("-translate-x-full") &&
-                    !sidebarMenu.contains(e.target) &&
-                    e.target !== menuButton &&
-                    !menuButton.contains(e.target)) {
+                if (!sidebarMenu.classList.contains("-translate-x-full") && !sidebarMenu.contains(e.target) && e.target !== menuButton && !menuButton.contains(e.target)) {
                     sidebarMenu.classList.add("-translate-x-full");
                 }
             });
 
-            // Calculator FAB and Popup
             calculatorFab.addEventListener("click", () => {
                 calculatorPopup.classList.remove("hidden", "scale-95", "opacity-0");
                 calculatorPopup.classList.add("scale-100", "opacity-100");
             });
-
             closeCalculatorPopup.addEventListener("click", () => {
                 calculatorPopup.classList.add("scale-95", "opacity-0");
-                setTimeout(() => calculatorPopup.classList.add("hidden"), 300); // Hide after transition
+                setTimeout(() => calculatorPopup.classList.add("hidden"), 300);
             });
-
-            // Close calculator popup when clicking outside
             document.addEventListener("click", e => {
                 if (!calculatorPopup.classList.contains("hidden") && !calculatorPopup.contains(e.target) && !calculatorFab.contains(e.target)) {
                     closeCalculatorPopup.click();
                 }
             });
-
-            // Calculator input and select events
             document.getElementById("popup-sale-value").addEventListener("input", () => calculateInstallments("popup"));
             document.getElementById("popup-installments").addEventListener("change", () => calculateInstallments("popup"));
             popupWhatsappShareButton.addEventListener("click", shareCalculationOnWhatsApp);
 
-            // User Management Modal
             manageUsersButton.addEventListener("click", e => {
                 e.preventDefault();
                 userModal.classList.remove("hidden");
-                if (loggedInUser.role === "Administrador") {
-                    editUserTab.classList.remove("hidden");
-                } else {
-                    editUserTab.classList.add("hidden");
-                }
-                createUserTab.click(); // Default to create user tab
+                editUserTab.classList.toggle("hidden", loggedInUser.role !== "Administrador");
+                createUserTab.click();
             });
-
             closeUserModal.addEventListener("click", resetUserModal);
-            userModal.addEventListener("click", e => {
-                if (e.target === userModal) {
-                    resetUserModal();
-                }
-            });
-
+            userModal.addEventListener("click", e => { if (e.target === userModal) resetUserModal(); });
             newUserUsernameInput.addEventListener("input", () => {
                 const username = newUserUsernameInput.value;
                 const currentYear = new Date().getFullYear();
                 newUserPasswordInput.value = username.length >= 3 ? username.substring(0, 3).toLowerCase() + currentYear : "";
             });
-
-            newUserTypeSelect.addEventListener("change", () => {
-                if (newUserTypeSelect.value === "Consultas") {
-                    validityContainer.classList.remove("hidden");
-                } else {
-                    validityContainer.classList.add("hidden");
-                }
-            });
-
+            newUserTypeSelect.addEventListener("change", () => validityContainer.classList.toggle("hidden", newUserTypeSelect.value !== "Consultas"));
             createUserForm.addEventListener("submit", e => {
                 e.preventDefault();
                 const newUser = {
@@ -1687,345 +1590,196 @@
                     username: newUserUsernameInput.value,
                     password: newUserPasswordInput.value,
                     phone: document.getElementById("new-user-phone").value,
-                    email: "", // Default empty email for new users
+                    email: "",
                     role: newUserTypeSelect.value
                 };
-                if (newUser.role === "Consultas") {
-                    newUser.validity = document.getElementById("new-user-validity").value;
-                }
                 users.push(newUser);
                 document.getElementById("invite-username").textContent = newUser.username;
                 document.getElementById("invite-password").textContent = newUser.password;
                 userFormContainer.classList.add("hidden");
                 inviteContainer.classList.remove("hidden");
             });
-
             sendInviteButton.addEventListener("click", () => {
                 const phoneNumber = document.getElementById("new-user-phone").value;
                 const invitedUsername = document.getElementById("invite-username").textContent;
                 const invitedPassword = document.getElementById("invite-password").textContent;
                 const currentUrl = window.location.href;
-                const inviteMessage = `Olá! Você foi convidado para acessar o Portal Galvão Drones.%0A%0A*Link de Acesso:* ${currentUrl}%0A*Usuário:* ${invitedUsername}%0A*Senha:* ${invitedPassword}%0A%0AAtenciosamente,%0AEquipe Galvão Drones.`;
-                shareOnWhatsApp(phoneNumber, inviteMessage.replace(/%0A/g, "\n"));
+                const inviteMessage = `Olá! Você foi convidado para acessar o Portal Galvão Drones.\n\n*Link de Acesso:* ${currentUrl}\n*Usuário:* ${invitedUsername}\n*Senha:* ${invitedPassword}\n\nAtenciosamente,\nEquipe Galvão Drones.`;
+                shareOnWhatsApp(phoneNumber, inviteMessage);
             });
-
             createUserTab.addEventListener("click", () => {
                 editUserTab.classList.remove("active");
                 createUserTab.classList.add("active");
                 userListContainer.classList.add("hidden");
                 editUserFormContainer.classList.add("hidden");
                 userFormContainer.classList.remove("hidden");
-                inviteContainer.classList.add("hidden"); // Hide invite container when switching back
+                inviteContainer.classList.add("hidden");
             });
-
             editUserTab.addEventListener("click", showUserListTab);
             cancelEditButton.addEventListener("click", showUserListTab);
-
             userListTbody.addEventListener("click", e => {
                 const target = e.target;
                 if (target.tagName === "BUTTON") {
                     const action = target.dataset.action;
                     const index = parseInt(target.dataset.index);
-                    if (action === "edit") {
-                        openEditUserForm(index);
-                    } else if (action === "delete") {
+                    if (action === "edit") openEditUserForm(index);
+                    else if (action === "delete") {
                         users.splice(index, 1);
                         renderUserList();
                     }
                 }
             });
-
             editUserForm.addEventListener("submit", e => {
                 e.preventDefault();
                 const index = document.getElementById("edit-user-index").value;
-                users[index] = {
-                    ...users[index], // Keep existing properties
-                    name: document.getElementById("edit-user-name").value,
-                    username: document.getElementById("edit-user-username").value,
-                    phone: document.getElementById("edit-user-phone").value,
-                    role: document.getElementById("edit-user-type").value
-                };
+                users[index] = { ...users[index], name: document.getElementById("edit-user-name").value, username: document.getElementById("edit-user-username").value, phone: document.getElementById("edit-user-phone").value, role: document.getElementById("edit-user-type").value };
                 showUserListTab();
             });
 
-            // Product Management Modal
             manageProductsButton.addEventListener("click", e => {
                 e.preventDefault();
                 productModal.classList.remove("hidden");
-                listProductTab.click(); // Default to list products tab
+                listProductTab.click();
             });
-
-            closeProductModal.addEventListener("click", () => {
-                productModal.classList.add("hidden");
-            });
-            productModal.addEventListener("click", e => {
-                if (e.target === productModal) {
-                    productModal.classList.add("hidden");
-                }
-            });
-
+            closeProductModal.addEventListener("click", () => productModal.classList.add("hidden"));
+            productModal.addEventListener("click", e => { if (e.target === productModal) productModal.classList.add("hidden"); });
             createProductTab.addEventListener("click", () => {
                 listProductTab.classList.remove("active");
                 createProductTab.classList.add("active");
                 productListContainer.classList.add("hidden");
                 createProductContainer.classList.remove("hidden");
-                productForm.reset(); // Clear form for new product
-                document.getElementById("edit-product-index").value = ""; // Clear edit index
-                cancelProductEditButton.classList.add("hidden"); // Hide cancel button for new product
-                productSupplierFieldsContainer.innerHTML = `
-                    <div class="p-3 border rounded-md border-gray-200 dark:border-gray-600">
-                        <label class="block text-sm font-medium mb-2">Fornecedor 1</label>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label for="product-supplier-name-1" class="block text-xs font-medium">Fornecedor</label>
-                                <input type="text" id="product-supplier-name-1" class="mt-1 w-full rounded-md border-gray-300 shadow-sm">
-                            </div>
-                            <div>
-                                <label for="product-supplier-cost-1" class="block text-xs font-medium">Preço de custo</label>
-                                <input type="number" step="0.01" id="product-supplier-cost-1" class="mt-1 w-full rounded-md border-gray-300 shadow-sm">
-                            </div>
-                        </div>
-                    </div>
-                `;
+                productForm.reset();
+                document.getElementById("edit-product-index").value = "";
+                cancelProductEditButton.classList.add("hidden");
+                productSupplierFieldsContainer.innerHTML = `<div class="p-3 border rounded-md border-gray-200 dark:border-gray-600"><label class="block text-sm font-medium mb-2">Fornecedor 1</label><div class="grid grid-cols-2 gap-4"><div><label for="product-supplier-name-1" class="block text-xs font-medium">Fornecedor</label><input type="text" id="product-supplier-name-1" class="mt-1 w-full rounded-md border-gray-300 shadow-sm"></div><div><label for="product-supplier-cost-1" class="block text-xs font-medium">Preço de custo</label><input type="number" step="0.01" id="product-supplier-cost-1" class="mt-1 w-full rounded-md border-gray-300 shadow-sm"></div></div></div>`;
                 productSupplierCount = 1;
             });
-
             listProductTab.addEventListener("click", showProductListTab);
             cancelProductEditButton.addEventListener("click", showProductListTab);
-
             productListTbody.addEventListener("click", e => {
                 const target = e.target;
                 if (target.tagName === "BUTTON") {
                     const action = target.dataset.action;
                     const index = parseInt(target.dataset.index);
-                    if (action === "edit") {
-                        openEditProductForm(index);
-                    } else if (action === "delete") {
+                    if (action === "edit") openEditProductForm(index);
+                    else if (action === "delete") {
                         products.splice(index, 1);
                         renderProductList();
                     }
                 }
             });
-
             productForm.addEventListener("submit", e => {
                 e.preventDefault();
                 const index = document.getElementById("edit-product-index").value;
                 const suppliersData = [];
-                const supplierDivs = productSupplierFieldsContainer.querySelectorAll(".p-3");
-                supplierDivs.forEach((div, i) => {
-                    const name = document.getElementById(`product-supplier-name-${i + 1}`).value;
-                    const cost = document.getElementById(`product-supplier-cost-${i + 1}`).value;
-                    if (name && cost) {
-                        suppliersData.push({ name: name, cost: parseFloat(cost) });
-                    }
-                });
-
-                const newProduct = {
-                    id: document.getElementById("product-id").value,
-                    name: document.getElementById("product-name").value,
-                    spec: document.getElementById("product-spec").value,
-                    price: parseFloat(document.getElementById("product-price").value),
-                    suppliers: suppliersData
-                };
-
-                if (index === "") { // New product
-                    products.push(newProduct);
-                } else { // Edit existing product
-                    products[index] = newProduct;
+                for (let i = 1; i <= productSupplierCount; i++) {
+                    const name = document.getElementById(`product-supplier-name-${i}`).value;
+                    const cost = document.getElementById(`product-supplier-cost-${i}`).value;
+                    if (name && cost) suppliersData.push({ name: name, cost: parseFloat(cost) });
                 }
-                productForm.reset();
+                const newProduct = { id: document.getElementById("product-id").value, name: document.getElementById("product-name").value, spec: document.getElementById("product-spec").value, price: parseFloat(document.getElementById("product-price").value), suppliers: suppliersData };
+                if (index === "") products.push(newProduct);
+                else products[index] = newProduct;
                 showProductListTab();
             });
-
             addProductSupplierButton.addEventListener("click", () => {
                 productSupplierCount++;
                 const newSupplierDiv = document.createElement("div");
                 newSupplierDiv.className = "p-3 border rounded-md border-gray-200 dark:border-gray-600";
-                newSupplierDiv.innerHTML = `
-                    <label class="block text-sm font-medium mb-2">Fornecedor ${productSupplierCount}</label>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label for="product-supplier-name-${productSupplierCount}" class="block text-xs font-medium">Fornecedor</label>
-                            <input type="text" id="product-supplier-name-${productSupplierCount}" class="mt-1 w-full rounded-md border-gray-300 shadow-sm">
-                        </div>
-                        <div>
-                            <label for="product-supplier-cost-${productSupplierCount}" class="block text-xs font-medium">Preço de custo</label>
-                            <input type="number" step="0.01" id="product-supplier-cost-${productSupplierCount}" class="mt-1 w-full rounded-md border-gray-300 shadow-sm">
-                        </div>
-                    </div>
-                `;
+                newSupplierDiv.innerHTML = `<label class="block text-sm font-medium mb-2">Fornecedor ${productSupplierCount}</label><div class="grid grid-cols-2 gap-4"><div><label for="product-supplier-name-${productSupplierCount}" class="block text-xs font-medium">Fornecedor</label><input type="text" id="product-supplier-name-${productSupplierCount}" class="mt-1 w-full rounded-md border-gray-300 shadow-sm"></div><div><label for="product-supplier-cost-${productSupplierCount}" class="block text-xs font-medium">Preço de custo</label><input type="number" step="0.01" id="product-supplier-cost-${productSupplierCount}" class="mt-1 w-full rounded-md border-gray-300 shadow-sm"></div></div>`;
                 productSupplierFieldsContainer.appendChild(newSupplierDiv);
             });
 
-            // Supplier Management Modal
             manageSuppliersButton.addEventListener("click", e => {
                 e.preventDefault();
                 supplierModal.classList.remove("hidden");
-                listSupplierTab.click(); // Default to list suppliers tab
+                listSupplierTab.click();
             });
-
-            closeSupplierModal.addEventListener("click", () => {
-                supplierModal.classList.add("hidden");
-            });
-            supplierModal.addEventListener("click", e => {
-                if (e.target === supplierModal) {
-                    supplierModal.classList.add("hidden");
-                }
-            });
-
+            closeSupplierModal.addEventListener("click", () => supplierModal.classList.add("hidden"));
+            supplierModal.addEventListener("click", e => { if (e.target === supplierModal) supplierModal.classList.add("hidden"); });
             createSupplierTab.addEventListener("click", () => {
                 listSupplierTab.classList.remove("active");
                 createSupplierTab.classList.add("active");
                 supplierListContainer.classList.add("hidden");
                 createSupplierContainer.classList.remove("hidden");
-                supplierForm.reset(); // Clear form for new supplier
-                document.getElementById("edit-supplier-index").value = ""; // Clear edit index
-                cancelSupplierEditButton.classList.add("hidden"); // Hide cancel button for new supplier
+                supplierForm.reset();
+                document.getElementById("edit-supplier-index").value = "";
+                cancelSupplierEditButton.classList.add("hidden");
             });
-
-            listSupplierTab.addEventListener("click", () => {
-                createSupplierTab.classList.remove("active");
-                listSupplierTab.classList.add("active");
-                createSupplierContainer.classList.add("hidden");
-                supplierListContainer.classList.remove("hidden");
-                renderSupplierList();
-            });
-
-            catEquipamentosCheckbox.addEventListener("change", () => {
-                productLinesContainer.classList.toggle("hidden", !catEquipamentosCheckbox.checked);
-            });
-
+            listSupplierTab.addEventListener("click", showSupplierListTab);
+            catEquipamentosCheckbox.addEventListener("change", () => productLinesContainer.classList.toggle("hidden", !catEquipamentosCheckbox.checked));
             supplierListTbody.addEventListener("click", e => {
                 const target = e.target;
                 if (target.tagName === "BUTTON") {
                     const action = target.dataset.action;
                     const index = parseInt(target.dataset.index);
-                    if (action === "edit") {
-                        openEditSupplierForm(index);
-                    } else if (action === "delete") {
+                    if (action === "edit") openEditSupplierForm(index);
+                    else if (action === "delete") {
                         suppliers.splice(index, 1);
                         renderSupplierList();
                     }
                 }
             });
-
-            cancelSupplierEditButton.addEventListener("click", () => {
-                createSupplierContainer.classList.add("hidden");
-                supplierListContainer.classList.remove("hidden");
-                renderSupplierList();
-            });
-
+            cancelSupplierEditButton.addEventListener("click", showSupplierListTab);
             supplierForm.addEventListener("submit", e => {
                 e.preventDefault();
                 const index = document.getElementById("edit-supplier-index").value;
-                const newSupplier = {
-                    name: document.getElementById("supplier-name").value,
-                    address: document.getElementById("supplier-address").value,
-                    details: document.getElementById("supplier-details").value,
-                    phone: document.getElementById("supplier-phone") ? document.getElementById("supplier-phone").value : '', // Add phone to supplier data
-                    paymentMethods: Array.from(supplierForm.querySelectorAll('input[name="payment_method"]:checked')).map(cb => cb.value),
-                    productTypes: Array.from(supplierForm.querySelectorAll('input[name="product_type"]:checked')).map(cb => cb.value),
-                    productLines: Array.from(supplierForm.querySelectorAll('input[name="product_line"]:checked')).map(cb => cb.value)
-                };
-
-                if (index === "") { // New supplier
-                    suppliers.push(newSupplier);
-                } else { // Edit existing supplier
-                    suppliers[index] = newSupplier;
-                }
-                supplierForm.reset();
-                catEquipamentosCheckbox.dispatchEvent(new Event("change")); // Update product lines visibility
+                const newSupplier = { name: document.getElementById("supplier-name").value, address: document.getElementById("supplier-address").value, details: document.getElementById("supplier-details").value, phone: document.getElementById("supplier-phone") ? document.getElementById("supplier-phone").value : '', paymentMethods: Array.from(supplierForm.querySelectorAll('input[name="payment_method"]:checked')).map(cb => cb.value), productTypes: Array.from(supplierForm.querySelectorAll('input[name="product_type"]:checked')).map(cb => cb.value), productLines: Array.from(supplierForm.querySelectorAll('input[name="product_line"]:checked')).map(cb => cb.value) };
+                if (index === "") suppliers.push(newSupplier);
+                else suppliers[index] = newSupplier;
                 showSupplierListTab();
             });
 
-            // Profile Picture and Share
             profilePictureContainer.addEventListener("click", () => profilePictureInput.click());
-
             profilePictureInput.addEventListener("change", e => {
                 const file = e.target.files[0];
                 if (file) {
                     const reader = new FileReader();
                     reader.onload = (e) => {
-                        document.getElementById("sidebar-profile-picture").style.backgroundImage = `url('${e.target.result}')`;
-                        profilePictureContainer.style.backgroundImage = `url('${e.target.result}')`;
+                        const imageUrl = `url('${e.target.result}')`;
+                        document.getElementById("sidebar-profile-picture").style.backgroundImage = imageUrl;
+                        profilePictureContainer.style.backgroundImage = imageUrl;
                         document.getElementById("profile-picture-placeholder").classList.add("hidden");
+                        document.getElementById("sidebar-profile-placeholder").classList.add("hidden");
                     };
                     reader.readAsDataURL(file);
                 }
             });
-
-            document.getElementById("company-whatsapp-button").addEventListener("click", () => {
-                shareOnWhatsApp(companyInfo.phone);
-            });
-
+            document.getElementById("company-whatsapp-button").addEventListener("click", () => shareOnWhatsApp(companyInfo.phone));
             profileShareButton.addEventListener("click", () => {
                 shareProfileModal.classList.remove("hidden");
                 updateShareMessage();
             });
-
             closeShareModal.addEventListener("click", () => shareProfileModal.classList.add("hidden"));
-            shareProfileModal.addEventListener("click", e => {
-                if (e.target === shareProfileModal) {
-                    shareProfileModal.classList.add("hidden");
-                }
-            });
-
-            document.querySelectorAll(".share-option").forEach(checkbox => {
-                checkbox.addEventListener("change", updateShareMessage);
-            });
-
+            shareProfileModal.addEventListener("click", e => { if (e.target === shareProfileModal) shareProfileModal.classList.add("hidden"); });
+            document.querySelectorAll(".share-option").forEach(checkbox => checkbox.addEventListener("change", updateShareMessage));
             finalShareButton.addEventListener("click", () => {
                 const message = shareMessagePreview.innerText;
                 shareOnWhatsApp("", message);
             });
 
-            // AI Response Modal
             closeAiModal.addEventListener("click", () => aiResponseModal.classList.add("hidden"));
-            aiResponseModal.addEventListener("click", e => {
-                if (e.target === aiResponseModal) {
-                    aiResponseModal.classList.add("hidden");
-                }
-            });
+            aiResponseModal.addEventListener("click", e => { if (e.target === aiResponseModal) aiResponseModal.classList.add("hidden"); });
 
-            // Customer Help Modal
             closeCustomerHelpModal.addEventListener("click", () => customerHelpModal.classList.add("hidden"));
-            customerHelpModal.addEventListener("click", e => {
-                if (e.target === customerHelpModal) {
-                    customerHelpModal.classList.add("hidden");
-                }
-            });
-
+            customerHelpModal.addEventListener("click", e => { if (e.target === customerHelpModal) customerHelpModal.classList.add("hidden"); });
             customerHelpForm.addEventListener("submit", async e => {
                 e.preventDefault();
                 const productName = document.getElementById("customer-help-product-name").value;
                 const productSpec = document.getElementById("customer-help-product-spec").value;
                 const customerQuestion = document.getElementById("customer-question").value;
-
                 const prompt = `Responda a seguinte dúvida de um cliente: "${customerQuestion}". Use as seguintes informações sobre o produto para basear sua resposta:\nNome do Produto: ${productName}\nEspecificações: ${productSpec}`;
-
                 customerHelpResponse.innerHTML = '<div class="flex justify-center items-center"><div class="spinner"></div></div>';
                 customerHelpResponse.classList.remove("hidden");
-
-                const apiKey = ""; // Canvas will inject the API key
+                const apiKey = "";
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-                
-                let chatHistory = [];
-                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
                 const payload = { contents: chatHistory };
-
                 try {
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
+                    const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': "application/json" }, body: JSON.stringify(payload) });
                     const result = await response.json();
-
-                    if (result.candidates && result.candidates.length > 0 &&
-                        result.candidates[0].content && result.candidates[0].content.parts &&
-                        result.candidates[0].content.parts.length > 0) {
-                        const text = result.candidates[0].content.parts[0].text;
-                        customerHelpResponse.innerText = text;
+                    if (result.candidates && result.candidates[0].content && result.candidates[0].content.parts) {
+                        customerHelpResponse.innerText = result.candidates[0].content.parts[0].text;
                     } else {
                         customerHelpResponse.innerText = "Não foi possível gerar uma resposta. Tente novamente.";
                     }
@@ -2035,454 +1789,168 @@
                 }
             });
 
-            // Request Quote Modal Logic
-            requestQuoteButtonDashboard.addEventListener("click", async () => {
+            // Evento de clique para o novo botão flutuante de orçamento
+            requestQuoteFab.addEventListener("click", async () => {
                 if (loggedInUser && loggedInUser.role === "Administrador") {
-                    // Check if admin access is still valid (within 5 minutes)
-                    if (Date.now() - adminAccessTimestamp < 300000) { // 300,000 ms = 5 minutes
+                    if (Date.now() - adminAccessTimestamp < 300000) {
                         requestQuoteModal.classList.remove("hidden");
-                        // Reset form and hide conditional sections
                         document.getElementById("request-quote-form").reset();
-                        // Uncheck all radio buttons for product lines
-                        quoteProductLineRadios.forEach(rb => rb.checked = false);
-                        // Uncheck all radio buttons for product types
-                        quoteProductTypeRadios.forEach(rb => rb.checked = false);
                         quoteProductTypeContainer.classList.add("hidden");
                         quoteRequestDetailsContainer.classList.add("hidden");
                         quoteSuppliersListContainer.classList.add("hidden");
                         sendQuoteRequestButton.classList.add("hidden");
-                        quoteSuppliersCheckboxesDiv.innerHTML = ""; // Clear supplier checkboxes
-                        return; // Exit function if access is valid
+                        return;
                     }
-                    // If access is not valid, prompt for password
                     const authorized = await promptForAdminPassword();
                     if (authorized) {
                         requestQuoteModal.classList.remove("hidden");
-                        // Reset form and hide conditional sections
                         document.getElementById("request-quote-form").reset();
-                        // Uncheck all radio buttons for product lines
-                        quoteProductLineRadios.forEach(rb => rb.checked = false);
-                        // Uncheck all radio buttons for product types
-                        quoteProductTypeRadios.forEach(rb => rb.checked = false);
                         quoteProductTypeContainer.classList.add("hidden");
                         quoteRequestDetailsContainer.classList.add("hidden");
                         quoteSuppliersListContainer.classList.add("hidden");
                         sendQuoteRequestButton.classList.add("hidden");
-                        quoteSuppliersCheckboxesDiv.innerHTML = ""; // Clear supplier checkboxes
-                    } else {
-                        // Using a custom message box instead of alert()
-                        const messageBox = document.createElement('div');
-                        messageBox.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
-                        messageBox.innerHTML = `
-                            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-sm relative p-6 text-center">
-                                <h3 class="text-lg font-bold text-red-600 mb-4">Acesso Negado</h3>
-                                <p class="text-gray-700 dark:text-gray-300 mb-6">Você precisa ser um administrador e fornecer a senha correta para acessar esta funcionalidade.</p>
-                                <button id="close-message-box" class="bg-brand-orange text-white px-4 py-2 rounded-md hover:bg-orange-600">OK</button>
-                            </div>
-                        `;
-                        document.body.appendChild(messageBox);
-                        document.getElementById('close-message-box').onclick = () => {
-                            messageBox.remove();
-                        };
                     }
-                } else {
-                    // Using a custom message box instead of alert()
-                    const messageBox = document.createElement('div');
-                    messageBox.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
-                    messageBox.innerHTML = `
-                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-sm relative p-6 text-center">
-                            <h3 class="text-lg font-bold text-red-600 mb-4">Acesso Restrito</h3>
-                            <p class="text-gray-700 dark:text-gray-300 mb-6">Esta funcionalidade é exclusiva para administradores.</p>
-                            <button id="close-message-box" class="bg-brand-orange text-white px-4 py-2 rounded-md hover:bg-orange-600">OK</button>
-                        </div>
-                    `;
-                    document.body.appendChild(messageBox);
-                    document.getElementById('close-message-box').onclick = () => {
-                        messageBox.remove();
-                    };
                 }
             });
 
-            closeRequestQuoteModal.addEventListener("click", () => {
-                requestQuoteModal.classList.add("hidden");
-            });
+            closeRequestQuoteModal.addEventListener("click", () => requestQuoteModal.classList.add("hidden"));
+            requestQuoteModal.addEventListener("click", e => { if (e.target === requestQuoteModal) requestQuoteModal.classList.add("hidden"); });
 
-            requestQuoteModal.addEventListener("click", e => {
-                if (e.target === requestQuoteModal) {
-                    requestQuoteModal.classList.add("hidden");
-                }
-            });
-
-            // Event listener for product line radio buttons (single selection)
-            quoteProductLineRadios.forEach(radio => {
-                radio.addEventListener("change", filterQuoteSuppliers);
-            });
-
-            // Event listener for product type radio buttons (single selection)
-            quoteProductTypeRadios.forEach(radio => {
-                radio.addEventListener("change", filterQuoteSuppliers);
-            });
-
-            quoteRequestDetailsInput.addEventListener("input", () => {
-                filterQuoteSuppliers(); 
-            });
-
-            function filterQuoteSuppliers() {
-                const selectedProductLine = Array.from(quoteProductLineRadios)
-                    .filter(rb => rb.checked)
-                    .map(rb => rb.value);
-                const selectedProductType = Array.from(quoteProductTypeRadios)
-                    .filter(rb => rb.checked)
-                    .map(rb => rb.value);
-                const requestDetailsFilled = quoteRequestDetailsInput.value.trim() !== "";
-
-                // Show/hide product type container based on product line selection
-                if (selectedProductLine.length > 0) {
-                    quoteProductTypeContainer.classList.remove("hidden");
-                } else {
-                    quoteProductTypeContainer.classList.add("hidden");
-                    // Uncheck all product types if no product line is selected
-                    quoteProductTypeRadios.forEach(rb => rb.checked = false);
-                }
-
-                // Show/hide request details container if both product lines and types are selected
-                if (selectedProductLine.length > 0 && selectedProductType.length > 0) {
-                    quoteRequestDetailsContainer.classList.remove("hidden");
-                } else {
-                    quoteRequestDetailsContainer.classList.add("hidden");
-                }
-
-
-                const matchingSuppliers = suppliers.filter(supplier => {
-                    const hasMatchingLine = selectedProductLine.length === 0 ||
-                        selectedProductLine.some(line => (supplier.productLines || []).includes(line));
-                    const hasMatchingType = selectedProductType.length === 0 ||
-                        selectedProductType.some(type => (supplier.productTypes || []).includes(type));
-                    return hasMatchingLine && hasMatchingType;
-                });
-
-                quoteSuppliersCheckboxesDiv.innerHTML = "";
-                if (matchingSuppliers.length > 0) {
-                    quoteSuppliersListContainer.classList.remove("hidden");
-                    matchingSuppliers.forEach(supplier => {
-                        const div = document.createElement("div");
-                        div.innerHTML = `
-                            <label class="flex items-center">
-                                <input type="checkbox" name="selected_supplier" value="${supplier.name}" data-phone="${supplier.phone}" class="rounded text-brand-green">
-                                <span class="ml-2 text-sm dark:text-gray-300">${supplier.name}</span>
-                            </label>
-                        `;
-                        quoteSuppliersCheckboxesDiv.appendChild(div);
-                    });
-                    // Add event listener to dynamically created checkboxes
-                    quoteSuppliersCheckboxesDiv.querySelectorAll('input[name="selected_supplier"]').forEach(checkbox => {
-                        checkbox.addEventListener('change', () => {
-                            const selected = Array.from(quoteSuppliersCheckboxesDiv.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);
-                            // Enable/disable send button based on details and selected suppliers
-                            sendQuoteRequestButton.disabled = quoteRequestDetailsInput.value.trim() === "" || selected.length === 0;
-                        });
-                    });
-                } else {
-                    quoteSuppliersListContainer.classList.add("hidden");
-                }
-
-                // Control visibility of the send button
-                if (requestDetailsFilled && matchingSuppliers.length > 0) {
-                    sendQuoteRequestButton.classList.remove("hidden");
-                } else {
-                    sendQuoteRequestButton.classList.add("hidden");
-                }
-
-                // Control disabled state of the send button
-                const selectedSuppliersCount = Array.from(quoteSuppliersCheckboxesDiv.querySelectorAll('input[type="checkbox"]:checked')).length;
-                sendQuoteRequestButton.disabled = !requestDetailsFilled || selectedSuppliersCount === 0;
+            function updateQuoteFlowUI() {
+                const lineSelected = Array.from(quoteProductLineRadios).some(r => r.checked);
+                const typeSelected = Array.from(quoteProductTypeRadios).some(r => r.checked);
+                const detailsFilled = quoteRequestDetailsInput.value.trim() !== "";
+                const suppliersSelected = Array.from(quoteSuppliersCheckboxesDiv.querySelectorAll('input[type="checkbox"]:checked')).length > 0;
+                quoteProductTypeContainer.classList.toggle("hidden", !lineSelected);
+                quoteRequestDetailsContainer.classList.toggle("hidden", !typeSelected);
+                quoteSuppliersListContainer.classList.toggle("hidden", !typeSelected);
+                sendQuoteRequestButton.classList.toggle("hidden", !detailsFilled);
+                sendQuoteRequestButton.disabled = !detailsFilled || !suppliersSelected;
             }
 
+            function filterQuoteSuppliers() {
+                const selectedLine = document.querySelector('input[name="quote_product_line"]:checked')?.value;
+                const selectedType = document.querySelector('input[name="quote_product_type"]:checked')?.value;
+                const matchingSuppliers = suppliers.filter(supplier => {
+                    const hasLine = selectedLine ? (supplier.productLines || []).includes(selectedLine) : false;
+                    const hasType = selectedType ? (supplier.productTypes || []).includes(selectedType) : false;
+                    return hasLine && hasType;
+                });
+                quoteSuppliersCheckboxesDiv.innerHTML = "";
+                if (matchingSuppliers.length > 0) {
+                    matchingSuppliers.forEach(supplier => {
+                        const div = document.createElement("div");
+                        div.innerHTML = `<label class="flex items-center"><input type="checkbox" name="selected_supplier" value="${supplier.name}" data-phone="${supplier.phone}" class="rounded text-brand-green"><span class="ml-2 text-sm dark:text-gray-300">${supplier.name}</span></label>`;
+                        quoteSuppliersCheckboxesDiv.appendChild(div);
+                    });
+                    quoteSuppliersCheckboxesDiv.querySelectorAll('input[name="selected_supplier"]').forEach(cb => cb.addEventListener('change', updateQuoteFlowUI));
+                }
+                updateQuoteFlowUI();
+            }
+
+            quoteProductLineRadios.forEach(r => r.addEventListener("change", filterQuoteSuppliers));
+            quoteProductTypeRadios.forEach(r => r.addEventListener("change", filterQuoteSuppliers));
+            quoteRequestDetailsInput.addEventListener("input", updateQuoteFlowUI);
             sendQuoteRequestButton.addEventListener("click", (e) => {
                 e.preventDefault();
-                const selectedSuppliers = Array.from(quoteSuppliersCheckboxesDiv.querySelectorAll('input[name="selected_supplier"]:checked'));
-                const requestDetails = quoteRequestDetailsInput.value.trim();
-
-                if (requestDetails === "") {
-                    // Using a custom message box instead of alert()
-                    const messageBox = document.createElement('div');
-                    messageBox.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
-                    messageBox.innerHTML = `
-                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-sm relative p-6 text-center">
-                            <h3 class="text-lg font-bold text-red-600 mb-4">Atenção!</h3>
-                            <p class="text-gray-700 dark:text-gray-300 mb-6">Por favor, preencha os detalhes do pedido.</p>
-                            <button id="close-message-box" class="bg-brand-orange text-white px-4 py-2 rounded-md hover:bg-orange-600">OK</button>
-                        </div>
-                    `;
-                    document.body.appendChild(messageBox);
-                    document.getElementById('close-message-box').onclick = () => {
-                        messageBox.remove();
-                    };
-                    return;
-                }
-
-                if (selectedSuppliers.length === 0) {
-                    // Using a custom message box instead of alert()
-                    const messageBox = document.createElement('div');
-                    messageBox.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
-                    messageBox.innerHTML = `
-                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-sm relative p-6 text-center">
-                            <h3 class="text-lg font-bold text-red-600 mb-4">Atenção!</h3>
-                            <p class="text-gray-700 dark:text-gray-300 mb-6">Por favor, selecione pelo menos um fornecedor.</p>
-                            <button id="close-message-box" class="bg-brand-orange text-white px-4 py-2 rounded-md hover:bg-orange-600">OK</button>
-                        </div>
-                    `;
-                    document.body.appendChild(messageBox);
-                    document.getElementById('close-message-box').onclick = () => {
-                        messageBox.remove();
-                    };
-                    return;
-                }
-
-                // Prepare the base message for the preview modal
-                let baseMessageContent = `*Solicitação de Orçamento - Galvão Drones*\n\n`;
-
-                const selectedProductLineText = Array.from(quoteProductLineRadios)
-                    .filter(rb => rb.checked)
-                    .map(rb => rb.value)
-                    .join(", "); // Will be only one or none
-                const selectedProductTypeText = Array.from(quoteProductTypeRadios)
-                    .filter(rb => rb.checked)
-                    .map(rb => rb.value)
-                    .join(", "); // Will be only one or none
-
-                if (selectedProductLineText) {
-                    baseMessageContent += `*Linha de Produto:* ${selectedProductLineText}\n`;
-                }
-                if (selectedProductTypeText) {
-                    baseMessageContent += `*Tipo de Produto:* ${selectedProductTypeText}\n`;
-                }
-                baseMessageContent += `*Detalhes do Pedido:*\n${requestDetails}\n`;
-
-                // Store base message for preview and dynamic additions
-                quoteMessagePreview.dataset.baseMessage = baseMessageContent;
-                updateQuoteMessagePreview(); // Call to generate the full preview message
-
-                // Show the preview modal
+                updateQuoteMessagePreview();
                 quoteSendPreviewModal.classList.remove("hidden");
             });
 
-            // Logic for the new Quote Send Preview Modal
-            closeQuoteSendPreviewModal.addEventListener("click", () => {
-                quoteSendPreviewModal.classList.add("hidden");
-            });
-
-            quoteSendPreviewModal.addEventListener("click", e => {
-                if (e.target === quoteSendPreviewModal) {
-                    quoteSendPreviewModal.classList.add("hidden");
-                }
-            });
-
-            document.querySelectorAll('.quote-info-option').forEach(checkbox => {
-                checkbox.addEventListener('change', updateQuoteMessagePreview);
-            });
+            closeQuoteSendPreviewModal.addEventListener("click", () => quoteSendPreviewModal.classList.add("hidden"));
+            quoteSendPreviewModal.addEventListener("click", e => { if (e.target === quoteSendPreviewModal) quoteSendPreviewModal.classList.add("hidden"); });
+            document.querySelectorAll('.quote-info-option').forEach(cb => cb.addEventListener('change', updateQuoteMessagePreview));
 
             function updateQuoteMessagePreview() {
-                let finalMessage = quoteMessagePreview.dataset.baseMessage || ""; // Get the base message
-
-                // Add separator if any contact info is selected
-                const hasContactInfoSelected = includeSellerNameCheckbox.checked || includeSellerWhatsappCheckbox.checked || includeSellerEmailCheckbox.checked ||
-                                               includeCompanyAddressCheckbox.checked || includeCompanyCnpjCheckbox.checked || includeCompanyWhatsappCheckbox.checked || includeCompanyEmailCheckbox.checked;
-
-                if (hasContactInfoSelected) {
-                    finalMessage += `\n-------- Informações para Contato --------\n\n`;
-                }
-
-                if (includeSellerNameCheckbox.checked) {
-                    finalMessage += `*Vendedor:* ${loggedInUser.name}\n`;
-                }
-                if (includeSellerWhatsappCheckbox.checked) {
-                    finalMessage += `*WhatsApp Vendedor:* wa.me/55${loggedInUser.phone.replace(/\D/g, "")}\n`;
-                }
-                if (includeSellerEmailCheckbox.checked) {
-                    finalMessage += `*Email Vendedor:* ${loggedInUser.email}\n`;
-                }
-
-                if (includeCompanyAddressCheckbox.checked) {
-                    finalMessage += `*Endereço Empresa:* ${companyInfo.address}\n`;
-                }
-                if (includeCompanyCnpjCheckbox.checked) {
-                    finalMessage += `*CNPJ Empresa:* ${companyInfo.cnpj}\n`;
-                }
-                if (includeCompanyWhatsappCheckbox.checked) {
-                    finalMessage += `*WhatsApp Empresa:* wa.me/55${companyInfo.phone.replace(/\D/g, "")}\n`;
-                }
-                if (includeCompanyEmailCheckbox.checked) {
-                    finalMessage += `*Email Empresa:* ${companyInfo.email}\n`;
-                }
-
-                finalMessage += `\nAtenciosamente, *Galvão Drones*`; // Re-add closing phrase
-
+                const selectedLine = document.querySelector('input[name="quote_product_line"]:checked')?.value || "";
+                const selectedType = document.querySelector('input[name="quote_product_type"]:checked')?.value || "";
+                const details = quoteRequestDetailsInput.value.trim();
+                let finalMessage = `*Solicitação de Orçamento - Galvão Drones*\n\n*Linha:* ${selectedLine}\n*Tipo:* ${selectedType}\n*Detalhes:* ${details}\n\n-------- Contato --------\n`;
+                if (includeSellerNameCheckbox.checked) finalMessage += `*Vendedor:* ${loggedInUser.name}\n`;
+                if (includeSellerWhatsappCheckbox.checked) finalMessage += `*WhatsApp Vendedor:* wa.me/55${loggedInUser.phone.replace(/\D/g, "")}\n`;
+                if (includeSellerEmailCheckbox.checked) finalMessage += `*Email Vendedor:* ${loggedInUser.email}\n`;
+                if (includeCompanyAddressCheckbox.checked) finalMessage += `*Endereço Empresa:* ${companyInfo.address}\n`;
+                if (includeCompanyCnpjCheckbox.checked) finalMessage += `*CNPJ Empresa:* ${companyInfo.cnpj}\n`;
+                if (includeCompanyWhatsappCheckbox.checked) finalMessage += `*WhatsApp Empresa:* wa.me/55${companyInfo.phone.replace(/\D/g, "")}\n`;
+                if (includeCompanyEmailCheckbox.checked) finalMessage += `*Email Empresa:* ${companyInfo.email}\n`;
                 quoteMessagePreview.innerHTML = finalMessage.replace(/\n/g, "<br>").replace(/\*(.*?)\*/g, "<b>$1</b>");
             }
 
             confirmSendQuoteButton.addEventListener("click", () => {
-                const messageToSend = quoteMessagePreview.innerText; // Get the final message from preview
+                const messageToSend = quoteMessagePreview.innerText;
                 const selectedSuppliers = Array.from(quoteSuppliersCheckboxesDiv.querySelectorAll('input[name="selected_supplier"]:checked'));
-
-                selectedSuppliers.forEach(supplierCheckbox => {
-                    const supplierPhone = supplierCheckbox.dataset.phone;
-                    shareOnWhatsApp(supplierPhone, messageToSend);
-                });
-
-                // Show success message and close modals
+                selectedSuppliers.forEach(supplierCheckbox => shareOnWhatsApp(supplierCheckbox.dataset.phone, messageToSend));
                 const messageBox = document.createElement('div');
                 messageBox.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
-                messageBox.innerHTML = `
-                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-sm relative p-6 text-center">
-                        <h3 class="text-lg font-bold text-brand-green mb-4">Solicitação Enviada!</h3>
-                        <p class="text-gray-700 dark:text-gray-300 mb-6">Sua solicitação de orçamento foi enviada aos fornecedores selecionados via WhatsApp.</p>
-                        <button id="close-message-box" class="bg-brand-orange text-white px-4 py-2 rounded-md hover:bg-orange-600">OK</button>
-                    </div>
-                `;
+                messageBox.innerHTML = `<div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-sm relative p-6 text-center"><h3 class="text-lg font-bold text-brand-green mb-4">Enviado!</h3><p class="text-gray-700 dark:text-gray-300 mb-6">Sua solicitação foi enviada via WhatsApp.</p><button id="close-message-box" class="bg-brand-orange text-white px-4 py-2 rounded-md hover:bg-orange-600">OK</button></div>`;
                 document.body.appendChild(messageBox);
                 document.getElementById('close-message-box').onclick = () => {
                     messageBox.remove();
                     quoteSendPreviewModal.classList.add("hidden");
-                    requestQuoteModal.classList.add("hidden"); // Close main quote modal as well
+                    requestQuoteModal.classList.add("hidden");
                 };
             });
 
-            // Function to handle sending product info via WhatsApp (generic)
             function handleSendProductWhatsapp(productName, productSpec, productPrice) {
-                // Format product spec to be more readable in the message
-                // Remove the icon prefixes and replace newlines for better readability in WhatsApp
-                const formattedSpec = productSpec
-                    .replace(/💾 /, '')
-                    .replace(/🚁 /, '')
-                    .replace(/🔋 /, '')
-                    .replace(/🌿 /, '')
-                    .replace(/\n/g, '\n'); // Keep newlines for formatting
-
-                // Construct the message for general product sharing (Consultas page)
-                let message = `📦 Produto disponível: *${productName}*\n`;
-                message += `💾 Descrição:\n\n${formattedSpec}\n`;
-                if (productPrice) {
-                    message += `💰 Valor: ${currencyFormatter.format(productPrice)}\n`;
-                }
-                message += `🔗 Caso tenha dúvidas ou queira realizar o pedido, é só me chamar por aqui!\n`;
-                message += `> Consulte disponibilidade`; // New line for availability
-
-                whatsappMessagePreview.innerText = message; // Set message in preview
-                whatsappPhoneInput.value = ""; // Clear the phone number input
-                sendWhatsappModal.classList.remove("hidden"); // Show the modal
+                const formattedSpec = productSpec.replace(/💾 |🚁 |🔋 |🌿 /g, '').replace(/\n/g, '\n');
+                let message = `📦 Produto: *${productName}*\n\n${formattedSpec}\n\n💰 Valor: ${currencyFormatter.format(productPrice)}\n\n🔗 Para mais detalhes ou pedidos, me chame aqui!`;
+                whatsappMessagePreview.innerText = message;
+                whatsappPhoneInput.value = "";
+                sendWhatsappModal.classList.remove("hidden");
             }
 
-            // Event listeners for the new send-whatsapp-modal
-            closeSendWhatsappModal.addEventListener("click", () => {
-                sendWhatsappModal.classList.add("hidden");
-            });
-
-            sendWhatsappModal.addEventListener("click", e => {
-                if (e.target === sendWhatsappModal) {
-                    sendWhatsappModal.classList.add("hidden");
-                }
-            });
-
+            closeSendWhatsappModal.addEventListener("click", () => sendWhatsappModal.classList.add("hidden"));
+            sendWhatsappModal.addEventListener("click", e => { if (e.target === sendWhatsappModal) sendWhatsappModal.classList.add("hidden"); });
             confirmSendWhatsappButtonProduct.addEventListener("click", () => {
                 const phoneNumber = whatsappPhoneInput.value.trim();
                 const message = whatsappMessagePreview.innerText;
-
-                if (phoneNumber) {
-                    shareOnWhatsApp(phoneNumber, message);
-                } else {
-                    // If no number, open WhatsApp without a specific recipient
-                    shareOnWhatsApp("", message); 
-                }
-                sendWhatsappModal.classList.add("hidden"); // Close modal after sending
+                shareOnWhatsApp(phoneNumber, message);
+                sendWhatsappModal.classList.add("hidden");
             });
 
-            // Event listeners for the new sender-name-input-modal
             senderNameForm.addEventListener("submit", (e) => {
                 e.preventDefault();
                 const senderName = senderNameInput.value.trim();
-
                 if (senderName === "") {
-                    // Using a custom message box instead of alert()
                     const messageBox = document.createElement('div');
                     messageBox.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
-                    messageBox.innerHTML = `
-                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-sm relative p-6 text-center">
-                            <h3 class="text-lg font-bold text-red-600 mb-4">Atenção!</h3>
-                            <p class="text-gray-700 dark:text-gray-300 mb-6">Por favor, insira seu nome para enviar a solicitação.</p>
-                            <button id="close-message-box" class="bg-brand-orange text-white px-4 py-2 rounded-md hover:bg-orange-600">OK</button>
-                        </div>
-                    `;
+                    messageBox.innerHTML = `<div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-sm relative p-6 text-center"><h3 class="text-lg font-bold text-red-600 mb-4">Atenção!</h3><p class="text-gray-700 dark:text-gray-300 mb-6">Por favor, insira seu nome.</p><button id="close-message-box" class="bg-brand-orange text-white px-4 py-2 rounded-md hover:bg-orange-600">OK</button></div>`;
                     document.body.appendChild(messageBox);
-                    document.getElementById('close-message-box').onclick = () => {
-                        messageBox.remove();
-                    };
+                    document.getElementById('close-message-box').onclick = () => messageBox.remove();
                     return;
                 }
-
-                // Construct the message for availability consultation
-                let message = `Olá! Gostaria de consultar sobre o produto: *${currentProductForAvailabilityConsult.name}*\n`;
-                message += `Especificações: ${currentProductForAvailabilityConsult.spec.replace(/💾 /, '').replace(/🚁 /, '').replace(/🔋 /, '').replace(/🌿 /, '').replace(/\n/g, '\n')}\n`;
-                message += `Valor: ${currencyFormatter.format(currentProductForAvailabilityConsult.price)}\n\n`;
-                message += `Solicito informações sobre valores e disponibilidade.\n\n`;
-                message += `Atenciosamente,\n${senderName}`;
-
-                shareOnWhatsApp(companyInfo.phone, message); // Always send to company WhatsApp
-                senderNameInputModal.classList.add("hidden"); // Close modal after sending
-            });
-
-            cancelSenderNameButton.addEventListener("click", () => {
+                let message = `Olá! Gostaria de consultar sobre: *${currentProductForAvailabilityConsult.name}*\n\n*Especificações:*\n${currentProductForAvailabilityConsult.spec.replace(/💾 |🚁 |🔋 |🌿 /g, '')}\n\nSolicito informações sobre valores e disponibilidade.\n\nAtenciosamente,\n${senderName}`;
+                shareOnWhatsApp(companyInfo.phone, message);
                 senderNameInputModal.classList.add("hidden");
             });
 
-            // Event listeners for the "Sobre Galvão Drones" buttons
-            document.getElementById("whatsapp-btn-sobre").addEventListener("click", () => {
-                shareOnWhatsApp(companyInfo.phone, "Olá! Gostaria de saber mais sobre a Galvão Drones.");
-            });
+            cancelSenderNameButton.addEventListener("click", () => senderNameInputModal.classList.add("hidden"));
 
-            document.getElementById("instagram-btn-sobre").addEventListener("click", () => {
-                window.open("https://www.instagram.com/galvaodrones", "_blank");
-            });
+            document.getElementById("whatsapp-btn-sobre").addEventListener("click", () => shareOnWhatsApp(companyInfo.phone, "Olá! Gostaria de saber mais sobre a Galvão Drones."));
+            document.getElementById("instagram-btn-sobre").addEventListener("click", () => window.open("https://www.instagram.com/galvaodrones", "_blank"));
+            document.getElementById("youtube-btn-sobre").addEventListener("click", () => window.open("https://www.youtube.com/galvaodronesofc", "_blank"));
+            document.getElementById("rotas-btn-sobre").addEventListener("click", () => window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(companyInfo.address)}`, "_blank"));
 
-            document.getElementById("youtube-btn-sobre").addEventListener("click", () => {
-                window.open("https://www.youtube.com/galvaodronesofc", "_blank");
-            });
-
-            document.getElementById("rotas-btn-sobre").addEventListener("click", () => {
-                const address = encodeURIComponent(companyInfo.address);
-                window.open(`https://www.google.com/maps/search/?api=1&query=${address}`, "_blank");
-            });
-
-            // Initial setup
-            populateInstallmentOptions();
-
-            // Setup search and filter for Drones page (no price)
-            setupSearchAndFilter('drones', products, createProductCard);
-
-            // Setup search and filter for Consultas page (with price)
-            setupSearchAndFilter('consultas', products, createProductCard);
-
-            // Event listeners for quick access links on Dashboard
             document.querySelectorAll('.quick-access-link').forEach(link => {
-                link.addEventListener('click', async e => { // Added async keyword
+                link.addEventListener('click', async e => {
                     e.preventDefault();
                     const pageId = link.dataset.page;
-
                     if (pageId === "admin" && loggedInUser.role === "Administrador") {
-                        // Check if admin access is still valid (within 5 minutes)
-                        if (Date.now() - adminAccessTimestamp < 300000) { // 300,000 ms = 5 minutes
+                        if (Date.now() - adminAccessTimestamp < 300000) {
                             switchPage(pageId);
                             return;
                         }
                         const authorized = await promptForAdminPassword();
-                        if (authorized) {
-                            switchPage(pageId);
-                        }
-                    } else if (pageId !== "admin") { // For non-admin links or if not admin role
+                        if (authorized) switchPage(pageId);
+                    } else if (pageId !== "admin") {
                         switchPage(pageId);
                     }
                 });
             });
+
+            // Initial setup
+            populateInstallmentOptions();
+            showLogin();
         });
     </script>
 </body>
