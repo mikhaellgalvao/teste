@@ -4,21 +4,16 @@
 <head>
     <meta charset="UTF-8">
 
-    <!-- 
-      A META TAG MAIS IMPORTANTE PARA RESPONSIVIDADE.
-      'width=device-width' faz a página ter a mesma largura da tela do dispositivo.
-      'initial-scale=1.0' define o nível de zoom inicial quando a página é carregada.
-      Sem esta linha, os sites em celulares apareceriam com o zoom diminuído, como se fosse uma versão de desktop em miniatura.
-    -->
+    <!-- Meta tag essencial para o design responsivo em dispositivos móveis -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Chat Responsivo</title>
+    <title>Chat com Abertura Automática</title>
 
     <style>
         /*
           Este estilo garante que o fundo da página HTML seja transparente
           e que não haja margens ou barras de rolagem indesejadas.
-          Isso é ideal para sobrepor o botão de chat na interface do seu app.
+          Ideal para sobrepor o chat na interface do seu app.
         */
         html, body {
             margin: 0;
@@ -32,9 +27,20 @@
 <body>
 
     <!-- 
-      Este é o script do JivoChat. Ele é "inteligente" e já foi desenvolvido 
-      para detectar o tamanho da tela (celular, tablet ou desktop) e 
-      renderizar o botão de chat no tamanho e posição corretos.
+      NOVO CÓDIGO: Script para abrir o chat automaticamente.
+      A função 'jivo_onLoadCallback' é chamada pelo JivoChat assim que o widget está pronto.
+      Dentro dela, 'jivo_api.open()' força a abertura da janela de chat.
+      Este script deve vir ANTES do script principal do JivoChat.
+    -->
+    <script type="text/javascript">
+        function jivo_onLoadCallback() {
+            jivo_api.open();
+        }
+    </script>
+
+    <!-- 
+      Script principal do JivoChat que carrega o widget.
+      Ele irá procurar e executar a função 'jivo_onLoadCallback' quando terminar de carregar.
     -->
     <script src="//code.jivosite.com/widget/QibLqXCXMA" async></script>
 
