@@ -85,24 +85,23 @@ class Store {
             const productsRef = window.Firestore.collection(window.db, 'products');
             const usedRef = window.Firestore.collection(window.db, 'used');
 
+            // ESCUTA PRODUTOS
             window.Firestore.onSnapshot(productsRef, (snapshot) => {
                 this.state.products = snapshot.docs.map(d => ({ ...d.data(), fireId: d.id }));
-                const currentPage = document.getElementById('page-title')?.textContent;
-                if(currentPage === 'CONSULTAS') App.navigate('consultas');
-                if(currentPage === 'ADMIN') App.navigate('admin');
+                this._refreshIfActive(['CONSULTAS', 'ADMIN']);
             });
 
+            // ESCUTA USUÁRIOS
             window.Firestore.onSnapshot(usersRef, (snapshot) => {
                 this.state.users = snapshot.docs.map(d => ({ ...d.data(), fireId: d.id }));
                 if (snapshot.empty) this._migrateToCloud(usersRef, FallbackData.users);
-                if(document.getElementById('page-title')?.textContent === 'ADMIN') App.navigate('admin');
+                this._refreshIfActive(['ADMIN']);
             });
 
+            // ESCUTA SEMINOVOS
             window.Firestore.onSnapshot(usedRef, (snapshot) => {
                 this.state.usedProducts = snapshot.docs.map(d => ({ ...d.data(), fireId: d.id }));
-                const currentPage = document.getElementById('page-title')?.textContent;
-                if(currentPage === 'USADOS') App.navigate('usados');
-                if(currentPage === 'ADMIN') App.navigate('admin');
+                this._refreshIfActive(['USADOS', 'ADMIN']);
             });
 
             this.state.marketingAssets = this._normalizeMarketing(FallbackData.marketing);
@@ -111,6 +110,15 @@ class Store {
             this.state.users = FallbackData.users;
             this.state.products = FallbackData.products;
             this.state.usedProducts = FallbackData.used;
+        }
+    }
+
+    // Método auxiliar para atualizar a tela sem perder sessão
+    _refreshIfActive(targetPages) {
+        const currentPage = document.getElementById('page-title')?.textContent;
+        if (targetPages.includes(currentPage)) {
+            console.log(`🔄 Atualizando tela: ${currentPage}`);
+            App.navigate(currentPage.toLowerCase());
         }
     }
 
@@ -481,100 +489,4 @@ const AdminController = {
         const d = idx !== null ? appStore.state[type === 'user' ? 'users' : type === 'product' ? 'products' : 'usedProducts'][idx] : {};
         let h = "";
         if (type === 'user') {
-            h = `<input id="af-name" value="${d.name || ''}" placeholder="Nome" class="w-full p-4 border rounded-xl bg-gray-50 dark:bg-zinc-800 dark:text-white"><input id="af-username" value="${d.username || ''}" placeholder="Usuário" class="w-full p-4 border rounded-xl bg-gray-50 dark:bg-zinc-800 dark:text-white"><input id="af-password" value="${d.password || ''}" placeholder="Senha" class="w-full p-4 border rounded-xl bg-gray-50 dark:bg-zinc-800 dark:text-white"><select id="af-role" class="w-full p-4 border rounded-xl dark:bg-zinc-800 dark:text-white"><option value="Vendedor" ${d.role === 'Vendedor' ? 'selected' : ''}>Vendedor</option><option value="Vendas externa" ${d.role === 'Vendas externa' ? 'selected' : ''}>Vendas externa</option><option value="Administrador" ${d.role === 'Administrador' ? 'selected' : ''}>Administrador</option></select>`;
-        } else if (type === 'product') {
-            h = `<input id="af-name" value="${d.name || ''}" placeholder="Nome Produto" class="w-full p-4 border rounded-xl bg-gray-50 dark:bg-zinc-800 dark:text-white"><input id="af-sell" value="${d.sell || ''}" placeholder="Preço (ex: 2.500,00)" class="w-full p-4 border rounded-xl bg-gray-50 dark:bg-zinc-800 dark:text-white">`;
-        }
-        document.getElementById('admin-dynamic-form').innerHTML = h;
-        Modals.open('admin-form-modal');
-    },
-    save: async () => {
-        const { type, index } = appStore.state.adminEdit;
-        let item = {};
-        if (type === 'user') {
-            item = { name: document.getElementById('af-name').value, username: document.getElementById('af-username').value, password: document.getElementById('af-password').value, role: document.getElementById('af-role').value, phone: "", city: "Goiânia - GO", address: "", avatar: "" };
-        } else if (type === 'product') {
-            item = { name: document.getElementById('af-name').value, sell: document.getElementById('af-sell').value, cost: "0,00", line: "DJI", icon: "🛸", type: "Equipamentos" };
-        }
-        if (index !== null) await appStore.updateItem(type, index, item);
-        else await appStore.addItem(type, item);
-        Modals.close('admin-form-modal');
-        App.navigate('admin');
-    },
-    delete: (type, idx) => { appStore.state.deleteTarget = { type, index: idx }; Modals.open('delete-confirm-modal'); },
-    confirmDelete: async () => { await appStore.deleteItem(appStore.state.deleteTarget.type, appStore.state.deleteTarget.index); Modals.close('delete-confirm-modal'); App.navigate('admin'); }
-};
-
-const ContactController = {
-    sendUsed: (opt) => {
-        const p = appStore.state.usedProducts[appStore.state.currentUsedIdx];
-        const msg = opt === 'reserve' ? `🛑 RESERVA: ${p.name}` : `🔍 CONSULTA: ${p.name}`;
-        window.open(`https://wa.me/55${Config.centralNumber}?text=${encodeURIComponent(msg)}`, '_blank');
-    },
-    sendAvailability: () => {
-        const sel = Array.from(document.querySelectorAll('input[name="vend_chk"]:checked')).map(c => c.value);
-        if (!sel.length) return alert("Selecione");
-        const msg = `🔍 CONSULTA: ${appStore.state.currentProduct}`;
-        sel.forEach(s => window.open(`https://wa.me/55${Config.contacts[s]}?text=${encodeURIComponent(msg)}`, '_blank'));
-    }
-};
-
-const App = {
-    init: async () => { await appStore.loadData(); App.renderLogin(); Bypass.init(); },
-    renderLogin: () => { document.getElementById('app-root').innerHTML = Templates.login(); document.getElementById('modals-container').innerHTML = Templates.getModals(); },
-    renderApp: () => { document.getElementById('app-root').innerHTML = ViewRenderer.dashboardLayout(); document.getElementById('modals-container').innerHTML = Templates.getModals(); App.navigate('dashboard'); App.setupCalculator(); },
-    handleLogin: async (e) => {
-        e.preventDefault();
-        const res = await AuthService.login(document.getElementById('username-input').value, document.getElementById('password-input').value);
-        if (res.success) App.renderApp();
-        else { const err = document.getElementById('error-message'); err.textContent = res.msg; err.classList.remove('hidden'); }
-    },
-    handleVisitorLogin: async () => { await AuthService.login("consultas", ""); appStore.setUser({ name: "Visitante", role: "Visitante", avatar: "" }); App.renderApp(); },
-    navigate: (p) => {
-        if (p === 'admin' && !appStore.state.adminSession) { Modals.open('admin-login-modal'); AdminController.initLogin(); return; }
-        document.getElementById('page-title').textContent = p.toUpperCase();
-        const c = document.getElementById('main-content');
-        if (p === 'dashboard') c.innerHTML = ViewRenderer.dashboard();
-        if (p === 'consultas') c.innerHTML = ViewRenderer.catalog();
-        if (p === 'usados') c.innerHTML = ViewRenderer.used();
-        if (p === 'perfil') c.innerHTML = ViewRenderer.profile();
-        if (p === 'admin') c.innerHTML = ViewRenderer.admin();
-        document.getElementById('sidebar-menu').classList.add('-translate-x-full');
-        document.getElementById('sidebar-overlay').style.display = 'none';
-    },
-    setupCalculator: () => {
-        const inp = document.getElementById('popup-sale-value'); const sel = document.getElementById('popup-installments');
-        if (!inp) return;
-        const calc = () => {
-            const v = parseFloat(inp.value) || 0; const i = parseInt(sel.value) || 0; const nf = document.getElementById('popup-include-nf').checked ? 1.06 : 1;
-            if (v > 0 && i > 0) {
-                const tot = (v * nf) * (1 + (Config.installmentRates[i] || 0) / 100);
-                document.getElementById('popup-total-value').textContent = Utils.fmtBRL.format(tot);
-                document.getElementById('popup-installment-value').textContent = `${i}x de ${Utils.fmtBRL.format(tot / i)}`;
-                document.getElementById('popup-calculator-results').classList.remove('hidden');
-            }
-        };
-        inp.oninput = calc; sel.onchange = calc; document.getElementById('popup-include-nf').onchange = calc;
-    },
-    shareCalc: () => { window.open(`https://wa.me/?text=${encodeURIComponent("*Simulação:* " + document.getElementById('popup-total-value').textContent)}`, '_blank'); }
-};
-
-const ProfileController = {
-    genQRCode: () => {
-        const u = appStore.state.currentUser;
-        const phone = document.getElementById('qr-central-check').checked ? Config.centralNumber : (u.phone || Config.centralNumber);
-        const img = document.getElementById('profile-qrcode');
-        img.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent('https://wa.me/55' + phone)}`;
-        img.classList.remove('opacity-0');
-    }
-};
-
-const Bypass = {
-    clicks: 0,
-    init: () => {
-        const trigger = document.getElementById('login-logo-trigger');
-        if(trigger) trigger.onclick = () => { Bypass.clicks++; if (Bypass.clicks >= 5) { localStorage.clear(); location.reload(); } }; 
-    }
-};
-
-document.addEventListener('DOMContentLoaded', App.init);
+            h = `<input id="af-name" value="${d.name || ''}" placeholder="Nome" class="w-full p-4 border rounded-xl bg-gray-50 dark:bg-zinc-800 dark:text-white"><input id="af-username" value="${d.username || ''}" placeholder="Usuário" class="w-full p-4 border rounded-xl bg-gray-50 dark:bg-zinc-800 dark:text-white"><input id="af-password" value="${d.password || ''}" placeholder="Senha" class="w-full p-4 border rounded-xl bg-gray-50 dark:bg-zinc-800 dark:text-white"><select id="af-role" class="w-full p-4 border rounded-xl dark:bg
