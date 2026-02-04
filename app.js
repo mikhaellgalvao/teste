@@ -40,14 +40,12 @@ const Utils = {
     fmtBRL: new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }),
     cleanCurrency: (val) => parseFloat((val || "0").toString().replace(/\./g, '').replace(',', '.')),
     toggleTheme: () => document.documentElement.classList.toggle('dark'),
-   reload: () => {
-    // Limpa o estado da sessão administrativa e o usuário atual
-    appStore.state.currentUser = null;
-    appStore.state.adminSession = false;
-    // Limpa qualquer dado de persistência (caso venha a usar)
-    localStorage.clear(); 
-    location.reload();
-}
+    reload: () => {
+        appStore.state.currentUser = null;
+        appStore.state.adminSession = false;
+        localStorage.clear(); 
+        location.reload();
+    },
     wait: (ms) => new Promise(r => setTimeout(r, ms))
 };
 
@@ -83,53 +81,33 @@ class Store {
     async loadData() {
         try {
             console.log("🛰️ Ativando Sincronização em Tempo Real...");
-            
             const usersRef = window.Firestore.collection(window.db, 'users');
             const productsRef = window.Firestore.collection(window.db, 'products');
             const usedRef = window.Firestore.collection(window.db, 'used');
 
-            // ESCUTA EM TEMPO REAL: PRODUTOS NOVOS
             window.Firestore.onSnapshot(productsRef, (snapshot) => {
                 this.state.products = snapshot.docs.map(d => ({ ...d.data(), fireId: d.id }));
-                console.log("🔄 Produtos novos atualizados!");
-                
-                // Se o usuário estiver na tela de Consultas ou Admin, atualiza a visão
                 const currentPage = document.getElementById('page-title')?.textContent;
                 if(currentPage === 'CONSULTAS') App.navigate('consultas');
                 if(currentPage === 'ADMIN') App.navigate('admin');
             });
 
-            // ESCUTA EM TEMPO REAL: USUÁRIOS/EQUIPE
             window.Firestore.onSnapshot(usersRef, (snapshot) => {
                 this.state.users = snapshot.docs.map(d => ({ ...d.data(), fireId: d.id }));
-                console.log("🔄 Lista de usuários atualizada!");
-                
-                if (snapshot.empty) {
-                    console.warn("⚠️ Banco vazio, migrando dados de fallback...");
-                    this._migrateToCloud(usersRef, FallbackData.users);
-                }
-
-                // Se estiver na tela de Gestão, atualiza a lista da equipe na hora
-                if(document.getElementById('page-title')?.textContent === 'ADMIN') {
-                    App.navigate('admin');
-                }
+                if (snapshot.empty) this._migrateToCloud(usersRef, FallbackData.users);
+                if(document.getElementById('page-title')?.textContent === 'ADMIN') App.navigate('admin');
             });
 
-            // ESCUTA EM TEMPO REAL: SEMINOVOS
             window.Firestore.onSnapshot(usedRef, (snapshot) => {
                 this.state.usedProducts = snapshot.docs.map(d => ({ ...d.data(), fireId: d.id }));
-                console.log("🔄 Seminovos atualizados!");
-                
                 const currentPage = document.getElementById('page-title')?.textContent;
                 if(currentPage === 'USADOS') App.navigate('usados');
                 if(currentPage === 'ADMIN') App.navigate('admin');
             });
 
-            // Ativos de Marketing (Estáticos no fallback por enquanto)
             this.state.marketingAssets = this._normalizeMarketing(FallbackData.marketing);
-            
         } catch (e) {
-            console.error("❌ Erro Cloud. Usando modo segurança.", e);
+            console.error("❌ Erro Cloud.", e);
             this.state.users = FallbackData.users;
             this.state.products = FallbackData.products;
             this.state.usedProducts = FallbackData.used;
@@ -147,9 +125,8 @@ class Store {
 
     async addItem(type, item) {
         const colMap = { 'user': 'users', 'product': 'products', 'used': 'used' };
-        try {
-            await window.Firestore.addDoc(window.Firestore.collection(window.db, colMap[type]), item);
-        } catch (e) { console.error("Erro ao salvar:", e); }
+        try { await window.Firestore.addDoc(window.Firestore.collection(window.db, colMap[type]), item); }
+        catch (e) { console.error("Erro ao salvar:", e); }
     }
 
     async updateItem(type, index, item) {
@@ -157,9 +134,8 @@ class Store {
         const stateKey = type === 'user' ? 'users' : type === 'product' ? 'products' : 'usedProducts';
         const oldItem = this.state[stateKey][index];
         if (oldItem.fireId) {
-            try {
-                await window.Firestore.updateDoc(window.Firestore.doc(window.db, colMap[type], oldItem.fireId), item);
-            } catch (e) { console.error("Erro ao atualizar:", e); }
+            try { await window.Firestore.updateDoc(window.Firestore.doc(window.db, colMap[type], oldItem.fireId), item); }
+            catch (e) { console.error("Erro ao atualizar:", e); }
         }
     }
 
@@ -168,9 +144,8 @@ class Store {
         const stateKey = type === 'user' ? 'users' : type === 'product' ? 'products' : 'usedProducts';
         const item = this.state[stateKey][index];
         if (item.fireId) {
-            try {
-                await window.Firestore.deleteDoc(window.Firestore.doc(window.db, colMap[type], item.fireId));
-            } catch (e) { console.error("Erro ao deletar:", e); }
+            try { await window.Firestore.deleteDoc(window.Firestore.doc(window.db, colMap[type], item.fireId)); }
+            catch (e) { console.error("Erro ao deletar:", e); }
         }
     }
 
@@ -202,12 +177,6 @@ class AuthService {
             }
             return { success: false, msg: "Credenciais Inválidas" };
         }
-    }
-    static canAccess(f) {
-        const r = appStore.state.currentUser?.role;
-        if (r === 'Administrador') return true;
-        if (f === 'admin') return false;
-        return true;
     }
 }
 
@@ -268,7 +237,7 @@ const Templates = {
             <div class="bg-white dark:bg-zinc-900 w-full max-w-2xl rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col md:flex-row max-h-[90vh]">
                 <div class="w-full md:w-1/2 h-64 md:h-auto bg-gray-100 dark:bg-zinc-800 relative"><div id="modal-used-main-img" class="absolute inset-0 bg-cover bg-center"></div></div>
                 <div class="w-full md:w-1/2 p-8 flex flex-col overflow-y-auto">
-                    <div class="flex justify-between mb-4"><h2 id="modal-used-title" class="text-2xl font-black dark:text-white uppercase italic italic w-3/4"></h2><button onclick="Modals.close('used-details-modal')" class="p-2 text-gray-500">✕</button></div>
+                    <div class="flex justify-between mb-4"><h2 id="modal-used-title" class="text-2xl font-black dark:text-white uppercase italic w-3/4"></h2><button onclick="Modals.close('used-details-modal')" class="p-2 text-gray-500">✕</button></div>
                     <div id="modal-used-thumbnails" class="flex gap-2 overflow-x-auto mb-6"></div>
                     <p id="modal-used-desc" class="text-sm text-gray-600 dark:text-gray-300 mb-6"></p>
                     <div class="mt-auto pt-6 border-t dark:border-zinc-800">
@@ -421,10 +390,6 @@ const ViewRenderer = {
         </div>`;
     },
     _cardBtn: (p, c, t, i) => `<button onclick="App.navigate('${p}')" class="p-8 bg-white dark:bg-zinc-900 rounded-[2.5rem] border dark:border-zinc-800 flex flex-col items-center w-full"><div class="p-5 rounded-3xl mb-4 ${c}"><svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="${i}" stroke-width="2" stroke-linecap="round"></path></svg></div><span class="font-black uppercase text-xs dark:text-white tracking-widest italic">${t}</span></button>`,
-    filterGrid: (inp, sel) => {
-        const val = inp.value.toLowerCase();
-        document.querySelectorAll(sel).forEach(c => c.style.display = c.innerText.toLowerCase().includes(val) ? 'block' : 'none');
-    }
 };
 
 /**
@@ -436,24 +401,6 @@ const Modals = {
     open: (id) => document.getElementById(id).classList.remove('hidden'),
     close: (id) => document.getElementById(id).classList.add('hidden'),
     toggleCalculator: () => document.getElementById('calculator-popup').classList.toggle('hidden'),
-    openDrive: (k) => {
-        const u = Config.driveLinks[k];
-        if (!u) return alert("Erro");
-        const m = document.getElementById('drive-webview-modal');
-        document.getElementById('drive-iframe').src = u;
-        m.classList.remove('hidden');
-    },
-    openMarketing: (idx) => {
-        const m = appStore.state.marketingAssets[idx];
-        document.getElementById('mkt-modal-title').textContent = m.title;
-        document.getElementById('mkt-variations-list').innerHTML = m.variations.map(v => `
-            <label class="flex items-center p-3 rounded-xl bg-gray-50 dark:bg-zinc-800 cursor-pointer mb-2 border-2 border-transparent">
-                <input type="radio" name="mkt-file" value="${v.url}" class="mr-3">
-                <span class="text-xs font-bold dark:text-white uppercase">${v.name}</span>
-            </label>
-        `).join('');
-        Modals.open('marketing-modal');
-    },
     openShare: (n, p) => {
         appStore.state.currentShareProduct = { name: n, price: p };
         document.getElementById('share-product-name').textContent = n;
@@ -547,7 +494,7 @@ const AdminController = {
         if (type === 'user') {
             item = { name: document.getElementById('af-name').value, username: document.getElementById('af-username').value, password: document.getElementById('af-password').value, role: document.getElementById('af-role').value, phone: "", city: "Goiânia - GO", address: "", avatar: "" };
         } else if (type === 'product') {
-            item = { name: document.getElementById('af-name').value, sell: document.getElementById('af-sell').value, line: "DJI", icon: "🛸", type: "Equipamentos" };
+            item = { name: document.getElementById('af-name').value, sell: document.getElementById('af-sell').value, cost: "0,00", line: "DJI", icon: "🛸", type: "Equipamentos" };
         }
         if (index !== null) await appStore.updateItem(type, index, item);
         else await appStore.addItem(type, item);
@@ -590,10 +537,8 @@ const App = {
         if (p === 'dashboard') c.innerHTML = ViewRenderer.dashboard();
         if (p === 'consultas') c.innerHTML = ViewRenderer.catalog();
         if (p === 'usados') c.innerHTML = ViewRenderer.used();
-        if (p === 'marketing') c.innerHTML = ViewRenderer.marketing();
         if (p === 'perfil') c.innerHTML = ViewRenderer.profile();
         if (p === 'admin') c.innerHTML = ViewRenderer.admin();
-        if (p === 'sobre') c.innerHTML = ViewRenderer.about();
         document.getElementById('sidebar-menu').classList.add('-translate-x-full');
         document.getElementById('sidebar-overlay').style.display = 'none';
     },
@@ -626,7 +571,10 @@ const ProfileController = {
 
 const Bypass = {
     clicks: 0,
-    init: () => { document.getElementById('login-logo-trigger').onclick = () => { Bypass.clicks++; if (Bypass.clicks >= 5) { localStorage.clear(); location.reload(); } }; }
+    init: () => {
+        const trigger = document.getElementById('login-logo-trigger');
+        if(trigger) trigger.onclick = () => { Bypass.clicks++; if (Bypass.clicks >= 5) { localStorage.clear(); location.reload(); } }; 
+    }
 };
 
 document.addEventListener('DOMContentLoaded', App.init);
