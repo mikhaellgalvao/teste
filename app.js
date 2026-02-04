@@ -23,7 +23,7 @@ const FallbackData = {
     ],
     products: [{ id: 1000, name: "Drone DJI Neo 2", cost: "1.660,00", sell: "2.324,00", line: "Consumer" }],
     used: [{ name: "Mavic 3 Pro", price: "14.000,00", condition: "Seminovo", images: ["https://imgur.com/2PNy5CS.png"] }],
-    marketing: [{ title: "Logo Vetor", type: "Logo", downloadUrl: "assets/logo.svg" }]
+    marketing: [{ title: "Logo Vetor (SVG)", type: "Logo", downloadUrl: "assets/logo.svg" }]
 };
 
 const Utils = {
@@ -31,8 +31,6 @@ const Utils = {
     cleanCurrency: (val) => parseFloat((val || "0").toString().replace(/\./g, '').replace(',', '.')),
     toggleTheme: () => document.documentElement.classList.toggle('dark'),
     reload: () => { 
-        appStore.state.currentUser = null;
-        appStore.state.adminSession = false;
         localStorage.clear(); 
         location.reload(); 
     },
@@ -48,10 +46,9 @@ class Store {
     constructor() {
         this.state = {
             currentUser: null, users: [], products: [], usedProducts: [], marketingAssets: [],
-            adminSession: false, isLocked: false, loginAttempts: 0,
-            currentProduct: "", currentShareProduct: { name: "", price: 0 },
-            shareMode: 'vista', adminEdit: { type: null, index: null },
-            currentUsedIdx: null, deleteTarget: null
+            adminSession: false, isLocked: false, loginAttempts: 0, currentProduct: "",
+            currentShareProduct: { name: "", price: 0 }, shareMode: 'vista',
+            adminEdit: { type: null, index: null }, currentUsedIdx: null, deleteTarget: null
         };
     }
 
@@ -60,24 +57,24 @@ class Store {
 
     async loadData() {
         try {
-            console.log("🛰️ Sincronização em Tempo Real Ativa...");
+            console.log("🛰️ Sincronização Cloud Ativa...");
             const usersRef = window.Firestore.collection(window.db, 'users');
             const productsRef = window.Firestore.collection(window.db, 'products');
             const usedRef = window.Firestore.collection(window.db, 'used');
 
-            window.Firestore.onSnapshot(productsRef, (snapshot) => {
-                this.state.products = snapshot.docs.map(d => ({ ...d.data(), fireId: d.id }));
+            window.Firestore.onSnapshot(productsRef, (snap) => {
+                this.state.products = snap.docs.map(d => ({ ...d.data(), fireId: d.id }));
                 this._refreshIfActive(['CONSULTAS', 'ADMIN']);
             });
 
-            window.Firestore.onSnapshot(usersRef, (snapshot) => {
-                this.state.users = snapshot.docs.map(d => ({ ...d.data(), fireId: d.id }));
-                if (snapshot.empty) this._migrateToCloud(usersRef, FallbackData.users);
+            window.Firestore.onSnapshot(usersRef, (snap) => {
+                this.state.users = snap.docs.map(d => ({ ...d.data(), fireId: d.id }));
+                if (snap.empty) this._migrateToCloud(usersRef, FallbackData.users);
                 this._refreshIfActive(['ADMIN']);
             });
 
-            window.Firestore.onSnapshot(usedRef, (snapshot) => {
-                this.state.usedProducts = snapshot.docs.map(d => ({ ...d.data(), fireId: d.id }));
+            window.Firestore.onSnapshot(usedRef, (snap) => {
+                this.state.usedProducts = snap.docs.map(d => ({ ...d.data(), fireId: d.id }));
                 this._refreshIfActive(['USADOS', 'ADMIN']);
             });
 
@@ -92,13 +89,7 @@ class Store {
 
     _refreshIfActive(pages) {
         const title = document.getElementById('page-title')?.textContent;
-        if (pages.includes(title)) App.navigate(title.toLowerCase());
-    }
-
-    async _migrateToCloud(ref, data) {
-        const batch = window.Firestore.writeBatch(window.db);
-        data.forEach(item => batch.set(window.Firestore.doc(ref), item));
-        await batch.commit();
+        if (title && pages.includes(title)) App.navigate(title.toLowerCase());
     }
 
     async addItem(type, item) {
@@ -108,16 +99,22 @@ class Store {
 
     async updateItem(type, index, item) {
         const col = type === 'user' ? 'users' : type === 'product' ? 'products' : 'used';
-        const stateKey = type === 'user' ? 'users' : type === 'product' ? 'products' : 'usedProducts';
-        const id = this.state[stateKey][index].fireId;
+        const key = type === 'user' ? 'users' : type === 'product' ? 'products' : 'usedProducts';
+        const id = this.state[key][index].fireId;
         if (id) await window.Firestore.updateDoc(window.Firestore.doc(window.db, col, id), item);
     }
 
     async deleteItem(type, index) {
         const col = type === 'user' ? 'users' : type === 'product' ? 'products' : 'used';
-        const stateKey = type === 'user' ? 'users' : type === 'product' ? 'products' : 'usedProducts';
-        const id = this.state[stateKey][index].fireId;
+        const key = type === 'user' ? 'users' : type === 'product' ? 'products' : 'usedProducts';
+        const id = this.state[key][index].fireId;
         if (id) await window.Firestore.deleteDoc(window.Firestore.doc(window.db, col, id));
+    }
+
+    async _migrateToCloud(ref, data) {
+        const batch = window.Firestore.writeBatch(window.db);
+        data.forEach(item => batch.set(window.Firestore.doc(ref), item));
+        await batch.commit();
     }
 }
 
@@ -130,32 +127,43 @@ const appStore = new Store();
  */
 class AuthService {
     static async login(username, password) {
-        if (appStore.state.isLocked) return { success: false, msg: "Sistema Bloqueado." };
-        const user = appStore.state.users.find(u => u.username.toLowerCase() === username.toLowerCase() && u.password === password);
-        if (user) { appStore.setUser(user); return { success: true }; }
-        appStore.state.loginAttempts++;
-        if (appStore.state.loginAttempts >= 3) { appStore.state.isLocked = true; setTimeout(() => appStore.state.isLocked = false, 30000); }
-        return { success: false, msg: "Usuário ou Senha inválidos." };
+        if (appStore.state.isLocked) return { success: false, msg: "Temporariamente Bloqueado." };
+        
+        // Garante acesso mesmo se o Firebase estiver carregando
+        const list = appStore.state.users.length > 0 ? appStore.state.users : FallbackData.users;
+        const user = list.find(u => u.username.toLowerCase() === username.toLowerCase() && u.password === password);
+        
+        if (user) {
+            appStore.setUser(user);
+            return { success: true };
+        } else {
+            appStore.state.loginAttempts++;
+            if (appStore.state.loginAttempts >= 3) {
+                appStore.state.isLocked = true;
+                setTimeout(() => appStore.state.isLocked = false, 30000);
+            }
+            return { success: false, msg: "Usuário ou Senha inválidos." };
+        }
     }
 }
 
 /**
  * ==========================================
- * 4. TEMPLATES & VIEW RENDERER
+ * 4. TEMPLATES & RENDERER
  * ==========================================
  */
 const Templates = {
     login: () => `
         <div class="min-h-screen flex items-center justify-center p-4 bg-gray-100 dark:bg-black">
             <div class="bg-white dark:bg-zinc-900 w-full max-w-md p-8 rounded-[2.5rem] shadow-2xl border dark:border-zinc-800">
-                <div class="flex justify-center mb-8"><div id="login-logo-trigger" class="w-24 h-24 bg-gray-50 dark:bg-zinc-800 rounded-full flex items-center justify-center"><img src="https://imgur.com/ny5U9KV.png" class="w-16 h-16"></div></div>
+                <div class="flex justify-center mb-8"><div id="login-logo-trigger" class="w-24 h-24 bg-gray-50 dark:bg-zinc-800 rounded-full flex items-center justify-center cursor-pointer"><img src="https://imgur.com/ny5U9KV.png" class="w-16 h-16"></div></div>
                 <h2 class="text-center text-2xl font-black text-brand-green dark:text-white uppercase italic mb-8">Galvão Drones</h2>
                 <form onsubmit="App.handleLogin(event)" class="space-y-4">
                     <input type="text" id="username-input" placeholder="Usuário" class="w-full px-6 py-4 rounded-2xl bg-gray-50 dark:bg-zinc-800 border-none font-bold outline-none uppercase">
                     <input type="password" id="password-input" placeholder="Senha" class="w-full px-6 py-4 rounded-2xl bg-gray-50 dark:bg-zinc-800 border-none font-bold outline-none">
                     <div id="error-message" class="hidden p-3 bg-red-50 text-red-500 text-xs font-bold text-center rounded-xl"></div>
                     <button type="submit" class="w-full py-4 bg-brand-orange text-white font-black rounded-2xl shadow-lg uppercase text-xs">Entrar no Sistema</button>
-                    <button type="button" onclick="App.handleVisitorLogin()" class="w-full mt-2 text-[10px] font-bold text-gray-400 uppercase">Modo Visitante</button>
+                    <button type="button" onclick="App.handleVisitorLogin()" class="w-full mt-2 text-[10px] font-bold text-gray-400 uppercase">Acesso Consultas</button>
                 </form>
             </div>
         </div>`,
@@ -163,10 +171,10 @@ const Templates = {
         <div id="sidebar-overlay" onclick="document.getElementById('sidebar-menu').classList.add('-translate-x-full'); this.style.display='none'"></div>
         <div id="admin-login-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
             <div class="bg-white dark:bg-zinc-900 w-full max-w-sm p-6 rounded-[2rem] text-center shadow-2xl">
-                <h3 class="text-xl font-black text-brand-orange uppercase italic mb-6">Acesso Admin</h3>
+                <h3 class="text-xl font-black text-brand-orange uppercase italic mb-6">Teclado Admin</h3>
                 <div id="keypad-display" class="h-12 bg-gray-100 dark:bg-zinc-800 rounded-xl mb-4 flex items-center justify-center text-2xl font-black dark:text-white"></div>
                 <div id="virtual-keypad" class="keypad-grid mb-4"></div>
-                <button onclick="Modals.close('admin-login-modal')" class="text-xs font-bold text-gray-400 uppercase">Cancelar</button>
+                <button onclick="Modals.close('admin-login-modal')" class="text-xs font-bold text-gray-400 uppercase">Sair</button>
             </div>
         </div>
         <div id="admin-form-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
@@ -198,7 +206,7 @@ const ViewRenderer = {
         return `
         <aside id="sidebar-menu" class="fixed inset-y-0 left-0 w-72 bg-white dark:bg-zinc-900 shadow-2xl transform -translate-x-full lg:relative lg:translate-x-0 transition-transform duration-300 z-40 flex flex-col border-r dark:border-zinc-800">
             <div class="p-8 border-b dark:border-zinc-800 flex flex-col items-center">
-                <div class="w-24 h-24 rounded-full bg-brand-orange text-white flex items-center justify-center font-bold text-3xl mb-4 overflow-hidden profile-avatar-div" style="background-image: url('${u.avatar || ''}')">${u.avatar ? '' : u.name[0]}</div>
+                <div class="w-24 h-24 rounded-full bg-brand-orange text-white flex items-center justify-center font-bold text-3xl mb-4 profile-avatar-div" style="background-image: url('${u.avatar || ''}')">${u.avatar ? '' : u.name[0]}</div>
                 <p class="font-black text-sm dark:text-white uppercase italic">${u.name}</p>
                 <p class="text-[10px] text-brand-green font-bold uppercase mt-1">${u.role}</p>
             </div>
@@ -210,35 +218,11 @@ const ViewRenderer = {
             </nav>
         </aside>`;
     },
-    _header: () => `
-        <header class="h-20 bg-white/90 dark:bg-black/90 backdrop-blur-lg border-b dark:border-zinc-800 px-8 flex items-center justify-between sticky top-0 z-30">
-            <h1 id="page-title" class="text-xl font-black dark:text-white uppercase italic tracking-tighter">Galvão Drones</h1>
-            <div class="flex gap-3">
-                <button onclick="Utils.toggleTheme()" class="p-2.5 rounded-xl bg-gray-100 dark:bg-zinc-800">🌓</button>
-                <button onclick="Utils.reload()" class="px-5 py-2.5 bg-brand-orange text-white font-black rounded-xl text-[10px] uppercase">Sair</button>
-            </div>
-        </header>`,
-    dashboard: () => `
-        <div class="bg-white dark:bg-zinc-900 p-8 rounded-[2.5rem] border dark:border-zinc-800 mb-6">
-            <h2 class="text-3xl font-black italic text-slate-800 dark:text-white uppercase">Olá, <span class="text-brand-orange">${appStore.state.currentUser.name.split(' ')[0]}</span>!</h2>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <button onclick="App.navigate('consultas')" class="p-8 bg-white dark:bg-zinc-900 rounded-[2.5rem] border dark:border-zinc-800 flex flex-col items-center">
-                <span class="font-black uppercase text-xs dark:text-white tracking-widest italic">Catálogo Novos</span>
-            </button>
-        </div>`,
+    _header: () => `<header class="h-20 bg-white/90 dark:bg-black/90 backdrop-blur-lg border-b dark:border-zinc-800 px-8 flex items-center justify-between sticky top-0 z-30"><h1 id="page-title" class="text-xl font-black dark:text-white uppercase italic tracking-tighter">Galvão Drones</h1><div class="flex gap-3"><button onclick="Utils.toggleTheme()" class="p-2.5 rounded-xl bg-gray-100 dark:bg-zinc-800">🌓</button><button onclick="Utils.reload()" class="px-5 py-2.5 bg-brand-orange text-white font-black rounded-xl text-[10px] uppercase">Sair</button></div></header>`,
+    dashboard: () => `<div class="bg-white dark:bg-zinc-900 p-8 rounded-[2.5rem] border dark:border-zinc-800 mb-6"><h2 class="text-3xl font-black italic text-slate-800 dark:text-white uppercase">Bem-vindo, <span class="text-brand-orange">${appStore.state.currentUser.name.split(' ')[0]}</span>!</h2></div><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"><button onclick="App.navigate('consultas')" class="p-8 bg-white dark:bg-zinc-900 rounded-[2.5rem] border dark:border-zinc-800 flex flex-col items-center"><span class="font-black uppercase text-xs dark:text-white italic">Ver Novos</span></button></div>`,
     admin: () => {
-        const make = (t, items, type, row) => `
-            <div class="bg-white dark:bg-zinc-900 rounded-[2rem] border dark:border-zinc-800 overflow-hidden flex flex-col h-[400px]">
-                <div class="p-5 border-b dark:border-zinc-800 flex justify-between items-center"><h3 class="font-black uppercase text-[10px] text-brand-green italic">${t}</h3><button onclick="AdminController.openForm('${type}')" class="p-2 bg-brand-green text-white rounded-lg">+</button></div>
-                <div class="flex-1 overflow-y-auto p-4 space-y-2">${items.map((it, i) => `<div class="flex justify-between items-center p-3 border-b dark:border-zinc-800">${row(it)}<div class="flex gap-2"><button onclick="AdminController.openForm('${type}', ${i})" class="text-blue-500">✎</button><button onclick="AdminController.delete('${type}', ${i})" class="text-red-500">🗑</button></div></div>`).join('')}</div>
-            </div>`;
-        return `
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            ${make("Equipe", appStore.state.users, 'user', u => `<div><p class="text-xs font-bold dark:text-white">${u.name}</p></div>`)}
-            ${make("Novos", appStore.state.products, 'product', p => `<div><p class="text-xs font-bold dark:text-white">${p.name}</p></div>`)}
-            ${make("Usados", appStore.state.usedProducts, 'used', u => `<div><p class="text-xs font-bold dark:text-white">${u.name}</p></div>`)}
-        </div>`;
+        const make = (t, items, type, row) => `<div class="bg-white dark:bg-zinc-900 rounded-[2rem] border dark:border-zinc-800 overflow-hidden flex flex-col h-[400px]"><div class="p-5 border-b dark:border-zinc-800 flex justify-between items-center"><h3 class="font-black uppercase text-[10px] text-brand-green italic">${t}</h3><button onclick="AdminController.openForm('${type}')" class="p-2 bg-brand-green text-white rounded-lg">+</button></div><div class="flex-1 overflow-y-auto p-4 space-y-2">${items.map((it, i) => `<div class="flex justify-between items-center p-3 border-b dark:border-zinc-800">${row(it)}<div class="flex gap-2"><button onclick="AdminController.openForm('${type}', ${i})" class="text-blue-500">✎</button><button onclick="AdminController.delete('${type}', ${i})" class="text-red-500">🗑</button></div></div>`).join('')}</div></div>`;
+        return `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">${make("Equipe", appStore.state.users, 'user', u => `<div><p class="text-xs font-bold dark:text-white">${u.name}</p></div>`)}${make("Novos", appStore.state.products, 'product', p => `<div><p class="text-xs font-bold dark:text-white">${p.name}</p></div>`)}${make("Usados", appStore.state.usedProducts, 'used', u => `<div><p class="text-xs font-bold dark:text-white">${u.name}</p></div>`)}</div>`;
     }
 };
 
@@ -266,7 +250,7 @@ const AdminController = {
     openForm: (type, idx = null) => {
         appStore.state.adminEdit = { type, index: idx };
         const d = idx !== null ? appStore.state[type === 'user' ? 'users' : type === 'product' ? 'products' : 'usedProducts'][idx] : {};
-        let h = type === 'user' ? `<input id="af-name" value="${d.name || ''}" placeholder="Nome" class="w-full p-4 border rounded-xl bg-gray-50 dark:bg-zinc-800 dark:text-white"><input id="af-username" value="${d.username || ''}" placeholder="Usuário" class="w-full p-4 border rounded-xl bg-gray-50 dark:bg-zinc-800 dark:text-white"><input id="af-password" value="${d.password || ''}" placeholder="Senha" class="w-full p-4 border rounded-xl bg-gray-50 dark:bg-zinc-800 dark:text-white"><select id="af-role" class="w-full p-4 border rounded-xl dark:bg-zinc-800 dark:text-white"><option value="Vendedor">Vendedor</option><option value="Administrador">Administrador</option></select>` : `<input id="af-name" value="${d.name || ''}" placeholder="Nome" class="w-full p-4 border rounded-xl bg-gray-50 dark:bg-zinc-800 dark:text-white"><input id="af-sell" value="${d.sell || ''}" placeholder="Preço (ex: 2.500,00)" class="w-full p-4 border rounded-xl bg-gray-50 dark:bg-zinc-800 dark:text-white">`;
+        let h = type === 'user' ? `<input id="af-name" value="${d.name || ''}" placeholder="Nome" class="w-full p-4 border rounded-xl bg-gray-50 dark:bg-zinc-800 dark:text-white"><input id="af-username" value="${d.username || ''}" placeholder="Usuário" class="w-full p-4 border rounded-xl bg-gray-50 dark:bg-zinc-800 dark:text-white"><input id="af-password" value="${d.password || ''}" placeholder="Senha" class="w-full p-4 border rounded-xl bg-gray-50 dark:bg-zinc-800 dark:text-white"><select id="af-role" class="w-full p-4 border rounded-xl dark:bg-zinc-800 dark:text-white"><option value="Vendedor">Vendedor</option><option value="Administrador">Administrador</option></select>` : `<input id="af-name" value="${d.name || ''}" placeholder="Nome" class="w-full p-4 border rounded-xl bg-gray-50 dark:bg-zinc-800 dark:text-white"><input id="af-sell" value="${d.sell || ''}" placeholder="Preço" class="w-full p-4 border rounded-xl bg-gray-50 dark:bg-zinc-800 dark:text-white">`;
         document.getElementById('admin-dynamic-form').innerHTML = h;
         document.getElementById('admin-modal-title').textContent = (idx !== null ? 'Editar ' : 'Novo ') + type;
         Modals.open('admin-form-modal');
@@ -314,10 +298,10 @@ const App = {
 };
 
 const Bypass = {
-    clicks: 0,
     init: () => { 
         const logo = document.getElementById('login-logo-trigger');
-        if(logo) logo.onclick = () => { Bypass.clicks++; if (Bypass.clicks >= 5) { localStorage.clear(); location.reload(); } }; 
+        let clicks = 0;
+        if(logo) logo.onclick = () => { clicks++; if (clicks >= 5) Utils.reload(); }; 
     }
 };
 
