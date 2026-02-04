@@ -1,33 +1,29 @@
-const firebaseConfig = {
-  apiKey: "AIzaSyD...",
-  authDomain: "sistemagalvao.firebaseapp.com",
-  projectId: "sistemagalvao",
-  storageBucket: "...",
-  messagingSenderId: "...",
-  appId: "..."
-};
-
 <div id="modals-container"></div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, getDocs, addDoc, updateDoc, doc, deleteDoc, writeBatch } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, getDocs, addDoc, updateDoc, doc, deleteDoc, writeBatch } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // COLE AQUI O CÓDIGO QUE VOCÊ COPIOU DO SITE DO FIREBASE
-        const firebaseConfig = {
-            // ... cole suas chaves apiKey, authDomain, etc aqui ...
-        };
+    // ⚠️ ATENÇÃO: Cole suas chaves REAIS aqui dentro das aspas!
+    const firebaseConfig = {
+        apiKey: "AIzaSyD...", // <--- Cole a chave real aqui
+        authDomain: "sistemagalvao.firebaseapp.com",
+        projectId: "sistemagalvao",
+        storageBucket: "sistemagalvao.appspot.com",
+        messagingSenderId: "...", // <--- Cole o número real aqui
+        appId: "..." // <--- Cole o ID real aqui
+    };
 
-        // Inicializa o Sistema
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        
-        // Disponibiliza o banco para o app.js
-        window.db = db;
-        window.Firestore = { collection, getDocs, addDoc, updateDoc, doc, deleteDoc, writeBatch };
-        console.log("🔥 Firebase Conectado!");
-    </script>
+    // Inicializa o Sistema
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    
+    // Disponibiliza o banco para o app.js
+    window.db = db;
+    window.Firestore = { collection, getDocs, addDoc, updateDoc, doc, deleteDoc, writeBatch };
+    console.log("🔥 Firebase Conectado!");
+</script>
 
-    <script src="app.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
