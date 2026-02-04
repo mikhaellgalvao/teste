@@ -26,13 +26,11 @@
 <body class="bg-gray-100 dark:bg-black transition-colors duration-300 text-slate-900 dark:text-zinc-100 overflow-x-hidden font-sans antialiased">
 
     <div id="app-root"></div>
-
     <div id="modals-container"></div>
 
    <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        // ADICIONEI 'onSnapshot' NA LISTA ABAIXO 👇
-        import { getFirestore, collection, getDocs, addDoc, updateDoc, doc, deleteDoc, writeBatch, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, updateDoc, doc, deleteDoc, writeBatch, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
           apiKey: "AIzaSyATpM13u9lZYYp2KpAdav65mbKO4Nc8hD0",
@@ -48,12 +46,14 @@
         const db = getFirestore(app);
         
         window.db = db;
-        // ADICIONEI 'onSnapshot' NO OBJETO GLOBAL 👇
-        window.Firestore = { collection, getDocs, addDoc, updateDoc, doc, deleteDoc, writeBatch, onSnapshot };
-        console.log("🔥 Firebase Conectado e Realtime Ativo!");
+        window.Firestore = { collection, addDoc, updateDoc, doc, deleteDoc, writeBatch, onSnapshot };
+        
+        console.log("🔥 Galvão Drones: Firebase Conectado!");
+
+        // Carrega o app.js somente após o Firebase estar pronto para evitar o erro de login
+        const script = document.createElement('script');
+        script.src = 'app.js';
+        document.body.appendChild(script);
     </script>
-    <script type="module" src="app.js"></script>
-</body>
-</html>
 </body>
 </html>
