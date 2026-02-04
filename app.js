@@ -78,28 +78,69 @@ class Store {
     
     async loadData() {
         try {
-            console.log("Tentando carregar JSONs...");
-            const [u, p, us, m, pass] = await Promise.all([
-                this._fetchJson('usuarios.json'),
-                this._fetchJson('produtos.json'),
-                this._fetchJson('usados.json'),
-                this._fetchJson('marketing.json'),
-                this._fetchJson('pas.json')
+            console.log("🔄 Conectando ao Banco de Dados...");
+            
+            // 1. Tenta pegar dados do Firebase (Nuvem)
+            const usersRef = window.Firestore.collection(window.db, 'users');
+            const productsRef = window.Firestore.collection(window.db, 'products');
+            const usedRef = window.Firestore.collection(window.db, 'used');
+            
+            // Executa as 3 buscas ao mesmo tempo
+            const [uSnap, pSnap, usSnap] = await Promise.all([
+                window.Firestore.getDocs(usersRef),
+                window.Firestore.getDocs(productsRef),
+                window.Firestore.getDocs(usedRef)
             ]);
             
-            this.state.users = u?.users || FallbackData.users;
-            this.state.products = p?.products || FallbackData.products;
-            this.state.usedProducts = us?.usedProducts || FallbackData.used;
-            this.state.marketingAssets = this._normalizeMarketing(m?.marketingAssets || FallbackData.marketing);
-            this.state.passwords = pass || { admin: "1234" };
-            
+            // 2. VERIFICAÇÃO INTELIGENTE: O banco está vazio?
+            // Se sim, fazemos a "Migração Automática" (Seed) dos JSONs para a Nuvem.
+            if (pSnap.empty) {
+                console.warn("⚠️ Banco vazio detectado! Migrando dados locais para a nuvem...");
+                
+                // Carrega dados locais do Fallback para a memória
+                this.state.users = FallbackData.users;
+                this.state.products = FallbackData.products;
+                this.state.usedProducts = FallbackData.used;
+                this.state.marketingAssets = this._normalizeMarketing(FallbackData.marketing);
+
+                // Envia para o Firebase (Isso salva para sempre na nuvem!)
+                this._migrateToCloud(usersRef, FallbackData.users);
+                this._migrateToCloud(productsRef, FallbackData.products);
+                this._migrateToCloud(usedRef, FallbackData.used);
+                
+                alert("🚀 Configuração Inicial: Seus produtos foram enviados para o Banco de Dados. Atualize a página em 5 segundos.");
+            } else {
+                // 3. Se já tem dados, usa os da Nuvem (Isso permite a atualização automática!)
+                console.log("✅ Dados carregados da Nuvem (Atualização em Tempo Real)");
+                
+                this.state.users = uSnap.docs.map(d => ({...d.data(), fireId: d.id}));
+                this.state.products = pSnap.docs.map(d => ({...d.data(), fireId: d.id}));
+                this.state.usedProducts = usSnap.docs.map(d => ({...d.data(), fireId: d.id}));
+                
+                // Marketing continua local por enquanto (pois não muda tanto)
+                this.state.marketingAssets = this._normalizeMarketing(FallbackData.marketing);
+            }
+
         } catch (e) { 
-            console.warn("Erro ao carregar JSON, usando dados de segurança.", e);
+            console.error("Erro na conexão Cloud. Usando modo offline.", e);
+            // Se der erro (ex: sem internet), usa os dados locais
             this.state.users = FallbackData.users;
             this.state.products = FallbackData.products;
             this.state.usedProducts = FallbackData.used;
             this.state.marketingAssets = this._normalizeMarketing(FallbackData.marketing);
         }
+    }
+
+
+    async _migrateToCloud(collectionRef, dataArray) {
+        const batch = window.Firestore.writeBatch(window.db);
+        dataArray.forEach(item => {
+            // Cria um novo documento com ID automático
+            const docRef = window.Firestore.doc(collectionRef);
+            batch.set(docRef, item);
+        });
+        await batch.commit();
+        console.log("✅ Migração concluída com sucesso!");
     }
 
     async _fetchJson(url) {
