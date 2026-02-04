@@ -1,0 +1,67 @@
+/* ==========================================================================
+   ESTILOS GLOBAIS E UTILITÁRIOS
+   ========================================================================== */
+
+/* Remove delay de toque em mobile */
+body { -webkit-tap-highlight-color: transparent; }
+
+/* Animações Suaves */
+.fade-in { animation: fadeIn 0.2s ease-in-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ==========================================================================
+   COMPONENTES DE UI
+   ========================================================================== */
+
+/* Efeito de Vidro (Glassmorphism) */
+.glass-card { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(12px); }
+.dark .glass-card { background: rgba(24, 24, 27, 0.98); }
+
+/* Scrollbar Invisível (estética limpa) */
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Imagens e Avatares */
+.card-image-transition { transition: background-image 0.5s ease-in-out; }
+.profile-avatar-div { background-size: cover !important; background-position: center !important; }
+
+/* ==========================================================================
+   NAVEGAÇÃO E INTERATIVIDADE
+   ========================================================================== */
+
+/* Overlay do Sidebar Mobile */
+#sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 35; backdrop-filter: blur(2px); }
+
+/* Link Ativo do Sidebar */
+.sidebar-link.active { background-color: #EF7E13; color: white !important; box-shadow: 0 4px 15px rgba(239, 126, 19, 0.25); }
+
+/* Checkbox personalizado de vendedor */
+.vendedor-option input:checked + div { border-color: #EF7E13; background-color: rgba(239, 126, 19, 0.08); }
+
+/* ==========================================================================
+   ELEMENTOS ESPECÍFICOS (iOS Switch, Teclado, Badges)
+   ========================================================================== */
+
+/* iOS Toggle Switch */
+.switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px; }
+.slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+input:checked + .slider { background-color: #EF7E13; }
+input:checked + .slider:before { transform: translateX(20px); }
+.dark .slider { background-color: #3f3f46; }
+
+/* Teclado Numérico (Admin/Bypass) */
+.keypad-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.key-btn { height: 64px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 800; border-radius: 1.25rem; background: #f3f4f6; transition: all 0.15s; color: #1f2937; user-select: none; box-shadow: 0 2px 0 rgba(0,0,0,0.05); touch-action: manipulation; }
+.dark .key-btn { background: #27272a; color: white; border: 1px solid rgba(255,255,255,0.05); }
+.key-btn:active { transform: scale(0.95); background: #EF7E13; color: white; border-color: #EF7E13; }
+
+/* Badges de Status (Seminovos) */
+.badge-seminovo { background-color: #dbeafe; color: #1e40af; }
+.badge-openbox { background-color: #fce7f3; color: #be185d; }
+.badge-revisado { background-color: #d1fae5; color: #065f46; }
+
+/* Checkbox de Marketing */
+.mkt-checkbox-input:checked ~ div.peer-checked\:border-brand-orange { border-color: #EF7E13; background-color: rgba(239, 126, 19, 0.05); }
+.mkt-checkbox-input:checked ~ div .check-icon { display: block; }
