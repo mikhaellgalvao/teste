@@ -18,7 +18,6 @@
             }
         }
     </script>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
@@ -30,7 +29,7 @@
 
    <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, updateDoc, doc, deleteDoc, writeBatch, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, getDocs, addDoc, updateDoc, doc, deleteDoc, writeBatch, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
           apiKey: "AIzaSyATpM13u9lZYYp2KpAdav65mbKO4Nc8hD0",
@@ -46,11 +45,10 @@
         const db = getFirestore(app);
         
         window.db = db;
-        window.Firestore = { collection, addDoc, updateDoc, doc, deleteDoc, writeBatch, onSnapshot };
-        
-        console.log("🔥 Galvão Drones: Firebase Conectado!");
+        window.Firestore = { collection, getDocs, addDoc, updateDoc, doc, deleteDoc, writeBatch, onSnapshot };
+        console.log("🔥 Firebase Galvão Drones Conectado!");
 
-        // Carrega o app.js somente após o Firebase estar pronto para evitar o erro de login
+        // Inicia o sistema
         const script = document.createElement('script');
         script.src = 'app.js';
         document.body.appendChild(script);
