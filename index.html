@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Portal Galvão Drones</title>
+    <link rel="icon" href="https://imgur.com/ny5U9KV.png" type="image/png">
+    
+    <!-- Tailwind CSS (Via CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: { 'brand-orange': '#EF7E13', 'brand-green': '#0E5847' },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+
+    <!-- Fontes Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Arquivo de Estilos Separado -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100 dark:bg-black transition-colors duration-300 text-slate-900 dark:text-zinc-100 overflow-x-hidden font-sans antialiased">
+
+    <!-- Container Principal do App (React-like root) -->
+    <div id="app-root"></div>
+
+    <!-- Container para Modais Globais -->
+    <div id="modals-container"></div>
+
+    <!-- Arquivo de Lógica Separado -->
+    <script src="app.js"></script>
+</body>
+</html>
