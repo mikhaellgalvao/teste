@@ -37,11 +37,16 @@ const FallbackData = {
 };
 
 const Utils = {
+    fmtBRL: new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }),
+    cleanCurrency: (val) => parseFloat((val || "0").toString().replace(/\./g, '').replace(',', '.')),
+    toggleTheme: () => document.documentElement.classList.toggle('dark'),
     reload: () => {
+        // CORREÇÃO DO LOGOUT: Limpa o cache de login antes de recarregar
         localStorage.removeItem('gd_user');
         localStorage.removeItem('gd_pass');
         location.reload();
     },
+    wait: (ms) => new Promise(r => setTimeout(r, ms))
 };
 
 /**
@@ -75,40 +80,38 @@ class Store {
 
     async loadData() {
         try {
-            console.log("🛰️ Conectando ao Galvão Data Cloud...");
+            console.log("🛰️ Ativando Sincronização em Tempo Real...");
+            
             const usersRef = window.Firestore.collection(window.db, 'users');
             const productsRef = window.Firestore.collection(window.db, 'products');
             const usedRef = window.Firestore.collection(window.db, 'used');
 
-            const [uSnap, pSnap, usSnap] = await Promise.all([
-                window.Firestore.getDocs(usersRef),
-                window.Firestore.getDocs(productsRef),
-                window.Firestore.getDocs(usedRef)
-            ]);
+            // ESCUTA EM TEMPO REAL (onSnapshot)
+            window.Firestore.onSnapshot(productsRef, (snapshot) => {
+                this.state.products = snapshot.docs.map(d => ({ ...d.data(), fireId: d.id }));
+                console.log("🔄 Produtos atualizados da nuvem!");
+                if(document.getElementById('page-title')?.textContent === 'CONSULTAS') App.navigate('consultas');
+            });
 
-            if (pSnap.empty) {
-                console.warn("⚠️ Nuvem vazia! Migrando dados locais...");
-                this.state.users = FallbackData.users;
-                this.state.products = FallbackData.products;
-                this.state.usedProducts = FallbackData.used;
+            window.Firestore.onSnapshot(usersRef, (snapshot) => {
+                this.state.users = snapshot.docs.map(d => ({ ...d.data(), fireId: d.id }));
+                if (snapshot.empty) {
+                    this._migrateToCloud(usersRef, FallbackData.users);
+                }
+            });
 
-                await this._migrateToCloud(usersRef, FallbackData.users);
-                await this._migrateToCloud(productsRef, FallbackData.products);
-                await this._migrateToCloud(usedRef, FallbackData.used);
-                alert("🚀 Configuração Inicial: Dados sincronizados com a nuvem!");
-            } else {
-                this.state.users = uSnap.docs.map(d => ({ ...d.data(), fireId: d.id }));
-                this.state.products = pSnap.docs.map(d => ({ ...d.data(), fireId: d.id }));
-                this.state.usedProducts = usSnap.docs.map(d => ({ ...d.data(), fireId: d.id }));
-                console.log("✅ Sistema operando em tempo real!");
-            }
+            window.Firestore.onSnapshot(usedRef, (snapshot) => {
+                this.state.usedProducts = snapshot.docs.map(d => ({ ...d.data(), fireId: d.id }));
+                if(document.getElementById('page-title')?.textContent === 'SEMINOVOS') App.navigate('usados');
+            });
+
             this.state.marketingAssets = this._normalizeMarketing(FallbackData.marketing);
+            
         } catch (e) {
             console.error("❌ Erro Cloud. Usando modo segurança.", e);
             this.state.users = FallbackData.users;
             this.state.products = FallbackData.products;
             this.state.usedProducts = FallbackData.used;
-            this.state.marketingAssets = this._normalizeMarketing(FallbackData.marketing);
         }
     }
 
@@ -124,10 +127,7 @@ class Store {
     async addItem(type, item) {
         const colMap = { 'user': 'users', 'product': 'products', 'used': 'used' };
         try {
-            const docRef = await window.Firestore.addDoc(window.Firestore.collection(window.db, colMap[type]), item);
-            item.fireId = docRef.id;
-            const stateKey = type === 'user' ? 'users' : type === 'product' ? 'products' : 'usedProducts';
-            this.state[stateKey].push(item);
+            await window.Firestore.addDoc(window.Firestore.collection(window.db, colMap[type]), item);
         } catch (e) { console.error("Erro ao salvar:", e); }
     }
 
@@ -138,7 +138,6 @@ class Store {
         if (oldItem.fireId) {
             try {
                 await window.Firestore.updateDoc(window.Firestore.doc(window.db, colMap[type], oldItem.fireId), item);
-                this.state[stateKey][index] = { ...item, fireId: oldItem.fireId };
             } catch (e) { console.error("Erro ao atualizar:", e); }
         }
     }
@@ -150,7 +149,6 @@ class Store {
         if (item.fireId) {
             try {
                 await window.Firestore.deleteDoc(window.Firestore.doc(window.db, colMap[type], item.fireId));
-                this.state[stateKey].splice(index, 1);
             } catch (e) { console.error("Erro ao deletar:", e); }
         }
     }
@@ -188,8 +186,6 @@ class AuthService {
         const r = appStore.state.currentUser?.role;
         if (r === 'Administrador') return true;
         if (f === 'admin') return false;
-        if (f === 'marketing') return r !== 'Visitante' && r !== 'Vendas externa';
-        if (f === 'discounts' || f === 'perfil') return r !== 'Visitante' && r !== 'Vendas externa';
         return true;
     }
 }
@@ -302,7 +298,6 @@ const ViewRenderer = {
                 <button onclick="App.navigate('dashboard')" class="sidebar-link w-full px-6 py-4 rounded-2xl font-bold text-left uppercase text-sm italic">Dashboard</button>
                 <button onclick="App.navigate('consultas')" class="sidebar-link w-full px-6 py-4 rounded-2xl font-bold text-left uppercase text-sm italic">Novos</button>
                 <button onclick="App.navigate('usados')" class="sidebar-link w-full px-6 py-4 rounded-2xl font-bold text-left uppercase text-sm italic">Seminovos</button>
-                ${AuthService.canAccess('marketing') ? `<button onclick="App.navigate('marketing')" class="sidebar-link w-full px-6 py-4 rounded-2xl font-bold text-left uppercase text-sm italic">Marketing</button>` : ''}
                 <div class="pt-6 mt-2 border-t dark:border-zinc-800 space-y-2">
                     ${u.role === 'Administrador' ? `<button onclick="App.navigate('admin')" class="sidebar-link w-full px-6 py-4 rounded-2xl font-bold text-left text-red-500 uppercase text-sm italic">Gestão</button>` : ''}
                     <button onclick="App.navigate('perfil')" class="sidebar-link w-full px-6 py-4 rounded-2xl font-bold text-left text-slate-500 uppercase text-sm italic">Meu Perfil</button>
@@ -348,7 +343,6 @@ const ViewRenderer = {
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             ${ViewRenderer._cardBtn('consultas', 'bg-emerald-50 text-brand-green', 'Catálogo Novos', 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z')}
             ${ViewRenderer._cardBtn('usados', 'bg-blue-50 text-blue-600', 'Seminovos', 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15')}
-            ${AuthService.canAccess('marketing') ? ViewRenderer._cardBtn('marketing', 'bg-orange-50 text-brand-orange', 'Marketing', 'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h14a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z') : ''}
         </div>`;
     },
     catalog: () => {
@@ -373,19 +367,6 @@ const ViewRenderer = {
                 <h3 class="font-black text-slate-800 dark:text-white uppercase italic text-lg mb-2">${p.name}</h3>
                 <div class="w-full h-40 bg-gray-50 dark:bg-zinc-800 rounded-xl mb-4 bg-cover bg-center" style="background-image: url('${Array.isArray(p.images) ? p.images[0] : p.image}')"></div>
                 <p class="text-2xl font-black text-brand-orange italic">${Utils.fmtBRL.format(Utils.cleanCurrency(p.price))}</p>
-            </div>`).join('')}</div>`;
-    },
-    marketing: () => {
-        const assets = appStore.state.marketingAssets;
-        return `
-        <div class="bg-white dark:bg-zinc-900 p-8 rounded-[2.5rem] border dark:border-zinc-800 mb-6 text-center">
-            <h2 class="text-2xl font-black text-brand-orange uppercase italic">Downloads</h2>
-            <div class="flex gap-3 justify-center mt-6">${['postados', 'postar', 'editar'].map(k => `<button onclick="Modals.openDrive('${k}')" class="px-6 py-3 bg-brand-green text-white rounded-xl font-bold text-[10px] uppercase">${k}</button>`).join('')}</div>
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">${assets.map((m, idx) => `
-            <div class="bg-white dark:bg-zinc-900 p-4 rounded-[2rem] border dark:border-zinc-800 flex flex-col items-center cursor-pointer" onclick="Modals.openMarketing(${idx})">
-                <div class="w-20 h-20 mb-3 rounded-full bg-gray-50 overflow-hidden"><img src="${m.preview}" class="w-full h-full object-cover"></div>
-                <h4 class="font-bold text-xs uppercase dark:text-white">${m.title}</h4>
             </div>`).join('')}</div>`;
     },
     profile: () => {
