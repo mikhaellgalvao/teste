@@ -1,29 +1,58 @@
-<div id="modals-container"></div>
-
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, collection, getDocs, addDoc, updateDoc, doc, deleteDoc, writeBatch } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-    // ⚠️ ATENÇÃO: Cole suas chaves REAIS aqui dentro das aspas!
-    const firebaseConfig = {
-        apiKey: "AIzaSyD...", // <--- Cole a chave real aqui
-        authDomain: "sistemagalvao.firebaseapp.com",
-        projectId: "sistemagalvao",
-        storageBucket: "sistemagalvao.appspot.com",
-        messagingSenderId: "...", // <--- Cole o número real aqui
-        appId: "..." // <--- Cole o ID real aqui
-    };
-
-    // Inicializa o Sistema
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Portal Galvão Drones</title>
+    <link rel="icon" href="https://imgur.com/ny5U9KV.png" type="image/png">
     
-    // Disponibiliza o banco para o app.js
-    window.db = db;
-    window.Firestore = { collection, getDocs, addDoc, updateDoc, doc, deleteDoc, writeBatch };
-    console.log("🔥 Firebase Conectado!");
-</script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: { 'brand-orange': '#EF7E13', 'brand-green': '#0E5847' },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
 
-<script src="app.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100 dark:bg-black transition-colors duration-300 text-slate-900 dark:text-zinc-100 overflow-x-hidden font-sans antialiased">
+
+    <div id="app-root"></div>
+
+    <div id="modals-container"></div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, getDocs, addDoc, updateDoc, doc, deleteDoc, writeBatch } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // --- COLE SUAS CHAVES AQUI DENTRO (NÃO DEIXE NADA DO LADO DE FORA) ---
+        const firebaseConfig = {
+            apiKey: "SUA_API_KEY_AQUI", // <--- Cole a chave real
+            authDomain: "sistemagalvao.firebaseapp.com",
+            projectId: "sistemagalvao",
+            storageBucket: "sistemagalvao.appspot.com",
+            messagingSenderId: "SEU_SENDER_ID", // <--- Cole o número real
+            appId: "SEU_APP_ID" // <--- Cole o ID real
+        };
+
+        // Inicializa o Sistema
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        
+        // Conecta o banco ao app.js
+        window.db = db;
+        window.Firestore = { collection, getDocs, addDoc, updateDoc, doc, deleteDoc, writeBatch };
+        console.log("🔥 Firebase Conectado com Sucesso!");
+    </script>
+
+    <script src="app.js"></script>
 </body>
 </html>
