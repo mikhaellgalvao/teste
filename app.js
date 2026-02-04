@@ -74,36 +74,35 @@ class Store {
     setAdminSession(isActive) { this.state.adminSession = isActive; }
 
     async loadData() {
-        try {
-            console.log("🛰️ Conectando ao Galvão Data Cloud...");
-            const usersRef = window.Firestore.collection(window.db, 'users');
-            const productsRef = window.Firestore.collection(window.db, 'products');
-            const usedRef = window.Firestore.collection(window.db, 'used');
+        console.log("🛰️ Ativando Sincronização em Tempo Real...");
+        
+        const usersRef = window.Firestore.collection(window.db, 'users');
+        const productsRef = window.Firestore.collection(window.db, 'products');
+        const usedRef = window.Firestore.collection(window.db, 'used');
 
-            const [uSnap, pSnap, usSnap] = await Promise.all([
-                window.Firestore.getDocs(usersRef),
-                window.Firestore.getDocs(productsRef),
-                window.Firestore.getDocs(usedRef)
-            ]);
+        // Escuta mudanças nos Produtos
+        window.Firestore.onSnapshot(productsRef, (snapshot) => {
+            this.state.products = snapshot.docs.map(d => ({ ...d.data(), fireId: d.id }));
+            console.log("🔄 Produtos atualizados da nuvem!");
+            // Se estiver na tela de consultas, re-renderiza
+            if(document.getElementById('page-title')?.textContent === 'CONSULTAS') App.navigate('consultas');
+        });
 
-            if (pSnap.empty) {
-                console.warn("⚠️ Nuvem vazia! Migrando dados locais...");
-                this.state.users = FallbackData.users;
-                this.state.products = FallbackData.products;
-                this.state.usedProducts = FallbackData.used;
-
-                await this._migrateToCloud(usersRef, FallbackData.users);
-                await this._migrateToCloud(productsRef, FallbackData.products);
-                await this._migrateToCloud(usedRef, FallbackData.used);
-                alert("🚀 Configuração Inicial: Dados sincronizados com a nuvem!");
-            } else {
-                this.state.users = uSnap.docs.map(d => ({ ...d.data(), fireId: d.id }));
-                this.state.products = pSnap.docs.map(d => ({ ...d.data(), fireId: d.id }));
-                this.state.usedProducts = usSnap.docs.map(d => ({ ...d.data(), fireId: d.id }));
-                console.log("✅ Sistema operando em tempo real!");
+        // Escuta mudanças nos Usuários
+        window.Firestore.onSnapshot(usersRef, (snapshot) => {
+            this.state.users = snapshot.docs.map(d => ({ ...d.data(), fireId: d.id }));
+            if (snapshot.empty) {
+                this._migrateToCloud(usersRef, FallbackData.users);
             }
-            this.state.marketingAssets = this._normalizeMarketing(FallbackData.marketing);
-        } catch (e) {
+        });
+
+        // Escuta mudanças nos Usados
+        window.Firestore.onSnapshot(usedRef, (snapshot) => {
+            this.state.usedProducts = snapshot.docs.map(d => ({ ...d.data(), fireId: d.id }));
+        });
+
+        this.state.marketingAssets = this._normalizeMarketing(FallbackData.marketing);
+    } catch (e) {
             console.error("❌ Erro Cloud. Usando modo segurança.", e);
             this.state.users = FallbackData.users;
             this.state.products = FallbackData.products;
