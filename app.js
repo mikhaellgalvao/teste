@@ -40,12 +40,14 @@ const Utils = {
     fmtBRL: new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }),
     cleanCurrency: (val) => parseFloat((val || "0").toString().replace(/\./g, '').replace(',', '.')),
     toggleTheme: () => document.documentElement.classList.toggle('dark'),
-    reload: () => {
-        // CORREÇÃO DO LOGOUT: Limpa o cache de login antes de recarregar
-        localStorage.removeItem('gd_user');
-        localStorage.removeItem('gd_pass');
-        location.reload();
-    },
+   reload: () => {
+    // Limpa o estado da sessão administrativa e o usuário atual
+    appStore.state.currentUser = null;
+    appStore.state.adminSession = false;
+    // Limpa qualquer dado de persistência (caso venha a usar)
+    localStorage.clear(); 
+    location.reload();
+}
     wait: (ms) => new Promise(r => setTimeout(r, ms))
 };
 
@@ -86,25 +88,44 @@ class Store {
             const productsRef = window.Firestore.collection(window.db, 'products');
             const usedRef = window.Firestore.collection(window.db, 'used');
 
-            // ESCUTA EM TEMPO REAL (onSnapshot)
+            // ESCUTA EM TEMPO REAL: PRODUTOS NOVOS
             window.Firestore.onSnapshot(productsRef, (snapshot) => {
                 this.state.products = snapshot.docs.map(d => ({ ...d.data(), fireId: d.id }));
-                console.log("🔄 Produtos atualizados da nuvem!");
-                if(document.getElementById('page-title')?.textContent === 'CONSULTAS') App.navigate('consultas');
+                console.log("🔄 Produtos novos atualizados!");
+                
+                // Se o usuário estiver na tela de Consultas ou Admin, atualiza a visão
+                const currentPage = document.getElementById('page-title')?.textContent;
+                if(currentPage === 'CONSULTAS') App.navigate('consultas');
+                if(currentPage === 'ADMIN') App.navigate('admin');
             });
 
+            // ESCUTA EM TEMPO REAL: USUÁRIOS/EQUIPE
             window.Firestore.onSnapshot(usersRef, (snapshot) => {
                 this.state.users = snapshot.docs.map(d => ({ ...d.data(), fireId: d.id }));
+                console.log("🔄 Lista de usuários atualizada!");
+                
                 if (snapshot.empty) {
+                    console.warn("⚠️ Banco vazio, migrando dados de fallback...");
                     this._migrateToCloud(usersRef, FallbackData.users);
+                }
+
+                // Se estiver na tela de Gestão, atualiza a lista da equipe na hora
+                if(document.getElementById('page-title')?.textContent === 'ADMIN') {
+                    App.navigate('admin');
                 }
             });
 
+            // ESCUTA EM TEMPO REAL: SEMINOVOS
             window.Firestore.onSnapshot(usedRef, (snapshot) => {
                 this.state.usedProducts = snapshot.docs.map(d => ({ ...d.data(), fireId: d.id }));
-                if(document.getElementById('page-title')?.textContent === 'SEMINOVOS') App.navigate('usados');
+                console.log("🔄 Seminovos atualizados!");
+                
+                const currentPage = document.getElementById('page-title')?.textContent;
+                if(currentPage === 'USADOS') App.navigate('usados');
+                if(currentPage === 'ADMIN') App.navigate('admin');
             });
 
+            // Ativos de Marketing (Estáticos no fallback por enquanto)
             this.state.marketingAssets = this._normalizeMarketing(FallbackData.marketing);
             
         } catch (e) {
