@@ -37,11 +37,11 @@ const FallbackData = {
 };
 
 const Utils = {
-    fmtBRL: new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }),
-    cleanCurrency: (val) => parseFloat((val || "0").toString().replace(/\./g, '').replace(',', '.')),
-    toggleTheme: () => document.documentElement.classList.toggle('dark'),
-    reload: () => location.reload(),
-    wait: (ms) => new Promise(r => setTimeout(r, ms))
+    reload: () => {
+        localStorage.removeItem('gd_user');
+        localStorage.removeItem('gd_pass');
+        location.reload();
+    },
 };
 
 /**
