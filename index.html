@@ -18,6 +18,7 @@
             }
         }
     </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
@@ -28,6 +29,7 @@
     <div id="modals-container"></div>
 
    <script type="module">
+        // Importações CORRETAS via CDN (Web)
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, getDocs, addDoc, updateDoc, doc, deleteDoc, writeBatch, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
@@ -44,11 +46,12 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         
+        // Disponibiliza o Firebase para o app.js
         window.db = db;
         window.Firestore = { collection, getDocs, addDoc, updateDoc, doc, deleteDoc, writeBatch, onSnapshot };
-        console.log("🔥 Firebase Galvão Drones Conectado!");
+        console.log("🔥 Galvão Drones: Conexão Realtime Ativa!");
 
-        // Inicia o sistema
+        // Inicia o App SOMENTE após o Firebase estar pronto (evita tela branca)
         const script = document.createElement('script');
         script.src = 'app.js';
         document.body.appendChild(script);
