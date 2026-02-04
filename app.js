@@ -218,10 +218,29 @@ const ViewRenderer = {
             </nav>
         </aside>`;
     },
-    _header: () => `<header class="h-20 bg-white/90 dark:bg-black/90 backdrop-blur-lg border-b dark:border-zinc-800 px-8 flex items-center justify-between sticky top-0 z-30"><h1 id="page-title" class="text-xl font-black dark:text-white uppercase italic tracking-tighter">Galvão Drones</h1><div class="flex gap-3"><button onclick="Utils.toggleTheme()" class="p-2.5 rounded-xl bg-gray-100 dark:bg-zinc-800">🌓</button><button onclick="Utils.reload()" class="px-5 py-2.5 bg-brand-orange text-white font-black rounded-xl text-[10px] uppercase">Sair</button></div></header>`,
-    dashboard: () => `<div class="bg-white dark:bg-zinc-900 p-8 rounded-[2.5rem] border dark:border-zinc-800 mb-6"><h2 class="text-3xl font-black italic text-slate-800 dark:text-white uppercase">Bem-vindo, <span class="text-brand-orange">${appStore.state.currentUser.name.split(' ')[0]}</span>!</h2></div><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"><button onclick="App.navigate('consultas')" class="p-8 bg-white dark:bg-zinc-900 rounded-[2.5rem] border dark:border-zinc-800 flex flex-col items-center"><span class="font-black uppercase text-xs dark:text-white italic">Ver Novos</span></button></div>`,
+    _header: () => `
+        <header class="h-20 bg-white/90 dark:bg-black/90 backdrop-blur-lg border-b dark:border-zinc-800 px-8 flex items-center justify-between sticky top-0 z-30">
+            <h1 id="page-title" class="text-xl font-black dark:text-white uppercase italic tracking-tighter">Galvão Drones</h1>
+            <div class="flex gap-3">
+                <button onclick="Utils.toggleTheme()" class="p-2.5 rounded-xl bg-gray-100 dark:bg-zinc-800">🌓</button>
+                <button onclick="Utils.reload()" class="px-5 py-2.5 bg-brand-orange text-white font-black rounded-xl text-[10px] uppercase">Sair</button>
+            </div>
+        </header>`,
+    dashboard: () => `
+        <div class="bg-white dark:bg-zinc-900 p-8 rounded-[2.5rem] border dark:border-zinc-800 mb-6">
+            <h2 class="text-3xl font-black italic text-slate-800 dark:text-white uppercase">Bem-vindo, <span class="text-brand-orange">${appStore.state.currentUser.name.split(' ')[0]}</span>!</h2>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <button onclick="App.navigate('consultas')" class="p-8 bg-white dark:bg-zinc-900 rounded-[2.5rem] border dark:border-zinc-800 flex flex-col items-center">
+                <span class="font-black uppercase text-xs dark:text-white italic">Ver Novos</span>
+            </button>
+        </div>`,
     admin: () => {
-        const make = (t, items, type, row) => `<div class="bg-white dark:bg-zinc-900 rounded-[2rem] border dark:border-zinc-800 overflow-hidden flex flex-col h-[400px]"><div class="p-5 border-b dark:border-zinc-800 flex justify-between items-center"><h3 class="font-black uppercase text-[10px] text-brand-green italic">${t}</h3><button onclick="AdminController.openForm('${type}')" class="p-2 bg-brand-green text-white rounded-lg">+</button></div><div class="flex-1 overflow-y-auto p-4 space-y-2">${items.map((it, i) => `<div class="flex justify-between items-center p-3 border-b dark:border-zinc-800">${row(it)}<div class="flex gap-2"><button onclick="AdminController.openForm('${type}', ${i})" class="text-blue-500">✎</button><button onclick="AdminController.delete('${type}', ${i})" class="text-red-500">🗑</button></div></div>`).join('')}</div></div>`;
+        const make = (t, items, type, row) => `
+            <div class="bg-white dark:bg-zinc-900 rounded-[2rem] border dark:border-zinc-800 overflow-hidden flex flex-col h-[400px]">
+                <div class="p-5 border-b dark:border-zinc-800 flex justify-between items-center"><h3 class="font-black uppercase text-[10px] text-brand-green italic">${t}</h3><button onclick="AdminController.openForm('${type}')" class="p-2 bg-brand-green text-white rounded-lg">+</button></div>
+                <div class="flex-1 overflow-y-auto p-4 space-y-2">${items.map((it, i) => `<div class="flex justify-between items-center p-3 border-b dark:border-zinc-800">${row(it)}<div class="flex gap-2"><button onclick="AdminController.openForm('${type}', ${i})" class="text-blue-500">✎</button><button onclick="AdminController.delete('${type}', ${i})" class="text-red-500">🗑</button></div></div>`).join('')}</div>
+            </div>`;
         return `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">${make("Equipe", appStore.state.users, 'user', u => `<div><p class="text-xs font-bold dark:text-white">${u.name}</p></div>`)}${make("Novos", appStore.state.products, 'product', p => `<div><p class="text-xs font-bold dark:text-white">${p.name}</p></div>`)}${make("Usados", appStore.state.usedProducts, 'used', u => `<div><p class="text-xs font-bold dark:text-white">${u.name}</p></div>`)}</div>`;
     }
 };
