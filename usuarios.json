@@ -1,0 +1,74 @@
+{
+    "empresa": "Galvão Drones",
+    "last_update": "2026-01-28T16:30:00",
+    "users": [
+        {
+            "name": "Mikhaell Galvão",
+            "username": "mikhaell",
+            "password": "mk0639",
+            "role": "Administrador",
+            "phone": "62984710639",
+            "avatar": "https://i.imgur.com/ViDcChZ.jpeg"
+        },
+        {
+            "name": "Maikhon Galvão",
+            "username": "maikhon",
+            "password": "0639",
+            "role": "Administrador",
+            "phone": "62933001865",
+            "avatar": "https://i.imgur.com/49xvSy4.jpeg"
+        },
+        {
+            "name": "Rafael Gomes",
+            "username": "rafael",
+            "password": "rf123",
+            "role": "Vendedor",
+            "phone": "62993344356",
+            "avatar": "https://i.imgur.com/3N1foK1.jpeg"
+        },
+        {
+            "name": "Ryan Rodrigues",
+            "username": "ryan",
+            "password": "0639",
+            "role": "Administrador",
+            "phone": "62920007396",
+            "avatar": "https://i.imgur.com/7nZVEsE.jpeg"
+        },
+        {
+            "name": "Afranio Henrique",
+            "username": "afranio",
+            "password": "1234",
+            "role": "Vendedor",
+            "phone": "75981197699",
+            "avatar": "https://i.imgur.com/03fIaew.jpeg"
+        },
+        {
+            "name": "Visitante",
+            "username": "consultas",
+            "password": "",
+            "role": "Visitante",
+            "phone": "6236360668",
+            "avatar": ""
+        },
+        {
+    "name": "Robert Maia",
+    "username": "robert",
+    "password": "5856",
+    "role": "Vendedor Externo",
+    "phone": "94981530223",
+    "avatar": ""
+}
+        
+    ]
+}
+
+
+
+
+
+
+
+
+
+
+

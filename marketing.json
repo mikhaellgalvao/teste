@@ -1,0 +1,80 @@
+{
+    "empresa": "Galvão Drones",
+    "marketingAssets": [
+        {
+            "title": "Logo Vetor (SVG)",
+            "type": "Logo",
+            "preview": "https://imgur.com/ny5U9KV.png",
+            "variations": [
+                {
+                    "name": "Horizontal Colorida",
+                    "url": "assets/logo_horiz_color.svg",
+                    "preview": "https://imgur.com/ny5U9KV.png"
+                },
+                {
+                    "name": "Vertical Branca",
+                    "url": "assets/logo_vert_white.svg",
+                    "preview": "https://imgur.com/ny5U9KV.png"
+                },
+                {
+                    "name": "Ícone Isolado",
+                    "url": "assets/logo_icon.svg",
+                    "preview": "https://imgur.com/ny5U9KV.png"
+                }
+            ]
+        },
+        {
+            "title": "Flyer Promoção Agras",
+            "type": "Campanha",
+            "preview": "https://imgur.com/2PNy5CS.png",
+            "variations": [
+                {
+                    "name": "Story (9:16)",
+                    "url": "assets/flyer_story.jpg"
+                },
+                {
+                    "name": "Feed (1:1)",
+                    "url": "assets/flyer_feed.jpg"
+                },
+                {
+                    "name": "PDF Alta Resolução",
+                    "url": "assets/flyer_print.pdf"
+                }
+            ]
+        },
+        {
+            "title": "Manual de Marca",
+            "type": "Institucional",
+            "preview": "https://imgur.com/2PNy5CS.png",
+            "variations": [
+                {
+                    "name": "PDF Completo",
+                    "url": "assets/brandbook.pdf"
+                },
+                {
+                    "name": "Guia Rápido (PNG)",
+                    "url": "assets/brand_guide.png"
+                }
+            ]
+        },
+        {
+            "title": "Fotos Loja Física",
+            "type": "Institucional",
+            "preview": "https://imgur.com/2PNy5CS.png",
+            "variations": [
+                {
+                    "name": "Fachada Principal",
+                    "url": "assets/loja_fachada.jpg"
+                },
+                {
+                    "name": "Interior / Balcão",
+                    "url": "assets/loja_interior.jpg"
+                },
+                {
+                    "name": "Área de Treinamento",
+                    "url": "assets/loja_training.jpg"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,23 @@
+{
+    "empresa": "Galvão Drones",
+    "last_update": "2026-01-28T16:05:00",
+    "suppliers": [
+        {
+            "id": 1,
+            "name": "GOHOBBY FUTURE TECHNOLOGY LTDA",
+            "address": "AVENIDA MARGINAL PROJETADA N.1652 - GALPÃO 11 SALA 14, FAZENDA TAMBORE, BARUERI - SP",
+            "phone": "11955973434",
+            "details": "Importadora exclusiva DJI Enterprise no Brasil.",
+            "line": "Enterprise/Agricola"
+        },
+        {
+            "id": 2,
+            "name": "ARROBA CELULARES",
+            "address": "Campinas, Goiânia - GO",
+            "phone": "62981145167",
+            "details": "Distribuidor oficial de drones e acessórios Consumer.",
+            "line": "Consumer"
+        }
+    ]
+
+}

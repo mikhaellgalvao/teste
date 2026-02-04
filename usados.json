@@ -1,0 +1,55 @@
+{
+    "empresa": "Galvão Drones",
+    "usedProducts": [
+        {
+            "name": "Mavic 3 Pro",
+            "price": "14.000,00",
+            "condition": "Seminovo",
+            "images": [
+                "https://imgur.com/2PNy5CS.png",
+                "https://imgur.com/ny5U9KV.png"
+            ],
+            "details": {
+                "batteries": [12, 15, 14],
+                "hub": true,
+                "cables": true,
+                "propellers": "3 pares",
+                "bag": true
+            },
+            "desc": "Aparelho impecável, nunca caiu. Acompanha RC-N1 e kit Fly More completo."
+        },
+        {
+            "name": "Mini 3 Pro",
+            "price": "4.200,00",
+            "condition": "Open Box",
+            "images": [
+                "https://imgur.com/ny5U9KV.png",
+                "https://imgur.com/2PNy5CS.png"
+            ],
+            "details": {
+                "batteries": [0, 1],
+                "hub": false,
+                "cables": true,
+                "propellers": "2 pares",
+                "bag": false
+            },
+            "desc": "Apenas aberto para conferência, nunca voou. Garantia DJI ativa. Controle RC com tela."
+        },
+        {
+            "name": "Air 2S",
+            "price": "6.800,00",
+            "condition": "Revisado",
+            "images": [
+                "https://i.imgur.com/kHocVcw.png"
+            ],
+            "details": {
+                "batteries": [45, 48, 50],
+                "hub": true,
+                "cables": true,
+                "propellers": "4 pares",
+                "bag": true
+            },
+            "desc": "Revisão completa feita na assistência técnica. 100% funcional. Ótimo custo benefício."
+        }
+    ]
+}
