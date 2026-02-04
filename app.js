@@ -75,63 +75,74 @@ class Store {
 
     setUser(user) { this.state.currentUser = user; }
     setAdminSession(isActive) { this.state.adminSession = isActive; }
-    
+    /**
+ * ==========================================
+ * 2. GERENCIAMENTO DE ESTADO (STORE) - ATUALIZADO
+ * ==========================================
+ */
+// ... dentro da classe Store, no método loadData() ...
+
     async loadData() {
         try {
-            console.log("🔄 Conectando ao Banco de Dados...");
+            console.log("🔄 Conectando ao Banco de Dados e Configurações...");
             
-            // 1. Tenta pegar dados do Firebase (Nuvem)
-            const usersRef = window.Firestore.collection(window.db, 'users');
-            const productsRef = window.Firestore.collection(window.db, 'products');
-            const usedRef = window.Firestore.collection(window.db, 'used');
-            
-            // Executa as 3 buscas ao mesmo tempo
-            const [uSnap, pSnap, usSnap] = await Promise.all([
-                window.Firestore.getDocs(usersRef),
-                window.Firestore.getDocs(productsRef),
-                window.Firestore.getDocs(usedRef)
-            ]);
-            
-            // 2. VERIFICAÇÃO INTELIGENTE: O banco está vazio?
-            // Se sim, fazemos a "Migração Automática" (Seed) dos JSONs para a Nuvem.
-            if (pSnap.empty) {
-                console.warn("⚠️ Banco vazio detectado! Migrando dados locais para a nuvem...");
-                
-                // Carrega dados locais do Fallback para a memória
-                this.state.users = FallbackData.users;
-                this.state.products = FallbackData.products;
-                this.state.usedProducts = FallbackData.used;
-                this.state.marketingAssets = this._normalizeMarketing(FallbackData.marketing);
-
-                // Envia para o Firebase (Isso salva para sempre na nuvem!)
-                this._migrateToCloud(usersRef, FallbackData.users);
-                this._migrateToCloud(productsRef, FallbackData.products);
-                this._migrateToCloud(usedRef, FallbackData.used);
-                
-                alert("🚀 Configuração Inicial: Seus produtos foram enviados para o Banco de Dados. Atualize a página em 5 segundos.");
-            } else {
-                // 3. Se já tem dados, usa os da Nuvem (Isso permite a atualização automática!)
-                console.log("✅ Dados carregados da Nuvem (Atualização em Tempo Real)");
-                
-                this.state.users = uSnap.docs.map(d => ({...d.data(), fireId: d.id}));
-                this.state.products = pSnap.docs.map(d => ({...d.data(), fireId: d.id}));
-                this.state.usedProducts = usSnap.docs.map(d => ({...d.data(), fireId: d.id}));
-                
-                // Marketing continua local por enquanto (pois não muda tanto)
-                this.state.marketingAssets = this._normalizeMarketing(FallbackData.marketing);
+            // Carrega a senha do arquivo pas.json dinamicamente
+            const passwords = await this._fetchJson('pas.json');
+            if (passwords && passwords.admin) {
+                Config.adminPassCode = passwords.admin;
+                this.state.passwords.download = passwords.download;
+                console.log("✅ Configurações de acesso carregadas.");
             }
 
-        } catch (e) { 
-            console.error("Erro na conexão Cloud. Usando modo offline.", e);
-            // Se der erro (ex: sem internet), usa os dados locais
-            this.state.users = FallbackData.users;
-            this.state.products = FallbackData.products;
-            this.state.usedProducts = FallbackData.used;
-            this.state.marketingAssets = this._normalizeMarketing(FallbackData.marketing);
+            // ... restante do código de carregamento do Firebase (users, products, etc) ...
+            const usersRef = window.Firestore.collection(window.db, 'users');
+            // ... (mantenha sua lógica do Firebase aqui)
+        } catch (e) {
+            console.error("Erro ao carregar dados:", e);
         }
     }
 
-
+/**
+ * ==========================================
+ * 6. CONTROLADORES - AdminController Corrigido
+ * ==========================================
+ */
+const AdminController = {
+    buffer: "",
+    initLogin: () => {
+        AdminController.buffer = ""; 
+        document.getElementById('keypad-display').textContent = ""; 
+        const vk = document.getElementById('virtual-keypad'); 
+        vk.innerHTML = '';
+        // Embaralha o teclado para segurança visual
+        [0,1,2,3,4,5,6,7,8,9].sort(()=>Math.random()-0.5).forEach(n => { 
+            const b = document.createElement('button'); 
+            b.className = 'key-btn'; 
+            b.textContent = n; 
+            b.onclick = () => AdminController.key(n); 
+            vk.appendChild(b); 
+        });
+    },
+    key: (n) => {
+        AdminController.buffer += n; 
+        document.getElementById('keypad-display').textContent = "*".repeat(AdminController.buffer.length);
+        
+        // Validação contra a senha vinda do pas.json (carregada em Config)
+        if(AdminController.buffer === Config.adminPassCode) { 
+            appStore.setAdminSession(true); 
+            Modals.close('admin-login-modal'); 
+            App.navigate('admin'); 
+            AdminController.buffer = ""; // Limpa após sucesso
+        } else if (AdminController.buffer.length >= 4) {
+            // Se digitar 4 dígitos e não coincidir, limpa para nova tentativa
+            setTimeout(() => {
+                AdminController.buffer = "";
+                document.getElementById('keypad-display').textContent = "";
+            }, 500);
+        }
+    },
+    // ... restante do AdminController ...
+};
     async _migrateToCloud(collectionRef, dataArray) {
         const batch = window.Firestore.writeBatch(window.db);
         dataArray.forEach(item => {
