@@ -32,16 +32,18 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, getDocs, addDoc, updateDoc, doc, deleteDoc, writeBatch } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
         // --- COLE SUAS CHAVES AQUI DENTRO (NÃO DEIXE NADA DO LADO DE FORA) ---
         const firebaseConfig = {
-            apiKey: "SUA_API_KEY_AQUI", // <--- Cole a chave real
-            authDomain: "sistemagalvao.firebaseapp.com",
-            projectId: "sistemagalvao",
-            storageBucket: "sistemagalvao.appspot.com",
-            messagingSenderId: "SEU_SENDER_ID", // <--- Cole o número real
-            appId: "SEU_APP_ID" // <--- Cole o ID real
-        };
+  apiKey: "AIzaSyATpM13u9lZYYp2KpAdav65mbKO4Nc8hD0",
+  authDomain: "sistemagalvao.firebaseapp.com",
+  projectId: "sistemagalvao",
+  storageBucket: "sistemagalvao.firebasestorage.app",
+  messagingSenderId: "262320006267",
+  appId: "1:262320006267:web:6657800f7ac2329663eede",
+  measurementId: "G-GXPXMJK8GD"
+        }
 
         // Inicializa o Sistema
         const app = initializeApp(firebaseConfig);
